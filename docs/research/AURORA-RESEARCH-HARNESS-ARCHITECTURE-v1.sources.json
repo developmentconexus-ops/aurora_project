@@ -1,0 +1,387 @@
+{
+  "id": "RESEARCH-AURORA-HARNESS-ARCHITECTURE-V1-SOURCES",
+  "research_id": "RESEARCH-AURORA-HARNESS-ARCHITECTURE-V1",
+  "title": "Sources for Aurora Harness Architecture Research v1",
+  "status": "current",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Primary specifications, official documentation, official repositories and official release notes. Secondary commentary excluded from normative findings.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "The 2026-07-28 Specification",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "publisher": "Model Context Protocol",
+      "type": "official_release",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "MCP 2026-07-28 stateless core",
+        "extensions and Tasks",
+        "authorization changes",
+        "Tier 1 SDK support"
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "MCP Conformance Test Framework",
+      "url": "https://github.com/modelcontextprotocol/conformance",
+      "publisher": "Model Context Protocol",
+      "type": "official_repository",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "black-box client/server conformance",
+        "versioned scenarios",
+        "core, extension and auth suites"
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "MCP Tasks Extension Overview",
+      "url": "https://tasks.extensions.modelcontextprotocol.io/",
+      "publisher": "Model Context Protocol",
+      "type": "official_extension",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "durable task handles",
+        "polling and cancellation",
+        "progressive opt-in"
+      ]
+    },
+    {
+      "id": "S04",
+      "title": "A2A Protocol 1.0 Announcement",
+      "url": "https://a2a-protocol.org/latest/announcing-1.0/",
+      "publisher": "A2A Project / Linux Foundation",
+      "type": "official_release",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "A2A 1.0 status",
+        "complementarity with MCP",
+        "enterprise and web-aligned direction"
+      ]
+    },
+    {
+      "id": "S05",
+      "title": "A2A Protocol Specification",
+      "url": "https://github.com/a2aproject/A2A/blob/main/docs/specification.md",
+      "publisher": "A2A Project / Linux Foundation",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "Agent Cards",
+        "opaque execution",
+        "tasks, messages and artifacts",
+        "streaming, polling and push",
+        "security and signatures"
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "A2A Technology Compatibility Kit",
+      "url": "https://github.com/a2aproject/a2a-tck",
+      "publisher": "A2A Project / Linux Foundation",
+      "type": "official_repository",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "implementation conformance testing"
+      ]
+    },
+    {
+      "id": "S07",
+      "title": "A2A Python SDK",
+      "url": "https://github.com/a2aproject/a2a-python",
+      "publisher": "A2A Project / Linux Foundation",
+      "type": "official_sdk",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "A2A 1.0 client/server support",
+        "HTTP/JSON-RPC/gRPC support",
+        "OpenTelemetry integration"
+      ]
+    },
+    {
+      "id": "S08",
+      "title": "A2A JavaScript SDK",
+      "url": "https://github.com/a2aproject/a2a-js",
+      "publisher": "A2A Project / Linux Foundation",
+      "type": "official_sdk",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "evidence of language-specific maturity differences",
+        "v0.3 stable and v1.0 alpha status at review date"
+      ]
+    },
+    {
+      "id": "S09",
+      "title": "OpenTelemetry Specification Overview",
+      "url": "https://opentelemetry.io/docs/specs/otel/overview/",
+      "publisher": "OpenTelemetry",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "API/SDK/Semantic Conventions separation",
+        "extensible vendor-neutral telemetry"
+      ]
+    },
+    {
+      "id": "S10",
+      "title": "OpenTelemetry Client Design Principles",
+      "url": "https://opentelemetry.io/docs/specs/otel/library-guidelines/",
+      "publisher": "OpenTelemetry",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "alternative implementations",
+        "mocking",
+        "independent API, SDK and specification versions"
+      ]
+    },
+    {
+      "id": "S11",
+      "title": "CloudEvents Specification",
+      "url": "https://github.com/cloudevents/spec",
+      "publisher": "CNCF CloudEvents",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "protocol-neutral event envelope",
+        "bindings and SDK ecosystem"
+      ]
+    },
+    {
+      "id": "S12",
+      "title": "AsyncAPI Specification 3.x",
+      "url": "https://www.asyncapi.com/docs/reference/specification/latest",
+      "publisher": "AsyncAPI Initiative",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "protocol-agnostic message-driven API contracts",
+        "channel and operation documentation"
+      ]
+    },
+    {
+      "id": "S13",
+      "title": "JSON Schema Draft 2020-12",
+      "url": "https://json-schema.org/draft/2020-12",
+      "publisher": "JSON Schema",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "portable JSON contract validation"
+      ]
+    },
+    {
+      "id": "S14",
+      "title": "Buf Breaking Change Detection",
+      "url": "https://buf.build/docs/breaking/",
+      "publisher": "Buf",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "mechanical compatibility checks for Protobuf APIs"
+      ]
+    },
+    {
+      "id": "S15",
+      "title": "Temporal Workflow Execution",
+      "url": "https://docs.temporal.io/workflow-execution",
+      "publisher": "Temporal",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "event-history-based durable workflows",
+        "replay",
+        "determinism and activities"
+      ]
+    },
+    {
+      "id": "S16",
+      "title": "DBOS Architecture",
+      "url": "https://docs.dbos.dev/architecture",
+      "publisher": "DBOS",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "Postgres-backed checkpoints",
+        "library-oriented durable workflow architecture"
+      ]
+    },
+    {
+      "id": "S17",
+      "title": "Restate Key Concepts",
+      "url": "https://docs.restate.dev/foundations/key-concepts",
+      "publisher": "Restate",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "journaled durable execution",
+        "state, reliable communication and replay"
+      ]
+    },
+    {
+      "id": "S18",
+      "title": "Inngest Steps",
+      "url": "https://www.inngest.com/docs/learn/inngest-steps",
+      "publisher": "Inngest",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "checkpointed retriable steps",
+        "memoized results",
+        "resume from successful checkpoints"
+      ]
+    },
+    {
+      "id": "S19",
+      "title": "Mastra Temporal Support",
+      "url": "https://mastra.ai/blog/introducing-temporal-workflows",
+      "publisher": "Mastra",
+      "type": "official_announcement",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "separation of agent/workflow authoring from durable execution engine",
+        "hours/days and worker restart use cases"
+      ]
+    },
+    {
+      "id": "S20",
+      "title": "Cedar: Agents Acting on Behalf of a Principal",
+      "url": "https://docs.cedarpolicy.com/bestpractices/bp-using-the-context.html",
+      "publisher": "Cedar Policy",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "modeling user-agent delegation",
+        "principal/action/resource/context policy model"
+      ]
+    },
+    {
+      "id": "S21",
+      "title": "Open Policy Agent Documentation",
+      "url": "https://www.openpolicyagent.org/docs/latest/",
+      "publisher": "Open Policy Agent",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "separation of policy decision and enforcement",
+        "policy-as-code"
+      ]
+    },
+    {
+      "id": "S22",
+      "title": "OAuth 2.0 Token Exchange (RFC 8693)",
+      "url": "https://www.rfc-editor.org/rfc/rfc8693.html",
+      "publisher": "IETF",
+      "type": "standard",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "delegation versus impersonation",
+        "subject and actor token semantics"
+      ]
+    },
+    {
+      "id": "S23",
+      "title": "SPIFFE SVIDs",
+      "url": "https://spiffe.io/docs/latest/deploying/svids/",
+      "publisher": "SPIFFE",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "workload identities",
+        "short-lived verifiable credentials"
+      ]
+    },
+    {
+      "id": "S24",
+      "title": "SLSA Provenance v1.2",
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "publisher": "SLSA",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "build provenance",
+        "artifact/source/build verification"
+      ]
+    },
+    {
+      "id": "S25",
+      "title": "LangGraph Overview",
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "publisher": "LangChain",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "low-level stateful agent orchestration",
+        "durable execution, streaming and human-in-the-loop"
+      ]
+    },
+    {
+      "id": "S26",
+      "title": "Mastra Workflows",
+      "url": "https://mastra.ai/ai-workflows",
+      "publisher": "Mastra",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "typed workflows, branches, loops, suspend/resume and agent/tool composition"
+      ]
+    },
+    {
+      "id": "S27",
+      "title": "Pi Monorepo",
+      "url": "https://github.com/earendil-works/pi",
+      "publisher": "Pi",
+      "type": "official_repository",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "agent runtime, coding agent, SDK and model API"
+      ]
+    },
+    {
+      "id": "S28",
+      "title": "Pi RPC Mode",
+      "url": "https://pi.dev/docs/latest/rpc",
+      "publisher": "Pi",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "stdio RPC",
+        "cross-language/process isolation trade-off",
+        "SDK preference for in-process TypeScript"
+      ]
+    },
+    {
+      "id": "S29",
+      "title": "OpenHands SDK Architecture",
+      "url": "https://docs.openhands.dev/sdk/arch/design",
+      "publisher": "OpenHands",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "coding-agent SDK primitives and specialized runtime boundaries"
+      ]
+    },
+    {
+      "id": "S30",
+      "title": "OpenAI Agents SDK",
+      "url": "https://openai.github.io/openai-agents-python/",
+      "publisher": "OpenAI",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "agents, tools, handoffs, guardrails, sessions and tracing as internal runtime primitives"
+      ]
+    },
+    {
+      "id": "S31",
+      "title": "Backstage Software Templates",
+      "url": "https://backstage.io/docs/features/software-templates/",
+      "publisher": "Backstage",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "scaffolding with review, task history, cancellation and baked-in organizational standards"
+      ]
+    }
+  ]
+}
