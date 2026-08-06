@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.3.0
+version: 0.4.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -19,6 +19,7 @@ related:
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-DOCUMENTATION-COVERAGE
   - REVIEW-AURORA-A0-POST-REMEDIATION-2026-08-06
+  - DOC-AURORA-ACCEPTANCE-INDEX
   - DOC-AURORA-A0-FRESH-SESSION-GOLDEN-PROOF
 last_reviewed: 2026-08-06
 ---
@@ -31,7 +32,7 @@ last_reviewed: 2026-08-06
 - **Repository:** `developmentconexus-ops/aurora_project`
 - **Phase:** A0 — Product, Discovery and Architecture Baseline
 - **Working branch:** `docs/architecture-baseline`
-- **Draft PR:** #1 — Aurora product and architecture baseline
+- **Draft PR:** #1 — Aurora A0 product, research and architecture baseline
 - **Runtime implementation:** not started
 - **A0 content state:** post-remediation package ready for independent comprehension proof and operator review
 - **Product Blueprint:** 15 modular proposed sections plus generated aggregate
@@ -81,23 +82,34 @@ A formal adversarial review confirmed the gap relative to the MNFS documentation
 - [x] Documentation generation and CI validation tooling were added.
 - [x] Mechanical validation reached PASS.
 - [x] Post-remediation adversarial review returned PASS FOR OPERATOR REVIEW.
-- [x] Fresh-session Golden Proof protocol and rubric were created.
+- [x] Fresh-session Golden Proof protocol and acceptance index were created.
 - [x] Authoring-session dry run confirmed the read path but was correctly classified as non-qualifying.
 
 ## 4. Mechanical validation evidence
 
+Latest fixed evidence before this tracking-only status update:
+
 ```text
 Workflow:  Documentation
-Run:       31072412041
-Head:      eb2a3ce65cd3bf34d1a914e99b6a48b34ffb672f
+Run:       31072803234
+Head:      23d676cf06e7b818cb94b41268f26a7bf2718025
 Result:    SUCCESS
 
-canonical_documents: 45
-document_ids:         45
+canonical_documents: 48
+document_ids:         48
 manifest_ids:         9
 source_manifests:     9
 research_sources:     92
 requirements:         294
+errors:               0
+warnings:             0
+```
+
+Generated publications:
+
+```text
+PRODUCT-BLUEPRINT.md: 349,804 bytes
+roadmap.md:             26,552 bytes
 ```
 
 The workflow verifies:
@@ -135,11 +147,14 @@ The review found the original deficiencies resolved:
 - candidates remain candidates rather than silent stack choices;
 - implementation prohibition remains visible.
 
+Later commits add only review, acceptance and tracking evidence; they do not alter the reviewed constitutional sources.
+
 ## 6. Fresh-session Golden Proof state
 
-Protocol:
+Index and protocol:
 
 ```text
+docs/acceptance/README.md
 docs/acceptance/2026-08-06-a0-fresh-session-golden-proof.md
 ```
 
@@ -166,9 +181,9 @@ A qualifying run must use:
 ## 7. Current authorization boundary
 
 ```text
-Documentation finalization:      AUTHORIZED
-Research/source validation:      AUTHORIZED
-Independent Golden Proof:        AUTHORIZED
+Documentation finalization:      COMPLETE FOR REVIEW
+Research/source validation:      COMPLETE FOR A0 REVIEW
+Independent Golden Proof:        AUTHORIZED / PENDING
 A0 operator review:              PENDING
 A0 acceptance:                   PENDING
 ADR-0001/0002 acceptance:        PENDING OPERATOR DECISION
@@ -237,9 +252,8 @@ There is no runtime implementation blocker because runtime implementation is not
 ## 11. Immediate next action
 
 ```text
-run independent fresh-session Golden Proof against a fixed current commit
+run independent fresh-session Golden Proof against the final fixed commit
 → score response and repair any ambiguity
-→ update PR summary/final evidence
 → present A0 package to Leandro
 → obtain explicit A0/ADR/merge decisions
 ```
