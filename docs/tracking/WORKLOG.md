@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.2.0
+version: 0.3.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -220,7 +220,7 @@ The first automated validation intentionally failed and reported actionable issu
 
 This confirmed the CI was evaluating the repository rather than reporting a ceremonial green result.
 
-Actions started/completed:
+Actions completed:
 
 - CI now publishes generated projections on the architecture branch;
 - Product Blueprint and roadmap were generated and committed;
@@ -228,22 +228,100 @@ Actions started/completed:
 - Product Index, Documentation Map, README, AGENTS and Research Map were rebuilt;
 - ADR index/ADRs were deepened;
 - validator semantics were refined;
-- project status was updated for the second validation cycle.
+- project status was updated.
+
+## 2026-08-06 — Mechanical validation PASS
+
+Final recorded validation for the reviewed package:
+
+```text
+Workflow:  Documentation
+Run:       31072640649
+Head:      ff901bdc1f3679319591d73cabb3b79234afde93
+Result:    SUCCESS
+
+canonical_documents: 47
+document_ids:         47
+manifest_ids:         9
+source_manifests:     9
+research_sources:     92
+requirements:         294
+errors:               0
+warnings:             0
+```
+
+Generated artifact sizes:
+
+```text
+PRODUCT-BLUEPRINT.md: 349,804 bytes
+roadmap.md:             26,552 bytes
+```
+
+## 2026-08-06 — Post-remediation adversarial review
+
+A second review was created without rewriting the original failure record:
+
+```text
+docs/reviews/2026-08-06-a0-post-remediation-adversarial-review.md
+```
+
+Verdict:
+
+```text
+READY FOR FRESH-SESSION GOLDEN PROOF AND OPERATOR REVIEW
+```
+
+The review records every original finding as resolved and preserves remaining limitations:
+
+- ADRs remain proposed;
+- requirements require future Capability applicability/allocation;
+- no Architecture Spike has executed;
+- no runtime behavior is proven;
+- independent comprehension is still required.
+
+## 2026-08-06 — Fresh-session Golden Proof protocol
+
+Created:
+
+```text
+docs/acceptance/2026-08-06-a0-fresh-session-golden-proof.md
+```
+
+The protocol defines:
+
+- fixed-target and independence rules;
+- ten mandatory questions;
+- 100-point rubric;
+- hard-fail conditions;
+- expected semantic anchors;
+- evidence record;
+- correction/retest procedure.
+
+The current authoring-session dry run was recorded as:
+
+```text
+NON_QUALIFYING_DRY_RUN
+```
+
+It confirms the protocol/read path is executable but does not claim independence.
 
 ## Current work boundary
 
 ```text
-Documentation/research/validation: AUTHORIZED
-A0 acceptance: PENDING
-Architecture Spikes: NOT AUTHORIZED
-Runtime/AHDK/MNFS implementation: PROHIBITED
+Documentation finalization: AUTHORIZED
+Independent Golden Proof:   AUTHORIZED / PENDING
+A0 acceptance:              PENDING
+ADR acceptance:             PENDING
+Architecture Spikes:        NOT AUTHORIZED
+Runtime/AHDK/MNFS work:     PROHIBITED
+Automatic merge:            NOT AUTHORIZED
 ```
 
 ## Immediate continuation
 
-1. inspect second CI results;
-2. fix residual structural findings;
-3. refresh the adversarial review against the repaired fixed head;
-4. run the fresh-session Golden Proof;
-5. update PR summary;
-6. present A0 to Leandro for explicit review and acceptance.
+1. execute the Golden Proof in a new session with no discovery-chat access;
+2. score it and repair any documentation ambiguity;
+3. update PR summary/final evidence;
+4. present A0 to Leandro for explicit review;
+5. decide A0, ADR-0001, ADR-0002 and merge status;
+6. after acceptance, select the first Product Milestone and begin ACRM R0.
