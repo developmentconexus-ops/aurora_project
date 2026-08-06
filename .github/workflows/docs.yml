@@ -1,13 +1,6 @@
 name: Documentation
 
 on:
-  pull_request:
-    paths:
-      - "**/*.md"
-      - "docs/research/*.json"
-      - "scripts/generate_docs.py"
-      - "scripts/validate_docs.py"
-      - ".github/workflows/docs.yml"
   push:
     branches:
       - main
@@ -21,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -29,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -37,6 +32,19 @@ jobs:
 
       - name: Generate documentation projections
         run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+
+      - name: Publish generated projections on the architecture branch
+        if: github.event_name == 'push' && github.ref == 'refs/heads/docs/architecture-baseline'
+        run: |
+          cp "$RUNNER_TEMP/aurora-generated/docs/product/PRODUCT-BLUEPRINT.md" docs/product/PRODUCT-BLUEPRINT.md
+          cp "$RUNNER_TEMP/aurora-generated/docs/roadmap.md" docs/roadmap.md
+          if ! git diff --quiet -- docs/product/PRODUCT-BLUEPRINT.md docs/roadmap.md; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add docs/product/PRODUCT-BLUEPRINT.md docs/roadmap.md
+            git commit -m "docs: regenerate Aurora documentation projections"
+            git push origin HEAD:docs/architecture-baseline
+          fi
 
       - name: Validate documentation system
         id: validate
