@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.4.0
+version: 0.5.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -21,6 +21,7 @@ related:
   - REVIEW-AURORA-A0-POST-REMEDIATION-2026-08-06
   - DOC-AURORA-ACCEPTANCE-INDEX
   - DOC-AURORA-A0-FRESH-SESSION-GOLDEN-PROOF
+  - DOC-AURORA-GP-A0-FRESH-001-EVALUATION
 last_reviewed: 2026-08-06
 ---
 
@@ -34,65 +35,62 @@ last_reviewed: 2026-08-06
 - **Working branch:** `docs/architecture-baseline`
 - **Draft PR:** #1 — Aurora A0 product, research and architecture baseline
 - **Runtime implementation:** not started
-- **A0 content state:** post-remediation package ready for independent comprehension proof and operator review
+- **A0 content state:** ready for explicit operator decisions
 - **Product Blueprint:** 15 modular proposed sections plus generated aggregate
 - **Constitutional requirements:** 294 proposed requirements
 - **Research program:** 9 reports/manifests and 92 primary-source entries
 - **Proposed ADRs:** ADR-0001 and ADR-0002
 - **Mechanical documentation validation:** PASS
 - **Post-remediation adversarial review:** PASS FOR OPERATOR REVIEW
-- **Independent fresh-session Golden Proof:** PENDING
+- **Independent fresh-session Golden Proof:** PASS — 100/100, zero hard failures
 - **A0 operator acceptance:** PENDING
+- **ADR lifecycle decisions:** PENDING
+- **Merge:** NOT AUTHORIZED
 - **Stack decisions:** none
-- **MNFS integration:** deferred; MNFS remains a future provider, not the Aurora foundation
+- **MNFS integration:** deferred and prohibited in the current gate
 
-## 2. Why remediation was required
+## 2. A0 evidence chain
 
-The first PR baseline captured approved conclusions but compressed much of the discovery dialogue into short summaries.
+```text
+Initial discovery dialogue
+→ Origin and Discovery Record
+→ 15-section Product Blueprint
+→ Discovery Coverage matrix
+→ 294 proposed constitutional requirements
+→ focused primary-source research
+→ ADR and Architecture Spike proposals
+→ ACRM R0–R8 methodology
+→ generated publications and documentation CI
+→ post-remediation adversarial review
+→ independent Fresh-Session Golden Proof
+→ operator decision gate
+```
 
-The operator correctly rejected that depth because important material remained only in conversation:
+## 3. Completed A0 work
 
-- scenarios and examples;
-- detailed memory taxonomy and failure modes;
-- campaign/autonomy behavior;
-- self-improvement causal method;
-- Presence/handoff behavior;
-- AHDK modules and security boundary;
-- protocol/framework comparisons;
-- architecture diagrams and ownership;
-- research evidence and limitations;
-- methodology connecting Blueprint to implementation.
-
-A formal adversarial review confirmed the gap relative to the MNFS documentation standard. The branch was rebuilt rather than superficially expanded.
-
-## 3. Completed remediation work
-
-- [x] Adversarial comparison and remediation plan published.
-- [x] Origin and Discovery Record preserves the initial dialogue and examples.
-- [x] Discovery Coverage matrix maps all discovery topics to canonical owners or explicit open research/decisions.
-- [x] All 15 Product Blueprint sections exist with mechanisms, scenarios, boundaries, failures and proof intent.
-- [x] Memory, Harness, AHDK, autonomy, Presence, laboratory, security, architecture and evaluation sections were substantially deepened.
-- [x] Focused research reports and source manifests were created.
-- [x] Capability Realization Method defines R0–R8 gates.
-- [x] Requirements Traceability derives 294 proposed constitutional requirements.
-- [x] Product Blueprint aggregate and roadmap are generated deterministically.
-- [x] Documentation Map, Product Index, README and AGENTS bootstrap were rebuilt.
-- [x] ADR-0001 and ADR-0002 were rewritten with alternatives, evidence, consequences and reconsideration triggers.
-- [x] Architecture Spike portfolio defines decision questions, procedures, adversarial cases, Golden Proofs and disposal rules.
-- [x] Documentation generation and CI validation tooling were added.
-- [x] Mechanical validation reached PASS.
-- [x] Post-remediation adversarial review returned PASS FOR OPERATOR REVIEW.
-- [x] Fresh-session Golden Proof protocol and acceptance index were created.
-- [x] Authoring-session dry run confirmed the read path but was correctly classified as non-qualifying.
+- [x] Original shallow baseline rejected and adversarially reviewed.
+- [x] All discovery topics assigned to canonical owners or explicit open decisions/research.
+- [x] All 15 Blueprint sections completed at constitutional design depth.
+- [x] Origin, scenarios, alternatives and rationale preserved historically.
+- [x] Memory, Harness, AHDK, autonomy, Presence, laboratory, security, architecture and self-improvement treated as first-class systems.
+- [x] Nine focused research packages created with source manifests.
+- [x] Aurora Capability Realization Method defines R0–R8 gates.
+- [x] 294 proposed requirements derived and made traceable.
+- [x] Product Blueprint aggregate and roadmap generated deterministically.
+- [x] Documentation Map, Product Index, README, AGENTS, ADRs, tracking and CI reconciled.
+- [x] Mechanical documentation validation passed with zero errors/warnings.
+- [x] Post-remediation adversarial review found no blocking documentation defect.
+- [x] Independent Fresh-Session Golden Proof executed against fixed commit.
+- [x] GP-A0-FRESH-001 scored 100/100 with zero hard failures.
 
 ## 4. Mechanical validation evidence
 
-Latest fixed evidence before this tracking-only status update:
+The fixed constitutional package passed the documentation workflow:
 
 ```text
 Workflow:  Documentation
-Run:       31072803234
-Head:      23d676cf06e7b818cb94b41268f26a7bf2718025
+Run:       31072890912
+Head:      4465d9677cc590b890b47cc164364165d04ca6d0
 Result:    SUCCESS
 
 canonical_documents: 48
@@ -112,81 +110,61 @@ PRODUCT-BLUEPRINT.md: 349,804 bytes
 roadmap.md:             26,552 bytes
 ```
 
-The workflow verifies:
+Later commits add acceptance evidence and tracking only; the workflow continues to validate every branch change.
 
-- required files;
-- frontmatter and ownership;
-- unique document identities;
-- related-ID resolution;
-- local links;
-- research manifests and citations;
-- requirement IDs/count;
-- unresolved coverage gaps;
-- normative placeholders;
-- generated Product Blueprint and Roadmap freshness.
-
-This result proves structural consistency, not product implementation or independent human comprehension.
-
-## 5. Adversarial review evidence
-
-Post-remediation review:
+## 5. Independent Golden Proof evidence
 
 ```text
-docs/reviews/2026-08-06-a0-post-remediation-adversarial-review.md
-Target: eb2a3ce65cd3bf34d1a914e99b6a48b34ffb672f
-Verdict: READY FOR FRESH-SESSION GOLDEN PROOF AND OPERATOR REVIEW
+Protocol:
+  docs/acceptance/2026-08-06-a0-fresh-session-golden-proof.md
+
+Evaluation:
+  docs/acceptance/2026-08-06-gp-a0-fresh-001-evaluation.md
+
+Target:
+  4465d9677cc590b890b47cc164364165d04ca6d0
+
+Submitted response:
+  bytes: 48004
+  lines: 1263
+  sha256: f119826e23195572b41b6d4661ff12af02d2cdc79d0e71b682cd702aa699110f
+
+Score:         100 / 100
+Hard failures: 0
+Verdict:       PASS
 ```
 
-The review found the original deficiencies resolved:
+The independent executor correctly reconstructed product identity, North Star, authority, memory precedence, Core/Harness boundaries, AHDK/security separation, open decisions, ACRM gates, prohibitions and the exact next action using repository sources only.
 
-- all constitutional surfaces exist;
-- original scenarios/rationale are preserved;
-- memory and Harness architecture are first-class;
-- research is focused and independently refreshable;
-- traceability and methodology are explicit;
-- candidates remain candidates rather than silent stack choices;
-- implementation prohibition remains visible.
+## 6. What the Golden Proof changed
 
-Later commits add only review, acceptance and tracking evidence; they do not alter the reviewed constitutional sources.
-
-## 6. Fresh-session Golden Proof state
-
-Index and protocol:
+The following blocker is resolved:
 
 ```text
-docs/acceptance/README.md
-docs/acceptance/2026-08-06-a0-fresh-session-golden-proof.md
+RESOLVED — repository-only comprehension had not been independently demonstrated
 ```
 
-Current state:
+The proof does **not**:
 
-```text
-Protocol:                   READY
-Mechanical bootstrap:      PASS
-Authoring-session dry run:  NON_QUALIFYING PASS
-Independent execution:     PENDING
-Operator verdict:           PENDING
-```
-
-The current authoring session cannot honestly prove independent comprehension because it has access to the discovery dialogue and authored the package.
-
-A qualifying run must use:
-
-- a new ChatGPT/Codex/agent session;
-- no discovery-chat context;
-- only the repository/ref and protocol prompt;
-- fixed commit target;
-- scored response with no hard failures.
+- accept A0 on Leandro's behalf;
+- accept ADR-0001 or ADR-0002;
+- authorize merge;
+- choose a Product Milestone;
+- authorize Architecture Spikes;
+- authorize runtime, AHDK or MNFS implementation.
 
 ## 7. Current authorization boundary
 
 ```text
-Documentation finalization:      COMPLETE FOR REVIEW
-Research/source validation:      COMPLETE FOR A0 REVIEW
-Independent Golden Proof:        AUTHORIZED / PENDING
-A0 operator review:              PENDING
+Documentation finalization:      COMPLETE FOR OPERATOR DECISION
+Research/source validation:      COMPLETE FOR A0 DECISION
+Independent Golden Proof:        PASS
+A0 operator review:              AUTHORIZED / PENDING
 A0 acceptance:                   PENDING
-ADR-0001/0002 acceptance:        PENDING OPERATOR DECISION
+ADR-0001 decision:               PENDING
+ADR-0002 decision:               PENDING
+Merge/branch decision:           PENDING
+First Product Milestone choice:  NOT MADE
 Architecture Spike planning:     NOT STARTED
 Architecture Spike execution:    PROHIBITED
 First Capability Spec:           NOT STARTED
@@ -198,64 +176,70 @@ MNFS integration:                PROHIBITED
 Automatic merge:                 NOT AUTHORIZED
 ```
 
-No completed document, green workflow or successful dry run implicitly changes this boundary.
+No green workflow or reviewer verdict implicitly advances these operator gates.
 
-## 8. Proposed architectural direction under review
+## 8. Proposed architecture awaiting operator decision
 
-- Aurora is the personal cognitive/global control plane.
-- Harnesses are specialized capability providers with internal autonomy.
-- Aurora owns global identity, context, authority, budgets, Delegation relationships and outcome composition.
-- Harnesses own local methodology, workflows, tools, attempts and intermediate artifacts.
-- Cross-Harness orchestration is hierarchical; child Delegations return to Aurora.
+- Aurora is Leandro's personal cognitive/global control plane.
+- Aurora is Leandro-first and single-user in the current horizon; engineering is the first deep domain.
+- Memory is governed, temporal, multiscoped and subordinate to current authority, evidence and live state.
+- Authority is explicit, scoped, expiring, revocable and enforced outside the SDK/model.
+- Harnesses are specialized providers with internal autonomy inside Delegations.
+- Aurora owns global identity, context, authority, budgets, composition and acceptance.
+- Cross-Harness work is hierarchical; child Delegations return to Aurora.
 - The control plane is centrally governed; authorized data-plane channels may be direct.
 - Discovery, compatibility, trust, authority and execution are separate states.
-- Aurora owns canonical Contract Model semantics.
-- MCP, A2A, native RPC and other transports are replaceable bindings.
-- First-party Harnesses use AHDK by policy unless a waiver is approved.
-- Contracts and black-box conformance remain independent of AHDK.
-- Durable execution, policy decision, effect enforcement, sandboxing, credentials, evidence and telemetry are separate layers.
-- No agent framework becomes the Aurora constitution.
+- Aurora owns canonical Contract Model semantics; protocols/frameworks are replaceable mechanisms.
+- First-party Harnesses use AHDK by policy unless waived; contract and conformance remain independent.
+- Durable execution, policy decision, effect enforcement, credential brokering, sandboxing, telemetry and evidence are distinct layers.
+- MNFS remains a future provider rather than Aurora's foundation.
+- Self-improvement requires causal analysis, protected evaluation, independent review, canary and rollback.
 
-These directions remain `proposed` until operator acceptance.
+All of these directions remain `proposed` until Leandro's decision.
 
 ## 9. Deliberately open technical decisions
 
 - Aurora Core language and deployment shape;
-- first AHDK language;
-- canonical schema representation per boundary;
+- first AHDK language/toolchain;
+- schema representation per boundary;
 - local RPC binding;
-- exact MCP/A2A adoption/mapping;
+- exact MCP/A2A mapping;
 - durable execution engine;
 - policy engine;
-- workload/device identity implementation;
-- operational storage and event/state model;
+- workload/device identity mechanism;
+- operational state/event storage;
 - Artifact/Evidence Store;
 - event transport and telemetry backend;
 - memory mechanism mix;
 - first reference Harness runtime;
 - first real engineering Harness;
-- first Product Milestone contract after A0.
+- first Product Milestone and Mission Contract after A0.
 
-These are protected future R3/R4 decisions, not documentation defects.
+These are future ACRM R3/R4 decisions, not missing A0 answers.
 
 ## 10. Current blockers
 
 ```text
-BLOCK-1 — independent fresh-session Golden Proof has not been executed
-BLOCK-2 — Leandro has not reviewed/accepted the final A0 package
-BLOCK-3 — ADR-0001 and ADR-0002 lifecycle decisions remain pending
-BLOCK-4 — merge/branch handling has not been authorized
+BLOCK-1 — Leandro has not accepted, revised or rejected the A0 baseline
+BLOCK-2 — ADR-0001 lifecycle decision remains pending
+BLOCK-3 — ADR-0002 lifecycle decision remains pending
+BLOCK-4 — PR #1 merge/branch handling remains pending
 ```
-
-There is no runtime implementation blocker because runtime implementation is not an authorized activity.
 
 ## 11. Immediate next action
 
+Obtain four explicit operator decisions:
+
+1. **A0 baseline:** accept, revise or reject;
+2. **ADR-0001:** accept, revise, reject or defer;
+3. **ADR-0002:** accept, revise, reject or defer;
+4. **PR #1:** merge, keep draft for revisions or close.
+
+Only after A0 acceptance and the appropriate repository decision:
+
 ```text
-run independent fresh-session Golden Proof against the final fixed commit
-→ score response and repair any ambiguity
-→ present A0 package to Leandro
-→ obtain explicit A0/ADR/merge decisions
+select first Product Milestone
+→ begin Aurora Capability Realization Method R0
 ```
 
-After explicit A0 acceptance, the next action will be to select the first Product Milestone and begin **ACRM R0**, not to immediately write code.
+The next action is not implementation.
