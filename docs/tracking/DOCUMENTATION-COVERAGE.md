@@ -5,224 +5,283 @@ document_type: traceability_matrix
 form: reference
 authority: tracking
 status: current
-version: 1.0.0
+version: 2.0.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - current documentation coverage
+  - discovery-to-canonical traceability
 related:
   - REVIEW-AURORA-A0-DOCUMENTATION-2026-08-05
   - DOC-AURORA-DOCUMENTATION-MAP
-last_reviewed: 2026-08-05
+  - DOC-AURORA-REQUIREMENTS-TRACEABILITY
+  - HISTORY-AURORA-ORIGIN-DISCOVERY-2026-08-05
+last_reviewed: 2026-08-06
 ---
 
 # Aurora Discovery and Documentation Coverage
 
 ## 1. Purpose
 
-This matrix prevents approved discovery work from remaining only in chat history.
+This matrix verifies that the initial Aurora discovery dialogue has been promoted into durable, reviewable repository artifacts.
 
-Coverage states:
+It does not make the tracked material normative. The **canonical owner** column identifies which Product Blueprint section, research report, ADR or method owns the current meaning.
+
+## 2. Coverage states
 
 ```text
-FULL        mechanism, examples, boundaries and failure behavior preserved
-PARTIAL     conclusion preserved but depth missing
-MISSING     no canonical owner or material treatment
-MISPLACED   present only in research/design/tracking instead of canonical owner
-OPEN        intentionally unresolved technical decision
+FULL
+→ definition, rationale, mechanisms, scenarios, boundaries, failure modes and proof intent are preserved
+
+OPEN_RESEARCH
+→ the required product behavior is documented, but the implementation mechanism needs focused research or a spike
+
+OPEN_DECISION
+→ alternatives and decision drivers are documented; no option has been promoted to an accepted ADR
+
+DEFERRED_BY_ROADMAP
+→ constitutionally preserved direction that is intentionally outside the current executable horizon
 ```
 
-Tracking is not architecture. The canonical owner column determines where the repaired content must live.
+A0 cannot close with `MISSING`, `UNMAPPED` or `OPEN_GAP` coverage.
 
-## 2. Product identity and scope
+---
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Aurora as personal cognitive operating system | PARTIAL | Blueprint 01 | definition, role, boundaries, examples |
-| Aurora is more than chatbot/voice/model/memory/device | PARTIAL | Blueprint 01 | component distinction and failure examples |
-| North Star laboratory continuation experience | PARTIAL | Blueprint 01 / 04 | complete journey and evidence flow |
-| Five verbs: understand, remember, reason, act, observe | PARTIAL | Blueprint 01 / 04 | closed-loop lifecycle |
-| Leandro-first, single-user, no current multi-tenancy | FULL | Blueprint 01 | implications and future boundary |
-| Personal intelligence broad; engineering first domain | PARTIAL | Blueprint 01 | domain expansion protocol |
-| Vision complete, technical commitment short-horizon | PARTIAL | Blueprint 01 / 14 | two-horizon planning model |
-| One Aurora independent of model/provider/interface | PARTIAL | Blueprint 01 / 12 | identity and replacement boundaries |
+## 3. Product identity, scope and North Star
 
-## 3. Human–Aurora relationship
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Aurora as personal cognitive operating system and global control plane | FULL | Blueprint 01, 12 | definition, layer diagram, component boundaries and non-goals |
+| More than chatbot, voice, model, memory or device | FULL | Blueprint 01 | component distinction and failure patterns |
+| Laboratory continuation North Star | FULL | Blueprint 01, 04, 09 | end-to-end journey from project recovery to experiment evidence |
+| Understand, remember, reason, act and observe | FULL | Blueprint 01, 04 | expanded closed cognitive loop with verification, recording and learning |
+| Leandro-first and single-user in current horizon | FULL | Blueprint 01 | implications, excluded SaaS concerns and future boundary |
+| Broad personal intelligence with engineering first | FULL | Blueprint 01, 03 | initial domain map and controlled domain expansion |
+| Complete vision with short-horizon technical commitment | FULL | Blueprint 01, 14, ACRM | two-horizon model and readiness gates |
+| One Aurora independent of model, provider, process and interface | FULL | Blueprint 01, 08, 12 | identity continuity and replaceable engines/presences |
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Copilot intellectual confiável | PARTIAL | Blueprint 02 | obligations, disagreement, repair |
-| Lealdade ao objetivo, não à premissa momentânea | PARTIAL | Blueprint 02 | examples and escalation |
-| Leandro retains final authority | FULL | Blueprint 02 / 10 | decision categories and exceptions |
-| Stable transparent AI identity | PARTIAL | Blueprint 02 | identity continuity and model substitution |
-| Personality B+: JARVIS precision + EVIE proximity | PARTIAL | Blueprint 02 | traits, examples, anti-patterns |
-| Personality with presence, not performance | PARTIAL | Blueprint 02 | behavior modes and quality criteria |
-| Contextual humor | PARTIAL | Blueprint 02 | safe/unsafe contexts |
-| Proactivity contextual and controlled | PARTIAL | Blueprint 02 | attention budget and notification policy |
-| Initiative must be explainable | PARTIAL | Blueprint 02 / 13 | reason codes and audit |
-| No emotional manipulation or simulated humanity | PARTIAL | Blueprint 02 / 11 | boundaries and incidents |
+---
 
-## 4. Presence and multimodality
+## 4. Human–Aurora relationship and personality
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Persistent event-oriented Core | PARTIAL | Blueprint 08 / 12 | lifecycle and topology |
-| Availability does not mean surveillance | PARTIAL | Blueprint 08 / 11 | sensor modes and enforcement |
-| One Aurora, multiple presences | PARTIAL | Blueprint 08 | complete presence model |
-| Computer-to-glasses handoff | PARTIAL | Blueprint 08 | journey, authentication, context pack |
-| Contextual continuity protected by environment | PARTIAL | Blueprint 08 / 11 | public/private scenarios |
-| Device capability declaration | PARTIAL | Blueprint 08 / 09 | manifest example and permissions |
-| Offline/degraded presence | MISSING | Blueprint 08 / 12 | local capabilities and reconciliation |
-| Visible sensor indicators and retention | PARTIAL | Blueprint 08 / 11 | policy and audit |
-| Adapt interface by device capabilities | MISSING | Blueprint 08 | presentation negotiation |
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Trusted intellectual copilot | FULL | Blueprint 02 | duties, disagreement protocol, escalation and trust repair |
+| Loyalty to objective, not momentary premise | FULL | Blueprint 02 | direct examples and decision categories |
+| Leandro retains final authority | FULL | Blueprint 02, 10 | authority hierarchy and prohibited self-escalation |
+| Stable and transparent AI identity | FULL | Blueprint 02, 08 | model substitution and anti-deception rules |
+| J.A.R.V.I.S. precision plus E.V.I.E. proximity | FULL | Blueprint 02, History | trait model, inspiration boundary and original rationale |
+| Personality with presence, not performance | FULL | Blueprint 02 | mode table, positive examples, anti-patterns and evaluation criteria |
+| Contextual humor | FULL | Blueprint 02 | casual, engineering, laboratory, incident and high-risk behavior |
+| Contextual, controlled proactivity | FULL | Blueprint 02, 13 | attention budget, notification intensity and reason codes |
+| No simulated humanity or emotional manipulation | FULL | Blueprint 02, 11 | prohibited behavior and incident handling |
 
-## 5. Memory, knowledge and context
+---
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Memory is a core subsystem | PARTIAL | Blueprint 06 | architecture and requirements |
-| Memory is not context/history/knowledge/state | PARTIAL | Blueprint 06 | ownership and precedence |
-| Working memory | PARTIAL | Blueprint 06 | write/read/expiry/evaluation |
-| Conversational memory | PARTIAL | Blueprint 06 | exact history and compaction |
-| Observational memory | PARTIAL | Blueprint 06 + Research | mechanism, evidence, limits |
-| Episodic memory | PARTIAL | Blueprint 06 | event model and examples |
-| Project memory | PARTIAL | Blueprint 06 | project universe and authority |
-| Global personal memory | PARTIAL | Blueprint 06 | scope, sensitivity, confirmation |
-| Relational memory/world graph | PARTIAL | Blueprint 03 / 06 | relationships and temporal validity |
-| Procedural memory/Golden Paths | PARTIAL | Blueprint 06 / Capability Method | promotion and validation |
-| Failure and learning memory | PARTIAL | Blueprint 06 / 13 | causal relationship |
-| Operational memory must be structured | PARTIAL | Blueprint 06 / 12 | storage owner and recovery |
-| Memory metadata example | MISSING | Blueprint 06 | complete structured example |
-| Epistemic distinctions | PARTIAL | Blueprint 06 | conflict behavior and confidence |
-| Promotion by risk, authority and scope | PARTIAL | Blueprint 06 | matrix and examples |
-| Automatic vs conditioned promotion | PARTIAL | Blueprint 06 | policy scenarios |
-| Supersession instead of silent overwrite | PARTIAL | Blueprint 06 | lifecycle and conflict examples |
-| Forgetting, expiry, deletion and archive | PARTIAL | Blueprint 06 / 11 | policies and tests |
-| Plausible but false memory | MISSING | Blueprint 06 / 13 | failure detection |
-| Cross-project contamination | MISSING | Blueprint 06 / 11 | isolation test |
-| Context Builder | PARTIAL | Blueprint 06 / 12 | pipeline, ranking and live checks |
-| Local-first memory, cloud-assisted inference | PARTIAL | Blueprint 06 / 11 | data flow and audit |
-| Memory evaluation research | MISSING | Research Memory | benchmarks and limits |
+## 5. Presence, interaction and multimodality
 
-## 6. Autonomy, authority and campaigns
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Persistent event-oriented Core | FULL | Blueprint 08, 12 | topology and service/presence distinction |
+| Availability does not imply surveillance | FULL | Blueprint 08, 11 | sensor modes, consent, indicators and retention |
+| One Aurora, multiple presences | FULL | Blueprint 08 | Presence, Device and Session entities plus architecture diagram |
+| Computer-to-glasses handoff | FULL | Blueprint 04, 08 | authentication, safe Context Pack and continuation scenario |
+| Environment-protected continuity | FULL | Blueprint 08, 11 | private/public/unknown environment behavior |
+| Device capability declaration | FULL | Blueprint 08, 09 | manifest example, trust and effective-authority calculation |
+| Offline and degraded presence | FULL | Blueprint 08, 12 | local fallback, queued observations and reconciliation |
+| Interface adaptation by capability | FULL | Blueprint 08 | modality negotiation and safe degradation |
+| Voice, vision, screen and spatial input | DEFERRED_BY_ROADMAP | Blueprint 08, 14 | constitutional behavior defined; implementation research deferred |
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Progressive authority | PARTIAL | Blueprint 10 | action matrix and grants |
-| Delegated autonomy by mission | PARTIAL | Blueprint 10 | complete campaign contract |
-| N1 action, N2 workflow, N3 campaign, N4 continuous program | PARTIAL | Blueprint 10 | promotion criteria |
-| Overnight AI workflow optimization | MISSING | Blueprint 04 / 10 | end-to-end scenario |
-| Firmware variant campaign | MISSING | Blueprint 04 / 09 / 10 | end-to-end scenario |
-| Autonomy Envelope | PARTIAL | Blueprint 10 | structured example |
-| Baseline and immutable evaluation criteria | MISSING | Blueprint 10 / 13 | anti-gaming controls |
-| Budget: time, cost, tokens, cycles, energy, wear | MISSING | Blueprint 10 | units and enforcement |
-| Stop and escalation conditions | PARTIAL | Blueprint 10 | taxonomy and examples |
-| Autonomous inside envelope, conservative at boundary | FULL | Blueprint 10 | invariants |
-| Deterministic physical guardrails | PARTIAL | Blueprint 09 / 10 | interlocks and fault cases |
-| Emergency authority | PARTIAL | Blueprint 10 | preauthorization and drills |
-| Revocation has operational effect | PARTIAL | Blueprint 10 / 11 | partition and containment |
+---
 
-## 7. Self-improvement and learning
+## 6. Memory, knowledge and context
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Experimental self-improvement with supervised promotion | PARTIAL | Blueprint 13 | full lifecycle |
-| Continuous detection, authorized experiments | PARTIAL | Blueprint 13 | triage and prioritization |
-| Symptom versus root cause | PARTIAL | Blueprint 13 | causal analysis method |
-| Multiple errors may share one cause | MISSING | Blueprint 13 | causal graph example |
-| Structured incident record | MISSING | Blueprint 13 | schema example |
-| Correlation before patching | PARTIAL | Blueprint 13 | thresholds and evidence |
-| Competing hypotheses | PARTIAL | Blueprint 13 | falsification and selection |
-| Reproduction before correction | PARTIAL | Blueprint 13 | unreproducible incident policy |
-| Candidate version, sandbox and rollback | PARTIAL | Blueprint 13 | lifecycle and artifacts |
-| Original, neighbor, contrary, history, unseen, adversarial tests | PARTIAL | Blueprint 13 | evaluation suites |
-| Holdout prevents self-selected evaluation | MISSING | Blueprint 13 | governance |
-| Independent reviewer | PARTIAL | Blueprint 13 | authority and separation |
-| Canary and shadow modes | PARTIAL | Blueprint 13 | rollout states |
-| Constitutional areas protected | PARTIAL | Blueprint 10 / 13 | immutable boundary |
-| Learn from successes into candidate Golden Paths | MISSING | Blueprint 13 / Capability Method | promotion stages |
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Memory as a core subsystem | FULL | Blueprint 06 | full architecture, lifecycle and evaluation model |
+| Memory distinct from context, history, knowledge and operational state | FULL | Blueprint 03, 06 | ownership, precedence and source-of-truth table |
+| Working, conversational and observational memory | FULL | Blueprint 06, Memory Research | write/read/compaction/expiry roles and limitations |
+| Episodic and project memory | FULL | Blueprint 06 | schemas, examples and project-universe behavior |
+| Global personal memory | FULL | Blueprint 06, 11 | risk-based promotion, sensitivity and correction |
+| Relational/world-model memory | FULL | Blueprint 03, 06 | temporal relationships and provenance |
+| Procedural memory and Golden Paths | FULL | Blueprint 06, ACRM | candidate-to-validated-procedure lifecycle |
+| Failure and learning memory | FULL | Blueprint 06, 13 | incident, causal hypothesis, correction and regression links |
+| Operational state is structured, not model memory | FULL | Blueprint 06, 12 | state-owner separation and recovery |
+| Memory metadata | FULL | Blueprint 06 | complete structured example with epistemic and governance metadata |
+| Fact/decision/observation/inference/hypothesis distinction | FULL | Blueprint 03, 06 | epistemic classes and conflict rules |
+| Promotion by risk, scope and authority | FULL | Blueprint 06 | automatic/conditioned promotion matrix and scenarios |
+| Supersession rather than silent overwrite | FULL | Blueprint 06 | lifecycle, conflict example and evaluation journey |
+| Forgetting, expiry, deletion and archive | FULL | Blueprint 06, 11 | retention policy and proof requirements |
+| Plausible but false memory | FULL | Blueprint 06, 13 | incident class and evaluation cases |
+| Cross-project contamination | FULL | Blueprint 06, 11 | isolation invariant and adversarial test intent |
+| Context Builder pipeline | FULL | Blueprint 06, 12 | retrieval, authority, temporal, sensitivity and live-state checks |
+| Memory mechanism selection | OPEN_RESEARCH | Memory Research | observational memory, RAG, graphs, event logs and hybrid candidates |
+| Memory evaluation at scale | OPEN_RESEARCH | Memory Research, Blueprint 13 | benchmark limitations and proposed Aurora-specific eval program |
 
-## 8. Capability and harness model
+---
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Tool/agent/workflow/runtime/harness distinctions | PARTIAL | Blueprint 03 / 05 | examples and ownership |
-| Harness as specialized complete system | PARTIAL | Blueprint 05 / 07 | domain boundary |
-| Aurora as global control plane | PARTIAL | Blueprint 07 / 12 | component and state model |
-| MNFS as future software provider | FULL | Blueprint 07 | readiness and adapter criteria |
-| Aurora owns why/what/limits; harness owns local how | FULL | Blueprint 07 | invariants |
-| Hierarchical orchestration | PARTIAL | Blueprint 07 | multi-harness journeys |
-| Harness asks Aurora for another capability | PARTIAL | Blueprint 07 | child-delegation schema |
-| Central control plane, authorized direct data plane | PARTIAL | Blueprint 07 / 12 | channel lifecycle |
-| Capability Manifest | PARTIAL | Blueprint 05 | full example and validation |
-| Discovery ≠ compatibility ≠ trust ≠ authority ≠ execution | FULL | Blueprint 05 | state machine |
-| Multidimensional trust | PARTIAL | Blueprint 05 / 11 | evidence model |
-| Trust bound to version/build/environment | PARTIAL | Blueprint 05 / 11 | provenance and upgrade |
-| Dynamic discovery with governed activation | PARTIAL | Blueprint 05 | threat and fallback |
-| Provider selection by fit, sensitivity, cost, latency and trust | PARTIAL | Blueprint 05 | explainability and fallback |
-| Provider suspension/revocation/retirement | PARTIAL | Blueprint 05 | incident flows |
+## 7. Autonomy, campaigns and physical safety
 
-## 9. Contracts, SDK and interoperability
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Progressive authority | FULL | Blueprint 10 | observe-to-effect ladder and grant model |
+| Delegated autonomy by mission | FULL | Blueprint 04, 10 | delegation/campaign lifecycle and authority envelope |
+| Action, workflow, campaign and continuous-program levels | FULL | Blueprint 10 | N1–N4 definitions and graduation conditions |
+| Overnight AI workflow improvement | FULL | Blueprint 04, 10, 13 | complete scenario, immutable eval criteria and promotion boundary |
+| Firmware variant campaign | FULL | Blueprint 04, 09, 10 | compilation, flash, telemetry, safety and evidence journey |
+| Autonomy Envelope | FULL | Blueprint 10 | structured schema and invariants |
+| Budget across money, tokens, time, energy, cycles and wear | FULL | Blueprint 10 | budget dimensions, thresholds and enforcement |
+| Stop and escalation conditions | FULL | Blueprint 10 | taxonomy, examples and ambiguous-boundary behavior |
+| Deterministic physical guardrails | FULL | Blueprint 09, 10 | interlocks, fail-safe state and fault drills |
+| Emergency authority | FULL | Blueprint 10 | narrow preauthorization and receipts |
+| Revocation has operational effect | FULL | Blueprint 10, 11 | token/channel/credential containment and reconciliation |
+| Physical actuation implementation | DEFERRED_BY_ROADMAP | Blueprint 09, 10, 14 | M10 only after observation, simulation and safety readiness |
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Aurora-owned semantics | PARTIAL | Blueprint 03 / 07 / ADR-0001 | complete entity definitions |
-| Contracts mandatory | PARTIAL | Blueprint 05 / Capability Method | specification lifecycle |
-| AHDK mandatory for first-party by policy | FULL | Blueprint 05 / ADR-0002 | waiver path |
-| Contract independent from SDK | FULL | Blueprint 05 / ADR-0002 | conformance example |
-| SDKs optional technically, not organizationally | PARTIAL | Blueprint 05 | policy and exception |
-| AHDK as development kit, not client library | PARTIAL | Blueprint 05 / Research SDK | module architecture |
-| Generated types | PARTIAL | Blueprint 05 | source and compatibility |
-| Manifest builder | PARTIAL | Blueprint 05 | code example |
-| Lifecycle API | PARTIAL | Blueprint 05 | usage example |
-| Context API | PARTIAL | Blueprint 05 / 06 | access boundaries |
-| Effect client does not authorize | PARTIAL | Blueprint 05 / 10 | gateway flow |
-| Artifact/Evidence API | PARTIAL | Blueprint 05 / 07 | data types |
-| Cancellation/checkpoint/heartbeat/budget | PARTIAL | Blueprint 05 / 07 | API behaviors |
-| Automatic OpenTelemetry | PARTIAL | Blueprint 13 / Research Observability | semantic conventions |
-| Simulator, mocks and fault injection | PARTIAL | Blueprint 05 / Capability Method | conformance path |
-| Scaffolder and Golden Paths | PARTIAL | Blueprint 05 | template anatomy |
-| MCP for tools/resources | PARTIAL | Blueprint 07 / Research Interop | mapping and limits |
-| A2A for remote opaque tasks | PARTIAL | Blueprint 07 / Research Interop | mapping and maturity |
-| Native SDK/RPC for first-party | PARTIAL | Blueprint 07 / Research Interop | trade-offs |
-| Frameworks remain internal | FULL | Blueprint 07 | comparison matrix |
-| Mastra/LangGraph/Pi/OpenHands/OpenAI Agents roles | MISPLACED | Research Frameworks | detailed comparison |
+---
 
-## 10. Durability, security and observability
+## 8. Self-improvement and learning
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Durable execution separate from agent runtime | PARTIAL | Blueprint 12 / Research Durability | component port and semantics |
-| Temporal/DBOS/Restate/Inngest candidates | MISPLACED | Research Durability | focused comparison and spikes |
-| SDK is not security boundary | FULL | Blueprint 10 / 11 | bypass examples |
-| Policy decision separate from enforcement | PARTIAL | Blueprint 10 / 11 | architecture and receipts |
-| Effect Gateways | PARTIAL | Blueprint 10 / 12 | gateway catalog |
-| Sandbox/OS containment | PARTIAL | Blueprint 11 / 12 | threat model |
-| Credential Broker | PARTIAL | Blueprint 11 / 12 | secret reference flow |
-| Subject/actor/executor identity | PARTIAL | Blueprint 10 / 11 | token and audit example |
-| Cedar/OPA/SPIFFE/RFC8693 candidates | MISPLACED | Research Authority | detailed comparison |
-| OpenTelemetry baseline | PARTIAL | Blueprint 13 / Research Observability | signals, spans, redaction |
-| CloudEvents/AsyncAPI/JSON Schema/Protobuf candidates | MISPLACED | Research Events | boundaries and compatibility |
-| SLSA provenance for provider trust | PARTIAL | Blueprint 05 / 11 | supply-chain lifecycle |
-| Distributed trace across Core/harness/tool/gateway | PARTIAL | Blueprint 13 | Golden Proof |
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Experimental self-improvement with supervised promotion | FULL | Blueprint 10, 13 | candidate, eval, review, canary, rollback and promotion gate |
+| Continuous detection with authorized experiments | FULL | Blueprint 13 | opportunity lifecycle and prioritization |
+| Symptom versus root cause | FULL | Blueprint 13 | causal-analysis method and anti-patch rule |
+| Multiple incidents sharing one cause | FULL | Blueprint 13, History | causal graph scenario preserved |
+| Structured incident record | FULL | Blueprint 13 | incident schema and required evidence |
+| Correlation before patching | FULL | Blueprint 13 | thresholds and evidence requirements |
+| Competing hypotheses and reproduction | FULL | Blueprint 13 | falsification and unreproducible-incident handling |
+| Candidate versions, sandbox and rollback | FULL | Blueprint 13 | lifecycle and artifacts |
+| Original, neighboring, contrary, historical, unseen and adversarial cases | FULL | Blueprint 13 | evaluation suite anatomy |
+| Holdout governance | FULL | Blueprint 13 | protected evaluation data and anti-gaming rules |
+| Independent reviewer | FULL | Blueprint 10, 13 | separation of proposer and acceptance authority |
+| Canary and shadow modes | FULL | Blueprint 13 | rollout states and rollback triggers |
+| Constitutional areas protected | FULL | Blueprint 10, 13 | immutable/autonomously non-promotable set |
+| Learning successes into candidate Golden Paths | FULL | Blueprint 06, 13, ACRM | observation → pattern → validation → preferred path |
+| Self-improvement evaluation mechanisms | OPEN_RESEARCH | Evaluation Research | benchmark, causal and statistical design requires spikes |
 
-## 11. Documentation and roadmap
+---
 
-| Discovery decision or concept | Before remediation | Canonical owner | Required depth |
-|---|---:|---|---|
-| Documentation is project memory and governance | PARTIAL | Blueprint 15 | full lifecycle and checks |
-| Blueprint before implementation | FULL | Blueprint 15 / STATUS | gate |
-| Research before technical choice | FULL | Blueprint 15 | freshness and source rules |
-| Two horizons: constitutional vision and next executable detail | PARTIAL | Blueprint 01 / 14 | planning model |
-| Roadmap by cumulative capabilities and proofs | PARTIAL | Blueprint 14 | full milestone anatomy |
-| Fresh-session Golden Proof | PARTIAL | Blueprint 14 | exact test procedure |
-| Status for session handoff | PARTIAL | Blueprint 15 / STATUS | required fields |
-| One concept, one canonical owner | FULL | Blueprint 15 / Documentation Map | conflict protocol |
-| Conversation is discovery, repository is canonical memory | PARTIAL | Blueprint 15 / History Record | promotion path |
-| Aggregate Blueprint publication | MISSING | Product Index | generated projection |
-| Capability Realization Method | MISSING | Product Method | gates and traceability |
-| Requirements traceability | MISSING | Product Matrix | bidirectional mapping |
+## 9. Capability, harness, contracts and AHDK
 
-## 12. Exit condition
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Tool/Agent/Workflow/Runtime/Harness distinctions | FULL | Blueprint 03, 05 | definitions, examples and ownership |
+| Harness as complete specialized system | FULL | Blueprint 05, 07 | internal autonomy and external contract boundary |
+| Aurora as global control plane | FULL | Blueprint 07, 12 | state, authority, composition and operator interaction |
+| MNFS as future provider, not foundation | FULL | Blueprint 07, 14 | readiness and adapter criteria |
+| Aurora owns why/what/limits; Harness owns local how | FULL | Blueprint 07 | responsibility matrix and examples |
+| Hierarchical orchestration | FULL | Blueprint 07 | child delegation and multi-harness journeys |
+| Authorized direct data plane | FULL | Blueprint 07, 12 | channel contract, telemetry example and no authority propagation |
+| Capability Manifest | FULL | Blueprint 05 | complete structured example and validation lifecycle |
+| Discovery/compatibility/trust/authority/execution separation | FULL | Blueprint 05 | separate state machines and failure behavior |
+| Multidimensional, build-bound trust | FULL | Blueprint 05, 11 | provenance, version, environment and scope |
+| Dynamic discovery with governed activation | FULL | Blueprint 05 | fail-closed activation and sandbox verification |
+| Provider selection and fallback | FULL | Blueprint 05 | fit, sensitivity, cost, latency, recovery and explainability |
+| Provider suspension/revocation/retirement | FULL | Blueprint 05, 11 | lifecycle and incident response |
+| Aurora-owned semantic contracts | FULL | Blueprint 03, 05, 07, ADR-0001 | entities, versioning and binding neutrality |
+| AHDK mandatory for first-party by policy | FULL | Blueprint 05, ADR-0002 | waiver and organizational policy |
+| Contract independent from SDK | FULL | Blueprint 05, ADR-0002 | direct implementation/conformance proof |
+| AHDK as development kit | FULL | Blueprint 05, AHDK Research | module architecture and Golden Path |
+| Generated types, manifest builder, lifecycle/context/effect/artifact APIs | FULL | Blueprint 05 | conceptual interfaces and responsibilities |
+| Cancellation, checkpoints, heartbeat and budgets | FULL | Blueprint 05, 07 | API/lifecycle behavior |
+| Simulator, mocks, fault injection and scaffolder | FULL | Blueprint 05, ACRM | conformance and creation path |
+| MCP/A2A/native binding roles | FULL | Blueprint 07, Interoperability Research | mapping, limits and maturity |
+| Framework roles | FULL | Framework Research | Mastra, LangGraph, Pi, OpenHands, OpenAI Agents SDK and Langflow |
+| Exact protocol/schema/runtime choices | OPEN_DECISION | ADRs/spikes | no mechanism silently promoted |
 
-This matrix becomes `FULL` for all approved discovery decisions before A0 can be accepted. Items marked `OPEN` may remain open only when their decision is deliberately deferred to research or an architecture spike.
+---
+
+## 10. Durability, security, observability and provenance
+
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Durable execution separate from agent runtime | FULL | Blueprint 12, Durability Research | DurableExecutionPort and comparison criteria |
+| Temporal, DBOS, Restate and Inngest | OPEN_RESEARCH | Durability Research | focused alternatives and spike plan |
+| SDK is not a security boundary | FULL | Blueprint 10, 11, ADR-0002 | bypass examples and external enforcement chain |
+| Policy decision separate from enforcement | FULL | Blueprint 10, 11, 12 | PDP → gateway → receipt flow |
+| Effect Gateways and Credential Broker | FULL | Blueprint 10–12 | gateway catalog and reference-based secret flow |
+| Subject, actor, executor and device identity | FULL | Blueprint 03, 10, 11 | delegated identity and audit chain |
+| Cedar, OPA, SPIFFE and RFC 8693 | OPEN_RESEARCH | Authority Research | candidates remain unselected |
+| OpenTelemetry baseline | FULL | Blueprint 13, Events Research | signal model and Aurora semantic conventions |
+| CloudEvents, AsyncAPI, JSON Schema and Protobuf | OPEN_RESEARCH | Events Research | boundary hypotheses and compatibility tests |
+| SLSA-style provenance | FULL | Blueprint 05, 11 | build-bound provider trust lifecycle |
+| Distributed trace across Core/Harness/Tool/Gateway | FULL | Blueprint 13 | explicit Golden Proof |
+| Product storage/topology selection | OPEN_DECISION | Blueprint 12, future spikes | architecture ports defined without stack lock-in |
+
+---
+
+## 11. Documentation, methodology and roadmap
+
+| Discovery topic | Current coverage | Canonical owner | Evidence of preservation |
+|---|---|---|---|
+| Documentation as project memory and governance | FULL | Blueprint 15, Documentation Map | authority/lifecycle/storage/read paths |
+| Blueprint before implementation | FULL | Blueprint 15, ACRM, STATUS | R0 gate and implementation prohibition |
+| Research before material technical choice | FULL | Blueprint 15, Research Map | primary-source and freshness protocol |
+| Two planning horizons | FULL | Blueprint 01, 14 | constitutional direction vs executable commitment |
+| Roadmap by cumulative capability and proof | FULL | Blueprint 14, generated roadmap | full milestone anatomy and Golden Proofs |
+| Fresh-session Golden Proof | FULL | Blueprint 14, 15 | exact read path and expected output |
+| Status as handoff | FULL | Blueprint 15, STATUS | phase, authorization, evidence, blockers and next action |
+| One concept, one canonical owner | FULL | Blueprint 15, Documentation Map | conflict and divergence protocol |
+| Conversation as discovery, repository as canonical memory | FULL | Blueprint 15, History | promotion and historical preservation |
+| Aggregate Blueprint publication | FULL | Product Index, generated aggregate | deterministic source hashes and CI freshness |
+| Capability Realization Method | FULL | ACRM | R0–R8 gates and artifact model |
+| Requirements traceability | FULL | Requirements Traceability | 294 proposed constitutional requirements |
+| Mechanical documentation validation | FULL | scripts and CI | structure, IDs, relations, links, manifests, requirements and freshness |
+
+---
+
+## 12. Quantitative baseline
+
+At the current remediation state:
+
+```text
+Blueprint sections:          15
+Constitutional requirements: 294
+Focused + synthesis reports: 9
+Primary-source entries:      92
+Generated projections:       Product Blueprint + Roadmap
+```
+
+Counts are evidence of coverage, not proof of quality. Quality is determined by coherence, authority, mechanisms, scenarios, failure behavior and review.
+
+---
+
+## 13. Remaining open material
+
+The following remain deliberately open and do not constitute documentation gaps:
+
+- Aurora Core language and deployment shape;
+- first AHDK language;
+- schema representation per boundary;
+- local RPC binding;
+- durable execution engine;
+- policy engine and workload identity implementation;
+- canonical operational storage;
+- Artifact/Evidence Store;
+- event transport/backend;
+- memory mechanism mix;
+- first reference Harness runtime;
+- first Product Milestone contract after A0.
+
+Each requires focused readiness work under the Aurora Capability Realization Method.
+
+---
+
+## 14. Exit condition
+
+Discovery coverage is considered complete for A0 when:
+
+1. this matrix has no missing or unmapped topic;
+2. generated projections are current;
+3. metadata, relations, links and source manifests validate;
+4. the adversarial review is refreshed against the repaired package;
+5. a fresh session passes the documentation Golden Proof;
+6. Leandro explicitly accepts A0.
+
+Current state:
+
+```text
+CONTENT REMEDIATION COMPLETE
+MECHANICAL VALIDATION IN PROGRESS
+OPERATOR ACCEPTANCE NOT YET GRANTED
+```
