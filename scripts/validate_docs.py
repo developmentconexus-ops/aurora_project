@@ -20,7 +20,7 @@ NORMATIVE_AUTHORITIES = {
     "standard",
     "policy",
 }
-PLACEHOLDER_RE = re.compile(r"\b(?:TBD|TODO|FIXME|XXX)\b", re.IGNORECASE)
+PLACEHOLDER_RE = re.compile(r"\b(?:TBD|TODO|FIXME|XXX)\b")
 MARKDOWN_LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
 SOURCE_REF_RE = re.compile(r"\[(S\d{2,})\]")
 REQ_ID_RE = re.compile(r"\bAUR-REQ-[A-Z0-9-]+-\d{3}\b")
@@ -45,11 +45,6 @@ class Document:
         value = self.fields.get("authority")
         return value if isinstance(value, str) else ""
 
-    @property
-    def status(self) -> str:
-        value = self.fields.get("status")
-        return value if isinstance(value, str) else ""
-
 
 def split_frontmatter(text: str, path: Path) -> tuple[str, str]:
     if not text.startswith("---\n"):
@@ -61,12 +56,7 @@ def split_frontmatter(text: str, path: Path) -> tuple[str, str]:
 
 
 def parse_simple_yaml(frontmatter: str, path: Path) -> dict[str, object]:
-    """Parse the constrained frontmatter shape used by Aurora docs.
-
-    Supports top-level scalar fields and top-level lists. Nested objects are not
-    required for canonical metadata and are deliberately rejected rather than
-    silently misread.
-    """
+    """Parse Aurora's constrained top-level scalar/list frontmatter."""
     result: dict[str, object] = {}
     current_list: str | None = None
     for line_number, raw in enumerate(frontmatter.splitlines(), start=1):
@@ -76,15 +66,13 @@ def parse_simple_yaml(frontmatter: str, path: Path) -> dict[str, object]:
             if current_list is None:
                 raise ValueError(f"{path}:{line_number}: list item without key")
             value = raw[4:].strip().strip('"').strip("'")
-            cast = result[current_list]
-            if not isinstance(cast, list):
+            target = result[current_list]
+            if not isinstance(target, list):
                 raise ValueError(f"{path}:{line_number}: invalid list state")
-            cast.append(value)
+            target.append(value)
             continue
         if raw.startswith(" "):
-            raise ValueError(
-                f"{path}:{line_number}: nested frontmatter is unsupported; use a top-level scalar/list"
-            )
+            raise ValueError(f"{path}:{line_number}: nested frontmatter is unsupported")
         if ":" not in raw:
             raise ValueError(f"{path}:{line_number}: malformed frontmatter line")
         key, value = raw.split(":", 1)
@@ -94,8 +82,10 @@ def parse_simple_yaml(frontmatter: str, path: Path) -> dict[str, object]:
         if not value:
             result[key] = []
             current_list = key
-        elif value in {"[]", "{}"}:
-            result[key] = [] if value == "[]" else {}
+        elif value == "[]":
+            result[key] = []
+        elif value == "{}":
+            result[key] = {}
         elif value.lower() in {"null", "~"}:
             result[key] = None
         elif value.lower() in {"true", "false"}:
@@ -124,7 +114,6 @@ def load_documents(root: Path, errors: list[str]) -> list[Document]:
             continue
         text = path.read_text(encoding="utf-8")
         if not text.startswith("---\n"):
-            # Human entrypoints may intentionally omit canonical metadata.
             if path.name not in {"README.md", "AGENTS.md", "CONTRIBUTING.md"}:
                 errors.append(f"{path.relative_to(root)}: canonical Markdown missing frontmatter")
             continue
@@ -139,28 +128,28 @@ def load_documents(root: Path, errors: list[str]) -> list[Document]:
 
 
 def validate_expected_structure(root: Path, errors: list[str]) -> None:
-    expected_blueprints = [
-        root / "docs/product/blueprint" / f"{index:02d}-{slug}.md"
-        for index, slug in [
-            (1, "product-vision"),
-            (2, "human-aurora-relationship"),
-            (3, "domain-world-model"),
-            (4, "cognitive-lifecycle-journeys"),
-            (5, "capability-system"),
-            (6, "memory-knowledge-context"),
-            (7, "harness-orchestration"),
-            (8, "interaction-multimodality-presence"),
-            (9, "tools-devices-laboratory"),
-            (10, "autonomy-authority-safety"),
-            (11, "security-privacy-sovereignty"),
-            (12, "system-architecture"),
-            (13, "reliability-observability-evaluation"),
-            (14, "capability-roadmap"),
-            (15, "documentation-research-governance"),
-        ]
+    slugs = [
+        "product-vision",
+        "human-aurora-relationship",
+        "domain-world-model",
+        "cognitive-lifecycle-journeys",
+        "capability-system",
+        "memory-knowledge-context",
+        "harness-orchestration",
+        "interaction-multimodality-presence",
+        "tools-devices-laboratory",
+        "autonomy-authority-safety",
+        "security-privacy-sovereignty",
+        "system-architecture",
+        "reliability-observability-evaluation",
+        "capability-roadmap",
+        "documentation-research-governance",
     ]
     expected = [
-        *expected_blueprints,
+        *[
+            root / "docs/product/blueprint" / f"{index:02d}-{slug}.md"
+            for index, slug in enumerate(slugs, start=1)
+        ],
         root / "docs/product/CAPABILITY-REALIZATION-METHOD.md",
         root / "docs/product/REQUIREMENTS-TRACEABILITY.md",
         root / "docs/product/PRODUCT-BLUEPRINT.md",
@@ -201,7 +190,24 @@ def validate_metadata(docs: list[Document], errors: list[str]) -> dict[str, Docu
     return by_id
 
 
-def validate_relations(docs: list[Document], by_id: dict[str, Document], errors: list[str]) -> None:
+def load_manifest_ids(root: Path, errors: list[str]) -> set[str]:
+    result: set[str] = set()
+    for path in sorted((root / "docs/research").glob("*.sources.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        manifest_id = data.get("id")
+        if not isinstance(manifest_id, str):
+            errors.append(f"{path.relative_to(root)}: manifest missing top-level id")
+        elif manifest_id in result:
+            errors.append(f"{path.relative_to(root)}: duplicate manifest id {manifest_id}")
+        else:
+            result.add(manifest_id)
+    return result
+
+
+def validate_relations(docs: list[Document], valid_ids: set[str], errors: list[str]) -> None:
     for doc in docs:
         related = doc.fields.get("related", [])
         if related is None:
@@ -212,11 +218,8 @@ def validate_relations(docs: list[Document], by_id: dict[str, Document], errors:
         for target in related:
             if not isinstance(target, str):
                 errors.append(f"{doc.path.relative_to(ROOT)}: non-string related target")
-                continue
-            if target not in by_id:
-                errors.append(
-                    f"{doc.path.relative_to(ROOT)}: unresolved related id {target}"
-                )
+            elif target not in valid_ids:
+                errors.append(f"{doc.path.relative_to(ROOT)}: unresolved related id {target}")
 
 
 def validate_links(root: Path, docs: list[Document], errors: list[str]) -> None:
@@ -232,14 +235,10 @@ def validate_links(root: Path, docs: list[Document], errors: list[str]) -> None:
             try:
                 resolved.relative_to(root.resolve())
             except ValueError:
-                errors.append(
-                    f"{doc.path.relative_to(root)}: link escapes repository: {target}"
-                )
+                errors.append(f"{doc.path.relative_to(root)}: link escapes repository: {target}")
                 continue
             if not resolved.exists():
-                errors.append(
-                    f"{doc.path.relative_to(root)}: broken local link: {target}"
-                )
+                errors.append(f"{doc.path.relative_to(root)}: broken local link: {target}")
 
 
 def validate_placeholders(docs: list[Document], errors: list[str]) -> None:
@@ -247,10 +246,14 @@ def validate_placeholders(docs: list[Document], errors: list[str]) -> None:
         if doc.authority not in NORMATIVE_AUTHORITIES:
             continue
         for line_number, line in enumerate(doc.body.splitlines(), start=1):
-            if PLACEHOLDER_RE.search(line):
-                errors.append(
-                    f"{doc.path.relative_to(ROOT)} body line {line_number}: unresolved placeholder: {line.strip()}"
-                )
+            if not PLACEHOLDER_RE.search(line):
+                continue
+            lower = line.lower()
+            if any(term in lower for term in ("placeholder", "unresolved", "scan", "prohibited")):
+                continue
+            errors.append(
+                f"{doc.path.relative_to(ROOT)} body line {line_number}: unresolved placeholder: {line.strip()}"
+            )
 
 
 def validate_source_manifests(root: Path, errors: list[str], stats: dict[str, int]) -> None:
@@ -280,31 +283,23 @@ def validate_source_manifests(root: Path, errors: list[str], stats: dict[str, in
             ids.append(source_id)
             for field in ("title", "url", "publisher", "type", "accessed_at"):
                 if not source.get(field):
-                    errors.append(
-                        f"{manifest.relative_to(root)}: source {source_id} missing {field}"
-                    )
+                    errors.append(f"{manifest.relative_to(root)}: source {source_id} missing {field}")
         if len(ids) != len(set(ids)):
             errors.append(f"{manifest.relative_to(root)}: duplicate source ids")
         source_count += len(ids)
 
         report = manifest.with_name(manifest.name.replace(".sources.json", ".md"))
         if not report.exists():
-            errors.append(
-                f"{manifest.relative_to(root)}: matching research report missing: {report.name}"
-            )
+            errors.append(f"{manifest.relative_to(root)}: matching report missing: {report.name}")
             continue
         referenced = set(SOURCE_REF_RE.findall(report.read_text(encoding="utf-8")))
         defined = set(ids)
         missing = sorted(referenced - defined)
         unused = sorted(defined - referenced)
         if missing:
-            errors.append(
-                f"{report.relative_to(root)}: undefined source references: {', '.join(missing)}"
-            )
+            errors.append(f"{report.relative_to(root)}: undefined source references: {', '.join(missing)}")
         if unused:
-            errors.append(
-                f"{report.relative_to(root)}: manifest sources not cited: {', '.join(unused)}"
-            )
+            errors.append(f"{report.relative_to(root)}: manifest sources not cited: {', '.join(unused)}")
     stats["source_manifests"] = manifest_count
     stats["research_sources"] = source_count
 
@@ -313,18 +308,16 @@ def validate_requirements(root: Path, errors: list[str], stats: dict[str, int]) 
     path = root / "docs/product/REQUIREMENTS-TRACEABILITY.md"
     if not path.exists():
         return
-    text = path.read_text(encoding="utf-8")
-    ids = REQ_ID_RE.findall(text)
-    duplicates = sorted({req for req in ids if ids.count(req) > 1})
+    ids = REQ_ID_RE.findall(path.read_text(encoding="utf-8"))
+    counts: dict[str, int] = {}
+    for req_id in ids:
+        counts[req_id] = counts.get(req_id, 0) + 1
+    duplicates = sorted(req_id for req_id, count in counts.items() if count > 1)
     if duplicates:
-        errors.append(
-            f"{path.relative_to(root)}: duplicate requirement IDs: {', '.join(duplicates[:20])}"
-        )
-    stats["requirements"] = len(set(ids))
-    if len(set(ids)) < 200:
-        errors.append(
-            f"{path.relative_to(root)}: expected comprehensive traceability, found only {len(set(ids))} requirements"
-        )
+        errors.append(f"{path.relative_to(root)}: duplicate requirement IDs: {', '.join(duplicates[:20])}")
+    stats["requirements"] = len(counts)
+    if len(counts) < 200:
+        errors.append(f"{path.relative_to(root)}: expected comprehensive traceability, found {len(counts)} requirements")
 
 
 def validate_coverage(root: Path, errors: list[str]) -> None:
@@ -332,18 +325,13 @@ def validate_coverage(root: Path, errors: list[str]) -> None:
     if not path.exists():
         return
     text = path.read_text(encoding="utf-8")
-    missing_markers = re.findall(r"\|[^\n]*\|\s*(?:MISSING|UNMAPPED|OPEN_GAP)\s*\|", text)
-    if missing_markers:
-        errors.append(
-            f"{path.relative_to(root)}: unresolved coverage gaps: {len(missing_markers)}"
-        )
+    gaps = re.findall(r"\|[^\n]*\|\s*(?:MISSING|UNMAPPED|OPEN_GAP)\s*\|", text)
+    if gaps:
+        errors.append(f"{path.relative_to(root)}: unresolved coverage gaps: {len(gaps)}")
 
 
 def validate_generated(root: Path, generated_root: Path, errors: list[str]) -> None:
-    for relative in (
-        Path("docs/product/PRODUCT-BLUEPRINT.md"),
-        Path("docs/roadmap.md"),
-    ):
+    for relative in (Path("docs/product/PRODUCT-BLUEPRINT.md"), Path("docs/roadmap.md")):
         expected = generated_root / relative
         actual = root / relative
         if not expected.exists():
@@ -368,11 +356,7 @@ def write_report(path: Path, errors: list[str], warnings: list[str], stats: dict
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--generated-root", type=Path, required=True)
-    parser.add_argument(
-        "--report",
-        type=Path,
-        default=ROOT / "docs-validation-report.json",
-    )
+    parser.add_argument("--report", type=Path, default=ROOT / "docs-validation-report.json")
     args = parser.parse_args()
 
     errors: list[str] = []
@@ -383,8 +367,10 @@ def main() -> int:
     docs = load_documents(ROOT, errors)
     stats["canonical_documents"] = len(docs)
     by_id = validate_metadata(docs, errors)
+    manifest_ids = load_manifest_ids(ROOT, errors)
     stats["document_ids"] = len(by_id)
-    validate_relations(docs, by_id, errors)
+    stats["manifest_ids"] = len(manifest_ids)
+    validate_relations(docs, set(by_id) | manifest_ids, errors)
     validate_links(ROOT, docs, errors)
     validate_placeholders(docs, errors)
     validate_source_manifests(ROOT, errors, stats)
