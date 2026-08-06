@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.1.0
+version: 0.1.1
 owners:
   - developmentconexus-ops
 last_reviewed: 2026-08-05
@@ -83,3 +83,11 @@ Conclusion: direction is valid with the refinement that AHDK is mandatory by fir
 - branch `docs/architecture-baseline` created;
 - modular documentation package prepared;
 - no code implementation.
+
+## 2026-08-05 — Review proposal
+
+- 26 repository files verified against the prepared baseline;
+- frontmatter, IDs, internal links and research source references validated;
+- one publication typo in a related document ID detected and corrected;
+- draft PR #1 opened for operator review;
+- implementation and architecture spikes remain prohibited.
