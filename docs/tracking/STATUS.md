@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.1.0
+version: 0.1.1
 owners:
   - developmentconexus-ops
 related:
@@ -23,6 +23,7 @@ last_reviewed: 2026-08-05
 - **Repository:** `developmentconexus-ops/aurora_project`
 - **Phase:** A0 — Product and Architecture Baseline
 - **Working branch:** `docs/architecture-baseline`
+- **Draft pull request:** #1 — product and harness architecture baseline
 - **Implementation:** not started
 - **Current proposal:** Capability and Harness Architecture
 - **Research baseline:** Harness Architecture Research v1
@@ -82,11 +83,11 @@ These become canonical only after operator review and merge.
 
 ## Blockers
 
-No technical blocker. The current gate is operator review of the written baseline.
+No technical blocker. The current gate is operator review of draft PR #1.
 
 ## Immediate next action
 
-1. Review the design spec and supporting documents.
-2. Request corrections or approve the baseline.
+1. Review PR #1, especially the design spec and proposed ADRs.
+2. Request corrections or explicitly approve the baseline.
 3. After approval, promote statuses and write a detailed plan for A0 closeout / architecture spikes.
 4. Do not implement before a separate plan approval.
