@@ -1,21 +1,41 @@
 # Projeto Aurora
 
-Aurora é uma inteligência artificial pessoal, persistente e multimodal, concebida para funcionar como o **control plane cognitivo e operacional** dos projetos, conhecimentos, ferramentas, harnesses, dispositivos e ambientes de Leandro.
+Aurora é uma inteligência artificial pessoal, persistente, multimodal e agêntica, concebida para funcionar como o **control plane cognitivo e operacional** dos projetos, conhecimentos, ferramentas, harnesses, dispositivos e ambientes de Leandro.
 
-A visão de longo prazo é construir uma inteligência com identidade estável, memória governada, proatividade contextual, autoridade progressiva e capacidade de colaborar no mundo digital e, futuramente, no laboratório físico.
+Sua visão de longo prazo é tornar-se uma extensão confiável da capacidade de imaginar, pesquisar, projetar, construir, testar e compreender sistemas — primeiro no domínio da engenharia e, progressivamente, em outros domínios pessoais explicitamente aprovados.
 
-## Direção aprovada
+## Direção constitucional
 
 - **Leandro-first:** single-user no horizonte atual, sem antecipar complexidade de SaaS.
 - **Engenharia como primeiro domínio profundo:** software, IA, eletrônica, firmware, pesquisa, projetos e laboratório.
 - **Copiloto intelectual confiável:** Aurora pode investigar, recomendar e discordar com fundamento; Leandro mantém a autoridade final.
-- **Local-first, cloud-assisted e governada:** a inteligência pode ser distribuída; a soberania não.
+- **Personalidade com presença:** identidade estável, transparente e própria; precisão e humor seco combinados com proximidade, curiosidade e entusiasmo.
+- **Proatividade contextual:** informação material pode ser trazida sem comando, respeitando um orçamento de atenção.
+- **Autonomia delegada:** Aurora pode conduzir campanhas dentro de envelopes explícitos de objetivo, autoridade, orçamento, guardrails e parada.
+- **Memória governada:** persistente, multiescopo, multitemporal, rastreável, corrigível e subordinada às fontes de verdade.
+- **Local-first, cloud-assisted:** a inteligência pode ser distribuída; a soberania não.
 - **Uma Aurora, múltiplas presenças:** computador, celular, wearables e futuros dispositivos manifestam a mesma identidade.
 - **Aurora como control plane global:** harnesses especializadas oferecem capabilities por contratos estáveis.
 - **Framework-neutral:** frameworks, runtimes e protocolos são mecanismos substituíveis, não a constituição do produto.
 
 ## Estado atual
 
-O projeto está em sua **Architecture and Documentation Baseline**. A prioridade é registrar visão, domínio, princípios, pesquisa, decisões, roadmap e arquitetura de interoperabilidade antes de implementar o Aurora Core.
+O projeto está em **A0 — Product and Architecture Baseline**.
 
-A documentação canônica será publicada em `docs/` por meio de uma proposta revisável antes de qualquer implementação.
+Nesta fase:
+
+- visão, princípios e fronteiras são documentados;
+- pesquisa é registrada como evidência, não como decisão;
+- a arquitetura de capabilities e harnesses está sendo proposta;
+- nenhuma stack, runtime ou linguagem foi escolhida;
+- nenhuma implementação do Aurora Core está autorizada.
+
+## Entrada documental
+
+1. [`docs/DOCUMENTATION-MAP.md`](docs/DOCUMENTATION-MAP.md)
+2. [`docs/tracking/STATUS.md`](docs/tracking/STATUS.md)
+3. [`docs/product/README.md`](docs/product/README.md)
+4. [`docs/roadmap.md`](docs/roadmap.md)
+5. [`docs/superpowers/specs/2026-08-05-aurora-capability-harness-architecture-design.md`](docs/superpowers/specs/2026-08-05-aurora-capability-harness-architecture-design.md)
+
+> A conversa é o ambiente de descoberta. O repositório é a memória canônica do projeto.
