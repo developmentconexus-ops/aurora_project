@@ -201,8 +201,15 @@ def load_manifest_ids(root: Path, errors: list[str]) -> set[str]:
             continue
         manifest_id = data.get("id")
         if not isinstance(manifest_id, str):
-            errors.append(f"{path.relative_to(root)}: manifest missing top-level id")
-        elif manifest_id in result:
+            research_id = data.get("research_id")
+            if isinstance(research_id, str):
+                manifest_id = f"{research_id}-SOURCES"
+            else:
+                errors.append(
+                    f"{path.relative_to(root)}: manifest requires id or research_id"
+                )
+                continue
+        if manifest_id in result:
             errors.append(f"{path.relative_to(root)}: duplicate manifest id {manifest_id}")
         else:
             result.add(manifest_id)
@@ -248,7 +255,11 @@ def validate_placeholders(docs: list[Document], errors: list[str]) -> None:
         if doc.authority not in NORMATIVE_AUTHORITIES:
             continue
         for line_number, line in enumerate(doc.body.splitlines(), start=1):
-            if not PLACEHOLDER_RE.search(line):
+            match = PLACEHOLDER_RE.search(line)
+            if not match:
+                continue
+            token = match.group(0)
+            if f"`{token}`" in line:
                 continue
             lower = line.lower()
             if any(term in lower for term in ("placeholder", "unresolved", "scan", "prohibited")):
