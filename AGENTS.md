@@ -1,55 +1,163 @@
 # AGENTS.md
 
-Este arquivo é o bootstrap mínimo para qualquer agente ou nova sessão que trabalhe no Projeto Aurora.
+This file is the minimum mandatory bootstrap for any agent or fresh session working on Projeto Aurora.
 
-## Ordem obrigatória de leitura
+## 1. Mandatory read order
 
-1. `docs/DOCUMENTATION-MAP.md`
-2. `docs/tracking/STATUS.md`
-3. `docs/roadmap.md`
-4. somente as seções do Product Blueprint relacionadas ao trabalho atual;
-5. ADRs, pesquisas, specs e designs referenciados pelo escopo.
+Always begin with:
 
-## Regras de autoridade
+1. `docs/tracking/STATUS.md`
+2. `docs/DOCUMENTATION-MAP.md`
+3. `docs/product/README.md`
+4. `docs/roadmap.md`
+5. only the Product Blueprint sections relevant to the current scope
+6. related requirements, research, ADRs, specs, contracts, designs and evidence
 
-- Conversas, issues, backlog e research reports não redefinem arquitetura por conta própria.
-- O Product Blueprint governa invariantes constitucionais.
-- ADRs aceitos governam decisões específicas dentro dos limites constitucionais.
-- Specs governam capabilities reutilizáveis.
-- Contratos governam uma execução delimitada.
-- Tracking informa estado atual, nunca doutrina.
-- Código futuro deve declarar impacto documental.
+For A0 constitutional review, read the complete generated Product Blueprint and the discovery/coverage records.
 
-## Limites da fase atual
+Do not infer current authority from an old transcript, branch name, issue title or file existence.
+
+## 2. Authority rules
+
+- Product Blueprint owns constitutional product meaning.
+- Accepted ADRs own specific decisions compatible with the constitution.
+- Capability Specs own reusable capability behavior.
+- Approved Mission Contracts own exact scoped commitments.
+- Standards/Policies own methods, Golden Paths, enforcement profiles and waivers.
+- Reference documents describe current machinery.
+- Evidence proves an observation against a target.
+- Tracking reports current coordination only.
+- Research and historical records inform; they do not govern.
+- Generated projections follow their canonical modular sources.
+
+When sources conflict, do not choose silently. Raise `DOCUMENTATION_DIVERGENCE`, identify the canonical owner and block affected work when material.
+
+## 3. Current phase and authorization
 
 ```text
-Fase: A0 — Product and Architecture Baseline
-Implementação do Aurora Core: PROIBIDA
-Architecture spikes: PROPOSTOS, NÃO AUTORIZADOS
-Escolha de stack: NÃO REALIZADA
-Documento em revisão: Capability System and Harness Architecture
+Phase: A0 — Product, Discovery and Architecture Baseline
+Working branch: docs/architecture-baseline
+Draft PR: #1
+A0 content: IN REVIEW / REMEDIATION
+Aurora Core implementation: PROHIBITED
+AHDK implementation: PROHIBITED
+Architecture Spikes: PROPOSED, NOT AUTHORIZED
+Stack selection: NOT PERFORMED
+MNFS integration: PROHIBITED
+Automatic merge: NOT AUTHORIZED
 ```
 
-Não implemente runtime, SDK, protocol binding, banco, UI ou integração com MNFS antes de:
+Documentation, research, adversarial review and validation are authorized.
 
-1. a proposta documental ser revisada por Leandro;
-2. decisões materiais serem promovidas a ADRs aceitos;
-3. existir um plano de implementação aprovado.
+Do not implement runtime, database, SDK, protocol binding, UI, model router, memory engine, device controller or MNFS adapter until:
 
-## Conduta de pesquisa
+1. A0 is explicitly accepted by Leandro;
+2. the next Product Milestone is selected;
+3. relevant ACRM R0–R6 gates pass;
+4. exact implementation is separately authorized.
 
-- Use fontes primárias e atuais.
-- Registre data, versão, limitações e origem.
-- Separe fato, inferência, recomendação e decisão.
-- Uma tecnologia estudada é candidata, não escolha.
-- Diante de informação temporalmente instável, verifique novamente.
+## 4. Aurora Capability Realization Method
 
-## Regra de continuidade
+Material work follows:
 
-Ao terminar trabalho material:
+```text
+R0 Constitutional Baseline
+→ R1 Applicability
+→ R2 Requirements
+→ R3 Capability Readiness
+→ R4 Architecture/Decision Readiness
+→ R5 Contract Readiness
+→ R6 Implementation Design Readiness
+→ R7 Execution and Evidence
+→ R8 Product Milestone Closeout
+```
 
-- atualize `docs/tracking/STATUS.md`;
-- registre o que ocorreu em `docs/tracking/WORKLOG.md`;
-- atualize `docs/tracking/DECISIONS.md` quando aplicável;
-- declare divergências, bloqueios e próxima ação exata;
-- não deixe decisões apenas no transcript.
+Read `docs/product/CAPABILITY-REALIZATION-METHOD.md` before planning a capability.
+
+Rules:
+
+- no material implementation without traceable approved intent;
+- no approved requirement without evidence or explicit deferral;
+- research, ADR, Spec, Contract, Plan, code and Evidence remain distinct;
+- a plan cannot alter approved product intent;
+- a Claim is not acceptance;
+- Product Milestone closure requires its end-to-end Golden Proof;
+- completing one gate does not authorize the next gate;
+- material change triggers replan through the owning artifact.
+
+## 5. Research conduct
+
+- Use current primary sources: specifications, official docs, official repositories, standards and papers where appropriate.
+- Record source ID, title, publisher, URL, access date, relevant version and supported claims.
+- State limitations and disagreements.
+- Separate fact, inference, recommendation and decision.
+- Treat every framework/protocol/runtime as a candidate until accepted through the appropriate gate.
+- Revalidate temporally unstable information when implementation approaches.
+- Pair each material report with a `*.sources.json` manifest.
+
+## 6. Working with the Product Blueprint
+
+- Edit modular files under `docs/product/blueprint/`.
+- Never edit `docs/product/PRODUCT-BLUEPRINT.md` directly.
+- Edit Blueprint 14 rather than `docs/roadmap.md` directly.
+- Regenerate projections with `python scripts/generate_docs.py`.
+- Run validation through the documentation workflow or validator.
+- Update `REQUIREMENTS-TRACEABILITY.md` when constitutional meaning changes.
+- Update `DOCUMENTATION-COVERAGE.md` when discovery coverage changes.
+
+## 7. Planning and implementation conduct
+
+Before any future implementation:
+
+- inspect the actual repository/code state;
+- identify the exact accepted Contract and baseline;
+- allocate requirements to exact criteria;
+- produce a reviewed Microdesign/Implementation Plan;
+- use test-first RED/GREEN where applicable;
+- include cross-layer wiring, failures, recovery, observability, security and docs impact;
+- do not introduce unrelated refactoring;
+- stop and replan when a material decision appears during implementation.
+
+The implementer must not be the sole authority accepting material work.
+
+## 8. Evidence and status
+
+At the end of material work:
+
+- update `docs/tracking/STATUS.md`;
+- append `docs/tracking/WORKLOG.md`;
+- update `docs/tracking/DECISIONS.md` when a decision owner/status changes;
+- update `docs/tracking/BACKLOG.md` for non-commitment ideas;
+- record Findings, limitations and next action;
+- declare documentation impact;
+- preserve exact target revision and evidence references;
+- do not claim completion without fresh verification.
+
+## 9. Documentation checks
+
+Current CI validates:
+
+- expected files;
+- frontmatter;
+- unique IDs;
+- relation targets;
+- local links;
+- source manifests and citations;
+- requirement IDs;
+- discovery coverage gaps;
+- normative placeholders;
+- generated Blueprint and Roadmap freshness.
+
+A green documentation check proves structural consistency, not product correctness. Adversarial review and operator acceptance remain required.
+
+## 10. Fresh-session obligation
+
+A new session must be able to state, from the repository alone:
+
+- what Aurora is;
+- current phase and prohibitions;
+- canonical owners;
+- open versus accepted decisions;
+- exact next action.
+
+If this cannot be done, stop and repair documentation continuity before proceeding.
