@@ -1,41 +1,120 @@
 # Projeto Aurora
 
-Aurora é uma inteligência artificial pessoal, persistente, multimodal e agêntica, concebida para funcionar como o **control plane cognitivo e operacional** dos projetos, conhecimentos, ferramentas, harnesses, dispositivos e ambientes de Leandro.
+Aurora é uma **inteligência artificial pessoal, persistente, multimodal e agêntica** concebida para funcionar como o sistema operacional cognitivo e o control plane global dos projetos, conhecimentos, capacidades, ferramentas, dispositivos e ambientes de Leandro.
 
-Sua visão de longo prazo é tornar-se uma extensão confiável da capacidade de imaginar, pesquisar, projetar, construir, testar e compreender sistemas — primeiro no domínio da engenharia e, progressivamente, em outros domínios pessoais explicitamente aprovados.
+Sua visão de longo prazo é tornar-se uma extensão confiável da capacidade de:
+
+```text
+imaginar
+→ pesquisar
+→ projetar
+→ construir
+→ testar
+→ observar
+→ compreender
+→ aprender
+```
+
+O primeiro domínio operacional profundo é engenharia: software, IA, eletrônica, hardware, firmware, pesquisa, desenvolvimento de produtos e laboratório.
+
+## North Star
+
+> Leandro entra no laboratório, convoca Aurora e continua qualquer projeto exatamente do ponto em que parou. Aurora conhece objetivo, estado, decisões e evidências; reúne conhecimento; coordena capacidades digitais e físicas; acompanha o experimento; identifica riscos e anomalias; registra o que aconteceu; e ajuda a decidir o próximo passo.
 
 ## Direção constitucional
 
-- **Leandro-first:** single-user no horizonte atual, sem antecipar complexidade de SaaS.
-- **Engenharia como primeiro domínio profundo:** software, IA, eletrônica, firmware, pesquisa, projetos e laboratório.
-- **Copiloto intelectual confiável:** Aurora pode investigar, recomendar e discordar com fundamento; Leandro mantém a autoridade final.
-- **Personalidade com presença:** identidade estável, transparente e própria; precisão e humor seco combinados com proximidade, curiosidade e entusiasmo.
-- **Proatividade contextual:** informação material pode ser trazida sem comando, respeitando um orçamento de atenção.
-- **Autonomia delegada:** Aurora pode conduzir campanhas dentro de envelopes explícitos de objetivo, autoridade, orçamento, guardrails e parada.
-- **Memória governada:** persistente, multiescopo, multitemporal, rastreável, corrigível e subordinada às fontes de verdade.
-- **Local-first, cloud-assisted:** a inteligência pode ser distribuída; a soberania não.
-- **Uma Aurora, múltiplas presenças:** computador, celular, wearables e futuros dispositivos manifestam a mesma identidade.
-- **Aurora como control plane global:** harnesses especializadas oferecem capabilities por contratos estáveis.
-- **Framework-neutral:** frameworks, runtimes e protocolos são mecanismos substituíveis, não a constituição do produto.
+- **Leandro-first:** single-user no horizonte atual, sem antecipar multi-tenancy ou complexidade de SaaS.
+- **Inteligência pessoal ampla, engenharia primeiro:** novos domínios entram somente como capabilities explicitamente aprovadas.
+- **Copiloto intelectual confiável:** Aurora investiga, recomenda e discorda com fundamento; Leandro mantém autoridade final.
+- **Personalidade com presença:** identidade estável e transparente; precisão e humor seco combinados com proximidade, curiosidade e entusiasmo.
+- **Proatividade contextual:** pode trazer informação material sem comando, respeitando relevância, urgência, confiança e custo da interrupção.
+- **Autonomia delegada:** pode conduzir ações, workflows e campanhas dentro de envelopes explícitos de objetivo, autoridade, budget, guardrails e parada.
+- **Memória governada:** multiescopo, multitemporal, rastreável, corrigível, supersedível e subordinada a fontes de verdade.
+- **Local-first, cloud-assisted:** computação pode ser distribuída; identidade, autoridade e soberania permanecem sob controle de Leandro.
+- **Uma Aurora, múltiplas presenças:** computador, celular, wearables, displays e dispositivos futuros manifestam a mesma identidade com capabilities e permissões próprias.
+- **Aurora como control plane global:** Harnesses especializadas oferecem capabilities por contratos estáveis.
+- **Framework-neutral:** modelos, frameworks, runtimes e protocolos são mecanismos substituíveis, não a constituição do produto.
+- **Evidence-driven:** claims, artefatos, observações, receipts, evidence e verdicts são distintos.
+- **Aprender continuamente, mudar deliberadamente:** autoaperfeiçoamento exige investigação causal, sandbox, avaliação ampla, revisão independente e rollback.
+
+## Arquitetura conceitual
+
+```text
+Leandro / Presenças
+        ↓
+Aurora Core
+├── Identity and World/Project Model
+├── Memory and Context Builder
+├── Mission and Delegation Control
+├── Capability Registry
+├── Authority, Policy and Budgets
+├── Durable Execution Port
+├── Artifact/Evidence Coordination
+└── Observability and Evaluation
+        ↓
+Aurora Contract Model
+        ↓
+Bindings: Native AHDK | RPC | A2A | MCP | HTTP/gRPC/Events
+        ↓
+Specialized Harnesses
+├── Research
+├── Software / MNFS
+├── Hardware
+├── Firmware
+├── Laboratory
+├── Evaluation
+└── future personal domains
+```
+
+Aurora governa objetivo global, contexto, authority, budget, composição e relação com Leandro. Cada Harness governa como produzir seu resultado especializado dentro da Delegation recebida.
 
 ## Estado atual
 
-O projeto está em **A0 — Product and Architecture Baseline**.
+```text
+Phase: A0 — Product, Discovery and Architecture Baseline
+Branch: docs/architecture-baseline
+Draft PR: #1
+Runtime implementation: PROHIBITED
+Architecture Spikes: NOT AUTHORIZED
+Stack selection: NOT PERFORMED
+```
 
-Nesta fase:
+A0 está reconstruindo e validando a base documental completa. A existência de arquivos não significa aceitação nem autorização para implementar.
 
-- visão, princípios e fronteiras são documentados;
-- pesquisa é registrada como evidência, não como decisão;
-- a arquitetura de capabilities e harnesses está sendo proposta;
-- nenhuma stack, runtime ou linguagem foi escolhida;
-- nenhuma implementação do Aurora Core está autorizada.
+## Documentação
 
-## Entrada documental
+Comece por:
 
-1. [`docs/DOCUMENTATION-MAP.md`](docs/DOCUMENTATION-MAP.md)
-2. [`docs/tracking/STATUS.md`](docs/tracking/STATUS.md)
-3. [`docs/product/README.md`](docs/product/README.md)
-4. [`docs/roadmap.md`](docs/roadmap.md)
-5. [`docs/superpowers/specs/2026-08-05-aurora-capability-harness-architecture-design.md`](docs/superpowers/specs/2026-08-05-aurora-capability-harness-architecture-design.md)
+1. [`AGENTS.md`](AGENTS.md) — bootstrap obrigatório para novas sessões;
+2. [`docs/tracking/STATUS.md`](docs/tracking/STATUS.md) — estado e boundary atual;
+3. [`docs/DOCUMENTATION-MAP.md`](docs/DOCUMENTATION-MAP.md) — autoridade, ownership e read paths;
+4. [`docs/product/README.md`](docs/product/README.md) — índice completo do Product Blueprint;
+5. [`docs/product/PRODUCT-BLUEPRINT.md`](docs/product/PRODUCT-BLUEPRINT.md) — publicação agregada gerada;
+6. [`docs/product/CAPABILITY-REALIZATION-METHOD.md`](docs/product/CAPABILITY-REALIZATION-METHOD.md) — metodologia R0–R8;
+7. [`docs/roadmap.md`](docs/roadmap.md) — Product Milestones e Golden Proofs;
+8. [`docs/research/RESEARCH-MAP.md`](docs/research/RESEARCH-MAP.md) — pesquisas e decisões ainda abertas.
 
-> A conversa é o ambiente de descoberta. O repositório é a memória canônica do projeto.
+Para entender a origem e garantir que nada importante ficou apenas no chat:
+
+- [`docs/history/2026-08-05-aurora-origin-and-discovery-record.md`](docs/history/2026-08-05-aurora-origin-and-discovery-record.md)
+- [`docs/tracking/DOCUMENTATION-COVERAGE.md`](docs/tracking/DOCUMENTATION-COVERAGE.md)
+- [`docs/reviews/2026-08-05-a0-adversarial-documentation-review.md`](docs/reviews/2026-08-05-a0-adversarial-documentation-review.md)
+
+## Metodologia
+
+```text
+Product Blueprint
+→ requirements and applicability
+→ focused research / Architecture Spikes
+→ ADRs
+→ Capability Spec
+→ Mission Contract
+→ Microdesign / Implementation Plan
+→ implementation
+→ Receipts and Evidence
+→ Verdict and Product Milestone Closeout
+```
+
+Cada transição possui um gate separado. Pesquisa não autoriza decisão; contrato não autoriza automaticamente implementação; testes locais não fecham milestone; e o próximo milestone nunca é liberado por implicação.
+
+> **A conversa é o ambiente de descoberta. O repositório é a memória canônica do projeto.**
