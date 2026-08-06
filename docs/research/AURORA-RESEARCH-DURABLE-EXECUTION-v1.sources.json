@@ -1,0 +1,67 @@
+{
+  "research_id": "RESEARCH-AURORA-DURABLE-EXECUTION-V1",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Official product documentation and primary project documentation for durable workflow semantics and agent-framework persistence.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Temporal Documentation",
+      "publisher": "Temporal Technologies",
+      "url": "https://docs.temporal.io/",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["durable workflow execution", "event history and replay", "workflows, activities, signals, timers and retries"],
+      "limitations": ["Operational burden and exact SDK/version behavior require a spike", "External side effects still require idempotency/reconciliation"]
+    },
+    {
+      "id": "S02",
+      "title": "DBOS Documentation",
+      "publisher": "DBOS",
+      "url": "https://docs.dbos.dev/",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["PostgreSQL-backed durable execution", "workflows, steps, queues and recovery"],
+      "limitations": ["Maturity, language fit and long-running Aurora behavior require testing"]
+    },
+    {
+      "id": "S03",
+      "title": "Restate Documentation",
+      "publisher": "Restate",
+      "url": "https://docs.restate.dev/",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["durable execution journal", "durable state, timers and messaging", "services, virtual objects and workflows"],
+      "limitations": ["Conceptual/runtime coupling and operational fit require a comparative spike"]
+    },
+    {
+      "id": "S04",
+      "title": "Inngest Documentation — Durable Functions",
+      "publisher": "Inngest",
+      "url": "https://www.inngest.com/docs/features/inngest-functions/steps-workflows",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["step-based durable functions", "event waits, scheduling, retries and checkpointed progress"],
+      "limitations": ["Cloud/managed orientation may not fit sovereign local-first Core", "Self-host and physical/local operation require verification"]
+    },
+    {
+      "id": "S05",
+      "title": "LangGraph Persistence and Durable Execution",
+      "publisher": "LangChain",
+      "url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["checkpoints, threads, interrupts and replay for graph agents"],
+      "limitations": ["Framework-specific graph state is not Aurora global state", "External effect correctness requires application design"]
+    },
+    {
+      "id": "S06",
+      "title": "Introducing Temporal Workflows in Mastra",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-temporal-workflows",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-05",
+      "supports": ["separation between agent workflow framework and stronger durable workflow engine", "multi-hour/day worker-resilient execution use case"],
+      "limitations": ["Vendor integration description", "Does not select either Mastra or Temporal for Aurora"]
+    }
+  ]
+}
