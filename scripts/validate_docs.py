@@ -24,7 +24,9 @@ PLACEHOLDER_RE = re.compile(r"\b(?:TBD|TODO|FIXME|XXX)\b")
 MARKDOWN_LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
 SOURCE_REF_RE = re.compile(r"\[(S\d{2,})\]")
 REQ_ID_RE = re.compile(r"\bAUR-REQ-[A-Z0-9-]+-\d{3}\b")
-DOC_ID_RE = re.compile(r"^(?:DOC|ADR|RESEARCH|DESIGN|PLAN|REVIEW)-[A-Z0-9-]+$")
+DOC_ID_RE = re.compile(
+    r"^(?:DOC|ADR|RESEARCH|DESIGN|PLAN|REVIEW|HISTORY)-[A-Z0-9-]+$"
+)
 
 
 @dataclass
