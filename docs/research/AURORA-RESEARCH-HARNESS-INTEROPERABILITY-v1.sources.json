@@ -1,0 +1,68 @@
+{
+  "research_id": "RESEARCH-AURORA-HARNESS-INTEROPERABILITY-V1",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Official protocol specifications, announcements, repositories and conformance tooling.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Model Context Protocol Architecture",
+      "publisher": "Model Context Protocol",
+      "url": "https://modelcontextprotocol.io/docs/learn/architecture",
+      "type": "official_specification_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["host/client/server architecture", "tools/resources/prompts primitives", "transport model"],
+      "limitations": ["Core primitives do not define Aurora mission, authority or evidence semantics"]
+    },
+    {
+      "id": "S02",
+      "title": "MCP Tasks",
+      "publisher": "Model Context Protocol",
+      "url": "https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/tasks",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["asynchronous task handles", "polling and result retrieval", "task lifecycle extension"],
+      "limitations": ["Revision must be verified against current MCP specification at implementation time", "MCP Task is not a complete Aurora Delegation"]
+    },
+    {
+      "id": "S03",
+      "title": "MCP Conformance",
+      "publisher": "Model Context Protocol",
+      "url": "https://github.com/modelcontextprotocol/conformance",
+      "type": "official_conformance_repository",
+      "accessed_at": "2026-08-05",
+      "supports": ["protocol conformance testing for implementations"],
+      "limitations": ["Conformance does not prove functional correctness, security or Aurora contract compliance"]
+    },
+    {
+      "id": "S04",
+      "title": "Announcing A2A 1.0",
+      "publisher": "A2A Project",
+      "url": "https://a2a-protocol.org/latest/announcing-1.0/",
+      "type": "official_announcement",
+      "date": "2026-03-12",
+      "accessed_at": "2026-08-05",
+      "supports": ["stable A2A 1.0 direction", "Agent Cards, Tasks, Messages and Artifacts", "complementarity with MCP"],
+      "limitations": ["Operational and SDK maturity must be verified per implementation"]
+    },
+    {
+      "id": "S05",
+      "title": "Agent2Agent Protocol Specification",
+      "publisher": "A2A Project",
+      "url": "https://a2a-protocol.org/latest/specification/",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["Agent Card", "Task lifecycle", "messages, parts and artifacts", "streaming and push notifications"],
+      "limitations": ["Does not natively own Aurora-specific authority, budgets or evidence semantics"]
+    },
+    {
+      "id": "S06",
+      "title": "A2A Technology Compatibility Kit",
+      "publisher": "A2A Project",
+      "url": "https://github.com/a2aproject/a2a-tck",
+      "type": "official_conformance_repository",
+      "accessed_at": "2026-08-05",
+      "supports": ["cross-implementation protocol testing"],
+      "limitations": ["TCK scope and language support must be checked at spike time", "Does not test Aurora extensions or provider domain quality"]
+    }
+  ]
+}
