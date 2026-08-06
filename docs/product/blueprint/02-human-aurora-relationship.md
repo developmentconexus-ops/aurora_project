@@ -17,7 +17,7 @@ source_of_truth_for:
   - presence behavior
 related:
   - DOC-AURORA-BLUEPRINT-01
-  - DOC-AURORA-BLPRINT-10
+  - DOC-AURORA-BLUEPRINT-10
 last_reviewed: 2026-08-05
 ---
 
