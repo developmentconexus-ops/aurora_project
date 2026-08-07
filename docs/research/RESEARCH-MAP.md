@@ -5,7 +5,7 @@ document_type: research_map
 form: reference
 authority: research
 status: current
-version: 0.2.0
+version: 0.3.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -16,7 +16,8 @@ related:
   - DOC-AURORA-DOCUMENTATION-MAP
   - DOC-AURORA-PRODUCT-INDEX
   - RESEARCH-AURORA-HARNESS-ARCHITECTURE-V1
-last_reviewed: 2026-08-06
+  - DOC-AURORA-M0-R4-OPERATOR-AUTHORIZATION
+last_reviewed: 2026-08-07
 ---
 
 # Aurora Research Map
@@ -57,7 +58,7 @@ Material reports use:
 
 The report owns interpretation. The source manifest owns source identity and supported-claim metadata.
 
-## 3. Current A0 reports
+## 3. A0 baseline reports
 
 | Research ID | Report | Primary question | Role | Reviewed |
 |---|---|---|---|---|
@@ -71,9 +72,20 @@ The report owns interpretation. The source manifest owns source identity and sup
 | RESEARCH-AURORA-AGENT-FRAMEWORKS-RUNTIMES-V1 | [Agent Frameworks and Runtimes](AURORA-RESEARCH-AGENT-FRAMEWORKS-RUNTIMES-v1.md) | What roles can Mastra, LangGraph, Pi, OpenHands, OpenAI Agents SDK and Langflow play inside Harnesses? | prevents a framework from becoming the Aurora constitution | 2026-08-05 |
 | RESEARCH-AURORA-EVALUATION-SELF-IMPROVEMENT-V1 | [Evaluation and Self-Improvement](AURORA-RESEARCH-EVALUATION-SELF-IMPROVEMENT-v1.md) | How can Aurora distinguish real improvement from local patching, overfitting and self-approval? | informs Blueprint 13 and future self-improvement capability | 2026-08-05 |
 
-Current totals are tracked by CI; at the remediation checkpoint the focused program contains 9 reports/manifests and 92 primary-source entries.
+The accepted A0 baseline contains 9 reports/manifests and 92 primary-source entries as recorded by validation at A0/R3 checkpoints.
 
-## 4. Interpretation boundaries
+## 4. Current M0 R4 focused reports
+
+These reports refresh the implementation-near evidence needed for `M0 — Sovereign Core Walking Skeleton`. They remain research evidence and do not make their recommendations governing.
+
+| Research ID | Report | R4 decisions informed | Evidence boundary | Reviewed |
+|---|---|---|---|---|
+| RESEARCH-AURORA-M0-RUNTIME-PERSISTENCE-R4-V1 | [Runtime, Persistence and Durable Execution](AURORA-RESEARCH-M0-RUNTIME-PERSISTENCE-R4-v1.md) | Core runtime, store, state/event, atomicity, audit placement, topology, durable-engine applicability | documentary support for Go/local-state shape; store/driver/crash commitment still requires SPK-AURORA-M0-SOVEREIGN-STORE-001 | 2026-08-07 |
+| RESEARCH-AURORA-M0-PORTABILITY-INTEGRITY-R4-V1 | [Portability, Schema, Integrity and Export](AURORA-RESEARCH-M0-PORTABILITY-INTEGRITY-R4-v1.md) | logical schema, export, migration, digest/integrity boundary | documentary support for JSON Schema/JCS/age; authenticated local trust-anchor key custody remains coupled to SPK-002 | 2026-08-07 |
+| RESEARCH-AURORA-M0-OWNER-AUTHORITY-RECOVERY-R4-V1 | [Owner Root, Authority Freshness and Recovery Trust](AURORA-RESEARCH-M0-OWNER-AUTHORITY-RECOVERY-R4-v1.md) | owner auth/bootstrap, authenticated integrity, time rollback, restore freshness | cryptographic architecture supported; cross-file crash/rollback protocol requires SPK-AURORA-M0-OWNER-TRUST-002 | 2026-08-07 |
+| RESEARCH-AURORA-M0-OBSERVABILITY-R4-V1 | [Observability Mechanism](AURORA-RESEARCH-M0-OBSERVABILITY-R4-v1.md) | telemetry mechanism/backend boundary | documentary support sufficient; backend/export remains optional | 2026-08-07 |
+
+## 5. Interpretation boundaries
 
 ### Memory
 
@@ -119,32 +131,33 @@ Still open:
 
 ### Durability
 
-Temporal, DBOS, Restate and other mechanisms remain candidates. The accepted architectural direction is a `DurableExecutionPort`, not a selected engine.
+Temporal, DBOS, Restate and other mechanisms remain candidates for future long-running execution. R4 M0 research finds no current requirement justifying a durable workflow engine in M0; that is a proposed non-selection, not a permanent rejection.
 
 ### Authority and security
 
-Cedar, OPA, OAuth Token Exchange and SPIFFE provide useful models. No product mechanism is selected. The constitutional boundary is separation of identity, decision, enforcement, containment and audit.
+Cedar, OPA, OAuth Token Exchange and SPIFFE remain future effect/delegation models. M0 focused research addresses only the local owner-root/current-state recovery slice and does not implement the later effect plane.
 
 ### Frameworks
 
 Frameworks may implement Harness internals. None currently owns global Aurora state, identity, authority, memory governance or physical safety.
 
-## 5. Required research before technical commitment
+## 6. Required research before technical commitment
 
-| Product area | Required investigation before R4 | Expected evidence |
-|---|---|---|
-| Sovereign Core storage and recovery | local-first stores, event/state ownership, backup/restore | crash/restart/restore spike |
-| Memory and Context Builder | retrieval, consolidation, temporal/authority conflict, scale | benchmark/eval suite and adversarial journeys |
-| AHDK source model | schema/codegen/SDK/conformance alternatives | same capability with SDK and direct implementation |
-| Harness protocol binding | MCP/A2A/native mappings and version maturity | official TCK plus Aurora conformance |
-| Durable execution | restart, idempotency, timers, cancellation, operational burden | comparative spike |
-| Authority and effects | delegated identity, token lifetime, revocation, gateway and broker | denied/allowed/revoked effect drill |
-| Presence and device trust | pairing, attestation, handoff, environment privacy | multi-presence threat model and prototype |
-| Voice/vision | latency, local/cloud privacy, interruption and modality failure | user journey/evals |
-| Laboratory integration | device identity, telemetry, calibration and interlocks | simulator/HIL and safety drill |
-| Self-improvement | causal investigation, holdouts, canary, rollback | closed-loop candidate evaluation |
+| Product area | Required investigation before R4 commitment | Expected evidence | Current M0 status |
+|---|---|---|---|
+| Sovereign Core storage and recovery | local-first stores, event/state ownership, backup/restore | crash/restart/restore spike | documentary research complete; `SPK-AURORA-M0-SOVEREIGN-STORE-001` specified, execution not authorized |
+| M0 owner root / rollback / restore freshness | key custody, trust anchor, backward time, historical authority restore | owner-root/recovery fault spike | documentary research complete; `SPK-AURORA-M0-OWNER-TRUST-002` specified, execution not authorized |
+| Memory and Context Builder | retrieval, consolidation, temporal/authority conflict, scale | benchmark/eval suite and adversarial journeys | future M1 |
+| AHDK source model | schema/codegen/SDK/conformance alternatives | same capability with SDK and direct implementation | future M2 |
+| Harness protocol binding | MCP/A2A/native mappings and version maturity | official TCK plus Aurora conformance | future capability |
+| Durable execution | restart, idempotency, timers, cancellation, operational burden | comparative spike | not required by M0; reconsider at M4/current requirement trigger |
+| Authority and effects | delegated identity, token lifetime, revocation, gateway and broker | denied/allowed/revoked effect drill | future effect plane |
+| Presence and device trust | pairing, attestation, handoff, environment privacy | multi-presence threat model and prototype | future M8 |
+| Voice/vision | latency, local/cloud privacy, interruption and modality failure | user journey/evals | future |
+| Laboratory integration | device identity, telemetry, calibration and interlocks | simulator/HIL and safety drill | future M9/M10 |
+| Self-improvement | causal investigation, holdouts, canary, rollback | closed-loop candidate evaluation | future M11 |
 
-## 6. Freshness policy
+## 7. Freshness policy
 
 Revalidate a report when any of the following occurs:
 
@@ -160,22 +173,22 @@ Revalidate a report when any of the following occurs:
 
 A stale report remains discoverable but cannot support a new technical commitment without revalidation.
 
-## 7. Research gaps beyond current A0
+## 8. Research gaps beyond current M0
 
 These are intentional future programs, not untracked omissions:
 
 - Presence Fabric and device/workload trust;
-- local-first synchronization and backup architecture;
+- local-first multi-node synchronization;
 - multimodal voice, vision and spatial interaction;
 - laboratory instrument protocols and hardware safety standards;
 - model routing, capability matching and cost/latency optimization;
-- Artifact/Evidence Store architecture;
-- operational data model and event/state reconciliation;
+- Artifact/Evidence Store architecture beyond M0 metadata/references;
+- operational event/state reconciliation at distributed scale;
 - private model execution and confidential computing where relevant;
 - privacy, retention and third-party data handling in ambient environments;
 - physical test design, calibration and measurement uncertainty.
 
-## 8. Promotion path
+## 9. Promotion path
 
 ```text
 Research question
