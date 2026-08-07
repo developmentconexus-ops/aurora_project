@@ -1,0 +1,267 @@
+{
+  "research_id": "RESEARCH-AURORA-MASTRA-COGNITIVE-HARNESS-R4-V1",
+  "accessed_at": "2026-08-07",
+  "selection_policy": "Current primary Mastra documentation, official Mastra engineering announcements, official Mastra repository/release metadata, and current Aurora accepted Blueprints. The goal is architecture fit and ownership boundaries, not a feature-count comparison.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "@mastra/core 1.56.0 release",
+      "publisher": "Mastra",
+      "url": "https://github.com/mastra-ai/mastra/releases/tag/%40mastra/core%401.56.0",
+      "type": "official_release",
+      "accessed_at": "2026-08-07",
+      "supports": ["current stable core release", "persistable declarative workflows", "stored workflow HTTP APIs", "observability and eval changes"],
+      "limitations": ["Rapid release cadence means exact APIs must be pinned and revalidated before implementation"]
+    },
+    {
+      "id": "S02",
+      "title": "Mastra repository license",
+      "publisher": "Mastra",
+      "url": "https://github.com/mastra-ai/mastra/blob/main/LICENSE",
+      "type": "official_license",
+      "accessed_at": "2026-08-07",
+      "supports": ["Apache-2.0 licensing for repository content outside ee directories", "explicit enterprise-edition carveout"],
+      "limitations": ["Individual dependencies retain their own licenses"]
+    },
+    {
+      "id": "S03",
+      "title": "Mastra Enterprise Edition license",
+      "publisher": "Mastra",
+      "url": "https://github.com/mastra-ai/mastra/blob/main/ee/LICENSE",
+      "type": "official_license",
+      "accessed_at": "2026-08-07",
+      "supports": ["production restrictions for ee directory code without written agreement"],
+      "limitations": ["Does not enumerate every platform/commercial service term"]
+    },
+    {
+      "id": "S04",
+      "title": "Build Claude Code for X with Agent Controller",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/build-claude-code-for-x-with-agentcontroller",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["AgentController role", "sessions, modes, permissions, subagents, persisted state and UI events", "Harness to AgentController rename"],
+      "limitations": ["Interactive control state is provider-local state, not Aurora global state"]
+    },
+    {
+      "id": "S05",
+      "title": "Announcing Observational Memory",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/observational-memory",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["Observer/Reflector memory architecture", "stable-context long-horizon synthesis", "Mastra positioning OM as primary memory direction"],
+      "limitations": ["Observational synthesis remains probabilistic and cannot own authoritative Aurora state"]
+    },
+    {
+      "id": "S06",
+      "title": "Observational Memory research",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/research/observational-memory",
+      "type": "official_research",
+      "accessed_at": "2026-08-07",
+      "supports": ["LongMemEval methodology and reported results", "Observer/Reflector context model"],
+      "limitations": ["Conversation-memory benchmark results do not prove project/authority correctness"]
+    },
+    {
+      "id": "S07",
+      "title": "Introducing Memory Extractors for Mastra Agents",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-memory-extractors",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["structured extraction from observational memory", "onExtracted downstream callback", "persistent extraction support"],
+      "limitations": ["Extracted values are model-derived candidates and require Aurora provenance/governance before promotion"]
+    },
+    {
+      "id": "S08",
+      "title": "Introducing Workspaces",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-mastra-workspaces",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["filesystem, command execution, search and skills capabilities", "fine-grained local permissions"],
+      "limitations": ["Workspace permissions are local containment; LocalSandbox is not equivalent to an OS security boundary"]
+    },
+    {
+      "id": "S09",
+      "title": "Mastra Agent Harness template",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/templates/agent-harness",
+      "type": "official_template_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["workspace, tool approval, memory, scheduling and local storage integration"],
+      "limitations": ["Template explicitly warns LocalSandbox does not provide operating-system isolation by default"]
+    },
+    {
+      "id": "S10",
+      "title": "Introducing Background Tasks for Mastra Agents",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-background-tasks",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["long-running background tool execution", "persisted task state", "parallel background calls"],
+      "limitations": ["Background-task persistence is local execution state, not global mission authority"]
+    },
+    {
+      "id": "S11",
+      "title": "Introducing Durable Agents",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-durable-agents",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["resumable agent streams by runId", "cache-backed durability", "evented deployment options"],
+      "limitations": ["Durable stream/run state does not replace Aurora canonical mission/delegation state"]
+    },
+    {
+      "id": "S12",
+      "title": "Mastra Workflow snapshots",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/en/reference/workflows/snapshots",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["workflow suspend/resume state persistence", "snapshot anatomy and storage"],
+      "limitations": ["Workflow snapshots are engine execution state and must remain below Aurora operational truth"]
+    },
+    {
+      "id": "S13",
+      "title": "Mastra Workflows Enhanced / Temporal",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/mastra-workflows-enhanced",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["Temporal-backed workflow option", "step snapshot resilience", "durable workflow evolution path"],
+      "limitations": ["Temporal adds operational/history complexity and is not justified by M0 requirements"]
+    },
+    {
+      "id": "S14",
+      "title": "Announcing Agent Signals",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/announcing-agent-signals",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["steering/waking running agents", "state and notification signals", "multi-client subscriptions", "external event delivery"],
+      "limitations": ["Developer-defined attributes and signals are context inputs, not authentication or authority"]
+    },
+    {
+      "id": "S15",
+      "title": "Introducing Schedules for Mastra Agents and Workflows",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-schedules-for-agents-and-workflows",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["threaded/threadless agent schedules", "workflow schedules", "persistent recurring execution"],
+      "limitations": ["Schedule existence does not imply Aurora authorization to run the scheduled effect"]
+    },
+    {
+      "id": "S16",
+      "title": "Introducing Goals for Mastra Agents",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-goals",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["durable thread-scoped objectives", "LLM-judged iterative goal loops", "run-budget limits"],
+      "limitations": ["LLM goal judges cannot become Aurora acceptance authority"]
+    },
+    {
+      "id": "S17",
+      "title": "Introducing Tool Hooks for Mastra Agents",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-tool-hooks",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["before/after tool-call interception", "blocking calls", "agent/workspace/tool hook layers"],
+      "limitations": ["Hooks are an integration/enforcement point; the authoritative policy decision must remain outside probabilistic agent state"]
+    },
+    {
+      "id": "S18",
+      "title": "Agent-to-Agent support for Mastra",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-agent-to-agent-support",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["A2A protocol support", "cross-framework and cross-language remote agents", "agent cards and remote subagents"],
+      "limitations": ["A2A transport does not define Aurora delegation authority or global acceptance"]
+    },
+    {
+      "id": "S19",
+      "title": "Agent Client Protocol support for Mastra Agents",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-agent-client-protocol",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["delegation to Claude Agent, Codex CLI, Cursor, Gemini CLI and ACP harnesses"],
+      "limitations": ["Harness delegation through ACP must still obey Aurora child-delegation and authority boundaries"]
+    },
+    {
+      "id": "S20",
+      "title": "Claude Code, Cursor, and Codex agents in Mastra",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-sdk-subagents",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["SDK subagents", "harness-agnostic composition", "shared Mastra streaming/evals/observability surface"],
+      "limitations": ["Provider/harness-native permissions remain distinct from Aurora authority"]
+    },
+    {
+      "id": "S21",
+      "title": "Mastra RAG Pipeline",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/rag-pipeline",
+      "type": "official_product_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["chunking, embeddings, vector stores, retrieval, reranking, agentic/Graph RAG", "multiple vector backends"],
+      "limitations": ["Retrieval relevance does not establish source authority or freshness by itself"]
+    },
+    {
+      "id": "S22",
+      "title": "Mastra Composite Storage",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/changelog-2026-01-20",
+      "type": "official_changelog",
+      "accessed_at": "2026-08-07",
+      "supports": ["per-domain storage configuration", "memory/workflow/score storage separation", "replaceable storage backends"],
+      "limitations": ["Switching backends still requires data migration and does not make Mastra storage Aurora canonical state"]
+    },
+    {
+      "id": "S23",
+      "title": "Mastra Server Adapters",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/mastra-server-adapters",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["HTTP exposure for agents/workflows/tools/MCP", "OpenAPI generation", "custom auth middleware integration"],
+      "limitations": ["Mastra HTTP API is a provider binding; Aurora should own its external contract semantics"]
+    },
+    {
+      "id": "S24",
+      "title": "Announcing Mastra Observability",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/announcing-mastra-observability",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["logs, traces and metrics", "OTel-shaped signals", "ClickHouse platform backend"],
+      "limitations": ["Platform observability is optional external infrastructure and cannot own Aurora evidence or canonical state"]
+    },
+    {
+      "id": "S25",
+      "title": "Gates and Verdicts for Mastra Evals",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-gates-and-verdicts",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["deterministic gates", "non-deterministic scorers", "test/CI verdict output"],
+      "limitations": ["Mastra eval verdicts are evidence inputs and cannot automatically close Aurora acceptance criteria"]
+    },
+    {
+      "id": "S26",
+      "title": "Announcing Mastra Factory",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/announcing-mastra-factory",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["specialized agent software factory", "typed workflows, memory, scheduling, tools and observability", "explicit software-delivery gates"],
+      "limitations": ["Factory is an example/composition substrate, not Aurora global product authority"]
+    }
+  ]
+}
