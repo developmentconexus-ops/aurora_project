@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.12.0
+version: 0.13.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -26,6 +26,9 @@ related:
   - DOC-AURORA-M0-R0-REMEDIATION-MERGE-CLOSEOUT
   - DOC-AURORA-M0-R0-RERUN-TARGET-FINDING
   - REVIEW-AURORA-M0-R0-CONSTITUTIONAL-BASELINE-RERUN-2026-08-07
+  - DOC-AURORA-M0-R1-OPERATOR-AUTHORIZATION
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-APPLICABILITY
+  - REVIEW-AURORA-M0-R1-APPLICABILITY-2026-08-07
 last_reviewed: 2026-08-07
 ---
 
@@ -41,14 +44,18 @@ last_reviewed: 2026-08-07
 - **ADR-0001:** ACCEPTED
 - **ADR-0002:** ACCEPTED
 - **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED by operator
-- **Current readiness gate:** ACRM R0 — Constitutional Baseline — PASS
+- **Current readiness gate:** ACRM R1 — Applicability — PASS
 - **Initial R0 verdict:** FAIL
 - **R0 re-run target:** `6054f84d007347c0aa9eef9e71317134b1047d3c`
 - **R0 re-run verdict:** PASS
 - **Canonical R0 remediation merge:** `d0ddfb794296e599ac96bb73bf3772937d371bf9`
 - **R0 remediation:** ACCEPTED AND MERGED — `d0ddfb794296e599ac96bb73bf3772937d371bf9`
-- **R1 — Applicability:** NOT AUTHORIZED / awaiting explicit operator authorization
-- **R2 and later gates:** NOT AUTHORIZED BY IMPLICATION
+- **R1 source baseline:** `735f269025e2cc317424e4931f3a5cd414cd6f2a`
+- **R1 applicability artifact:** `7f10734ba6018154f196557de6c5735719046253` — 294/294 classified
+- **R1 review:** `fbbae69d529a53532e5858693394747081e11d0f` — PASS
+- **R1 active constitutional sources for future R2:** 127 (`78 APPLIES + 49 PARTIALLY_APPLIES`)
+- **R2 — Requirements:** NOT AUTHORIZED / awaiting explicit operator authorization
+- **R3 and later gates:** NOT AUTHORIZED BY IMPLICATION
 - **Stack decisions:** none
 - **Runtime implementation:** not started and not authorized
 
@@ -114,7 +121,7 @@ This remediation does **not** authorize R1, Architecture Spike execution, Capabi
 
 ## 5. Deliberately open M0-relevant technical decisions
 
-The following remain open and must not be decided during R0 remediation:
+The following remain open and were not decided by R0 or R1; they belong to later applicable readiness gates:
 
 - Aurora Core implementation language;
 - initial process/deployment topology;
@@ -135,11 +142,11 @@ ADR-0001 / ADR-0002:           ACCEPTED
 First Product Milestone:        M0 SELECTED
 Initial M0 R0:                 FAIL — historical
 R0 documentary remediation:    ACCEPTED / MERGED
-Corrected constitutional rev:  OPERATOR ACCEPTED
-Canonical integration:         COMPLETE — d0ddfb794296e599ac96bb73bf3772937d371bf9
 M0 ACRM R0 re-run:             PASS — target 6054f84d007347c0aa9eef9e71317134b1047d3c
-ACRM R1 — Applicability:       NOT AUTHORIZED / AWAITING OPERATOR
-ACRM R2+:                       NOT AUTHORIZED
+M0 ACRM R1 — Applicability:    PASS — source baseline 735f269025e2cc317424e4931f3a5cd414cd6f2a
+R1 applicability coverage:     294/294 classified; 127 active sources
+ACRM R2 — Requirements:        NOT AUTHORIZED / AWAITING OPERATOR
+ACRM R3+:                       NOT AUTHORIZED
 Architecture Spike execution:   PROHIBITED
 Capability implementation:      PROHIBITED
 Aurora Core implementation:     PROHIBITED
@@ -152,14 +159,14 @@ Microdesign/Implementation Plan: NOT STARTED
 
 ## 7. Current blocker/gate
 
-The M0 ACRM R0 re-run against fixed canonical target `6054f84d007347c0aa9eef9e71317134b1047d3c` returned `R0 PASS`. There is no unresolved material constitutional baseline blocker for M0 applicability analysis.
+The M0 ACRM R1 applicability analysis against fixed source baseline `735f269025e2cc317424e4931f3a5cd414cd6f2a` classified all 294 accepted constitutional requirements and returned `R1 PASS`. There is no unresolved `CONFLICT_REQUIRES_DECISION` and no unjustified exclusion identified by the R1 review.
 
-The intentional boundary is now authorization: R1 has **not** been authorized. No applicability package, requirement derivation, Architecture Spike execution, stack choice, Mission Contract, Microdesign or implementation may begin by implication.
+The intentional boundary is now authorization: R2 has **not** been authorized. No atomic Capability requirement derivation, Capability/System Spec, threat-model execution, Architecture Spike, stack choice, Mission Contract, Microdesign or implementation may begin by implication.
 
 ## 8. Immediate next action
 
 ```text
-R0 PASS recorded
-→ stop at the R0 boundary
-→ await explicit operator authorization for M0 ACRM R1 — Applicability
+R1 PASS recorded
+→ stop at the R1 boundary
+→ await explicit operator authorization for M0 ACRM R2 — Requirements
 ```

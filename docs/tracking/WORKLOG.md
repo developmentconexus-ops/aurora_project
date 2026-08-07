@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.10.0
+version: 0.11.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -376,3 +376,45 @@ docs/reviews/2026-08-07-m0-r0-constitutional-baseline-rerun.md
 ```
 
 R1 is **not authorized** by the PASS verdict. Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized. The exact next action is to stop and await explicit operator authorization for `M0 ACRM R1 — Applicability`.
+
+
+## 2026-08-07 — M0 R1 Applicability
+
+After the M0 R0 re-run passed, the operator explicitly authorized proceeding to `ACRM R1 — Applicability` by responding “Vamos seguir” to the R1 authorization boundary. The authorization was recorded in `docs/acceptance/2026-08-07-m0-r1-operator-authorization.md` and did not authorize R2 or later work.
+
+R1 fixed the canonical source baseline at:
+
+```text
+735f269025e2cc317424e4931f3a5cd414cd6f2a
+```
+
+The complete applicability artifact was created at:
+
+```text
+docs/capabilities/CAP-SOVEREIGN-CORE/APPLICABILITY.md
+Applicability commit: 7f10734ba6018154f196557de6c5735719046253
+```
+
+All 294 accepted constitutional requirements were classified:
+
+```text
+APPLIES:                    78
+PARTIALLY_APPLIES:          49
+DEFERRED_BY_ROADMAP:       161
+NOT_APPLICABLE:              6
+CONFLICT_REQUIRES_DECISION:  0
+TOTAL:                      294
+ACTIVE SOURCES FOR R2:      127
+```
+
+The review preserved the high-risk M0 dependencies for sovereign identity, operational-state ownership, authority/restore safety, migration, backup/restore integrity, event/audit versus telemetry, security of the first canonical durable store and the CLI/interface boundary. It also deliberately deferred M1 memory, M2 Registry/AHDK, cross-Harness Delegation/effects, Presence, laboratory/physical control, adaptive campaigns and self-improvement.
+
+Normal Documentation validation passed for the applicability artifact in workflow run `31146692949`. A separate R1 review was then recorded at `docs/reviews/2026-08-07-m0-r1-applicability-review.md` (commit `fbbae69d529a53532e5858693394747081e11d0f`), and its documentation validation job also completed successfully in workflow run `31146839010`.
+
+R1 verdict:
+
+```text
+R1 PASS
+```
+
+No language, framework, database, storage, runtime, topology, schema, protocol, telemetry backend, Architecture Spike winner, Mission Contract or implementation was selected. R2 remains separately gated and unauthorized until an explicit operator decision.
