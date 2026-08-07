@@ -35,9 +35,9 @@ jobs:
         shell: bash
         run: |
           grep -F 'status: accepted' docs/adr/0007-m0-sqlite-operational-store.md
+          grep -F 'status: proposed' docs/adr/0008-m0-owner-root-recovery-trust.md
           grep -F 'SPK-002 AUTHORIZED ONLY' docs/tracking/STATUS.md
           grep -F 'R5 — Contract Readiness:    NOT AUTHORIZED' docs/tracking/STATUS.md
-          grep -F 'ADR-0008 remains proposed' docs/acceptance/2026-08-07-m0-r4-adr0007-acceptance-spk002-authorization.md
           git diff --check
       - name: Commit validated authority state and remove helpers
         shell: bash
