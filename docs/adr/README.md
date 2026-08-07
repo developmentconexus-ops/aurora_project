@@ -7,7 +7,7 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-07
 acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
-version: 0.4.0
+version: 0.4.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -125,13 +125,17 @@ Acceptance of an ADR does not automatically authorize a Capability Spec, Mission
 | [ADR-0004](0004-m0-local-state-execution-shape.md) | M0 Local State and Execution Shape | accepted | one local modular Sovereign Core; explicit current state/revisions; no full event sourcing or durable engine in M0 |
 | [ADR-0005](0005-m0-portable-state-export.md) | M0 Portable Logical State and Export Envelope | accepted | JSON Schema + JSON/JCS logical portability; age outer export encryption; application-owned migrations |
 | [ADR-0006](0006-m0-observability-boundary.md) | M0 Observability Boundary | accepted | OTel traces/metrics + slog; backend/export optional |
-| [ADR-0007](0007-m0-sqlite-operational-store.md) | SQLite as the M0 Operational State Store | proposed / spike-blocked | SQLite candidate; exact binding/configuration requires SPK-001 evidence |
+| [ADR-0007](0007-m0-sqlite-operational-store.md) | SQLite as the M0 Operational State Store | proposed / evidence-ready | SQLite + `modernc.org/sqlite` proposed after SPK-001 PASS; operator acceptance still required |
 | [ADR-0008](0008-m0-owner-root-recovery-trust.md) | M0 Owner Root and Recovery Trust Boundary | proposed / spike-blocked | wrapped random Owner Root + external trust anchor; requires SPK-002 evidence |
 | [ADR-0009](0009-mastra-cognitive-harness-runtime.md) | Mastra as Preferred First-Party Cognitive and Harness Runtime Substrate | accepted | evaluate OSS Mastra first for agentic Harness infrastructure while Core retains identity/state/authority/governance |
 
 ADR-0001 and ADR-0002 were explicitly accepted by the operator as part of the A0 decision gate on 2026-08-06.
 
-ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 were explicitly accepted by the operator on 2026-08-07 through `DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION`. ADR-0007 and ADR-0008 remain proposed and MUST NOT be accepted before their named Architecture Spike evidence is complete and reviewed.
+ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 were explicitly accepted by the operator on 2026-08-07 through `DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION`.
+
+ADR-0007 remains proposed, but its required SPK-001 executable evidence is now complete and reviewed. Revision `0.2.0` proposes SQLite + `modernc.org/sqlite` and is ready for operator acceptance/rejection/revision.
+
+ADR-0008 remains proposed and MUST NOT be accepted before its separately required `SPK-AURORA-M0-OWNER-TRUST-002` evidence is complete and reviewed. SPK-002 execution is not authorized by SPK-001 completion.
 
 ADR-0009 remains cross-horizon: acceptance establishes the preferred-first evaluation posture for Mastra but does not add an M0 blocker or authorize Mastra implementation. Its first implementation proof is deferred to the first Mastra-backed Capability that enters implementation horizon.
 
