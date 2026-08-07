@@ -4,14 +4,16 @@ title: SQLite as the M0 Operational State Store
 document_type: adr
 form: explanation
 authority: decision
-status: proposed
+status: accepted
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R4-ADR0007-ACCEPTANCE-SPK002-AUTHORIZATION
 version: 0.2.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed M0 operational-state database class, Go binding and durability posture
+  - M0 operational-state database class, Go binding and durability posture
 related:
   - DOC-AURORA-CAP-SOVEREIGN-CORE-SPEC
   - RESEARCH-AURORA-M0-RUNTIME-PERSISTENCE-R4-V1
@@ -132,7 +134,7 @@ Still rejected for current scope because it shifts more relational constraint/qu
 
 ## Decision
 
-**Proposed, evidence-ready for operator acceptance:** use **SQLite** as the M0 operational-state store with **`database/sql` + `modernc.org/sqlite` as the initial Go binding baseline**.
+**Accepted by the operator on 2026-08-07:** use **SQLite** as the M0 operational-state store with **`database/sql` + `modernc.org/sqlite` as the initial Go binding baseline**.
 
 The R4 evidence-qualified binding release is:
 
@@ -159,7 +161,7 @@ The spike used `wal_autocheckpoint=0` only to make WAL recovery deterministic an
 
 Exact connection pool values, checkpoint cadence, table/index naming and production backup wrapper are R6 implementation-design concerns provided they preserve the accepted R3/R4 semantics and do not weaken durability.
 
-This ADR is still `proposed`. SPK-001 evidence completion does not substitute for operator acceptance.
+This ADR is `accepted`. Acceptance selects the R4 architecture decision; it does not authorize production implementation, R5, R6 or promotion of spike code.
 
 ## Explicit fallback
 
@@ -209,14 +211,7 @@ SPK-AURORA-M0-SOVEREIGN-STORE-001
 → CLOSED
 ```
 
-Before this ADR can govern implementation:
-
-```text
-operator reviews ADR-0007 revision 0.2.0
-→ ACCEPTED | REJECTED | REVISED
-```
-
-No further M0 store Architecture Spike is required unless new material evidence contradicts SPK-001.
+ADR-0007 v0.2.0 was accepted by the operator through `DOC-AURORA-M0-R4-ADR0007-ACCEPTANCE-SPK002-AUTHORIZATION`. No further M0 store Architecture Spike is required unless new material evidence contradicts SPK-001. Implementation still requires the later separately authorized ACRM gates.
 
 ## Reconsideration triggers
 
@@ -235,3 +230,4 @@ No further M0 store Architecture Spike is required unless new material evidence 
 - `REVIEW-AURORA-M0-R4-SPK001-SOVEREIGN-STORE-2026-08-07`
 - SQLite official documentation cited by the research manifest
 - `SPK-AURORA-M0-SOVEREIGN-STORE-001`
+- `DOC-AURORA-M0-R4-ADR0007-ACCEPTANCE-SPK002-AUTHORIZATION`

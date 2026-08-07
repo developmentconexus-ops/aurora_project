@@ -178,7 +178,7 @@ Mastra is now the strongest current preferred candidate for generic first-party 
 | Product area | Required investigation before R4 commitment | Expected evidence | Current M0 status |
 |---|---|---|---|
 | Sovereign Core storage and recovery | local-first stores, event/state ownership, backup/restore | crash/restart/restore spike | `SPK-AURORA-M0-SOVEREIGN-STORE-001` PASS/CLOSED; SQLite + modernc evidence informs ADR-0007 v0.2.0 |
-| M0 owner root / rollback / restore freshness | key custody, trust anchor, backward time, historical authority restore | owner-root/recovery fault spike | documentary research complete; `SPK-AURORA-M0-OWNER-TRUST-002` specified, execution not authorized |
+| M0 owner root / rollback / restore freshness | key custody, trust anchor, backward time, historical authority restore | owner-root/recovery fault spike | documentary research complete; `SPK-AURORA-M0-OWNER-TRUST-002` specified and explicitly authorized for execution; evidence not yet reviewed |
 | Mastra-backed first-party Harness boundary | Core/provider state ownership, authority interception, restart/reconciliation, contract/version isolation | bounded conformance proof in first consuming Capability | research complete; intentionally **not an M0 blocker** |
 | Memory and Context Builder | retrieval, consolidation, temporal/authority conflict, scale | benchmark/eval suite and adversarial journeys | future M1; Mastra is now a strong substrate candidate |
 | AHDK source model | schema/codegen/SDK/conformance alternatives | same capability with SDK and direct implementation | future M2 |

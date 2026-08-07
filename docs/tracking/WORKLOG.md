@@ -584,3 +584,9 @@ An intermediate Windows/modernc failure was traced to the test harness using `se
 Both bindings passed correctness. The reviewed tie-break recommends SQLite + `database/sql` + `modernc.org/sqlite` because it removes CGO/C-toolchain build dependence while preserving cross-platform correctness; `mattn/go-sqlite3` remains a tested fallback. PostgreSQL expansion was not triggered.
 
 SPK-001 is `PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED`. ADR-0007 revision `0.2.0` remains proposed/evidence-ready pending operator decision. `SPK-AURORA-M0-OWNER-TRUST-002`, ADR-0008, R5, Mission Contract, Microdesign and production implementation remain unauthorized/unresolved as applicable.
+
+## 2026-08-07 — ADR-0007 Acceptance and SPK-002 Authorization
+
+The operator explicitly accepted ADR-0007 v0.2.0 and authorized execution of `SPK-AURORA-M0-OWNER-TRUST-002` according to the canonical specification at repository revision `f895ac44990cbebe3d366b703c661b2ec6f67e2b`, spec blob `0ffb6fa2b35014e34b4301365dc2d5a8d96f021d`, version 0.1.0.
+
+ADR-0007 is now accepted. SPK-002 is the only Architecture Spike authorized for execution. ADR-0008 remains proposed; R5, Mission Contract, Microdesign and production implementation remain unauthorized.
