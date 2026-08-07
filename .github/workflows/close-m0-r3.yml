@@ -1,0 +1,47 @@
+name: Close M0 R3 tracking
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/m0-r3-closeout.trigger"
+
+permissions:
+  contents: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Close R3 tracking state
+        run: python scripts/close_m0_r3.py
+
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+
+      - name: Validate documentation system
+        run: python scripts/validate_docs.py --generated-root "$RUNNER_TEMP/aurora-generated" --report "$RUNNER_TEMP/docs-validation-report.json"
+
+      - name: Check generated projections
+        run: python scripts/generate_docs.py --check
+
+      - name: Commit validated R3 closeout
+        run: |
+          rm -f scripts/close_m0_r3.py .github/workflows/close-m0-r3.yml .github/m0-r3-closeout.trigger
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "docs: close M0 R3 PASS tracking state"
+          git push origin HEAD:main
