@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.13.0
+version: 0.14.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -29,6 +29,10 @@ related:
   - DOC-AURORA-M0-R1-OPERATOR-AUTHORIZATION
   - DOC-AURORA-CAP-SOVEREIGN-CORE-APPLICABILITY
   - REVIEW-AURORA-M0-R1-APPLICABILITY-2026-08-07
+  - DOC-AURORA-M0-R2-OPERATOR-AUTHORIZATION
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-REQUIREMENTS
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-R2-COVERAGE
+  - REVIEW-AURORA-M0-R2-REQUIREMENTS-2026-08-07
 last_reviewed: 2026-08-07
 ---
 
@@ -44,7 +48,7 @@ last_reviewed: 2026-08-07
 - **ADR-0001:** ACCEPTED
 - **ADR-0002:** ACCEPTED
 - **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED by operator
-- **Current readiness gate:** ACRM R1 — Applicability — PASS
+- **Current readiness gate:** ACRM R2 — Requirements — PASS
 - **Initial R0 verdict:** FAIL
 - **R0 re-run target:** `6054f84d007347c0aa9eef9e71317134b1047d3c`
 - **R0 re-run verdict:** PASS
@@ -53,9 +57,14 @@ last_reviewed: 2026-08-07
 - **R1 source baseline:** `735f269025e2cc317424e4931f3a5cd414cd6f2a`
 - **R1 applicability artifact:** `7f10734ba6018154f196557de6c5735719046253` — 294/294 classified
 - **R1 review:** `fbbae69d529a53532e5858693394747081e11d0f` — PASS
-- **R1 active constitutional sources for future R2:** 127 (`78 APPLIES + 49 PARTIALLY_APPLIES`)
-- **R2 — Requirements:** NOT AUTHORIZED / awaiting explicit operator authorization
-- **R3 and later gates:** NOT AUTHORIZED BY IMPLICATION
+- **R1 active constitutional sources for R2:** 127 (`78 APPLIES + 49 PARTIALLY_APPLIES`)
+- **R2 source baseline:** `495b712142d7c3d722da2298f7a0b060707f9f5e`
+- **R2 reviewed requirements package:** `a8ffbbe22995b8e683d9d49ad06f487c745709f9`
+- **R2 derived requirements:** 122 proposed atomic requirements; coverage 127/127 active sources
+- **R2 canonical integration:** `9bfab2b30eaccb92ddb55852f97735653172f064`
+- **R2 verdict:** PASS
+- **R3 — Capability Readiness:** NOT AUTHORIZED / awaiting explicit operator authorization
+- **R4 and later gates:** NOT AUTHORIZED BY IMPLICATION
 - **Stack decisions:** none
 - **Runtime implementation:** not started and not authorized
 
@@ -121,7 +130,7 @@ This remediation does **not** authorize R1, Architecture Spike execution, Capabi
 
 ## 5. Deliberately open M0-relevant technical decisions
 
-The following remain open and were not decided by R0 or R1; they belong to later applicable readiness gates:
+The following remain open and were not decided by R0, R1 or R2; they belong to later applicable readiness gates:
 
 - Aurora Core implementation language;
 - initial process/deployment topology;
@@ -145,8 +154,10 @@ R0 documentary remediation:    ACCEPTED / MERGED
 M0 ACRM R0 re-run:             PASS — target 6054f84d007347c0aa9eef9e71317134b1047d3c
 M0 ACRM R1 — Applicability:    PASS — source baseline 735f269025e2cc317424e4931f3a5cd414cd6f2a
 R1 applicability coverage:     294/294 classified; 127 active sources
-ACRM R2 — Requirements:        NOT AUTHORIZED / AWAITING OPERATOR
-ACRM R3+:                       NOT AUTHORIZED
+M0 ACRM R2 — Requirements:     PASS — source baseline 495b712142d7c3d722da2298f7a0b060707f9f5e
+R2 requirements baseline:       122 proposed atomic requirements; coverage 127/127
+ACRM R3 — Capability Readiness: NOT AUTHORIZED / AWAITING OPERATOR
+ACRM R4+:                       NOT AUTHORIZED
 Architecture Spike execution:   PROHIBITED
 Capability implementation:      PROHIBITED
 Aurora Core implementation:     PROHIBITED
@@ -159,14 +170,14 @@ Microdesign/Implementation Plan: NOT STARTED
 
 ## 7. Current blocker/gate
 
-The M0 ACRM R1 applicability analysis against fixed source baseline `735f269025e2cc317424e4931f3a5cd414cd6f2a` classified all 294 accepted constitutional requirements and returned `R1 PASS`. There is no unresolved `CONFLICT_REQUIRES_DECISION` and no unjustified exclusion identified by the R1 review.
+The M0 ACRM R2 requirements derivation against fixed source baseline `495b712142d7c3d722da2298f7a0b060707f9f5e` transformed all 127 R1-active constitutional source rows into a reviewed package of 122 proposed atomic requirements with 127/127 source coverage and returned `R2 PASS`. The R2-specific validator reported 0 uncovered active sources, 0 inactive source references, 0 unsupported verification methods and 0 selected technology candidates. Eight adversarial wording findings were corrected before the final verdict.
 
-The intentional boundary is now authorization: R2 has **not** been authorized. No atomic Capability requirement derivation, Capability/System Spec, threat-model execution, Architecture Spike, stack choice, Mission Contract, Microdesign or implementation may begin by implication.
+The requirements remain `proposed`; canonical integration and green CI do not constitute operator acceptance. The intentional boundary is now authorization: R3 has **not** been authorized. No Capability/System Spec, threat-model execution, Architecture Spike, stack choice, Mission Contract, Microdesign or implementation may begin by implication.
 
 ## 8. Immediate next action
 
 ```text
-R1 PASS recorded
-→ stop at the R1 boundary
-→ await explicit operator authorization for M0 ACRM R2 — Requirements
+R2 PASS recorded
+→ stop at the R2 boundary
+→ await explicit operator authorization for M0 ACRM R3 — Capability Readiness
 ```

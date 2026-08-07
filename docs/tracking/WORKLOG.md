@@ -418,3 +418,48 @@ R1 PASS
 ```
 
 No language, framework, database, storage, runtime, topology, schema, protocol, telemetry backend, Architecture Spike winner, Mission Contract or implementation was selected. R2 remains separately gated and unauthorized until an explicit operator decision.
+
+
+## 2026-08-07 — M0 R2 Requirements
+
+After R1 PASS, the operator explicitly authorized `M0 ACRM R2 — Requirements` with the statement `Entendi continue: Autorizo o M0 ACRM R2 — Requirements.` The authorization was recorded in `docs/acceptance/2026-08-07-m0-r2-operator-authorization.md`.
+
+R2 fixed its canonical source baseline at:
+
+```text
+495b712142d7c3d722da2298f7a0b060707f9f5e
+```
+
+The R1-active set contained 127 constitutional source rows (`78 APPLIES + 49 PARTIALLY_APPLIES`). R2 derived 122 proposed atomic requirements at `docs/capabilities/CAP-SOVEREIGN-CORE/REQUIREMENTS.md` and mapped every active source in `docs/capabilities/CAP-SOVEREIGN-CORE/R2-COVERAGE.md`.
+
+Mechanical package validation in GitHub Actions run `31149256807` reported:
+
+```text
+derived requirements: 122
+risk distribution: critical=51, high=53, medium=18
+R1 active sources: 127
+coverage rows: 127
+source->requirement links: 409
+uncovered active sources: 0
+inactive source references: 0
+unsupported verification methods: 0
+candidate technology selections: 0
+```
+
+The adversarial review did not auto-pass the first draft. Eight wording defects were corrected before verdict: removal of an event/audit authority exception; removal of a sensitive-observability exception; narrowing archive/privacy scope; narrowing incident-response scope; correcting an overrestrictive durable-engine guard; strengthening artifact-reference and evolutionary-adapter modals to match constitutional strength; and tightening the M0 secret-hygiene boundary.
+
+The clean requirements package target was:
+
+```text
+a8ffbbe22995b8e683d9d49ad06f487c745709f9
+```
+
+The formal review was recorded at `docs/reviews/2026-08-07-m0-r2-requirements-review.md` with verdict:
+
+```text
+R2 PASS
+```
+
+The review itself passed documentation validation in workflow run `31149400264`, and the clean R2 package was fast-forward integrated into canonical `main` at `9bfab2b30eaccb92ddb55852f97735653172f064`. Normal main Documentation workflow run `31149443670` also completed successfully.
+
+The 122 Capability requirements remain `status: proposed`; Git integration/CI is not operator acceptance. R2 did not select language/runtime, database/store, state/event mechanism, schema technology, telemetry backend, event transport, backup/migration tooling, topology, durable engine or Architecture Spike winner. R3 and later gates remain separately unauthorized.
