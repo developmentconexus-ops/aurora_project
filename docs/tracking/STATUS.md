@@ -250,7 +250,7 @@ Microdesign/Implementation Plan: NOT STARTED
 
 M0 ACRM R4 has completed the documentary architecture/decision investigation against fixed source baseline `d00cc1abfc2a41ac7e81e1f3478e188b3c5e9e52`. All 15 R3-open M0 architecture questions have explicit dispositions.
 
-The later focused Mastra assessment is complete enough for the current decision: Mastra is a strong proposed default substrate for future first-party agentic Harnesses, but it does not own the Sovereign Core and does not create a new M0 blocker. Investigation stops at this boundary for M0.
+The later focused Mastra assessment is complete enough for the current decision: Mastra is the accepted preferred-first substrate to evaluate for future first-party agentic Harnesses, but it does not own the Sovereign Core and does not create a new M0 blocker. Investigation stops at this boundary for M0.
 
 The operator accepted ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 and authorized the exact SPK-001 specification. SPK-001 has now completed successfully: final workflow `31213792366` passed all four Ubuntu/Windows × modernc/mattn correctness cases and the required evidence receipts; the independent review closed the spike as `PASS / REVIEWED / DECISION_INFORMED`.
 
