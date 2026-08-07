@@ -610,3 +610,11 @@ The operator explicitly accepted ADR-0008 v0.2.0, bound to blob `2a1497f8311ba9d
 The final M0 R4 readiness rerun resolved the last open gate blocker. All 15 M0 architecture questions now have governing dispositions; ADR-0003 through ADR-0008 are accepted for their scopes, ADR-0009 is accepted cross-horizon, and SPK-001/SPK-002 are `PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED`.
 
 The final verdict is `M0 ACRM R4 PASS`. This does not authorize R5. Mission Contract, Microdesign, production implementation, promotion of spike code and all other later-gate work remain prohibited until separately authorized by the operator.
+
+## 2026-08-07 — M0 R5 Contract Readiness package
+
+The operator authorized M0 ACRM R5 with `Seguir` after canonical R4 PASS at `74167bd1404d9076423ffdbae20f97958283527c`.
+
+R5 prepared one vertical Mission Contract, `MIS-M0-SOVEREIGN-CORE-001` v0.1.0, plus a 122/122 requirement-to-criterion allocation. The R5 preflight also found that R2/R3 gate PASS had intentionally left the normative Requirements/Spec/Threat/Test artifacts `proposed`. Because Blueprint 15 gives accepted A2 specifications precedence over approved A3 contracts, R5 prepared minimal R4-aligned A2 revisions rather than silently allowing a Contract to outrank proposed reusable semantics.
+
+The adversarial R5 review finds the package technically/traceably ready but returns `R5 BLOCKED` pending explicit operator acceptance of Requirements v0.1.1, Spec v0.2.0, Threat Model v0.2.0 and Test Plan v0.2.0 plus approval of `MIS-M0-SOVEREIGN-CORE-001` v0.1.0. No R6 or implementation authority is implied.

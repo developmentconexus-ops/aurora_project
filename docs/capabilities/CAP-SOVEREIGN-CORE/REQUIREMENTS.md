@@ -5,17 +5,19 @@ document_type: capability_requirements
 form: reference
 authority: specification
 status: proposed
-version: 0.1.0
+version: 0.1.1
 owners:
   - developmentconexus-ops
 source_of_truth_for:
-  - proposed M0 ACRM R2 atomic requirements for CAP-SOVEREIGN-CORE
+  - M0 atomic requirements for CAP-SOVEREIGN-CORE
 related:
   - DOC-AURORA-STATUS
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-REQUIREMENTS-TRACEABILITY
   - DOC-AURORA-CAP-SOVEREIGN-CORE-APPLICABILITY
   - DOC-AURORA-M0-R2-OPERATOR-AUTHORIZATION
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-R5-COVERAGE
+  - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
 source_revision: 495b712142d7c3d722da2298f7a0b060707f9f5e
 review_triggers:
   - applicable constitutional requirement changes
@@ -41,7 +43,7 @@ R1 selected 127 active constitutional source rows (`78 APPLIES + 49 PARTIALLY_AP
 
 This document does **not** define the complete Capability/System design or threat model (R3), select architecture/stack/spike winners (R4), create a Mission Contract (R5), create Microdesign/implementation allocation (R6), or authorize implementation (R7).
 
-All 122 requirements below have `status: proposed`, `allocation: []` and `evidence: []` at R2. A future gate may allocate them, but R2 does not.
+All 122 requirements were proposed at R2. This v0.1.1 preserves their normative statements unchanged while making the package review-ready for R5 operator acceptance. R3 owns mechanism/test allocation and `R5-COVERAGE.md` owns requirement-to-Mission allocation; this document remains `proposed` until explicitly accepted by the operator.
 
 ## 2. Interpretation
 

@@ -5,19 +5,24 @@ document_type: threat_model
 form: explanation
 authority: specification
 status: proposed
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed R3 security and threat analysis for CAP-SOVEREIGN-CORE
+  - security and threat analysis for CAP-SOVEREIGN-CORE
 related:
   - DOC-AURORA-CAP-SOVEREIGN-CORE-SPEC
   - DOC-AURORA-CAP-SOVEREIGN-CORE-REQUIREMENTS
   - DOC-AURORA-CAP-SOVEREIGN-CORE-TEST-PLAN
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R3-COVERAGE
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-R4-DECISION-COVERAGE
+  - ADR-AURORA-0007
+  - ADR-AURORA-0008
+  - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
 source_revision: 9ea8adf5c115f54071d7e36e312695d19420d8b0
+r4_alignment_revision: 74167bd1404d9076423ffdbae20f97958283527c
 review_triggers:
   - R4 mechanism selection
   - new network/provider boundary
@@ -43,7 +48,7 @@ This threat model covers the M0 sovereign Core slice defined by `SPEC.md`:
 
 It does not model future cloud providers, Harness execution, external effects, credentials, multi-Presence, physical devices or multi-tenant operation. Introducing any of those boundaries requires threat-model revision in the applicable later gate.
 
-This document is part of the proposed R3 Capability Spec package and MUST NOT select R4 technologies.
+The original R3 revision intentionally did not select mechanisms. This v0.2.0 preserves the threat semantics and records the accepted R4 mitigations from ADR-0007/ADR-0008; exact implementation controls remain R6 work.
 
 ---
 
@@ -89,7 +94,7 @@ Untrusted assumption: possession of the CLI/UI/process endpoint does not prove o
 
 Required boundary property:
 
-- authenticated operator context is established by an R4-selected mechanism;
+- authenticated operator context follows the accepted ADR-0008 owner-root/bootstrap boundary;
 - ordinary content/arguments cannot redefine policy/authority;
 - inspection and mutation are distinct command semantics.
 
@@ -110,7 +115,7 @@ Authority expiry depends on time. Local clock rollback or stale time can extend 
 
 Required boundary property:
 
-- R4 must choose a time/rollback approach proportionate to M0;
+- accepted ADR-0008 uses an authenticated observed wall-time high-water plus fail-closed backward-time semantics;
 - unverifiable time sufficient to affect authority must fail closed or surface `REVALIDATION_REQUIRED`.
 
 ### TB-04 — Core → Integrity Port
@@ -119,7 +124,7 @@ An integrity descriptor is only useful if the selected mechanism cannot be trivi
 
 Required boundary property:
 
-- mechanism and trust assumptions must be explicit in R4;
+- accepted ADR-0008 defines ORK-derived authenticated governing/trust descriptors and their local threat assumptions;
 - failed or unavailable required integrity validation blocks governing restore/state use.
 
 ### TB-05 — Core → Export/Backup Medium
@@ -151,7 +156,7 @@ R3 assumes only:
 - M0 is single-user/Leandro-first;
 - no external effect plane is active;
 - no cloud/provider/Harness is required for canonical recovery;
-- a future R4 mechanism can provide some persistent local storage, operator-authentication boundary, time source and integrity check satisfying the logical contracts;
+- accepted R4 mechanisms provide the M0 local SQLite store, owner-root authentication boundary, time-high-water behavior and authenticated integrity model needed by the logical contracts;
 - physical compromise of all trusted local infrastructure is outside what pure application semantics can fully prevent.
 
 These assumptions are explicit inputs to R4 and must be revisited if the implementation environment differs.
@@ -179,7 +184,7 @@ M0 does not assume an LLM is trustworthy for authority, recovery or integrity de
 
 ## 7. Threat matrix
 
-| ID | Threat | Impact | Required R3 mitigation/behavior | Residual/R4 dependency |
+| ID | Threat | Impact | Required mitigation/behavior | Accepted R4 binding / later obligation |
 |---|---|---|---|---|
 | `TM-01` | canonical Project state is corrupted or tampered | false current truth | validate structure/version/integrity; block governing use on failure; preserve evidence | storage/integrity mechanism |
 | `TM-02` | stale state replaces newer current state | rollback of accepted truth | revision/predecessor/current-pointer invariants; stale transition rejection; restore collision checks | rollback-detection/storage semantics |
@@ -279,53 +284,63 @@ R3 requires these controls regardless of later implementation:
 
 ---
 
-## 10. R4 security questions
+## 10. Accepted R4 security bindings
 
-The following are implementation-blocking technical decisions for R4, not unresolved R3 product semantics:
+The R3 security questions are now resolved for M0 by accepted decisions and executable evidence:
 
-| Question | Why R4 must answer it |
-|---|---|
-| local operator authentication/bootstrap | prevent technical access from becoming owner authority |
-| local state persistence and atomicity | preserve revision/current-pointer invariants across crash |
-| storage rollback detection | detect/reduce silent reversion to older current state |
-| authority time source/rollback behavior | ensure expiry cannot be reversed by stale clock |
-| integrity descriptor mechanism | detect meaningful corruption/tampering |
-| export confidentiality mechanism | protect `SENSITIVE` aggregate backup material |
-| restore freshness/revalidation implementation | prevent pre-revocation backup from restoring active permission |
-| migration execution/rollback mechanism | preserve protected semantics and prior governing state |
-| audit/evidence durability | preserve required proof without making logs domain truth |
-| telemetry redaction/correlation | propagate identifiers without sensitive payloads |
+| Concern | Accepted M0 binding | Later implementation/evidence obligation |
+|---|---|---|
+| local owner authentication/bootstrap | random 256-bit ORK; passphrase→Argon2id KEK; AES-256-GCM wrapped ORK | versioned envelope; bound/allowlisted KDF parameters |
+| local state persistence/atomicity | SQLite + `database/sql` + `modernc.org/sqlite`, WAL, `synchronous=FULL` | exact schema/transaction wrapper and target-environment fault proof |
+| storage rollback detection | external authenticated generation high-water + DB HMAC | enforce anomaly preflight at mutation boundary |
+| authority time rollback | authenticated observed wall-time high-water; backward movement → `TIME_UNTRUSTED` | exact Time Source abstraction and diagnostics |
+| governing integrity | HKDF-SHA-256 purpose keys + HMAC-SHA-256 | exact protected descriptor fields/canonicalization |
+| portable export confidentiality | logical JSON/JCS package; normal SENSITIVE outer package protected with `age` | exact archive/library/recipient handling |
+| restore freshness | restored active-looking authority → `REVALIDATION_REQUIRED`; owner-only new revision | exact recovery UX/API; never import historical high-water as current |
+| migration | explicit version-pair application-owned migration | exact runner/rollback and invariant verification |
+| audit/evidence | logically distinct; may be co-located transactionally for M0 | exact persistence/retention fields |
+| telemetry | OTel traces/metrics + `slog`, exporter optional/non-authoritative | redaction and exporter-failure proof |
 
-No candidate or winner is selected by this table.
+No new security mechanism choice is delegated silently to R6. R6 owns only the implementation details inside these accepted boundaries.
 
 ---
 
-## 11. Residual risks accepted only as R3-known constraints
+## 11. Residual risks and carry-forward constraints
 
-R3 does not claim to solve:
+Accepted R4 architecture does not eliminate every local threat.
 
-- total compromise of the host/administrator trust root;
-- physical theft/destruction of every copy of local state;
-- confidentiality of backup media before R4 selects protection;
-- cryptographic authenticity before R4 selects integrity/key mechanisms;
-- trustworthy wall-clock semantics before R4 selects a strategy;
-- accidental operator reauthorization of unsafe old authority after restore;
+M0 still does not claim to solve:
+
+- total compromise of host/administrator plus replay of **all** local trust artifacts and owner secrets/runtime;
+- physical destruction/theft of every state/recovery copy;
+- objectively trusted global time — only backward movement below an authenticated observed high-water is detected;
+- every literal storage-controller/write-cache/power-loss failure beyond the tested process-kill model;
+- accidental owner decision to explicitly reauthorize unsafe historical intent after receiving the required revalidation state;
 - future network/provider/device threats outside M0.
 
-These limitations MUST remain visible in R4/R5 and later evidence. They are not reasons to weaken M0 fail-closed semantics.
+Accepted controls that must carry into R6/R7:
+
+- `age`-protected normal SENSITIVE portability envelope and explicit export classification;
+- ORK/HKDF/HMAC integrity boundary independent from the operational DB;
+- mutation-boundary enforcement for rollback/anchor-lag/time/restore anomalies;
+- bounded Argon2id parameter parsing before allocation;
+- explicit filesystem publication/fsync/directory-sync design for claimed target durability;
+- secret/redaction hygiene in logs/evidence.
+
+These limitations MUST remain visible in the Mission Contract and evidence. They are not permission to weaken fail-closed semantics.
 
 ---
 
 ## 12. Threat-model gate conclusion
 
-The R3 threat model is complete enough to support architecture decision work because:
+The R4-aligned threat model is complete enough to support the proposed M0 Mission Contract because:
 
 - protected assets/classes are explicit;
 - trust boundaries are explicit;
 - the six minimum R2 threat classes are covered;
 - additional M0-specific rollback/time/atomicity risks are covered;
 - required semantic mitigations are allocated;
-- mechanism-dependent residual risks are named for R4;
-- no security mechanism or vendor is selected.
+- accepted mechanism bindings and remaining implementation/evidence obligations are explicit;
+- no unresolved M0 security mechanism choice is silently delegated to R6.
 
-This conclusion is subject to the independent R3 adversarial review and does not itself constitute the final R3 verdict.
+This conclusion remains subject to the accepted R3 review, accepted R4 ADRs/spike evidence and the R5 Contract Readiness review; the Threat Model does not authorize implementation.

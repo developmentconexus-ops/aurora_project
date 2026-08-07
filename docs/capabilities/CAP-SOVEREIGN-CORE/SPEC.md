@@ -5,14 +5,14 @@ document_type: capability_spec
 form: reference
 authority: specification
 status: proposed
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed reusable behavior and logical design of CAP-SOVEREIGN-CORE
-  - proposed M0 sovereign Core domain and lifecycle semantics
+  - reusable behavior and logical design of CAP-SOVEREIGN-CORE
+  - M0 sovereign Core domain and lifecycle semantics
 related:
   - DOC-AURORA-STATUS
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
@@ -24,7 +24,16 @@ related:
   - DOC-AURORA-M0-R3-OPERATOR-AUTHORIZATION
   - ADR-AURORA-0001
   - ADR-AURORA-0002
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-R4-DECISION-COVERAGE
+  - ADR-AURORA-0003
+  - ADR-AURORA-0004
+  - ADR-AURORA-0005
+  - ADR-AURORA-0006
+  - ADR-AURORA-0007
+  - ADR-AURORA-0008
+  - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
 source_revision: 9ea8adf5c115f54071d7e36e312695d19420d8b0
+r4_alignment_revision: 74167bd1404d9076423ffdbae20f97958283527c
 review_triggers:
   - R2 requirement change
   - accepted ADR affecting M0
@@ -54,9 +63,9 @@ Purpose:
 
 > Define the complete logical behavior and ownership needed for Aurora to preserve sovereign identity, Project operational state, current authority semantics and a safe next action across process restart, and to export/restore/migrate that state without making a model, Harness, interface, telemetry stream or storage product the authority.
 
-This R3 specification fixes **logical semantics and boundaries**. It does not select implementation language, process topology, database/storage engine, state-versus-event persistence pattern, serialization format, event transport, telemetry backend, backup technology, migration tooling, durable workflow engine or UI technology. Those remain R4 decisions where applicable.
+The original R3 revision fixed reusable product behavior and deliberately left implementation mechanisms to R4. R4 has since reached PASS. This v0.2.0 preserves the R3 semantics and binds them to accepted ADR-0003..0008 while leaving source layout, Go API shape, SQL DDL, filesystem wrappers and test implementation to R6.
 
-R3 does not authorize Architecture Spike execution, Mission Contract creation, Microdesign or implementation.
+This Capability Spec never grants gate authority by itself. R5 is separately authorized for Contract Readiness; R6, implementation and later gates remain separately gated.
 
 ---
 
@@ -716,7 +725,7 @@ After restore:
 - `REVOKED`, `SUPERSEDED`, `EXPIRED` or invalid authority remains non-permitting;
 - an apparently active authority whose freshness relative to later revocation cannot be proven becomes `REVALIDATION_REQUIRED`;
 - `NextSafeActionProjection` MUST be `REVALIDATION_REQUIRED` or `BLOCKED` for actions requiring that authority;
-- only a new explicit owner revalidation/grant operation, or another R4-approved freshness proof satisfying this Spec, may return it to `VALID`;
+- only the accepted ADR-0008 authenticated-owner revalidation/trust path may return it to `VALID` within M0;
 - a restored grant MUST NOT authorize its own revalidation;
 - owner revalidation MUST create a new attributable authority-state revision rather than mutate historical restored authority in place.
 
@@ -947,7 +956,7 @@ Evaluation dimensions:
 - export/restore/migration correctness;
 - sovereignty/security;
 - evidence completeness;
-- implementation/operational efficiency once R4/R7 provide measurable mechanisms.
+- implementation/operational efficiency using accepted R4 mechanisms once R7 provides measured evidence.
 
 The Capability Test Plan defines representative journeys, adversarial/fault cases, thresholds and requirement mappings.
 
@@ -964,7 +973,7 @@ At minimum, M0 must distinguish:
 - export package version;
 - migration source/target version.
 
-R4 chooses concrete representation.
+Accepted ADR-0005 binds portable logical representation to JSON Schema 2020-12 + JSON/JCS boundaries; accepted ADR-0007 binds the M0 operational store to SQLite through `database/sql` + `modernc.org/sqlite`. R6 defines exact schemas/files/APIs without changing these semantics.
 
 ### 17.2 Compatibility rule
 
@@ -982,58 +991,55 @@ Later process/binding changes must adapt to the domain rather than rewrite Auror
 
 ## 18. Rollout and graduation
 
-R3 defines logical graduation levels, not deployment technology.
+Graduation is gate-based and does not follow document existence automatically.
 
-### G0 — Spec complete
+### G0 — Capability semantics ready
 
-- all 122 R2 requirements allocated to Spec mechanisms and test plan;
-- threat model complete;
-- R4 decisions clearly enumerated;
-- no unresolved R3 semantic contradiction.
+`R3 PASS` established 122/122 allocation, threat model and deterministic test plan.
 
 ### G1 — Architecture ready
 
-Future R4 condition: implementation-blocking technical choices/spikes resolved sufficiently for one scoped Mission Contract.
+`R4 PASS` is complete. Accepted ADR-0003..0008 and reviewed SPK-001/SPK-002 make the Capability implementable for one local M0 slice.
 
 ### G2 — Contract/design ready
 
-Future R5/R6 condition: exact Mission Contract and Microdesign approved.
+R5 must approve an exact Mission Contract and R6 must separately approve Microdesign/Implementation Plan.
 
 ### G3 — Implemented/evidenced
 
-Future R7 condition: implementation evidence exists for the approved contract.
+Future R7 executes implementation tests/evidence against the approved Contract/Plan.
 
 ### G4 — Product milestone accepted
 
-Future R8 condition: complete M0 Golden Proof passes against a fixed accepted revision and receives required operator verdict.
+Future R8 requires the complete M0 Golden Proof and operator verdict.
 
-R3 does not promote directly beyond G0.
+Current promotion state is `G1`; the R5 package is proposed and cannot advance to G2 without the required operator decisions.
 
 ---
 
-## 19. Open R4 decisions and uncertainty classes
+## 19. Accepted R4 mechanism bindings and R6-owned details
 
-These questions are **not R3 architecture placeholders**; R3 fixes the semantics they must satisfy and deliberately leaves their mechanisms to R4.
+The fifteen implementation-blocking R4 questions are closed. Their current governing dispositions are:
 
-| ID | R4 decision/uncertainty | R3 constraints |
+| ID | Accepted M0 disposition | R6-owned detail / reconsideration boundary |
 |---|---|---|
-| `R4-Q-CORE-001` | Core implementation language/runtime | must not own domain semantics; smallest local fit preferred |
-| `R4-Q-STORE-001` | operational-state storage mechanism | process-independent durability, revision/precondition safety, restore/migration support |
-| `R4-Q-STATE-001` | state-versus-event persistence pattern | current state remains canonical; events/audit distinct and not sole authority |
-| `R4-Q-SCHEMA-001` | schema/serialization representation | semantic versions/invariants remain implementation-neutral |
-| `R4-Q-ATOMIC-001` | crash-consistent commit mechanism | accepted state/audit/evidence references cannot be reported partially successful |
-| `R4-Q-INTEGRITY-001` | integrity mechanism | detect material corruption for state/export before governing use |
-| `R4-Q-TIME-001` | time/rollback semantics for expiry | expired authority must not become valid because time is stale/rolled back |
-| `R4-Q-AUTHN-001` | local operator authentication/bootstrap mechanism | technical access cannot equal owner authority |
-| `R4-Q-EXPORT-001` | export/backup format/topology | portable, classified, integrity-verifiable, Leandro-controlled |
-| `R4-Q-MIGRATE-001` | migration mechanism/tooling | explicit version-pair migration preserving protected semantics |
-| `R4-Q-AUDIT-001` | event/audit physical mechanism | audit explainability without becoming current-state owner |
-| `R4-Q-TELEM-001` | telemetry backend/transport | IDs without sensitive payload; evidence independent of backend |
-| `R4-Q-TOPOLOGY-001` | process/deployment topology | logical modularity first; no distribution without evidence |
-| `R4-Q-ENGINE-001` | durable execution engine applicability | do not introduce unless M0 requirements prove proportionate need |
-| `R4-Q-RESTORE-001` | mechanism for authority freshness/revalidation after restore | default fail-closed `REVALIDATION_REQUIRED` unless freshness can be proven safely |
+| `R4-Q-CORE-001` | Go Sovereign Core runtime | packages/interfaces/build layout |
+| `R4-Q-STORE-001` | SQLite + `database/sql` + `modernc.org/sqlite` | exact schema/connection wrapper/module pins |
+| `R4-Q-STATE-001` | current governing state + immutable revisions; audit/events distinct; no full Event Sourcing | exact tables/queries |
+| `R4-Q-SCHEMA-001` | JSON Schema 2020-12 + JSON logical form + RFC 8785 JCS where deterministic bytes are required | exact schemas/code bindings |
+| `R4-Q-ATOMIC-001` | SQLite transactional state/current-pointer/audit/evidence consistency | transaction API and fault hooks |
+| `R4-Q-INTEGRITY-001` | SHA-256 content boundary + ORK-derived HMAC for governing/trust descriptors | exact descriptor fields/APIs |
+| `R4-Q-TIME-001` | process-local monotonic duration + authenticated observed wall-time high-water; backward step fails closed | Time Source API/threshold handling |
+| `R4-Q-AUTHN-001` | random ORK + Argon2id KEK + AES-256-GCM wrapped root | envelope format/API and bounded KDF parsing |
+| `R4-Q-EXPORT-001` | logical portable export distinct from DB backup; normal SENSITIVE export uses `age`; encrypted ORK recovery allowed without importing historical freshness | archive layout/commands/library binding |
+| `R4-Q-MIGRATE-001` | explicit application-owned version-pair migration | migration file/runner shape |
+| `R4-Q-AUDIT-001` | audit/events logically distinct; M0 may co-locate transactionally | exact tables/retention fields |
+| `R4-Q-TELEM-001` | OpenTelemetry traces/metrics + Go `slog`; exporter/backend optional | exact instrumentation/export adapter |
+| `R4-Q-TOPOLOGY-001` | one local modular Sovereign Core process | executable/package layout |
+| `R4-Q-ENGINE-001` | no durable workflow engine in M0 | reconsider only on accepted current requirement |
+| `R4-Q-RESTORE-001` | historical restore → `REVALIDATION_REQUIRED`; restored grant cannot self-revalidate; authenticated owner creates new authority revision | exact recovery command/API |
 
-No candidate technology or winner is selected here. Architecture Spike execution remains prohibited until separately authorized.
+R6 may choose reversible implementation details inside these decisions. A change to the accepted mechanism class or authority semantics requires replan/ADR rather than an implementation shortcut.
 
 ---
 
@@ -1067,12 +1073,16 @@ R3 gate verdict is evidence that the proposed package satisfies readiness condit
 
 ---
 
-## 22. Stop boundary
+## 22. Governance boundary
+
+This Spec is the proposed R4-aligned A2 reusable-behavior authority for CAP-SOVEREIGN-CORE.
+
+It does not itself authorize any gate or implementation. Current progression is governed by `STATUS.md` and the Capability Realization Method:
 
 ```text
-R3 Capability Spec + Threat Model + Test Plan + Coverage
-→ adversarial review
-→ R3 PASS | FAIL | BLOCKED
-→ STOP
-→ R4 only after separate explicit operator authorization
+R4 PASS
+→ R5 package/operator decision
+→ STOP before R6 unless separately authorized
 ```
+
+R6 may define implementation detail only after the A2 package and Mission Contract are accepted and R5 passes.

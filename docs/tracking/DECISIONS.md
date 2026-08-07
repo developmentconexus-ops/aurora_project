@@ -5,7 +5,7 @@ document_type: decision_index
 form: reference
 authority: tracking
 status: current
-version: 0.4.0
+version: 0.5.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -101,6 +101,8 @@ A0 and ADR-0001/0002 were explicitly accepted by the operator and merged to `mai
 | D-054 | M0 portable logical state uses JSON Schema/JSON/JCS boundaries with protected export and application-owned migration semantics | ADR-0005 | accepted |
 | D-055 | M0 observability uses OTel traces/metrics plus structured Go logging while exporter/backend remains optional | ADR-0006 | accepted |
 | D-056 | Mastra is the accepted preferred-first substrate to evaluate for first-party agentic Harnesses while sovereign truth/authority remain Aurora-owned | ADR-0009 | accepted |
+| D-057 | SQLite + `database/sql` + `modernc.org/sqlite` is the accepted M0 operational-state baseline | ADR-0007 | accepted |
+| D-058 | M0 owner trust uses a random wrapped ORK + authenticated external generation/time high-water with fail-closed restore/revalidation semantics | ADR-0008 | accepted |
 
 ## 7. Methodology, documentation and milestone decisions
 
@@ -127,15 +129,14 @@ These are not yet decisions and must not be inferred from examples, research can
 | O-006 | durable execution engine | SPK-004 + ADR |
 | O-007 | policy decision implementation | SPK-005 + ADR |
 | O-008 | workload/device identity implementation | security Capability Spec + spike |
-| O-009 | operational state/event storage | Sovereign Core Capability Spec + spike |
 | O-010 | Artifact/Evidence Store | evidence capability research/spike |
 | O-011 | event transport and telemetry backend | observability capability research/spike |
 | O-012 | memory storage/retrieval/consolidation mix | CAP-MEMORY-CONTEXT + eval spikes |
 | O-013 | first reference Harness runtime | M2/M3 contract after M0/M1 readiness |
 | O-014 | first real engineering Harness | roadmap readiness; MNFS is one candidate |
-| O-015 | exact first Mission Contract for selected M0 | M0 ACRM R5 Mission Contract |
+| O-015 | exact first Mission Contract for selected M0 | `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 proposed in R5; operator approval pending |
 
-`O-015` previously combined milestone selection and first Contract. The milestone portion is resolved by `D-051`; only the exact Mission Contract remains open and cannot be chosen before its applicable gates.
+`O-015` previously combined milestone selection and first Contract. The milestone portion is resolved by `D-051`. R5 now proposes `MIS-M0-SOVEREIGN-CORE-001` v0.1.0; the decision remains open until explicit operator approval.
 
 ## 9. Status-change rule
 

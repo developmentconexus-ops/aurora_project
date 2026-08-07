@@ -5,19 +5,23 @@ document_type: capability_test_plan
 form: reference
 authority: specification
 status: proposed
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed R3 verification and evidence plan for CAP-SOVEREIGN-CORE
+  - verification and evidence plan for CAP-SOVEREIGN-CORE
 related:
   - DOC-AURORA-CAP-SOVEREIGN-CORE-SPEC
   - DOC-AURORA-CAP-SOVEREIGN-CORE-THREAT-MODEL
   - DOC-AURORA-CAP-SOVEREIGN-CORE-REQUIREMENTS
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R3-COVERAGE
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-R4-DECISION-COVERAGE
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-R5-COVERAGE
+  - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
 source_revision: 9ea8adf5c115f54071d7e36e312695d19420d8b0
+r4_alignment_revision: 74167bd1404d9076423ffdbae20f97958283527c
 review_triggers:
   - R2 requirement change
   - R3 Spec or threat-model change
@@ -30,9 +34,9 @@ last_reviewed: 2026-08-07
 
 ## 1. Purpose
 
-This plan defines how the proposed CAP-SOVEREIGN-CORE requirements and R3 design will be verified in later authorized gates.
+This plan defines how CAP-SOVEREIGN-CORE requirements and reusable design are verified in later authorized gates. Version 0.2.0 keeps the R3 behavioral tests while binding them to the accepted R4 architecture class.
 
-R3 plans tests; it does not implement or execute production tests. No test framework, language, database, CI runner, benchmark tool or fault-injection technology is selected here.
+R3 originally planned tests without choosing mechanisms. R4 has now selected the Go/SQLite/owner-trust architecture. This plan still does not select source files, Go test libraries, CLI syntax or the R6 fault-injection implementation.
 
 The plan must make it possible for R5/R6 to allocate exact criteria/tasks without discovering missing product semantics.
 
@@ -46,8 +50,30 @@ The plan must make it possible for R5/R6 to allocate exact criteria/tasks withou
 4. **Fresh-process tests remove in-memory help.** Restart cases terminate all Aurora processes before recovery.
 5. **Faults are injected at material boundaries.** Crash, stale revision, corruption, version mismatch and unavailable non-canonical sinks must be explicit.
 6. **Security cases fail closed.** An inability to establish authority/integrity cannot become permission.
-7. **Technology-neutral criteria stay stable.** R4 may choose mechanisms but cannot change expected product behavior.
+7. **Behavioral criteria stay stable across bindings.** Accepted R4 mechanisms constrain implementation but cannot weaken the expected product behavior.
 8. **Fixed revision evidence.** Every material proof identifies exact code/spec/schema/runtime revisions applicable to the run.
+
+
+### 2.1 R4-aligned execution baseline
+
+R5/R6/R7 planning uses these accepted/evidence-qualified bindings:
+
+```text
+Core:                    Go, one local modular process
+operational store:       SQLite + database/sql + modernc.org/sqlite
+persistence posture:     WAL + synchronous=FULL
+portable state:          JSON Schema 2020-12 + JSON/JCS
+observability:           OTel traces/metrics + slog; exporter optional
+owner root:              random ORK; Argon2id KEK; AES-256-GCM wrapped
+integrity:               HKDF-SHA-256 purpose keys + HMAC-SHA-256
+restore freshness:       REVALIDATION_REQUIRED + owner-only new authority revision
+durable workflow engine: none in M0
+Mastra/AHDK/model:       not required by M0
+```
+
+Evidence-qualified starting versions are Go 1.26.5, `modernc.org/sqlite` v1.54.0, compatible `modernc.org/libc` v1.74.1 and `golang.org/x/crypto` v0.54.0 under CGO=0. R6 must revalidate exact implementation pins; semantic mechanism changes require replan.
+
+R6 must also design bounded Argon2 envelope parsing and target filesystem publication/fsync semantics before R7 can claim the corresponding guarantees.
 
 ---
 
@@ -268,7 +294,7 @@ Candidate migration changes stable identity or authority meaning and must be rej
 | `T-REL-004` | DOCUMENT_REVIEW | local component tests all green | M0 not closed without end-to-end Golden Proof/R8 verdict |
 | `T-ARCH-001` | DOCUMENT_REVIEW | inspect logical boundaries | one owner per durable concept; adapters/projections distinct |
 | `T-ARCH-002` | DOCUMENT_REVIEW | inspect topology proposal | logical modularity first; distribution requires evidence |
-| `T-ARCH-003` | DOCUMENT_REVIEW | inspect R4 candidate proposal | language/storage/event/schema/telemetry/backup choices not preselected by R3 |
+| `T-ARCH-003` | DOCUMENT_REVIEW | inspect implementation/design proposal | implementation conforms to accepted ADR-0003..0008 and no selected mechanism becomes domain authority |
 | `T-ARCH-004` | DOCUMENT_REVIEW | inspect durable-engine proposal | engine considered only if M0 need is demonstrated |
 | `T-ARCH-005` | DOCUMENT_REVIEW | inspect memory integration | M1 memory/vector/Context Builder not used as operational-state owner |
 | `T-ARCH-006` | DOCUMENT_REVIEW | inspect future adapter evolution | domain meaning remains stable across binding/topology change |
@@ -281,8 +307,8 @@ Candidate migration changes stable identity or authority meaning and must be rej
 |---|---|---|---|
 | `T-DOC-001` | DOCUMENT_REVIEW | inspect R3 package | IDs/authority/status/owners/source baseline/relations declared |
 | `T-DOC-002` | DOCUMENT_REVIEW | inspect 122 requirements | each allocated to Spec mechanism and test(s) in R3 coverage |
-| `T-DOC-003` | DOCUMENT_REVIEW | inspect open questions | every unresolved current mechanism explicitly assigned to R4 or blocks R3 |
-| `T-DOC-004` | DOCUMENT_REVIEW | inspect gate boundary | R3 PASS does not authorize R4/spikes/R5/R6/R7 |
+| `T-DOC-003` | DOCUMENT_REVIEW | inspect mechanism/readiness boundaries | accepted R4 bindings are reflected; remaining implementation details are explicitly R6-owned or trigger replan |
+| `T-DOC-004` | DOCUMENT_REVIEW | inspect gate boundary | accepted A2/ADR/Contract artifacts do not auto-authorize R6/R7/R8 |
 | `T-DOC-005` | DOCUMENT_REVIEW | inspect repository changes | no constitutional/milestone meaning silently changed |
 | `T-DOC-006` | DOCUMENT_REVIEW | adversarial review | false inclusion, hidden stack, missing threat/recovery/test allocation checked |
 | `T-DOC-007` | DOCUMENT_REVIEW | fresh read path | STATUS → applicability → requirements → Spec/threat/test/coverage is discoverable |
@@ -436,14 +462,24 @@ Raw logs are supporting artifacts, not the verdict.
 
 ## 20. Graduation levels
 
-- **R3/G0:** plan complete, all R2 requirements allocated, no semantic blocker.
-- **R4/G1:** technical decisions/spikes make the test plan implementable for one local slice.
-- **R5/R6/G2:** exact Mission criteria and implementation tests allocated.
-- **R7/G3:** tests/evidence execute against implementation.
-- **R8/G4:** M0 Golden Proof and operator verdict close the Product Milestone.
+- **R3/G0:** COMPLETE — reusable behavioral plan and 122/122 allocation.
+- **R4/G1:** COMPLETE — technical decisions/spikes make the plan implementable for one local slice.
+- **R5/R6/G2:** CURRENT/NEXT — exact Mission criteria are proposed in R5; implementation tests/tasks require later R6.
+- **R7/G3:** FUTURE — execute tests/evidence against implementation.
+- **R8/G4:** FUTURE — complete M0 Golden Proof and operator verdict.
+
+No level advances from CI/document existence alone.
 
 ---
 
-## 21. Stop boundary
+## 21. Governance boundary
 
-This test plan is specification work only. It does not authorize writing test code, running Architecture Spikes or implementing the Core.
+This Test Plan is proposed A2 specification authority. It does not authorize test code or Core implementation.
+
+```text
+R5 may approve exact Mission criteria
+→ R6 separately owns test/implementation decomposition
+→ R7 separately owns execution/evidence
+```
+
+The current R5 package must stop before R6 unless separately authorized.
