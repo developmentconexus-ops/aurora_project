@@ -5,7 +5,7 @@ document_type: decision_index
 form: reference
 authority: tracking
 status: current
-version: 0.2.0
+version: 0.3.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -17,16 +17,16 @@ last_reviewed: 2026-08-06
 
 ## 1. Authority notice
 
-This file indexes decisions and open choices. It does not replace the Product Blueprint or an ADR.
+This file indexes decisions and open choices. It does not replace the Product Blueprint, accepted ADRs or operator decision evidence.
 
 ```text
 Index entry
-→ points to canonical owner
+→ points to canonical owner/evidence
 → reports lifecycle/status
 → never redefines the decision
 ```
 
-All constitutional/architectural decisions in PR #1 remain `proposed` until explicit A0 operator acceptance. Conversation approval authorized documentation of the direction; the repository lifecycle still requires final baseline review.
+A0 and ADR-0001/0002 were explicitly accepted by the operator and merged to `main`. The first Product Milestone was subsequently selected as M0. Technical mechanisms and later ACRM gates remain open unless separately accepted/authorized.
 
 ## 2. Constitutional direction
 
@@ -88,16 +88,16 @@ All constitutional/architectural decisions in PR #1 remain `proposed` until expl
 | D-039 | manifests declare behavior but do not prove it or grant authority | Blueprint 05 | accepted |
 | D-040 | providers are selected by fit, evidence, sensitivity, authority, environment, cost, latency, recovery and availability | Blueprint 05 | accepted |
 
-## 6. Proposed ADR decisions
+## 6. ADR decisions
 
-| ID | Proposed decision | Canonical owner | Current state |
+| ID | Decision | Canonical owner | Current state |
 |---|---|---|---|
 | D-041 | Aurora owns cross-Harness Contract Model semantics; protocols/runtimes remain replaceable bindings | ADR-0001 | accepted |
 | D-042 | first-party Harnesses use AHDK by policy unless waived; all providers pass universal/profile conformance | ADR-0002 | accepted |
 | D-043 | SDK is neither specification nor security boundary | Blueprint 05, 10, ADR-0002 | accepted |
 | D-044 | durable execution, policy decision, effect enforcement, containment, evidence and observability are separate layers | Blueprint 10–13 | accepted |
 
-## 7. Methodology and documentation decisions
+## 7. Methodology, documentation and milestone decisions
 
 | ID | Decision/direction | Canonical owner | Current state |
 |---|---|---|---|
@@ -107,10 +107,11 @@ All constitutional/architectural decisions in PR #1 remain `proposed` until expl
 | D-048 | material capabilities follow readiness gates R0–R8 | ACRM | accepted |
 | D-049 | Product Milestones close through end-to-end Golden Proofs, not task completion | Blueprint 14, ACRM | accepted |
 | D-050 | aggregate Product Blueprint and roadmap are generated from modular canonical sources | Blueprint 15, Product Index | accepted |
+| D-051 | `M0 — Sovereign Core Walking Skeleton` is the first Product Milestone after A0; R0 begins in a fresh session before any technical commitment | Blueprint 14 + M0 operator selection evidence | accepted |
 
 ## 8. Deliberately open decisions
 
-These are not yet ADRs and must not be inferred from examples or tooling:
+These are not yet decisions and must not be inferred from examples, research candidates or the selected M0 milestone:
 
 | Open ID | Decision required | Expected owner/path |
 |---|---|---|
@@ -126,17 +127,19 @@ These are not yet ADRs and must not be inferred from examples or tooling:
 | O-010 | Artifact/Evidence Store | evidence capability research/spike |
 | O-011 | event transport and telemetry backend | observability capability research/spike |
 | O-012 | memory storage/retrieval/consolidation mix | CAP-MEMORY-CONTEXT + eval spikes |
-| O-013 | first reference Harness runtime | M2/M3 contract after A0 |
+| O-013 | first reference Harness runtime | M2/M3 contract after M0/M1 readiness |
 | O-014 | first real engineering Harness | roadmap readiness; MNFS is one candidate |
-| O-015 | first Product Milestone after A0 and its exact Contract | operator decision after A0 acceptance |
+| O-015 | exact first Mission Contract for selected M0 | M0 ACRM R5 Mission Contract |
+
+`O-015` previously combined milestone selection and first Contract. The milestone portion is resolved by `D-051`; only the exact Mission Contract remains open and cannot be chosen before its applicable gates.
 
 ## 9. Status-change rule
 
-An index entry changes only when its canonical owner changes lifecycle/status.
+An index entry changes only when its canonical owner/evidence changes lifecycle/status.
 
 ```text
 conversation approval
-→ permits faithful documentation
+→ permits faithful documentation or records an explicit operator decision when directly asked
 
 A0 operator acceptance
 → promotes the approved constitutional package
@@ -144,8 +147,11 @@ A0 operator acceptance
 accepted ADR
 → promotes a specific technical decision
 
+selected Product Milestone
+→ identifies the next readiness subject but does not authorize implementation
+
 approved Contract
-→ creates scoped commitment
+→ creates scoped implementation commitment
 ```
 
 No entry is promoted merely because code exists, CI is green or a PR is merged.
