@@ -5,9 +5,9 @@ document_type: product_blueprint_section
 form: explanation
 authority: constitutional
 status: accepted
-accepted_at: 2026-08-06
-acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.2.0
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -30,7 +30,7 @@ review_triggers:
   - primary user or domain changes
   - constitutional principle changes
   - North Star changes
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # 1. Visão do Produto
@@ -697,21 +697,19 @@ Aurora fails the vision if she becomes:
 
 ---
 
-## 1.19 Current product phase
+## 1.19 Authorization boundary after A0
 
-```text
-A0 — Product, Discovery and Architecture Baseline
-```
+A0 was explicitly accepted and merged on 2026-08-06. That acceptance establishes Aurora's constitutional product direction; it does not create runtime authority or select implementation mechanisms.
 
-Current work is documentation, research, adversarial review and architectural clarification.
+Mutable coordination state after A0 belongs to `docs/tracking/STATUS.md`, including:
 
-Implementation remains prohibited until:
+- selected Product Milestone;
+- current ACRM gate;
+- active blockers/findings;
+- authorized versus prohibited work;
+- exact next action.
 
-- all fifteen Blueprint sections are reviewed;
-- A0 requirements and traceability are accepted;
-- ADR status is explicitly decided;
-- next milestone is promoted to readiness;
-- architecture spikes and implementation plan are separately authorized.
+Material implementation can advance only through the applicable Capability Realization gates and separate execution authorization. Research, examples, accepted constitutional direction or the existence of a candidate spike/framework never substitute for that authority.
 
 ---
 

@@ -6,9 +6,9 @@ form: reference
 
 authority: specification
 status: accepted
-accepted_at: 2026-08-06
-acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.1.0
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
+version: 0.2.0
 owners:
   - developmentconexus-ops
 approvers:
@@ -27,7 +27,7 @@ review_triggers:
   - Product Blueprint change
   - Capability requirement derivation
   - A0 acceptance review
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Aurora Constitutional Requirements and Traceability
@@ -410,7 +410,7 @@ Verification categories are intended proof classes, not implementation authoriza
 | AUR-REQ-RDM-001 | Aurora roadmap MUST consist of cumulative Product Milestones closed by operator-visible Golden Proofs and named risk reduction. | §14.1, §14.5 | roadmap validation |
 | AUR-REQ-RDM-002 | Constitutional and executable horizons MUST remain separate. | §14.2 | status/authorization review |
 | AUR-REQ-RDM-003 | Product Milestone, Capability, Architecture Spike, Implementation Mission and Closeout MUST remain distinct. | §14.4 | planning artifact review |
-| AUR-REQ-RDM-004 | Every Product Milestone MUST define outcome, value, risk, entry, capabilities, spikes, Golden Proof, evidence, exit, telemetry, non-goals, dependencies and replan triggers. | §14.5 | milestone schema/check |
+| AUR-REQ-RDM-004 | Every Product Milestone promoted into the current executable horizon MUST define outcome, value, risk, entry, capabilities, spikes, Golden Proof, evidence, exit, telemetry, non-goals, dependencies, replan triggers and promotion/authority boundary. | §14.5 | milestone schema/check |
 | AUR-REQ-RDM-005 | Roadmap SHOULD follow walking skeleton, vertical slice, sovereign Core before integration, context before autonomy and observe-before-actuate principles. | §14.6 | sequence review |
 | AUR-REQ-RDM-006 | A0 MUST close through complete documentation, traceability, adversarial review and fresh-session continuity. | §14.7 | A0 Golden Proof |
 | AUR-REQ-RDM-007 | M0 MUST prove sovereign identity/state across restart and backup/restore. | §14.8 | M0 Golden Proof |
@@ -459,9 +459,9 @@ Verification categories are intended proof classes, not implementation authoriza
 
 ---
 
-## 17. Initial totals and allocation status
+## 17. Accepted A0 totals and allocation baseline
 
-Current proposed constitutional requirements:
+Accepted A0 constitutional requirements:
 
 ```text
 Blueprint 01  12
@@ -483,17 +483,17 @@ Blueprint 15  22
 TOTAL         294
 ```
 
-Current allocation:
+A0 allocation baseline:
 
 ```text
-Product constitution: PROPOSED
-Capability Specs: NOT_STARTED
-Mission Contracts: NOT_STARTED
-Implementation: PROHIBITED
-Evidence: A0 documentation/research only
+Product constitution: ACCEPTED
+Capability Specs: NOT_STARTED at A0 closeout
+Mission Contracts: NOT_STARTED at A0 closeout
+Implementation: NOT AUTHORIZED BY A0
+Evidence: accepted A0 documentation/research + independent fresh-session Golden Proof
 ```
 
-The large number does not mean every Capability implements all 294 requirements. R1 applicability selects relevant requirements and records rationale.
+The large number does not mean every Capability implements all 294 requirements. R1 applicability selects relevant requirements and records rationale. Current milestone/gate authorization is intentionally not owned by this specification; consult `docs/tracking/STATUS.md`.
 
 ---
 
@@ -514,9 +514,9 @@ For A0 acceptance:
 
 ## 19. Next derivation step
 
-When the next Product Milestone is selected, create the first Capability applicability/requirements package.
+`M0 — Sovereign Core Walking Skeleton` is the selected first Product Milestone. When ACRM R1 is separately authorized, create the first Capability applicability/requirements package.
 
-Example for M0:
+Target package for M0:
 
 ```text
 CAP-SOVEREIGN-CORE

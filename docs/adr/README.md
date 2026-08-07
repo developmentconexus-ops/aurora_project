@@ -5,9 +5,9 @@ document_type: adr_index
 form: reference
 authority: decision
 status: accepted
-accepted_at: 2026-08-06
-acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.2.0
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -20,7 +20,7 @@ related:
   - DOC-AURORA-DOCUMENTATION-MAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-RESEARCH-MAP
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Architecture Decision Records
@@ -101,7 +101,7 @@ A material ADR contains:
 
 ## 5. Acceptance gate
 
-Before acceptance:
+For post-A0 Capability/Product-Milestone-scoped ADRs, before acceptance:
 
 - relevant ACRM R0–R3 gates are current;
 - material uncertainty has evidence or an authorized spike;
@@ -110,16 +110,18 @@ Before acceptance:
 - operational burden and exit conditions are explicit;
 - Leandro reviews material architecture decisions.
 
+ADR-0001 and ADR-0002 are A0 baseline decisions that were explicitly accepted through the A0 operator gate before the first Product Milestone readiness cycle. This post-A0 rule does not retroactively alter their accepted decision status.
+
 Acceptance of an ADR does not automatically authorize a Capability Spec, Mission Contract, Architecture Spike or implementation.
 
 ## 6. Index
 
 | ADR | Title | Status | Primary decision |
 |---|---|---|---|
-| [ADR-0001](0001-aurora-owned-contract-model.md) | Aurora-owned Contract Model and Replaceable Bindings | proposed | Aurora owns cross-Harness semantics; protocols remain bindings |
-| [ADR-0002](0002-first-party-harness-development-kit.md) | First-party Harness Development Kit and Universal Conformance | proposed | first-party Harnesses use AHDK by policy; conformance remains universal |
+| [ADR-0001](0001-aurora-owned-contract-model.md) | Aurora-owned Contract Model and Replaceable Bindings | accepted | Aurora owns cross-Harness semantics; protocols remain bindings |
+| [ADR-0002](0002-first-party-harness-development-kit.md) | First-party Harness Development Kit and Universal Conformance | accepted | first-party Harnesses use AHDK by policy; conformance remains universal |
 
-No ADR is accepted in A0 yet.
+ADR-0001 and ADR-0002 were explicitly accepted by the operator as part of the A0 decision gate on 2026-08-06. Future ADRs remain non-governing until their own lifecycle and required authority promote them.
 
 ## 7. Numbering and filenames
 

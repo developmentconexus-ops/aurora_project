@@ -6,9 +6,9 @@ form: explanation
 
 authority: constitutional
 status: accepted
-accepted_at: 2026-08-06
-acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.2.0
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
+version: 0.3.0
 owners:
   - developmentconexus-ops
 approvers:
@@ -29,7 +29,7 @@ review_triggers:
   - milestone sequence changes
   - Golden Proof or product risk changes
   - capability readiness evidence changes
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # 14. Roadmap de Capacidades e Ordem de Realização
@@ -151,7 +151,7 @@ Product Milestone is not the same as an internal mission milestone.
 
 ## 14.5 Required milestone anatomy
 
-Every Product Milestone must define:
+Every Product Milestone **promoted into the current executable horizon** must define:
 
 ```text
 Outcome
@@ -169,6 +169,10 @@ Dependencies
 Replan triggers
 Promotion/authority boundary
 ```
+
+Directional future milestones may intentionally leave executable fields less specific while preserving enough outcome, risk, proof direction and boundaries to protect sequencing. Before such a milestone can pass its own R0, it must be expanded to the complete anatomy above without silently importing technical commitment from a distant horizon.
+
+For the selected/current milestone, a missing required field is a constitutional readiness defect, not something R1/R2 should invent on behalf of the roadmap owner.
 
 A milestone cannot close because files exist or a demo looks plausible.
 
@@ -334,7 +338,7 @@ Aurora is merely a running session; restart destroys identity and state.
 - storage and language spikes complete enough for one local implementation;
 - backup/restore and migration strategy for the slice.
 
-## Capabilities
+## Capabilities involved
 
 - sovereign identity;
 - project registry;
@@ -342,6 +346,15 @@ Aurora is merely a running session; restart destroys identity and state.
 - authority snapshot;
 - event/audit minimum;
 - CLI or simple interface.
+
+## Architecture spikes
+
+M0 requires evidence for the two implementation-blocking uncertainty classes already named by its entry criteria:
+
+- local operational-state persistence/recovery, including the export/restore and migration needs of this slice;
+- Core implementation language/runtime fit for the smallest local implementation.
+
+The roadmap does **not** select spike IDs, candidate technologies, procedures or winners. R1–R4 must determine exact applicability and whether an existing portfolio item is reusable or a narrower M0 spike is required. Every spike still requires its own authorization before execution.
 
 ## Golden Proof
 
@@ -356,13 +369,36 @@ initialize Aurora instance
 → export and restore state
 ```
 
-## Evidence
+## Evidence requirements
 
 - state hashes/IDs;
 - restart receipt;
 - invalid transition test;
 - backup/restore result;
 - no transcript dependency.
+
+## Exit criteria
+
+- the complete M0 Golden Proof passes end to end against one fixed accepted revision;
+- Aurora identity, project identity, accepted project state, authority snapshot and next action survive the process restart represented by the proof;
+- the invalid transition is rejected without being accepted as current state;
+- export and restore reproduce the M0 state required by the proof;
+- evidence demonstrates that transcript, external model and Harness state are not the authority required for recovery;
+- limitations and residual risks are explicit;
+- operator-visible value is demonstrated and M0 receives its R8 closeout verdict rather than being inferred from component completion.
+
+## Telemetry baseline
+
+M0 records only the structured signals needed to explain and verify its own walking skeleton:
+
+- stable Aurora/project/proof-run correlation identities;
+- attempted and accepted/rejected lifecycle transitions;
+- restart/recovery boundary and result;
+- export/restore attempt and result;
+- integrity/hash references used by the M0 evidence;
+- classified failure reason when a proof step cannot complete.
+
+No telemetry backend, event transport, schema technology or observability framework is selected by this baseline.
 
 ## Non-goals
 
@@ -374,11 +410,27 @@ initialize Aurora instance
 - cloud;
 - physical devices.
 
+## Dependencies
+
+M0 depends on the prerequisites expressed by its entry criteria and the accepted constitutional owners for identity, project/state, authority, sovereignty, architecture and evidence.
+
+M0 does **not** depend on M1 conversational memory, M2 Capability Registry/AHDK, MNFS integration, cloud deployment or physical-device capability. Those remain later roadmap concerns.
+
 ## Replan triggers
 
 - store cannot preserve required state simply;
 - domain model proves too broad for slice;
 - operational burden exceeds single-user baseline.
+
+## Promotion/authority boundary
+
+M0 selection authorizes readiness analysis only to the extent recorded in `docs/tracking/STATUS.md`.
+
+- R0–R6 may refine applicability, verifiable requirements, Capability design, technical decisions and the exact implementation contract, but MUST NOT silently change this outcome, named risk, Golden Proof direction or non-goals;
+- completing one ACRM gate does not authorize the next;
+- language, storage, runtime, topology, schema, event/audit and backup mechanisms remain technical decisions for later applicable gates;
+- Architecture Spike execution and Aurora Core implementation require separate explicit authorization;
+- M0 becomes accepted only through R8 closeout with end-to-end evidence and the required operator verdict.
 
 ---
 

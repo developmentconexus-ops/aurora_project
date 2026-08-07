@@ -5,9 +5,9 @@ document_type: product_index
 form: reference
 authority: constitutional
 status: accepted
-accepted_at: 2026-08-06
-acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.2.0
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -22,7 +22,7 @@ related:
   - DOC-AURORA-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-REQUIREMENTS-TRACEABILITY
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Aurora Product Documentation
@@ -177,19 +177,20 @@ STATUS
 → Microdesign and plan
 ```
 
-## 8. Current authority state
+## 8. Accepted baseline and current-state handoff
 
-All A0 constitutional sources were explicitly accepted by the operator on 2026-08-06. Merge is a separate repository action and was authorized by the same operator decision.
+All A0 constitutional sources, ADR-0001 and ADR-0002 were explicitly accepted by the operator on 2026-08-06, and the accepted A0 package was subsequently merged to `main`.
+
+This product index does not own mutable readiness state. For the selected Product Milestone, current ACRM gate, blockers, authorizations, prohibitions and exact next action, read:
 
 ```text
-A0 baseline: ACCEPTED
-Constitutional sources: ACCEPTED
-ADR-0001 / ADR-0002: ACCEPTED
-PR #1 merge: AUTHORIZED
-Architecture Spikes: NOT AUTHORIZED
-Aurora runtime implementation: PROHIBITED
-AHDK implementation: PROHIBITED
-MNFS integration: PROHIBITED
+docs/tracking/STATUS.md
 ```
 
-A merged file is not automatically accepted unless its lifecycle and operator decision say so. A0 acceptance is a separate explicit gate.
+Stable governance remains:
+
+- merge does not create acceptance by itself;
+- accepted A0 intent does not select a stack;
+- accepted ADRs govern only their stated decision scope;
+- a selected milestone does not authorize later gates by implication;
+- Architecture Spike execution and implementation require their own explicit authority.

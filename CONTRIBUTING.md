@@ -31,6 +31,10 @@ documentation_impact:
   follow_up: null
 ```
 
-## Estado desta baseline
+## Estado e branches
 
-A branch `docs/architecture-baseline` é uma proposta para revisão do operador. Nenhum arquivo nela se torna aceito apenas por existir.
+`main` é a branch canônica do repositório. Branches não canônicas são superfícies de proposta/revisão e não promovem conteúdo por existência, commit, CI verde ou permissão de escrita.
+
+A branch `docs/architecture-baseline` pode ser reutilizada pelo workflow documental para regeneração e revisão de mudanças constitucionais, mas seu conteúdo só se torna canônico após a autoridade aplicável aceitar a revisão e a mudança ser integrada a `main`.
+
+O gate, as autorizações, os blockers e a próxima ação correntes são sempre lidos de `docs/tracking/STATUS.md`.

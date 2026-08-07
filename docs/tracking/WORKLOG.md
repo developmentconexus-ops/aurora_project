@@ -5,12 +5,12 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.6.0
+version: 0.8.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - chronological material work history
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Aurora Worklog
@@ -267,3 +267,63 @@ STACK SELECTION — NOT PERFORMED
 ```
 
 The next session must execute only R0, produce `PASS | FAIL | BLOCKED` with repository citations, identify constitutional gaps/contradictions if any, and stop before R1 unless separately authorized.
+
+## 2026-08-06 — M0 R0 constitutional baseline review
+
+A fresh repository-only review executed ACRM R0 for selected `M0 — Sovereign Core Walking Skeleton` against fixed commit:
+
+```text
+1da990f368a1bc693c09191c41d30a3db454d11e
+```
+
+Verdict:
+
+```text
+R0 FAIL
+```
+
+Findings:
+
+- `R0-F01`: selected M0 did not satisfy the complete milestone anatomy required by Blueprint 14; the requirement also needed clarification that full executable anatomy applies when a milestone enters the executable horizon, preserving directional future milestones from premature detail;
+- `R0-F02`: the ADR index reported ADR-0001/0002 as proposed despite accepted ADR owners and explicit operator acceptance;
+- `R0-F03`: mutable current-state snapshots had drifted across AGENTS, README/index/constitutional/coverage documents after A0 merge and M0 selection.
+
+The review deliberately did not choose language, storage, framework, runtime, protocol, topology or spike implementation and did not advance to R1.
+
+Review record:
+
+```text
+docs/reviews/2026-08-06-m0-r0-constitutional-baseline-review.md
+```
+
+## 2026-08-06 — M0 R0 documentary remediation authorized
+
+After receiving the R0 FAIL and exact allowed next action, Leandro instructed the project to continue. This is recorded as authorization to remediate the R0 documentation/constitutional findings only.
+
+The remediation:
+
+- completes selected M0's executable-horizon roadmap anatomy using only already-accepted intent;
+- aligns the roadmap requirement with the two-horizon model;
+- aligns ADR status discovery;
+- removes duplicated mutable gate ownership from durable documents;
+- regenerates Product Blueprint/Roadmap projections;
+- validates documentation before operator review.
+
+R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized. The revised normative documents remain `PROPOSED` on the non-canonical branch until explicit operator acceptance; the last accepted versions remain canonical on `main`.
+
+
+## 2026-08-07 — M0 R0 remediation revision accepted
+
+The operator reviewed the corrected R0 remediation candidate at exact semantic revision:
+
+```text
+b32cfe134f84eed3797d866e607c92c227514186
+```
+
+and responded:
+
+> “Aprovo A revisao”
+
+The decision accepts the corrected documentary/constitutional meaning and authorizes its lifecycle promotion and canonical integration. Promotion metadata and acceptance evidence may change after the approved semantic revision; the approved constitutional content itself must not drift during promotion.
+
+This acceptance does **not** authorize R1 or any later ACRM gate, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract or Microdesign. After canonical integration, the next allowed action is a fresh repository-only re-run of M0 ACRM R0 only.
