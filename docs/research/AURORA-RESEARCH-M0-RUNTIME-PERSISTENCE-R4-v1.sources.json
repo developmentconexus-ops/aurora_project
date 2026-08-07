@@ -1,0 +1,207 @@
+{
+  "research_id": "RESEARCH-AURORA-M0-RUNTIME-PERSISTENCE-R4-V1",
+  "accessed_at": "2026-08-07",
+  "selection_policy": "Current primary language documentation, database documentation, and official project documentation for runtime stability, relational transaction semantics, local-first persistence, crash recovery, backups, driver integration and durable-execution applicability.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Go 1.26 Release Notes",
+      "publisher": "The Go Project",
+      "url": "https://go.dev/doc/go1.26",
+      "type": "official_release_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["Go 1.26 current major release behavior", "Go compatibility promise", "runtime and toolchain status"],
+      "limitations": ["Does not evaluate Aurora-specific persistence or operational burden"]
+    },
+    {
+      "id": "S02",
+      "title": "Go Release History",
+      "publisher": "The Go Project",
+      "url": "https://go.dev/doc/devel/release",
+      "type": "official_release_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["Go 1.26 stable release line and support policy"],
+      "limitations": ["Release status alone does not prove application suitability"]
+    },
+    {
+      "id": "S03",
+      "title": "Accessing Relational Databases in Go",
+      "publisher": "The Go Project",
+      "url": "https://go.dev/doc/database/",
+      "type": "official_language_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["database/sql portability across relational engines", "transaction and connection-pool model"],
+      "limitations": ["Actual database guarantees depend on selected engine and driver"]
+    },
+    {
+      "id": "S04",
+      "title": "Executing Transactions in Go",
+      "publisher": "The Go Project",
+      "url": "https://go.dev/doc/database/execute-transactions",
+      "type": "official_language_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["sql.Tx atomic commit/rollback programming boundary"],
+      "limitations": ["Crash/power-loss durability is delegated to the database/driver/storage stack"]
+    },
+    {
+      "id": "S05",
+      "title": "Rust 1.97.1 Release",
+      "publisher": "The Rust Project",
+      "url": "https://blog.rust-lang.org/2026/07/16/Rust-1.97.1/",
+      "type": "official_release_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["current Rust stable release status"],
+      "limitations": ["Release status alone does not prove Aurora-specific fit"]
+    },
+    {
+      "id": "S06",
+      "title": "The Rust Programming Language — Ownership",
+      "publisher": "The Rust Project",
+      "url": "https://doc.rust-lang.org/stable/book/ch04-00-understanding-ownership.html",
+      "type": "official_language_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["compile-time memory safety without garbage collection", "ownership/borrowing model"],
+      "limitations": ["Memory safety does not by itself solve transactional, authority or restore correctness"]
+    },
+    {
+      "id": "S07",
+      "title": "Rusqlite",
+      "publisher": "rusqlite project",
+      "url": "https://github.com/rusqlite/rusqlite",
+      "type": "official_project_repository",
+      "accessed_at": "2026-08-07",
+      "supports": ["Rust SQLite binding", "bundled SQLite option", "backup feature"],
+      "limitations": ["Uses SQLite C binding; build/runtime behavior still needs Aurora-specific validation"]
+    },
+    {
+      "id": "S08",
+      "title": "Appropriate Uses For SQLite",
+      "publisher": "SQLite",
+      "url": "https://www.sqlite.org/whentouse.html",
+      "type": "official_database_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["device/application-local storage fit", "serverless administration model", "single-writer and network-filesystem limitations"],
+      "limitations": ["General guidance does not prove Aurora driver/configuration behavior"]
+    },
+    {
+      "id": "S09",
+      "title": "SQLite PRAGMA synchronous",
+      "publisher": "SQLite",
+      "url": "https://www.sqlite.org/pragma.html#pragma_synchronous",
+      "type": "official_database_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["WAL FULL durability semantics", "NORMAL versus FULL power-loss trade-offs"],
+      "limitations": ["Depends on VFS/filesystem/storage honoring synchronization correctly"]
+    },
+    {
+      "id": "S10",
+      "title": "SQLite Backup API",
+      "publisher": "SQLite",
+      "url": "https://www.sqlite.org/backup.html",
+      "type": "official_database_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["consistent online snapshot backup"],
+      "limitations": ["Aurora logical export still needs schema/integrity/authority semantics above raw backup"]
+    },
+    {
+      "id": "S11",
+      "title": "How To Corrupt An SQLite Database File",
+      "publisher": "SQLite",
+      "url": "https://sqlite.org/howtocorrupt.html",
+      "type": "official_database_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["automatic rollback/recovery expectations", "unsafe raw-copy and journal/WAL handling failure modes"],
+      "limitations": ["Does not replace deliberate Aurora fault-injection testing"]
+    },
+    {
+      "id": "S12",
+      "title": "PostgreSQL 18 Reliability and WAL",
+      "publisher": "PostgreSQL Global Development Group",
+      "url": "https://www.postgresql.org/docs/18/wal-reliability.html",
+      "type": "official_database_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["committed-transaction durability model", "WAL crash recovery", "data-page checksum behavior"],
+      "limitations": ["Requires separate server administration and reliable storage configuration"]
+    },
+    {
+      "id": "S13",
+      "title": "PostgreSQL 18 Backup and Restore",
+      "publisher": "PostgreSQL Global Development Group",
+      "url": "https://www.postgresql.org/docs/18/backup.html",
+      "type": "official_database_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["SQL dump, filesystem backup and continuous archiving options"],
+      "limitations": ["Physical backup is not Aurora's portable logical sovereignty format"]
+    },
+    {
+      "id": "S14",
+      "title": "RocksDB Overview",
+      "publisher": "Meta / RocksDB project",
+      "url": "https://github.com/facebook/rocksdb/wiki/RocksDB-Overview",
+      "type": "official_project_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["embedded key/value LSM model", "WAL and backup capabilities", "server-workload orientation"],
+      "limitations": ["Low-level KV interface shifts relational/schema/invariant responsibility into Aurora"]
+    },
+    {
+      "id": "S15",
+      "title": "modernc.org/sqlite",
+      "publisher": "modernc.org/sqlite project",
+      "url": "https://pkg.go.dev/modernc.org/sqlite",
+      "type": "official_package_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["CGo-free database/sql SQLite driver", "current cross-platform support", "bundled SQLite version"],
+      "limitations": ["Documentation explicitly identifies a fragile exact-version dependency on modernc.org/libc; must be exercised by spike"]
+    },
+    {
+      "id": "S16",
+      "title": "mattn/go-sqlite3",
+      "publisher": "mattn/go-sqlite3 project",
+      "url": "https://github.com/mattn/go-sqlite3",
+      "type": "official_project_repository",
+      "accessed_at": "2026-08-07",
+      "supports": ["mature database/sql SQLite driver", "direct SQLite C integration"],
+      "limitations": ["Requires CGO and a C toolchain; cross-build and distribution implications require measurement"]
+    },
+    {
+      "id": "S17",
+      "title": "ncruces/go-sqlite3 Releases",
+      "publisher": "ncruces/go-sqlite3 project",
+      "url": "https://github.com/ncruces/go-sqlite3/releases",
+      "type": "official_project_release_history",
+      "accessed_at": "2026-08-07",
+      "supports": ["current Go SQLite alternative and release cadence"],
+      "limitations": ["Project explicitly flags recent wasm2go transition as potentially less stable; not preferred for the first sovereignty store without additional evidence"]
+    },
+    {
+      "id": "S18",
+      "title": "DBOS Go Programming Guide",
+      "publisher": "DBOS",
+      "url": "https://docs.dbos.dev/golang/programming-guide",
+      "type": "official_product_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["Go durable workflows", "Postgres requirement", "checkpoint/recovery semantics"],
+      "limitations": ["Solves long-running workflow execution, a problem not currently required by M0"]
+    },
+    {
+      "id": "S19",
+      "title": "Restate Key Concepts",
+      "publisher": "Restate",
+      "url": "https://docs.restate.dev/foundations/key-concepts",
+      "type": "official_product_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["journal-based durable execution and replay"],
+      "limitations": ["Adds a distinct execution runtime/history that M0 does not currently require"]
+    },
+    {
+      "id": "S20",
+      "title": "Mastra Temporal Workflows",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-temporal-workflows",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-07",
+      "supports": ["Temporal fit for workflows lasting hours/days or surviving worker restarts"],
+      "limitations": ["Does not justify a durable workflow engine for M0's short internal state operations"]
+    }
+  ]
+}
