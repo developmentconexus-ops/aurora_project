@@ -1,0 +1,28 @@
+name: Align accepted ADR-0002
+
+on:
+  push:
+    branches:
+      - docs/architecture-baseline
+    paths:
+      - docs/acceptance/2026-08-06-a0-operator-acceptance.md
+
+permissions:
+  contents: write
+
+jobs:
+  align:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/architecture-baseline
+          fetch-depth: 0
+      - run: python scripts/fix_accepted_adr2.py
+      - run: |
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "docs: align ADR-0002 with accepted lifecycle"
+          git push origin HEAD:docs/architecture-baseline
