@@ -22,11 +22,13 @@ func TestBootstrapReopenPreservesIdentity(t *testing.T) {
 		t.Fatalf("bootstrap: %v", err)
 	}
 
-	got, err := Inspect(path)
-	if err != nil {
-		t.Fatalf("inspect after reopen: %v", err)
-	}
-	if !reflect.DeepEqual(got, want) {
-		t.Fatalf("recovered snapshot mismatch\nwant: %#v\n got: %#v", want, got)
+	for reopen := 1; reopen <= 5; reopen++ {
+		got, err := Inspect(path)
+		if err != nil {
+			t.Fatalf("inspect after reopen %d: %v", reopen, err)
+		}
+		if !reflect.DeepEqual(got, want) {
+			t.Fatalf("recovered snapshot mismatch after reopen %d\nwant: %#v\n got: %#v", reopen, want, got)
+		}
 	}
 }
