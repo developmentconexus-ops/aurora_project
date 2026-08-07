@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.14.0
+version: 0.15.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -33,6 +33,13 @@ related:
   - DOC-AURORA-CAP-SOVEREIGN-CORE-REQUIREMENTS
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R2-COVERAGE
   - REVIEW-AURORA-M0-R2-REQUIREMENTS-2026-08-07
+  - DOC-AURORA-M0-R3-OPERATOR-AUTHORIZATION
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-SPEC
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-THREAT-MODEL
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-TEST-PLAN
+  - DOC-AURORA-CAP-SOVEREIGN-CORE-R3-COVERAGE
+  - REVIEW-AURORA-M0-R3-RESEARCH-FRESHNESS-2026-08-07
+  - REVIEW-AURORA-M0-R3-CAPABILITY-READINESS-2026-08-07
 last_reviewed: 2026-08-07
 ---
 
@@ -48,7 +55,7 @@ last_reviewed: 2026-08-07
 - **ADR-0001:** ACCEPTED
 - **ADR-0002:** ACCEPTED
 - **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED by operator
-- **Current readiness gate:** ACRM R2 — Requirements — PASS
+- **Current readiness gate:** ACRM R3 — Capability Readiness — PASS
 - **Initial R0 verdict:** FAIL
 - **R0 re-run target:** `6054f84d007347c0aa9eef9e71317134b1047d3c`
 - **R0 re-run verdict:** PASS
@@ -63,8 +70,15 @@ last_reviewed: 2026-08-07
 - **R2 derived requirements:** 122 proposed atomic requirements; coverage 127/127 active sources
 - **R2 canonical integration:** `9bfab2b30eaccb92ddb55852f97735653172f064`
 - **R2 verdict:** PASS
-- **R3 — Capability Readiness:** NOT AUTHORIZED / awaiting explicit operator authorization
-- **R4 and later gates:** NOT AUTHORIZED BY IMPLICATION
+- **R3 source baseline:** `9ea8adf5c115f54071d7e36e312695d19420d8b0`
+- **R3 reviewed clean package:** `4b8558b724f28310fd8fbc6884944f7f59f16ea6`
+- **R3 canonical integration:** `58a7946b62f27d8b8784169e7e3741eec24ecc95`
+- **R3 requirement allocation:** 122/122 R2 requirements allocated to Spec mechanisms and planned verification
+- **R3 test-plan baseline:** 84 planned test IDs; 80 referenced directly by requirement coverage
+- **R3 research freshness:** SUFFICIENT for boundary reasoning; R4 mechanism/version revalidation required
+- **R3 verdict:** PASS
+- **R4 — Architecture/Decision Readiness:** NOT AUTHORIZED / awaiting explicit operator authorization
+- **R5 and later gates:** NOT AUTHORIZED BY IMPLICATION
 - **Stack decisions:** none
 - **Runtime implementation:** not started and not authorized
 
@@ -130,18 +144,23 @@ This remediation does **not** authorize R1, Architecture Spike execution, Capabi
 
 ## 5. Deliberately open M0-relevant technical decisions
 
-The following remain open and were not decided by R0, R1 or R2; they belong to later applicable readiness gates:
+The following remain open and were not decided by R0, R1, R2 or R3. R3 fixed the behavior/boundaries they must satisfy; R4 owns the implementation mechanisms and current-source revalidation:
 
-- Aurora Core implementation language;
+- Aurora Core implementation language/runtime;
+- operational-state storage mechanism;
+- state-versus-event persistence pattern;
+- schema/serialization representation;
+- crash-consistent commit/atomicity mechanism;
+- integrity mechanism;
+- time/rollback semantics used for authority expiry;
+- local owner authentication/bootstrap mechanism;
+- export/backup format and topology;
+- migration mechanism/tooling;
+- audit/event physical mechanism;
+- telemetry backend/transport;
 - initial process/deployment topology;
-- operational state storage mechanism;
-- state-versus-event model;
-- schema representation;
-- migration strategy details;
-- backup/restore mechanism details;
-- authority snapshot representation;
-- audit/event mechanism;
-- any durable execution engine beyond what M0 actually requires.
+- durable execution engine applicability, only if M0 need proves it proportionate;
+- authority freshness/revalidation mechanism after restore.
 
 ## 6. Current authorization boundary
 
@@ -156,8 +175,10 @@ M0 ACRM R1 — Applicability:    PASS — source baseline 735f269025e2cc317424e4
 R1 applicability coverage:     294/294 classified; 127 active sources
 M0 ACRM R2 — Requirements:     PASS — source baseline 495b712142d7c3d722da2298f7a0b060707f9f5e
 R2 requirements baseline:       122 proposed atomic requirements; coverage 127/127
-ACRM R3 — Capability Readiness: NOT AUTHORIZED / AWAITING OPERATOR
-ACRM R4+:                       NOT AUTHORIZED
+M0 ACRM R3 — Capability Readiness: PASS — source baseline 9ea8adf5c115f54071d7e36e312695d19420d8b0
+R3 proposed Capability package: Spec + threat model + test plan + 122/122 allocation
+ACRM R4 — Architecture/Decision Readiness: NOT AUTHORIZED / AWAITING OPERATOR
+ACRM R5+:                       NOT AUTHORIZED
 Architecture Spike execution:   PROHIBITED
 Capability implementation:      PROHIBITED
 Aurora Core implementation:     PROHIBITED
@@ -170,14 +191,14 @@ Microdesign/Implementation Plan: NOT STARTED
 
 ## 7. Current blocker/gate
 
-The M0 ACRM R2 requirements derivation against fixed source baseline `495b712142d7c3d722da2298f7a0b060707f9f5e` transformed all 127 R1-active constitutional source rows into a reviewed package of 122 proposed atomic requirements with 127/127 source coverage and returned `R2 PASS`. The R2-specific validator reported 0 uncovered active sources, 0 inactive source references, 0 unsupported verification methods and 0 selected technology candidates. Eight adversarial wording findings were corrected before the final verdict.
+The M0 ACRM R3 Capability Readiness analysis against fixed source baseline `9ea8adf5c115f54071d7e36e312695d19420d8b0` produced a proposed reusable `CAP-SOVEREIGN-CORE` Spec, threat model, Capability Test Plan and requirement-allocation matrix. All 122 R2 requirements are allocated to current Spec/threat mechanisms and planned verification. The R3-specific validator reported 122/122 allocation rows, 84 defined test IDs, 0 undefined test references, all required ACRM sections/owners/threat classes present and 0 selected technology candidates. Two material adversarial findings—restore revalidation without an explicit owner recovery root and an under-specified `accepted_state` envelope—were resolved before the final review returned `R3 PASS`.
 
-The requirements remain `proposed`; canonical integration and green CI do not constitute operator acceptance. The intentional boundary is now authorization: R3 has **not** been authorized. No Capability/System Spec, threat-model execution, Architecture Spike, stack choice, Mission Contract, Microdesign or implementation may begin by implication.
+The Capability Spec/threat model/test plan remain `proposed`; canonical integration and green CI do not constitute operator acceptance. R3 also determined that current research is sufficient for boundary reasoning while exact candidate/mechanism/version evidence MUST be revalidated in R4. The intentional boundary is now authorization: R4 has **not** been authorized. No Architecture/Decision Readiness work, Architecture Spike execution, stack choice, Mission Contract, Microdesign or implementation may begin by implication.
 
 ## 8. Immediate next action
 
 ```text
-R2 PASS recorded
-→ stop at the R2 boundary
-→ await explicit operator authorization for M0 ACRM R3 — Capability Readiness
+R3 PASS recorded
+→ stop at the R3 boundary
+→ await explicit operator authorization for M0 ACRM R4 — Architecture/Decision Readiness
 ```

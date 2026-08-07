@@ -463,3 +463,53 @@ R2 PASS
 The review itself passed documentation validation in workflow run `31149400264`, and the clean R2 package was fast-forward integrated into canonical `main` at `9bfab2b30eaccb92ddb55852f97735653172f064`. Normal main Documentation workflow run `31149443670` also completed successfully.
 
 The 122 Capability requirements remain `status: proposed`; Git integration/CI is not operator acceptance. R2 did not select language/runtime, database/store, state/event mechanism, schema technology, telemetry backend, event transport, backup/migration tooling, topology, durable engine or Architecture Spike winner. R3 and later gates remain separately unauthorized.
+
+## 2026-08-07 — M0 R3 Capability Readiness
+
+The operator explicitly authorized `M0 ACRM R3 — Capability Readiness` after R2 PASS. The fixed R3 source baseline was `9ea8adf5c115f54071d7e36e312695d19420d8b0`.
+
+R3 produced a proposed modular Capability package for `CAP-SOVEREIGN-CORE`:
+
+```text
+docs/capabilities/CAP-SOVEREIGN-CORE/SPEC.md
+docs/capabilities/CAP-SOVEREIGN-CORE/THREAT-MODEL.md
+docs/capabilities/CAP-SOVEREIGN-CORE/TEST-PLAN.md
+docs/capabilities/CAP-SOVEREIGN-CORE/R3-COVERAGE.md
+```
+
+The logical design keeps one Sovereign Core Capability and assigns distinct owners for Identity, Project State, Authority, Portability/Recovery and Audit/Evidence. Replaceable ports keep operator interaction, durable storage, evidence/artifact payloads, time and integrity mechanisms outside domain ownership.
+
+R3 fixed M0 domain/lifecycle semantics without selecting implementation technology. Accepted state uses explicit revision semantics and a minimum semantic envelope; authority snapshots and next-safe-action are projections over current state/authority; ordinary restart re-evaluates current authority while stale backup restore fails closed through `REVALIDATION_REQUIRED`. A restored grant cannot authorize its own revalidation; only the authenticated Leandro owner recovery root can create a new attributable authority-state revision.
+
+The threat model covers state corruption/rollback, authority resurrection, unsafe restore, identity collision, export exposure/tampering, untrusted-content authority injection, clock rollback, crash ambiguity, migration drift, evidence spoofing and sensitive telemetry. R3 assigns the accepted Aurora data classes to all material M0 data families.
+
+The Capability Test Plan defines 15 deterministic logical fixtures and 84 test IDs. `R3-COVERAGE.md` allocates all 122 R2 requirements to Spec mechanisms and planned verification. A dedicated validator run `31150888970` reported:
+
+```text
+R2 requirements: 122
+R3 coverage rows: 122
+planned test IDs defined: 84
+test IDs referenced by coverage: 80
+undefined referenced tests: 0
+required ACRM Spec sections: present
+required logical owners: present
+required semantic closure: present
+required threat classes: present
+critical negative test cases: present
+candidate technology selections: 0
+```
+
+Two material findings were corrected before verdict:
+
+- `R3-F01`: restore fail-closed semantics lacked an explicit safe owner recovery/revalidation root;
+- `R3-F02`: `accepted_state` was under-specified and could have left product semantics to R4.
+
+The Research Map freshness boundary was reviewed. The current durability, authority/identity/effects and events/observability/schema reports remain sufficient for R3 boundary reasoning; exact mechanism/version primary-source revalidation remains mandatory for R4.
+
+The clean R3 package reviewed at `4b8558b724f28310fd8fbc6884944f7f59f16ea6` received:
+
+```text
+R3 PASS
+```
+
+The package was integrated canonically at `58a7946b62f27d8b8784169e7e3741eec24ecc95` and passed the normal Documentation workflow. Spec/threat/test artifacts remain `proposed`; merge/CI do not constitute operator acceptance. No stack, Architecture Spike, Mission Contract, Microdesign or implementation was selected or executed. R4 remains separately gated and unauthorized.
