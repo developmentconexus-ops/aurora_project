@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.6.1
+version: 0.6.2
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -30,6 +30,7 @@ last_reviewed: 2026-08-06
 - **Phase:** A0 — ACCEPTED Product, Discovery and Architecture Baseline
 - **A0 accepted:** 2026-08-06 by operator
 - **Acceptance promotion commit:** `346d8cb8750d1e6429106e46f11cde4d8e225e08`
+- **ADR-0002 accepted-state narrative alignment:** `00ce3b5ea70681c76dfd614ce256404c516fef6c`
 - **Product Blueprint:** 15 modular accepted constitutional sections plus generated aggregate
 - **Constitutional requirements:** 294 accepted A0 requirements
 - **ADR-0001:** ACCEPTED
@@ -95,7 +96,7 @@ These remain future ACRM R3/R4 decisions unless the selected milestone requires 
 ## 5. Immediate next action
 
 ```text
-validate the promoted accepted-A0 branch
+run final documentation validation on this accepted-A0 branch head
 → complete authorized merge of PR #1
 → select the first Product Milestone
 → begin ACRM R0 — Constitutional Baseline for that milestone
