@@ -13,7 +13,8 @@ import (
 const helperEnv = "AURORA_SPK001_HELPER"
 
 func TestSPK001HelperProcess(t *testing.T) {
-	if os.Getenv(helperEnv) != "transition" {
+	mode := os.Getenv(helperEnv)
+	if mode == "" {
 		return
 	}
 	path := os.Getenv("AURORA_SPK001_DB")
@@ -23,20 +24,46 @@ func TestSPK001HelperProcess(t *testing.T) {
 		fmt.Fprintln(os.Stderr, "missing helper environment")
 		os.Exit(90)
 	}
+	hook := blockingFaultHook(point, marker)
 
-	in := TransitionInput{
-		AttemptID:          "ATTEMPT-CRASH",
-		ProjectID:          "PROJECT-SPIKE-001",
-		ExpectedRevision:   1,
-		NewRevision:        2,
-		AuthorityRevision:  "AUTH-1",
-		StateKind:          "ACTIVE",
-		StateSummary:       "revision two after crash boundary",
-		AuditID:            "AUDIT-CRASH",
-		EvidenceID:         "EVIDENCE-CRASH",
-		EvidenceRef:        "sha256:crash-fixture",
+	var err error
+	switch mode {
+	case "transition":
+		err = ApplyTransition(path, TransitionInput{
+			AttemptID:          "ATTEMPT-CRASH",
+			ProjectID:          "PROJECT-SPIKE-001",
+			ExpectedRevision:   1,
+			NewRevision:        2,
+			AuthorityRevision:  "AUTH-1",
+			StateKind:          "ACTIVE",
+			StateSummary:       "revision two after crash boundary",
+			AuditID:            "AUDIT-CRASH",
+			EvidenceID:         "EVIDENCE-CRASH",
+			EvidenceRef:        "sha256:crash-fixture",
+		}, hook)
+	case "checkpoint":
+		err = Checkpoint(path, hook)
+	case "backup":
+		destination := os.Getenv("AURORA_SPK001_DEST")
+		if destination == "" {
+			fmt.Fprintln(os.Stderr, "missing backup destination")
+			os.Exit(94)
+		}
+		err = SupportedBackup(path, destination, hook)
+	default:
+		fmt.Fprintf(os.Stderr, "unknown helper mode %q\n", mode)
+		os.Exit(95)
 	}
-	hook := func(got string) {
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s operation: %v\n", mode, err)
+		os.Exit(92)
+	}
+	fmt.Fprintln(os.Stderr, "fault point was not reached")
+	os.Exit(93)
+}
+
+func blockingFaultHook(point, marker string) FaultHook {
+	return func(got string) {
 		if got != point {
 			return
 		}
@@ -44,19 +71,12 @@ func TestSPK001HelperProcess(t *testing.T) {
 			fmt.Fprintf(os.Stderr, "write marker: %v\n", err)
 			os.Exit(91)
 		}
-		// Keep a timer-backed goroutine state instead of select{} so the Go
-		// runtime cannot classify the helper as a deadlocked process and exit
-		// before the parent applies the OS process-kill primitive.
+		// Timer-backed sleep prevents Go's deadlock detector from terminating
+		// the helper before the parent applies the OS process-kill primitive.
 		for {
 			time.Sleep(time.Hour)
 		}
 	}
-	if err := ApplyTransition(path, in, hook); err != nil {
-		fmt.Fprintf(os.Stderr, "apply transition: %v\n", err)
-		os.Exit(92)
-	}
-	fmt.Fprintln(os.Stderr, "fault point was not reached")
-	os.Exit(93)
 }
 
 func TestProcessKillAtTransitionBoundaries(t *testing.T) {
@@ -72,7 +92,6 @@ func TestProcessKillAtTransitionBoundaries(t *testing.T) {
 		t.Run(point, func(t *testing.T) {
 			dir := t.TempDir()
 			path := filepath.Join(dir, "aurora.db")
-			marker := filepath.Join(dir, "fault.marker")
 			initial := Snapshot{
 				SchemaVersion:     1,
 				AuroraID:          "AURORA-SPIKE-001",
@@ -86,21 +105,8 @@ func TestProcessKillAtTransitionBoundaries(t *testing.T) {
 				t.Fatalf("bootstrap: %v", err)
 			}
 
-			cmd := exec.Command(os.Args[0], "-test.run=^TestSPK001HelperProcess$", "-test.v=false")
-			cmd.Env = append(os.Environ(),
-				helperEnv+"=transition",
-				"AURORA_SPK001_DB="+path,
-				"AURORA_SPK001_FAULT="+point,
-				"AURORA_SPK001_MARKER="+marker,
-			)
-			if err := cmd.Start(); err != nil {
-				t.Fatalf("start child: %v", err)
-			}
-			waitForMarker(t, marker, cmd, 15*time.Second)
-			if err := cmd.Process.Kill(); err != nil {
-				t.Fatalf("kill child: %v", err)
-			}
-			_ = cmd.Wait()
+			cmd, _ := startHelperAtPoint(t, "transition", path, "", point)
+			killHelper(t, cmd)
 
 			got, err := Inspect(path)
 			if err != nil {
@@ -136,15 +142,38 @@ func TestProcessKillAtTransitionBoundaries(t *testing.T) {
 	}
 }
 
+func startHelperAtPoint(t *testing.T, mode, path, destination, point string) (*exec.Cmd, string) {
+	t.Helper()
+	marker := filepath.Join(filepath.Dir(path), mode+"-"+point+".marker")
+	cmd := exec.Command(os.Args[0], "-test.run=^TestSPK001HelperProcess$", "-test.v=false")
+	cmd.Env = append(os.Environ(),
+		helperEnv+"="+mode,
+		"AURORA_SPK001_DB="+path,
+		"AURORA_SPK001_DEST="+destination,
+		"AURORA_SPK001_FAULT="+point,
+		"AURORA_SPK001_MARKER="+marker,
+	)
+	if err := cmd.Start(); err != nil {
+		t.Fatalf("start %s helper: %v", mode, err)
+	}
+	waitForMarker(t, marker, cmd, 15*time.Second)
+	return cmd, marker
+}
+
+func killHelper(t *testing.T, cmd *exec.Cmd) {
+	t.Helper()
+	if err := cmd.Process.Kill(); err != nil {
+		t.Fatalf("kill child: %v", err)
+	}
+	_ = cmd.Wait()
+}
+
 func waitForMarker(t *testing.T, marker string, cmd *exec.Cmd, timeout time.Duration) {
 	t.Helper()
 	deadline := time.Now().Add(timeout)
 	for time.Now().Before(deadline) {
 		if _, err := os.Stat(marker); err == nil {
 			return
-		}
-		if cmd.ProcessState != nil && cmd.ProcessState.Exited() {
-			t.Fatalf("child exited before fault marker")
 		}
 		time.Sleep(20 * time.Millisecond)
 	}
