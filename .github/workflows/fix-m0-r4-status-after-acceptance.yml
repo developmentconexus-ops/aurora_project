@@ -1,0 +1,48 @@
+name: Fix M0 R4 status after ADR acceptance
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/fix-m0-r4-status-after-acceptance.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Repair stale status narrative
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('docs/tracking/STATUS.md')
+          t = p.read_text(encoding='utf-8')
+          old = "R4 has researched and proposed concrete dispositions for all M0 mechanism questions, but none of the new M0 ADRs is accepted yet. Store/atomicity and owner-root/time/restore mechanisms additionally require reviewed Architecture Spike evidence before acceptance:"
+          new = "R4 has researched concrete dispositions for all M0 mechanism questions. ADR-0003, ADR-0004, ADR-0005 and ADR-0006 are accepted; ADR-0007 and ADR-0008 remain proposed because store/atomicity and owner-root/time/restore mechanisms still require their reviewed Architecture Spike evidence:"
+          if old not in t:
+              raise SystemExit('stale STATUS sentence not found')
+          p.write_text(t.replace(old, new, 1).rstrip() + '\n', encoding='utf-8')
+          PY
+      - name: Generate and validate docs
+        run: |
+          python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+          python scripts/validate_docs.py --generated-root "$RUNNER_TEMP/aurora-generated" --report "$RUNNER_TEMP/docs-validation-report.json"
+          git diff --check
+      - name: Commit repair and remove helper
+        run: |
+          rm -f .github/workflows/fix-m0-r4-status-after-acceptance.yml
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add docs/tracking/STATUS.md .github
+          git diff --cached --check
+          git commit -m "docs: align R4 status with accepted ADRs"
+          git push origin HEAD:main
