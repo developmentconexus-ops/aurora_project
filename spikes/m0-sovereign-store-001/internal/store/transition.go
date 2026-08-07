@@ -5,7 +5,10 @@ import (
 	"fmt"
 )
 
-var ErrStaleRevision = errors.New("stale expected revision")
+var (
+	ErrStaleRevision   = errors.New("stale expected revision")
+	ErrInvalidRevision = errors.New("invalid proposed revision")
+)
 
 // TransitionInput is the minimal accepted mutation used by SPK-001.
 type TransitionInput struct {
@@ -62,7 +65,7 @@ func ApplyTransition(path string, in TransitionInput, hook FaultHook) error {
 		return fmt.Errorf("%w: got %d want %d", ErrStaleRevision, in.ExpectedRevision, current)
 	}
 	if in.NewRevision != current+1 {
-		return fmt.Errorf("new revision must be predecessor+1: current=%d new=%d", current, in.NewRevision)
+		return fmt.Errorf("%w: current=%d new=%d", ErrInvalidRevision, current, in.NewRevision)
 	}
 	callHook(hook, "after_validation")
 
