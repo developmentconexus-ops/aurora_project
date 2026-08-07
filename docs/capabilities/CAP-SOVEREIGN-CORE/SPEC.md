@@ -256,7 +256,14 @@ Required semantic fields:
 | `accepted_at` | recorded acceptance time |
 | `transition_attempt_id` | transition attempt that produced the revision |
 
-The `accepted_state` envelope MUST be semantically versioned but R3 does not select a serialization language. Core treats domain-specific content as data; it validates the envelope, revision/identity invariants and M0 transition rules rather than inventing domain workflow semantics.
+The logical `accepted_state` envelope has these minimum semantic fields:
+
+- `state_schema_version` — logical version of the state envelope;
+- `state_kind` — stable symbolic type/category for the state value;
+- `state_summary` — bounded operator-readable description of the accepted state;
+- `state_payload` — optional structured project data whose concrete serialization and size limits remain R4/R5 concerns.
+
+`state_payload` is intentionally opaque to M0 Core domain logic. Core validates envelope/version/revision/identity rules but MUST treat payload content as project data: it cannot redefine Aurora/Project identity, authority, policy, canonical ownership or the transition protocol merely because it is persisted. This is the complete M0 payload boundary, not an unresolved request for R4 to invent state semantics.
 
 ### 7.5 `TransitionAttempt`
 
@@ -650,6 +657,8 @@ Inputs:
 
 Only owner-authorized M0 authority administration may create/revoke/supersede authority. Stale revision or invalid scope fails closed.
 
+The owner root for bootstrap/recovery authority is the authenticated `OperatorIdentityRef` for Leandro, not an `AuthorityGrantRecord` recovered from state. This root is narrowly scoped to initialization, M0 authority administration, restore/recovery resolution and authority revalidation needed to recover safe Core control. It does not authorize external effects and cannot be delegated by M0.
+
 ### 9.5 `InspectCurrentProject`
 
 Returns:
@@ -707,7 +716,11 @@ After restore:
 - `REVOKED`, `SUPERSEDED`, `EXPIRED` or invalid authority remains non-permitting;
 - an apparently active authority whose freshness relative to later revocation cannot be proven becomes `REVALIDATION_REQUIRED`;
 - `NextSafeActionProjection` MUST be `REVALIDATION_REQUIRED` or `BLOCKED` for actions requiring that authority;
-- only a new explicit owner revalidation/grant operation, or another R4-approved freshness proof satisfying this Spec, may return it to `VALID`.
+- only a new explicit owner revalidation/grant operation, or another R4-approved freshness proof satisfying this Spec, may return it to `VALID`;
+- a restored grant MUST NOT authorize its own revalidation;
+- owner revalidation MUST create a new attributable authority-state revision rather than mutate historical restored authority in place.
+
+The authenticated owner `OperatorIdentityRef` is therefore the recovery root that can perform this narrow revalidation even while restored delegated authority is blocked. A non-owner actor cannot use `REVALIDATION_REQUIRED` as an escalation path.
 
 This rule applies to restore, not ordinary restart from the current canonical store.
 
@@ -819,6 +832,8 @@ M0 explicitly does **not** implement external effects. Therefore:
 - no external credential/effect execution follows from it;
 - no AHDK/Provider may mint authority;
 - technical access remains distinct from authority.
+
+The owner bootstrap/recovery root described in §9.4 is a product-authority boundary, not an effect credential and not a bypass around restore/state validation.
 
 Future effect-plane capabilities must extend authority semantics through later gates without weakening M0's owner/revision/expiry/revocation rules.
 

@@ -226,6 +226,7 @@ Candidate migration changes stable identity or authority meaning and must be rej
 | `T-PORT-010` | FAULT_INJECTION | migration semantic mutation F-15 | reject/no silent governing replacement |
 | `T-PORT-011` | FAULT_INJECTION | ambiguous crash during restore/migration | reconcile before retry; no duplicate/unknown success |
 | `T-PORT-012` | DOCUMENT_REVIEW, USER_JOURNEY | inspect export/backup governance | Leandro can inspect material result; package classification at least `SENSITIVE` |
+| `T-PORT-013` | SECURITY_TEST, USER_JOURNEY | after F-07 restore, attempt authority revalidation first as non-owner and then as authenticated owner | non-owner denied; owner creates a new attributable authority-state revision and only then may current authority return to `VALID` if scope/time/conditions pass |
 
 ---
 
@@ -319,6 +320,9 @@ active authority
 → restore old export
 → old authority does NOT silently become valid
 → revalidation required
+→ non-owner revalidation denied
+→ authenticated owner performs explicit revalidation
+→ new authority-state revision becomes governing only if current scope/time/conditions pass
 ```
 
 This journey distinguishes normal restart from potentially stale backup restore.
