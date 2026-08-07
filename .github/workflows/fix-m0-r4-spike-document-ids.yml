@@ -1,0 +1,49 @@
+name: Fix M0 R4 spike document IDs
+
+on:
+  push:
+    branches:
+      - docs/m0-r4-architecture-decision-readiness
+    paths:
+      - ".github/m0-r4-idfix.trigger"
+
+permissions:
+  contents: write
+
+jobs:
+  fix-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fix spike document identities
+        run: python scripts/fix_m0_r4_spike_document_ids.py
+      - name: Validate R4 documentary package
+        run: python scripts/validate_m0_r4_documentary_package.py
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+      - name: Validate documentation system
+        run: python scripts/validate_docs.py --generated-root "$RUNNER_TEMP/aurora-generated" --report "$RUNNER_TEMP/docs-validation-report.json"
+      - name: Check generated projections
+        run: python scripts/generate_docs.py --check
+      - name: Commit validated repair and remove one-shot helpers
+        run: |
+          rm -f \
+            scripts/fix_m0_r4_spike_document_ids.py \
+            scripts/validate_m0_r4_documentary_package.py \
+            .github/workflows/fix-m0-r4-spike-document-ids.yml \
+            .github/workflows/validate-m0-r4-documentary.yml \
+            .github/m0-r4-idfix.trigger \
+            .github/m0-r4-documentary.trigger
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "docs: validate M0 R4 documentary package"
+          git push origin HEAD:docs/m0-r4-architecture-decision-readiness
