@@ -58,21 +58,34 @@ func TestCheckpointPreservesGoverningState(t *testing.T) {
 	}
 }
 
-func TestSupportedBackupRestoreAndIdentityCollision(t *testing.T) {
+func TestSupportedBackupRestoreAfterOriginalDestroyedAndIdentityCollision(t *testing.T) {
 	dir := t.TempDir()
-	source := filepath.Join(dir, "source.db")
-	backup := filepath.Join(dir, "backup.db")
-	restored := filepath.Join(dir, "restored", "aurora.db")
+	workDir := filepath.Join(dir, "work")
+	backupDir := filepath.Join(dir, "backup")
+	restoreDir := filepath.Join(dir, "restored")
+	source := filepath.Join(workDir, "aurora.db")
+	backup := filepath.Join(backupDir, "backup.db")
+	restored := filepath.Join(restoreDir, "aurora.db")
 	want := acceptedFixture(t, source)
 
 	keeper, err := openExistingDB(source)
 	if err != nil {
 		t.Fatalf("open active keeper: %v", err)
 	}
-	defer keeper.Close()
 	if err := SupportedBackup(source, backup, nil); err != nil {
+		keeper.Close()
 		t.Fatalf("online backup: %v", err)
 	}
+	if err := keeper.Close(); err != nil {
+		t.Fatalf("close active keeper: %v", err)
+	}
+	if err := os.RemoveAll(workDir); err != nil {
+		t.Fatalf("destroy original working directory: %v", err)
+	}
+	if _, err := os.Stat(source); !os.IsNotExist(err) {
+		t.Fatalf("original store still exists after destroy: %v", err)
+	}
+
 	if err := RestoreBackup(backup, restored); err != nil {
 		t.Fatalf("fresh restore: %v", err)
 	}
