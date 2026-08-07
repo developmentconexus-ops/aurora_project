@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.6.2
+version: 0.7.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -27,39 +27,42 @@ last_reviewed: 2026-08-06
 ## 1. Current summary
 
 - **Project:** Projeto Aurora
-- **Phase:** A0 — ACCEPTED Product, Discovery and Architecture Baseline
+- **Canonical branch:** `main`
+- **Phase:** A0 — ACCEPTED and MERGED Product, Discovery and Architecture Baseline
 - **A0 accepted:** 2026-08-06 by operator
+- **PR #1:** MERGED
+- **Merge commit:** `f22085d97e198d99e89d52221b7b26d59d49bc12`
 - **Acceptance promotion commit:** `346d8cb8750d1e6429106e46f11cde4d8e225e08`
-- **ADR-0002 accepted-state narrative alignment:** `00ce3b5ea70681c76dfd614ce256404c516fef6c`
+- **Final pre-merge validation head:** `673ab5238748b8ee03295cf346802ce6976ee51e`
 - **Product Blueprint:** 15 modular accepted constitutional sections plus generated aggregate
 - **Constitutional requirements:** 294 accepted A0 requirements
 - **ADR-0001:** ACCEPTED
 - **ADR-0002:** ACCEPTED
 - **Independent Fresh-Session Golden Proof:** PASS — 100/100, zero hard failures
-- **PR #1:** merge explicitly AUTHORIZED; pending repository merge at this tracking revision
 - **First Product Milestone:** not yet selected
 - **Stack decisions:** none
 - **Runtime implementation:** not started and not authorized
 
-## 2. Operator decision
-
-The operator reviewed the required A0 package and explicitly approved all pending decisions, stating that the idea is well structured.
+## 2. Accepted A0 evidence chain
 
 ```text
-A0 baseline: ACCEPTED
-ADR-0001: ACCEPTED
-ADR-0002: ACCEPTED
-PR #1 merge: AUTHORIZED
+adversarial remediation
+→ mechanical documentation validation
+→ post-remediation adversarial review
+→ GP-A0-FRESH-001 PASS 100/100, zero hard failures
+→ operator acceptance of A0 + ADR-0001 + ADR-0002 + merge
+→ accepted-state lifecycle promotion
+→ final pre-merge documentation validation PASS
+→ PR #1 merged to main
 ```
 
-Evidence: `docs/acceptance/2026-08-06-a0-operator-acceptance.md`.
+Operator evidence: `docs/acceptance/2026-08-06-a0-operator-acceptance.md`.
 
 ## 3. Current authorization boundary
 
 ```text
-A0 baseline:                    ACCEPTED
+A0 baseline:                    ACCEPTED / MERGED
 ADR-0001 / ADR-0002:           ACCEPTED
-PR #1 merge:                   AUTHORIZED / PENDING
 First Product Milestone choice: AUTHORIZED / NOT YET MADE
 ACRM R0:                        NOT STARTED; begins after milestone selection
 Architecture Spike planning:    NOT STARTED
@@ -69,9 +72,10 @@ Aurora Core implementation:     PROHIBITED
 AHDK implementation:            PROHIBITED
 MNFS integration:               PROHIBITED
 Stack selection:                NOT PERFORMED
+Automatic implementation:       NOT AUTHORIZED
 ```
 
-A0 acceptance does not skip any ACRM gate. No runtime work is authorized by implication.
+A0 acceptance and merge do not skip any ACRM gate. No runtime work is authorized by implication.
 
 ## 4. Deliberately open technical decisions
 
@@ -91,15 +95,26 @@ A0 acceptance does not skip any ACRM gate. No runtime work is authorized by impl
 - first real engineering Harness;
 - first Product Milestone and Mission Contract.
 
-These remain future ACRM R3/R4 decisions unless the selected milestone requires them earlier through an explicit gate.
+These remain future ACRM decisions. They are not gaps to fill before milestone selection unless applicability/requirements for that milestone make them material.
 
-## 5. Immediate next action
+## 5. Current blockers
+
+There is no remaining A0 documentation or merge blocker.
+
+The intentional product gate is now:
 
 ```text
-run final documentation validation on this accepted-A0 branch head
-→ complete authorized merge of PR #1
+FIRST_PRODUCT_MILESTONE_SELECTION
+```
+
+No implementation blocker exists because implementation is not yet authorized work.
+
+## 6. Immediate next action
+
+```text
+review the accepted capability roadmap
 → select the first Product Milestone
 → begin ACRM R0 — Constitutional Baseline for that milestone
 ```
 
-The next action is not implementation.
+The next action is product/milestone selection and readiness analysis, not implementation or stack selection.
