@@ -7,7 +7,7 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-07
 acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
-version: 0.3.0
+version: 0.4.0
 owners:
   - developmentconexus-ops
 approvers:
@@ -121,16 +121,19 @@ Acceptance of an ADR does not automatically authorize a Capability Spec, Mission
 |---|---|---|---|
 | [ADR-0001](0001-aurora-owned-contract-model.md) | Aurora-owned Contract Model and Replaceable Bindings | accepted | Aurora owns cross-Harness semantics; protocols remain bindings |
 | [ADR-0002](0002-first-party-harness-development-kit.md) | First-party Harness Development Kit and Universal Conformance | accepted | first-party Harnesses use AHDK by policy; conformance remains universal |
-| [ADR-0003](0003-m0-go-core-runtime.md) | Go as the Initial Aurora Core Runtime | proposed | Go for the initial Core; other Capability languages remain free |
-| [ADR-0004](0004-m0-local-state-execution-shape.md) | M0 Local State and Execution Shape | proposed | one local modular Core; explicit current state/revisions; no full event sourcing or durable engine in M0 |
+| [ADR-0003](0003-m0-go-core-runtime.md) | Go as the Initial Aurora Sovereign Core Runtime | proposed | Go for the Sovereign Core; agentic/Harness runtimes remain free behind contracts |
+| [ADR-0004](0004-m0-local-state-execution-shape.md) | M0 Local State and Execution Shape | proposed | one local modular Sovereign Core; explicit current state/revisions; no full event sourcing or durable engine in M0 |
 | [ADR-0005](0005-m0-portable-state-export.md) | M0 Portable Logical State and Export Envelope | proposed | JSON Schema + JSON/JCS logical portability; age outer export encryption; application-owned migrations |
 | [ADR-0006](0006-m0-observability-boundary.md) | M0 Observability Boundary | proposed | OTel traces/metrics + slog; backend/export optional |
 | [ADR-0007](0007-m0-sqlite-operational-store.md) | SQLite as the M0 Operational State Store | proposed / spike-blocked | SQLite candidate; exact binding/configuration requires SPK-001 evidence |
 | [ADR-0008](0008-m0-owner-root-recovery-trust.md) | M0 Owner Root and Recovery Trust Boundary | proposed / spike-blocked | wrapped random Owner Root + external trust anchor; requires SPK-002 evidence |
+| [ADR-0009](0009-mastra-cognitive-harness-runtime.md) | Mastra as Preferred First-Party Cognitive and Harness Runtime Substrate | proposed / cross-horizon | evaluate OSS Mastra first for agentic Harness infrastructure while Core retains identity/state/authority/governance |
 
 ADR-0001 and ADR-0002 were explicitly accepted by the operator as part of the A0 decision gate on 2026-08-06.
 
-ADR-0003 through ADR-0008 are R4 proposals only. They are non-governing until operator review promotes each applicable decision to `accepted`. In particular, ADR-0007 and ADR-0008 MUST NOT be accepted before their named Architecture Spike evidence is complete and reviewed.
+ADR-0003 through ADR-0009 are proposals only. They are non-governing until operator review promotes each applicable decision to `accepted`. In particular, ADR-0007 and ADR-0008 MUST NOT be accepted before their named Architecture Spike evidence is complete and reviewed.
+
+ADR-0009 is cross-horizon and does not add a new M0 blocker or authorize Mastra implementation. Its first implementation proof is deferred to the first Mastra-backed Capability that enters implementation horizon.
 
 ## 7. Numbering and filenames
 
