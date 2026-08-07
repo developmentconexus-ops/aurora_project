@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.4.0
+version: 0.5.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -162,18 +162,14 @@ docs/acceptance/2026-08-06-gp-a0-fresh-001-evaluation.md
 
 ## 2026-08-06 — Operator decision gate
 
-The independent continuity blocker is resolved.
-
-Current pending decisions:
+The independent continuity blocker was resolved and four operator decisions remained:
 
 1. A0 baseline acceptance/revision/rejection;
 2. ADR-0001 lifecycle decision;
 3. ADR-0002 lifecycle decision;
 4. PR #1 merge/branch decision.
 
-Implementation, Architecture Spikes, AHDK and MNFS integration remain prohibited.
-
-After A0 acceptance and repository disposition, the next step is to select the first Product Milestone and begin ACRM R0—not immediate implementation.
+Implementation, Architecture Spikes, AHDK and MNFS integration remained prohibited.
 
 ## 2026-08-06 — A0 operator acceptance
 
@@ -186,4 +182,57 @@ Decisions:
 - ADR-0002: ACCEPTED;
 - PR #1 merge: AUTHORIZED.
 
-The decision was recorded in `docs/acceptance/2026-08-06-a0-operator-acceptance.md`. Architecture Spikes and all runtime/AHDK/MNFS implementation remain prohibited. The next product step after repository merge is to select the first Product Milestone and begin ACRM R0.
+The decision was recorded in `docs/acceptance/2026-08-06-a0-operator-acceptance.md`.
+
+A controlled promotion then:
+
+- changed the 15 Blueprint sections to `accepted`;
+- accepted the ACRM and A0 requirement baseline;
+- accepted ADR-0001 and ADR-0002;
+- regenerated Product Blueprint and Roadmap projections;
+- updated bootstrap, status, decision and acceptance records;
+- kept implementation and Architecture Spike execution prohibited.
+
+The accepted-state promotion commit was:
+
+```text
+346d8cb8750d1e6429106e46f11cde4d8e225e08
+```
+
+A final semantic review aligned ADR-0002's narrative with its accepted lifecycle while preserving SPK-001 and ACRM gates as implementation-readiness requirements.
+
+Final pre-merge documentation validation passed on:
+
+```text
+673ab5238748b8ee03295cf346802ce6976ee51e
+Workflow run: 31140887848
+Result: SUCCESS
+```
+
+## 2026-08-06 — A0 merge closeout
+
+PR #1 was marked ready and merged into `main` under the operator's explicit authorization.
+
+```text
+PR: #1 — docs: establish accepted Aurora A0 product, research, and architecture baseline
+Merge commit: f22085d97e198d99e89d52221b7b26d59d49bc12
+Canonical branch: main
+```
+
+A0 is now the accepted, merged product/documentation baseline.
+
+The merge does **not** authorize:
+
+- Aurora Core implementation;
+- AHDK implementation;
+- MNFS integration;
+- Architecture Spike execution;
+- stack selection;
+- bypassing ACRM readiness gates.
+
+The next product gate is:
+
+```text
+select first Product Milestone
+→ begin ACRM R0 — Constitutional Baseline
+```
