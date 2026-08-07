@@ -52,8 +52,9 @@ for aid, path in adrs.items():
         errors.append(f"ADR is not proposed: {path}")
     if "status: accepted" in txt:
         errors.append(f"R4 ADR accidentally accepted: {path}")
-    if aid not in adr_index:
-        errors.append(f"ADR missing from index: {aid}")
+    public_id = aid.replace("ADR-AURORA-", "ADR-")
+    if public_id not in adr_index:
+        errors.append(f"ADR missing from index: {public_id}")
 
 adr7 = read(adrs["ADR-AURORA-0007"])
 adr8 = read(adrs["ADR-AURORA-0008"])
