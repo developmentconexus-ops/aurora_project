@@ -4,7 +4,9 @@ title: Tools, Dispositivos e Laboratório
 document_type: product_blueprint_section
 form: explanation
 authority: constitutional
-status: proposed
+status: accepted
+accepted_at: 2026-08-06
+acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -26,7 +28,7 @@ review_triggers:
   - device identity or control model changes
   - laboratory safety boundary changes
   - new physical effect class
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-06
 ---
 
 # 9. Tools, Dispositivos e Laboratório

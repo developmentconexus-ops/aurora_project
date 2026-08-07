@@ -4,7 +4,9 @@ title: Sistema de Capabilities, Registry e Development Kit
 document_type: product_blueprint_section
 form: explanation
 authority: constitutional
-status: proposed
+status: accepted
+accepted_at: 2026-08-06
+acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -31,7 +33,7 @@ review_triggers:
   - first-party AHDK policy changes
   - trust lifecycle changes
   - conformance boundary changes
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-06
 ---
 
 # 5. Sistema de Capabilities, Registry e Development Kit

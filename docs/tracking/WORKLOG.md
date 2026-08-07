@@ -174,3 +174,16 @@ Current pending decisions:
 Implementation, Architecture Spikes, AHDK and MNFS integration remain prohibited.
 
 After A0 acceptance and repository disposition, the next step is to select the first Product Milestone and begin ACRM R0—not immediate implementation.
+
+## 2026-08-06 — A0 operator acceptance
+
+After the independent Fresh-Session Golden Proof passed 100/100 with zero hard failures, Leandro reviewed the A0 authorization reading package and explicitly approved all pending decisions, stating that the idea is well structured.
+
+Decisions:
+
+- A0 Product/Discovery/Architecture baseline: ACCEPTED;
+- ADR-0001: ACCEPTED;
+- ADR-0002: ACCEPTED;
+- PR #1 merge: AUTHORIZED.
+
+The decision was recorded in `docs/acceptance/2026-08-06-a0-operator-acceptance.md`. Architecture Spikes and all runtime/AHDK/MNFS implementation remain prohibited. The next product step after repository merge is to select the first Product Milestone and begin ACRM R0.

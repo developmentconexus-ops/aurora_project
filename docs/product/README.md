@@ -4,7 +4,9 @@ title: Aurora Product Documentation
 document_type: product_index
 form: reference
 authority: constitutional
-status: proposed
+status: accepted
+accepted_at: 2026-08-06
+acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -177,12 +179,13 @@ STATUS
 
 ## 8. Current authority state
 
-All constitutional sources in PR #1 remain `proposed` until explicit operator acceptance and merge.
+All A0 constitutional sources were explicitly accepted by the operator on 2026-08-06. Merge is a separate repository action and was authorized by the same operator decision.
 
 ```text
-A0 documentation/research work: AUTHORIZED
-A0 content: IN_REVIEW
-ADRs: PROPOSED
+A0 baseline: ACCEPTED
+Constitutional sources: ACCEPTED
+ADR-0001 / ADR-0002: ACCEPTED
+PR #1 merge: AUTHORIZED
 Architecture Spikes: NOT AUTHORIZED
 Aurora runtime implementation: PROHIBITED
 AHDK implementation: PROHIBITED

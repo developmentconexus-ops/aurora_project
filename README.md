@@ -71,15 +71,15 @@ Aurora governa objetivo global, contexto, authority, budget, composição e rela
 ## Estado atual
 
 ```text
-Phase: A0 — Product, Discovery and Architecture Baseline
-Branch: docs/architecture-baseline
-Draft PR: #1
+A0 baseline: ACCEPTED — 2026-08-06
+ADR-0001 / ADR-0002: ACCEPTED
+Next product gate: select first Product Milestone → begin ACRM R0
 Runtime implementation: PROHIBITED
 Architecture Spikes: NOT AUTHORIZED
 Stack selection: NOT PERFORMED
 ```
 
-A0 está reconstruindo e validando a base documental completa. A existência de arquivos não significa aceitação nem autorização para implementar.
+A0 foi explicitamente aceita pelo operador após validação mecânica, revisão adversarial e Golden Proof independente. Essa aceitação estabelece a constituição do produto; não autoriza implementação. O próximo passo é selecionar o primeiro Product Milestone e iniciar ACRM R0.
 
 ## Documentação
 

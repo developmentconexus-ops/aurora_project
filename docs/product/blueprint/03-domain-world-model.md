@@ -4,7 +4,9 @@ title: Modelo de Domínio e de Mundo
 document_type: product_blueprint_section
 form: explanation
 authority: constitutional
-status: proposed
+status: accepted
+accepted_at: 2026-08-06
+acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -26,7 +28,7 @@ review_triggers:
   - canonical entity added, removed or materially redefined
   - source-of-truth ownership changes
   - project, memory, presence or delegation hierarchy changes
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-06
 ---
 
 # 3. Modelo de Domínio e de Mundo

@@ -4,7 +4,9 @@ title: Interação, Multimodalidade e Presença
 document_type: product_blueprint_section
 form: explanation
 authority: constitutional
-status: proposed
+status: accepted
+accepted_at: 2026-08-06
+acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -26,7 +28,7 @@ review_triggers:
   - new presence category
   - sensor activation or privacy behavior changes
   - handoff or authentication model changes
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-06
 ---
 
 # 8. Interação, Multimodalidade e Presença

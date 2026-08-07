@@ -40,21 +40,21 @@ Generator: scripts/generate_docs.py
 
 | Section | Canonical source | SHA-256 |
 |---:|---|---|
-| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `99d7fc248fccabf18545e15a2a364640bf9a77c1d3c1039e2464aca65ee8f302` |
-| 02 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md` | `ac6cd875c0f0328aabd7549cab5b4a9b17f267097a9c11c0679bf882dcbcab13` |
-| 03 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md` | `a04607f16924beda158844d17f3b20e1b16cd3db3ea7071ed501683c85336049` |
-| 04 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `486670cd09e009c39db9e4098a90a473955a321297a9d418079707f14f5ca368` |
-| 05 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md` | `d3d97b28c73cd67bf14de7afd179b43c6d3bde9f0eb512a9849865e8caf6a9d8` |
-| 06 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md` | `3509826341f794e3f454772cd5a7ba69736929a12e022ca0b33b3c063bab5170` |
-| 07 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md` | `c6ccd2054236c982965e8857d50bbf7c51f7c0fcd94d7b3a91dcf6ea90b105af` |
-| 08 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md` | `d73713e1a5279c833cbe7f3f5fcbfd46ba97eced1074d75cf4dcf88a2acbfddb` |
-| 09 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md` | `a508dbfa1f3d6c187eda288f37c9c67194fadc8ba2518991fd151de172aa105f` |
-| 10 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md` | `b0b2d6bae9e98503d98484ff700b21f988a267d39e0e2c1dff7880204bcf7702` |
-| 11 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md` | `0ce2353a53f506c236cbad5a976774155a693f66af5f04d7b50bd62dbf8b2575` |
-| 12 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md` | `f237d03b9f7f2f88b51693aee42b57e7578b9fe91a374780a254cc722dbe1314` |
-| 13 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md` | `e5fcf2f319fdc7f05b67820f5f2479e169e699a487c02a3af0128e71dc4db57a` |
-| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `45535b4dddc7171913b4ced086c9ff1507467751bd257362d91111d08d7e080e` |
-| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `b9003830ebfeed3a63f6c72bd0aad5abd056b8e54e9902cb2dfb48c55bab9a76` |
+| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `b7c835b0342f0c9a0d240f6637d6c270dcc10b7770576923a779123a16fbf8e8` |
+| 02 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md` | `9f8e65c84870ec92f48f7bf0820fd5ad01dc244bbc824b6f0d108c77c9e64f37` |
+| 03 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md` | `2aac158f6ff6a7dae3aeb58cacac2706eed5068fc23d6be3c61d6f9dcaf1d622` |
+| 04 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `c448cf0c680cd0a2468790537cc7a094e14dc4c7a7e2f23062a233bdf8f3d411` |
+| 05 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md` | `fa7e174d1b0f749659005bdcf9a0658445e4c5998d14f8c5a943571e66a33317` |
+| 06 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md` | `7665c132a3932bd57395d891313d3d01b3b799759b38de5243e09b2906e1e210` |
+| 07 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md` | `511558ba8dde4a41e86fe4b5486d22e679dad7dbe680c76a5af9037848149ce9` |
+| 08 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md` | `3214042c3aa16cd46223bb190c3ee527522e4388c149f08ea2e2aa6471e7a4c1` |
+| 09 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md` | `ab6ef2352424339134baaadb972009f3f63475f6fa8bc429b5c90b6fbec835d2` |
+| 10 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md` | `65c5caaa487815bcf9acace2b027c8beffa9e8b2ddd67f9e38aeb67d9b9ab9fd` |
+| 11 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md` | `45abdfa563250f50d40e1a3063992af72fe883d62ab47cd6eadc677684d20518` |
+| 12 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md` | `48037455d51c38b447fb43067af51d430dd66a9a377f003c9282244c065896d1` |
+| 13 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md` | `f3b637d88822a4d16081e9306d7f51e0c65a04e21ff2eace388e93a341c2bba8` |
+| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `5d04a5dc293f1c8b9fd2af4d122391d3937a2806fcb2557a65464d6dcb88a2cc` |
+| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `f72f135ad43e93f6b1f3c3fd315dab48e9984eddf8d6447b492ff3dbc81dadfe` |
 
 ---
 

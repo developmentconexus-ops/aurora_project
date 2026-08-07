@@ -5,7 +5,9 @@ document_type: capability_realization_method
 form: reference
 
 authority: standard
-status: proposed
+status: accepted
+accepted_at: 2026-08-06
+acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
 version: 0.1.0
 owners:
   - developmentconexus-ops
@@ -26,7 +28,7 @@ review_triggers:
   - readiness gate changes
   - implementation methodology changes
   - evidence or closeout model changes
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-06
 ---
 
 # Aurora Capability Realization Method
@@ -940,18 +942,18 @@ No implementation Capability has reached R0–R6 authorization yet.
 
 ## 25. A0 acceptance checklist
 
-- [ ] 15 Blueprint sections complete.
-- [ ] Discovery History preserves original examples/reasoning.
-- [ ] Documentation Coverage maps all discovery decisions.
-- [ ] Focused research reports/source manifests exist for current architecture claims.
-- [ ] ADR proposals are consistent with research and Blueprint.
-- [ ] Requirements Traceability maps constitutional requirements.
-- [ ] Product aggregate and roadmap projection are current.
-- [ ] IDs, links, metadata and source references validate.
-- [ ] Adversarial review findings are resolved.
-- [ ] Fresh-session Golden Proof passes.
-- [ ] Operator explicitly accepts A0.
-- [ ] Status records next gate and prohibitions.
+- [x] 15 Blueprint sections complete.
+- [x] Discovery History preserves original examples/reasoning.
+- [x] Documentation Coverage maps all discovery decisions.
+- [x] Focused research reports/source manifests exist for current architecture claims.
+- [x] ADR proposals are consistent with research and Blueprint.
+- [x] Requirements Traceability maps constitutional requirements.
+- [x] Product aggregate and roadmap projection are current.
+- [x] IDs, links, metadata and source references validate.
+- [x] Adversarial review findings are resolved.
+- [x] Fresh-session Golden Proof passes.
+- [x] Operator explicitly accepts A0.
+- [x] Status records next gate and prohibitions.
 
 ---
 

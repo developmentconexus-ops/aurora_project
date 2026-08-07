@@ -5,7 +5,9 @@ document_type: requirements_traceability
 form: reference
 
 authority: specification
-status: proposed
+status: accepted
+accepted_at: 2026-08-06
+acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
 version: 0.1.0
 owners:
   - developmentconexus-ops
@@ -25,14 +27,14 @@ review_triggers:
   - Product Blueprint change
   - Capability requirement derivation
   - A0 acceptance review
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-06
 ---
 
 # Aurora Constitutional Requirements and Traceability
 
 ## 1. Purpose
 
-This document converts the proposed Product Blueprint into explicit constitutional requirements.
+This document converts the accepted A0 Product Blueprint into explicit constitutional requirements.
 
 These requirements are intentionally product- and architecture-level. They are not yet allocated to implementation tasks. Future Capability Specs will:
 
@@ -44,8 +46,8 @@ These requirements are intentionally product- and architecture-level. They are n
 Status legend:
 
 ```text
-PROPOSED
-→ derived from proposed A0 Blueprint; not governing implementation yet
+ACCEPTED
+→ accepted A0 constitutional requirement; governs future applicability analysis but does not itself authorize implementation
 
 DEFERRED_BY_ROADMAP
 → constitutionally required direction, not current milestone commitment

@@ -35,19 +35,19 @@ When sources conflict, do not choose silently. Raise `DOCUMENTATION_DIVERGENCE`,
 ## 3. Current phase and authorization
 
 ```text
-Phase: A0 — Product, Discovery and Architecture Baseline
-Working branch: docs/architecture-baseline
-Draft PR: #1
-A0 content: IN REVIEW / REMEDIATION
+Phase: A0 — ACCEPTED Product, Discovery and Architecture Baseline
+Repository disposition: PR #1 merge AUTHORIZED; consult STATUS for completion
+A0 constitutional content: ACCEPTED
+ADR-0001 / ADR-0002: ACCEPTED
+First Product Milestone: NOT YET SELECTED
 Aurora Core implementation: PROHIBITED
 AHDK implementation: PROHIBITED
 Architecture Spikes: PROPOSED, NOT AUTHORIZED
 Stack selection: NOT PERFORMED
 MNFS integration: PROHIBITED
-Automatic merge: NOT AUTHORIZED
 ```
 
-Documentation, research, adversarial review and validation are authorized.
+A0 is accepted. Product Milestone selection and ACRM R0 preparation are authorized next; implementation remains prohibited until the applicable gates and a separate execution authorization pass.
 
 Do not implement runtime, database, SDK, protocol binding, UI, model router, memory engine, device controller or MNFS adapter until:
 
