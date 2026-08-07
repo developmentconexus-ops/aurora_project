@@ -1,0 +1,124 @@
+name: SPK-001 Final Evidence One-Shot
+
+on:
+  push:
+    branches:
+      - spike/m0-sovereign-store-001
+    paths:
+      - ".github/workflows/spk001-final-evidence-one-shot.yml"
+      - ".github/spk001-final-evidence.trigger"
+
+permissions:
+  contents: read
+
+jobs:
+  full:
+    name: final-${{ matrix.os }}-${{ matrix.driver }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            driver: modernc
+            cgo: "0"
+          - os: ubuntu-24.04
+            driver: mattn
+            cgo: "1"
+          - os: windows-latest
+            driver: modernc
+            cgo: "0"
+          - os: windows-latest
+            driver: mattn
+            cgo: "1"
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: spikes/m0-sovereign-store-001
+    env:
+      CGO_ENABLED: ${{ matrix.cgo }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.5"
+          cache: false
+      - name: Capture environment
+        shell: bash
+        run: |
+          mkdir -p evidence
+          {
+            echo "candidate=${{ matrix.driver }}"
+            echo "runner_os=${RUNNER_OS}"
+            echo "runner_arch=${RUNNER_ARCH}"
+            echo "image_os=${ImageOS:-unknown}"
+            echo "image_version=${ImageVersion:-unknown}"
+            go version
+            go env GOOS GOARCH CGO_ENABLED CC CXX
+            if command -v gcc >/dev/null 2>&1; then gcc --version | head -n 1; else echo "gcc=missing"; fi
+          } | tee "evidence/environment-${RUNNER_OS}-${{ matrix.driver }}.txt"
+      - name: Resolve pinned module graph
+        shell: bash
+        run: |
+          go mod tidy
+          go list -m all | tee "evidence/modules-${RUNNER_OS}-${{ matrix.driver }}.txt"
+          cp go.sum "evidence/go.sum-${RUNNER_OS}-${{ matrix.driver }}.txt"
+      - name: Run final correctness/fault suite
+        shell: bash
+        run: |
+          set -o pipefail
+          go test -count=1 -timeout=6m -json -tags "${{ matrix.driver }}" ./... \
+            | tee "evidence/tests-${RUNNER_OS}-${{ matrix.driver }}.json"
+      - name: Measure build and small/medium fixtures
+        shell: bash
+        run: |
+          suffix=""
+          if [[ "$RUNNER_OS" == "Windows" ]]; then suffix=".exe"; fi
+          binary="evidence/spike-runner-${{ matrix.driver }}${suffix}"
+          python scripts/measure_build.py \
+            --driver "${{ matrix.driver }}" \
+            --binary "$binary" \
+            --out "evidence/build-${RUNNER_OS}-${{ matrix.driver }}.json"
+          "$binary" -transitions 100 -out "evidence/metrics-${RUNNER_OS}-${{ matrix.driver }}.json"
+          "$binary" -transitions 20 -baseline-bytes 4194304 -out "evidence/metrics-medium-${RUNNER_OS}-${{ matrix.driver }}.json"
+      - name: Upload final matrix evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spk001-final-${{ matrix.os }}-${{ matrix.driver }}
+          path: spikes/m0-sovereign-store-001/evidence/
+          if-no-files-found: error
+          retention-days: 14
+
+  aggregate:
+    name: final-aggregate-evidence
+    needs: full
+    if: always()
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: spikes/m0-sovereign-store-001
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download final matrix artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: spk001-final-*
+          path: spikes/m0-sovereign-store-001/matrix
+          merge-multiple: true
+      - name: Aggregate and enforce complete final evidence
+        run: |
+          python scripts/aggregate.py \
+            --root matrix \
+            --json-out evidence/spk001-matrix.json \
+            --md-out evidence/spk001-summary.md
+          cat evidence/spk001-summary.md
+      - name: Upload final aggregate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spk001-final-aggregate
+          path: |
+            spikes/m0-sovereign-store-001/evidence/spk001-matrix.json
+            spikes/m0-sovereign-store-001/evidence/spk001-summary.md
+          if-no-files-found: error
+          retention-days: 14
