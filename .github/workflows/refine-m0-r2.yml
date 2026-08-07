@@ -1,0 +1,47 @@
+name: Refine M0 R2 requirements
+
+on:
+  push:
+    branches:
+      - docs/m0-r2-requirements
+    paths:
+      - scripts/refine_m0_r2_requirements.py
+      - .github/workflows/refine-m0-r2.yml
+      - .github/m0-r2-refine.trigger
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Refine reviewed requirements
+        run: python scripts/refine_m0_r2_requirements.py
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+      - name: Validate documentation system
+        run: python scripts/validate_docs.py --generated-root "$RUNNER_TEMP/aurora-generated" --report "$RUNNER_TEMP/docs-validation-report.json"
+      - name: Check generated projections
+        run: python scripts/generate_docs.py --check
+      - name: Commit validated refinement and remove helper
+        run: |
+          rm -f scripts/refine_m0_r2_requirements.py .github/workflows/refine-m0-r2.yml .github/m0-r2-refine.trigger
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add -A
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 1
+          fi
+          git commit -m "docs: refine M0 R2 requirements after adversarial review"
+          git push origin HEAD:docs/m0-r2-requirements
