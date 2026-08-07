@@ -1,0 +1,44 @@
+name: Validate M0 R3 review
+
+on:
+  push:
+    branches:
+      - docs/m0-r3-capability-readiness
+    paths:
+      - ".github/m0-r3-review.trigger"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+
+      - name: Validate documentation system
+        run: python scripts/validate_docs.py --generated-root "$RUNNER_TEMP/aurora-generated" --report "$RUNNER_TEMP/docs-validation-report.json"
+
+      - name: Check generated projections
+        run: python scripts/generate_docs.py --check
+
+      - name: Remove one-shot review validator
+        run: |
+          rm -f .github/workflows/validate-m0-r3-review.yml .github/m0-r3-review.trigger
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "chore: remove one-shot M0 R3 review validator"
+          git push origin HEAD:docs/m0-r3-capability-readiness
