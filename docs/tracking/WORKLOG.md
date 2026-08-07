@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.9.0
+version: 0.10.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -340,3 +340,39 @@ Merge commit: d0ddfb794296e599ac96bb73bf3772937d371bf9
 Pre-merge evidence included semantic-drift verification from approved revision `b32cfe134f84eed3797d866e607c92c227514186`, accepted-lifecycle promotion, generated projection refresh, promotion validation run `31144371490` and normal Documentation workflow run `31144424887`, both successful.
 
 The remediation merge does not authorize R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract or Microdesign. The next authorized action is a fresh repository-only M0 ACRM R0 re-run.
+
+
+## 2026-08-07 — M0 ACRM R0 re-run PASS
+
+After the operator-accepted R0 remediation was canonically integrated and the fresh-review target procedure was repaired, the re-run fixed the immutable repository target at:
+
+```text
+6054f84d007347c0aa9eef9e71317134b1047d3c
+```
+
+The review re-read the mandatory bootstrap/current-state path and M0-relevant constitutional owners from that exact revision, including Product Vision, Domain/World Model, Cognitive Lifecycle, operational-state/memory separation, Harness boundary, Authority/Safety, Security/Sovereignty, System Architecture, Reliability/Evaluation, Blueprint 14, Blueprint 15, Requirements Traceability, ADR-0001/0002, decision/coverage/research indexes and operator evidence.
+
+Formal R0 result:
+
+```text
+R0 PASS
+```
+
+All initial gate-failing findings were resolved:
+
+- R0-F01 — executable-horizon M0 milestone anatomy: RESOLVED;
+- R0-F02 — ADR status divergence: RESOLVED;
+- R0-F03 — mutable-state duplication/drift: RESOLVED;
+- R0-F04 — re-run target continuity: RESOLVED as tracking-only continuity repair before the fixed review.
+
+The review confirmed that remaining open work belongs to later gates rather than missing constitutional intent: R1 applicability classification, R2 verifiable requirements, R3 `CAP-SOVEREIGN-CORE` Capability/System Spec and threat/test model, R4 technical decisions/spikes, R5 Mission Contract and R6 Microdesign.
+
+One non-blocking documentation-hygiene note remains: the Documentation Map entrypoint table still describes `REQUIREMENTS-TRACEABILITY.md` with the historical word “proposed” even though the canonical requirement document is accepted. This does not compete with requirement lifecycle authority or current authorization and was not silently edited during the R0 verdict.
+
+Review record:
+
+```text
+docs/reviews/2026-08-07-m0-r0-constitutional-baseline-rerun.md
+```
+
+R1 is **not authorized** by the PASS verdict. Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized. The exact next action is to stop and await explicit operator authorization for `M0 ACRM R1 — Applicability`.

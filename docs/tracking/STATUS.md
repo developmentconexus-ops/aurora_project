@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.11.1
+version: 0.12.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -24,6 +24,8 @@ related:
   - DOC-AURORA-M0-R0-REMEDIATION-AUTHORIZATION
   - DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
   - DOC-AURORA-M0-R0-REMEDIATION-MERGE-CLOSEOUT
+  - DOC-AURORA-M0-R0-RERUN-TARGET-FINDING
+  - REVIEW-AURORA-M0-R0-CONSTITUTIONAL-BASELINE-RERUN-2026-08-07
 last_reviewed: 2026-08-07
 ---
 
@@ -39,11 +41,14 @@ last_reviewed: 2026-08-07
 - **ADR-0001:** ACCEPTED
 - **ADR-0002:** ACCEPTED
 - **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED by operator
-- **Current readiness gate:** ACRM R0 — Constitutional Baseline
+- **Current readiness gate:** ACRM R0 — Constitutional Baseline — PASS
 - **Initial R0 verdict:** FAIL
+- **R0 re-run target:** `6054f84d007347c0aa9eef9e71317134b1047d3c`
+- **R0 re-run verdict:** PASS
 - **Canonical R0 remediation merge:** `d0ddfb794296e599ac96bb73bf3772937d371bf9`
 - **R0 remediation:** ACCEPTED AND MERGED — `d0ddfb794296e599ac96bb73bf3772937d371bf9`
-- **R1 and later gates:** NOT AUTHORIZED BY IMPLICATION
+- **R1 — Applicability:** NOT AUTHORIZED / awaiting explicit operator authorization
+- **R2 and later gates:** NOT AUTHORIZED BY IMPLICATION
 - **Stack decisions:** none
 - **Runtime implementation:** not started and not authorized
 
@@ -128,12 +133,13 @@ The following remain open and must not be decided during R0 remediation:
 A0 baseline:                    ACCEPTED / MERGED
 ADR-0001 / ADR-0002:           ACCEPTED
 First Product Milestone:        M0 SELECTED
-Initial M0 R0:                 FAIL
-R0 documentary remediation:    AUTHORIZED
+Initial M0 R0:                 FAIL — historical
+R0 documentary remediation:    ACCEPTED / MERGED
 Corrected constitutional rev:  OPERATOR ACCEPTED
 Canonical integration:         COMPLETE — d0ddfb794296e599ac96bb73bf3772937d371bf9
-R0 re-run:                      AUTHORIZED / CURRENT NEXT ACTION
-ACRM R1+:                       NOT AUTHORIZED
+M0 ACRM R0 re-run:             PASS — target 6054f84d007347c0aa9eef9e71317134b1047d3c
+ACRM R1 — Applicability:       NOT AUTHORIZED / AWAITING OPERATOR
+ACRM R2+:                       NOT AUTHORIZED
 Architecture Spike execution:   PROHIBITED
 Capability implementation:      PROHIBITED
 Aurora Core implementation:     PROHIBITED
@@ -146,17 +152,14 @@ Microdesign/Implementation Plan: NOT STARTED
 
 ## 7. Current blocker/gate
 
-The corrected R0 remediation has been accepted and canonically integrated at `d0ddfb794296e599ac96bb73bf3772937d371bf9`. There is no remaining remediation blocker. The current gate is the fresh M0 ACRM R0 re-run; R1 remains unauthorized.
+The M0 ACRM R0 re-run against fixed canonical target `6054f84d007347c0aa9eef9e71317134b1047d3c` returned `R0 PASS`. There is no unresolved material constitutional baseline blocker for M0 applicability analysis.
 
-No implementation blocker exists because implementation is not authorized work.
+The intentional boundary is now authorization: R1 has **not** been authorized. No applicability package, requirement derivation, Architecture Spike execution, stack choice, Mission Contract, Microdesign or implementation may begin by implication.
 
 ## 8. Immediate next action
 
 ```text
-start a fresh repository-only R0 review from current canonical `main`
-→ resolve and record the exact `main` HEAD as the fixed R0 target revision before reading scope sources
-→ read AGENTS.md and STATUS from that exact revision
-→ execute M0 ACRM R0 only
-→ produce R0 PASS | FAIL | BLOCKED
-→ stop before R1 unless R1 is separately authorized
+R0 PASS recorded
+→ stop at the R0 boundary
+→ await explicit operator authorization for M0 ACRM R1 — Applicability
 ```
