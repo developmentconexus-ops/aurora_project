@@ -4,7 +4,9 @@ title: Governança Documental, Pesquisa e Evolução
 document_type: product_blueprint_section
 form: explanation
 authority: constitutional
-status: proposed
+status: accepted
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
 version: 0.2.1
 owners:
   - developmentconexus-ops
@@ -29,7 +31,7 @@ review_triggers:
   - research source policy changes
   - canonical read path changes
   - implementation/documentation gate changes
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # 15. Governança Documental, Pesquisa e Evolução

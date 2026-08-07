@@ -4,7 +4,9 @@ title: Aurora ADR Index
 document_type: adr_index
 form: reference
 authority: decision
-status: proposed
+status: accepted
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
 version: 0.2.1
 owners:
   - developmentconexus-ops
@@ -18,7 +20,7 @@ related:
   - DOC-AURORA-DOCUMENTATION-MAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-RESEARCH-MAP
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Architecture Decision Records

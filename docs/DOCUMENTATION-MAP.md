@@ -4,7 +4,9 @@ title: Aurora Documentation Map
 document_type: documentation_map
 form: reference
 authority: constitutional
-status: proposed
+status: accepted
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
 version: 0.2.1
 owners:
   - developmentconexus-ops
@@ -24,7 +26,7 @@ related:
   - DOC-AURORA-RESEARCH-MAP
   - DOC-AURORA-ROADMAP
   - DOC-AURORA-STATUS
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Aurora Documentation Map

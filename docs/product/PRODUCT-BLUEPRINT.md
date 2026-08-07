@@ -40,7 +40,7 @@ Generator: scripts/generate_docs.py
 
 | Section | Canonical source | SHA-256 |
 |---:|---|---|
-| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `6cd35a1afa5629d9d12e45b0d9756c769cf4db3831543a3d8f31c92d1c5621a0` |
+| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `460e597dfe93881b30cf45e3670772a8b09ab259337bc8f5dfb51961daac9bcb` |
 | 02 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md` | `9f8e65c84870ec92f48f7bf0820fd5ad01dc244bbc824b6f0d108c77c9e64f37` |
 | 03 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md` | `2aac158f6ff6a7dae3aeb58cacac2706eed5068fc23d6be3c61d6f9dcaf1d622` |
 | 04 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `c448cf0c680cd0a2468790537cc7a094e14dc4c7a7e2f23062a233bdf8f3d411` |
@@ -53,8 +53,8 @@ Generator: scripts/generate_docs.py
 | 11 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md` | `45abdfa563250f50d40e1a3063992af72fe883d62ab47cd6eadc677684d20518` |
 | 12 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md` | `48037455d51c38b447fb43067af51d430dd66a9a377f003c9282244c065896d1` |
 | 13 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md` | `f3b637d88822a4d16081e9306d7f51e0c65a04e21ff2eace388e93a341c2bba8` |
-| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `0a02f927bfdde56cdf94dff1512fdd9b66289ee75571826156b3dbbd4fe74989` |
-| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `fa13b6c4cd57ac4320015d949ef8d1d56123219fbf588c55059a6f378f4b01dd` |
+| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `8f46e188db2fffe953fe5aee8c9f4646573715b05e7890ae058bbb5251e060fb` |
+| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `277e40ce1035f92ed438a544dcb5d2603be5802c66513f76fbf92c89006e5037` |
 
 ---
 

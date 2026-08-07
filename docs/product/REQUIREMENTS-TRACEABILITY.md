@@ -5,7 +5,9 @@ document_type: requirements_traceability
 form: reference
 
 authority: specification
-status: proposed
+status: accepted
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -25,7 +27,7 @@ review_triggers:
   - Product Blueprint change
   - Capability requirement derivation
   - A0 acceptance review
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Aurora Constitutional Requirements and Traceability

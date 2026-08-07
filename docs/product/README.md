@@ -4,7 +4,9 @@ title: Aurora Product Documentation
 document_type: product_index
 form: reference
 authority: constitutional
-status: proposed
+status: accepted
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
 version: 0.2.1
 owners:
   - developmentconexus-ops
@@ -20,7 +22,7 @@ related:
   - DOC-AURORA-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-REQUIREMENTS-TRACEABILITY
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Aurora Product Documentation

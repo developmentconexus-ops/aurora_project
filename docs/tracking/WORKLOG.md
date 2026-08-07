@@ -5,12 +5,12 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.7.0
+version: 0.8.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - chronological material work history
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-07
 ---
 
 # Aurora Worklog
@@ -310,3 +310,20 @@ The remediation:
 - validates documentation before operator review.
 
 R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized. The revised normative documents remain `PROPOSED` on the non-canonical branch until explicit operator acceptance; the last accepted versions remain canonical on `main`.
+
+
+## 2026-08-07 — M0 R0 remediation revision accepted
+
+The operator reviewed the corrected R0 remediation candidate at exact semantic revision:
+
+```text
+b32cfe134f84eed3797d866e607c92c227514186
+```
+
+and responded:
+
+> “Aprovo A revisao”
+
+The decision accepts the corrected documentary/constitutional meaning and authorizes its lifecycle promotion and canonical integration. Promotion metadata and acceptance evidence may change after the approved semantic revision; the approved constitutional content itself must not drift during promotion.
+
+This acceptance does **not** authorize R1 or any later ACRM gate, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract or Microdesign. After canonical integration, the next allowed action is a fresh repository-only re-run of M0 ACRM R0 only.
