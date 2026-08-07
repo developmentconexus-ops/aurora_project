@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.17.0
+version: 0.18.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -41,6 +41,7 @@ related:
   - REVIEW-AURORA-M0-R3-RESEARCH-FRESHNESS-2026-08-07
   - REVIEW-AURORA-M0-R3-CAPABILITY-READINESS-2026-08-07
   - DOC-AURORA-M0-R4-OPERATOR-AUTHORIZATION
+  - DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
   - DESIGN-AURORA-M0-R4-DECISION-LANDSCAPE
   - DESIGN-AURORA-M0-R4-MASTRA-FIT-MATRIX
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R4-DECISION-COVERAGE
@@ -99,17 +100,17 @@ last_reviewed: 2026-08-07
 - **R4 focused research:** 5 current focused reports + 5 source manifests after Mastra materiality assessment
 - **R4 Mastra finding:** MATERIAL CROSS-HORIZON / NOT A NEW M0 BLOCKER
 - **Mastra posture:** PROPOSED preferred/default substrate to evaluate first for first-party agentic Harness infrastructure; NOT Sovereign Core owner
-- **ADR-0003:** PROPOSED — Go narrowed explicitly to the Aurora Sovereign Core runtime
-- **ADR-0004:** PROPOSED — M0 local Core/state shape; future Mastra workflow/durable mechanisms remain provider-local/port candidates
-- **ADR-0005 / ADR-0006:** PROPOSED / documentary-ready for operator review
+- **ADR-0003:** ACCEPTED — Go is the initial Aurora Sovereign Core runtime
+- **ADR-0004:** ACCEPTED — M0 local Core/state shape; future Mastra workflow/durable mechanisms remain provider-local/port candidates
+- **ADR-0005 / ADR-0006:** ACCEPTED
 - **ADR-0007 / ADR-0008:** PROPOSED / spike-blocked
-- **ADR-0009:** PROPOSED / cross-horizon — Mastra preferred cognitive/Harness substrate; no M0 implementation or spike authorization
-- **SPK-AURORA-M0-SOVEREIGN-STORE-001:** PROPOSED / EXECUTION NOT AUTHORIZED
+- **ADR-0009:** ACCEPTED / cross-horizon — Mastra preferred-first cognitive/Harness substrate; no M0 implementation authorization
+- **SPK-AURORA-M0-SOVEREIGN-STORE-001:** AUTHORIZED FOR EXECUTION — exact canonical spec at `36f46956bc275d0aec32b7e3ea4d959010fa9dcb` / blob `6ad7397d46208a0a9c762073d2c5239ceff4e056`
 - **SPK-AURORA-M0-OWNER-TRUST-002:** PROPOSED / EXECUTION NOT AUTHORIZED / depends on reviewed SPK-001 result
 - **R4 verdict:** BLOCKED — existing executable spike evidence and required operator decision acceptance are not yet complete
 - **R5 — Contract Readiness:** NOT AUTHORIZED
 - **R6 and later gates:** NOT AUTHORIZED BY IMPLICATION
-- **Accepted stack decisions:** none; R4 technical choices remain proposed pending required review/evidence
+- **Accepted technical decisions:** ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009; operational store and owner-root mechanisms remain unresolved
 - **Runtime implementation:** not started and not authorized
 
 ## 2. M0 selection
@@ -227,17 +228,17 @@ R2 requirements baseline:       122 proposed atomic requirements; coverage 127/1
 M0 ACRM R3 — Capability Readiness: PASS — source baseline 9ea8adf5c115f54071d7e36e312695d19420d8b0
 R3 proposed Capability package: Spec + threat model + test plan + 122/122 allocation
 M0 ACRM R4 — Architecture/Decision Readiness: BLOCKED — documentary baseline d00cc1abfc2a41ac7e81e1f3478e188b3c5e9e52
-R4 M0 decision coverage:         15/15 mapped; 6 M0 proposed ADRs; 2 required spikes unexecuted
-Cross-horizon ADR-0009:          PROPOSED — Mastra preferred agentic Harness substrate; not an M0 blocker
+R4 M0 decision coverage:         15/15 mapped; ADR-0003/4/5/6 accepted; ADR-0007/8 spike-blocked
+Cross-horizon ADR-0009:          ACCEPTED — Mastra preferred-first agentic Harness substrate; not an M0 blocker
 Mastra integration spike:       NOT REQUIRED FOR M0 / DEFERRED TO FIRST CONSUMING CAPABILITY
 ACRM R5 — Contract Readiness:    NOT AUTHORIZED
 ACRM R6+:                       NOT AUTHORIZED
-Architecture Spike execution:   PROHIBITED / AWAITING EXPLICIT OPERATOR AUTHORIZATION
+Architecture Spike execution:   SPK-001 AUTHORIZED ONLY; SPK-002 AND ALL OTHER SPIKES PROHIBITED
 Capability implementation:      PROHIBITED
 Aurora Core implementation:     PROHIBITED
 AHDK implementation:            PROHIBITED
 MNFS integration:               PROHIBITED
-Accepted stack decisions:       NONE
+Accepted technical decisions:   ADR-0003 / ADR-0004 / ADR-0005 / ADR-0006 / ADR-0009
 Mission Contract:               NOT STARTED
 Microdesign/Implementation Plan: NOT STARTED
 ```
@@ -248,14 +249,15 @@ M0 ACRM R4 has completed the documentary architecture/decision investigation aga
 
 The later focused Mastra assessment is complete enough for the current decision: Mastra is a strong proposed default substrate for future first-party agentic Harnesses, but it does not own the Sovereign Core and does not create a new M0 blocker. Investigation stops at this boundary for M0.
 
-The original R4 gate blockers remain unchanged:
+The operator has now accepted ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 and separately authorized execution of the exact current `SPK-AURORA-M0-SOVEREIGN-STORE-001` specification.
 
-1. ADR-0003 through ADR-0006 require operator review/acceptance at sufficient evidence;
-2. ADR-0007 remains blocked by `SPK-AURORA-M0-SOVEREIGN-STORE-001`;
-3. ADR-0008 remains blocked by `SPK-AURORA-M0-OWNER-TRUST-002`, sequenced after reviewed SPK-001 evidence;
-4. Architecture Spike execution remains prohibited until separately authorized.
+The remaining R4 blockers are now narrower:
 
-ADR-0009 may be reviewed separately as a cross-horizon architecture direction. Its acceptance is not required to execute the M0 storage spike and does not authorize Mastra implementation.
+1. execute and independently review `SPK-AURORA-M0-SOVEREIGN-STORE-001`;
+2. use that evidence to accept/reject/revise ADR-0007;
+3. ADR-0008 remains blocked by `SPK-AURORA-M0-OWNER-TRUST-002`, which is still NOT AUTHORIZED and remains sequenced after reviewed SPK-001 evidence.
+
+ADR-0009 acceptance remains cross-horizon and does not authorize Mastra implementation.
 
 Therefore the independent R4 verdict remains:
 
@@ -268,12 +270,11 @@ R5, Mission Contract, Microdesign and runtime implementation remain unauthorized
 ## 8. Immediate next action
 
 ```text
-Mastra materiality assessment recorded
-→ STOP Mastra investigation for M0
-→ operator reviews revised ADR-0003 / ADR-0004 + ADR-0005 / ADR-0006
-→ ADR-0009 may be reviewed separately as cross-horizon direction
-→ separately authorize exact SPK-AURORA-M0-SOVEREIGN-STORE-001 execution if approved
-→ execute/review the actual M0 persistence proof
-→ SPK-002 remains blocked until SPK-001 evidence is reviewed
+ADR-0003 / ADR-0004 / ADR-0005 / ADR-0006 / ADR-0009 accepted
+→ SPK-AURORA-M0-SOVEREIGN-STORE-001 execution explicitly authorized
+→ execute the exact disposable persistence spike against a fixed branch/revision
+→ review evidence and decide ADR-0007
+→ STOP
+→ SPK-002 remains NOT AUTHORIZED until separately approved after SPK-001 review
 → do not begin R5
 ```

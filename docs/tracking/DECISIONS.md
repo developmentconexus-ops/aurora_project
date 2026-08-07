@@ -5,7 +5,7 @@ document_type: decision_index
 form: reference
 authority: tracking
 status: current
-version: 0.3.0
+version: 0.4.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -96,6 +96,11 @@ A0 and ADR-0001/0002 were explicitly accepted by the operator and merged to `mai
 | D-042 | first-party Harnesses use AHDK by policy unless waived; all providers pass universal/profile conformance | ADR-0002 | accepted |
 | D-043 | SDK is neither specification nor security boundary | Blueprint 05, 10, ADR-0002 | accepted |
 | D-044 | durable execution, policy decision, effect enforcement, containment, evidence and observability are separate layers | Blueprint 10–13 | accepted |
+| D-052 | Go is the accepted initial runtime for the Aurora Sovereign Core; other runtimes remain free behind contracts | ADR-0003 | accepted |
+| D-053 | M0 uses one local modular Sovereign Core with explicit current state/revisions and no full event sourcing or durable workflow engine | ADR-0004 | accepted |
+| D-054 | M0 portable logical state uses JSON Schema/JSON/JCS boundaries with protected export and application-owned migration semantics | ADR-0005 | accepted |
+| D-055 | M0 observability uses OTel traces/metrics plus structured Go logging while exporter/backend remains optional | ADR-0006 | accepted |
+| D-056 | Mastra is the accepted preferred-first substrate to evaluate for first-party agentic Harnesses while sovereign truth/authority remain Aurora-owned | ADR-0009 | accepted |
 
 ## 7. Methodology, documentation and milestone decisions
 
@@ -115,7 +120,6 @@ These are not yet decisions and must not be inferred from examples, research can
 
 | Open ID | Decision required | Expected owner/path |
 |---|---|---|
-| O-001 | Aurora Core language and initial deployment process topology | future Core Capability Spec + ADR |
 | O-002 | first AHDK language and source-code generation stack | CAP-AHDK research/spike + ADR |
 | O-003 | schema representation per boundary | Contract Model Spec + SPK-001 |
 | O-004 | local RPC binding | interoperability research/spike + ADR |

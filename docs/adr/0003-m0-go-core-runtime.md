@@ -4,7 +4,9 @@ title: Go as the Initial Aurora Sovereign Core Runtime
 document_type: adr
 form: explanation
 authority: decision
-status: proposed
+status: accepted
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
 version: 0.2.0
 owners:
   - developmentconexus-ops

@@ -566,3 +566,9 @@ R4 BLOCKED
 This is not an architecture failure. All 15 questions are accounted for, but accepted governance requires executable crash/restart/restore evidence before storage/recovery commitment, Architecture Spike execution has not been authorized, and all six new ADRs remain proposed. ADR-0003..0006 are ready for operator review; ADR-0007..0008 must remain proposed until their exact spike evidence is complete and reviewed.
 
 R5, Mission Contract, Microdesign and implementation remain unauthorized.
+
+## 2026-08-07 — M0 R4 ADR Acceptance and SPK-001 Authorization
+
+The operator explicitly accepted ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 and authorized execution of `SPK-AURORA-M0-SOVEREIGN-STORE-001` according to the canonical specification current at `36f46956bc275d0aec32b7e3ea4d959010fa9dcb` (spec blob `6ad7397d46208a0a9c762073d2c5239ceff4e056`).
+
+This promotes the five ADRs to accepted decision authority and opens only the disposable SPK-001 execution boundary. ADR-0007 and ADR-0008 remain proposed. `SPK-AURORA-M0-OWNER-TRUST-002`, R5, Mission Contract, Microdesign and production implementation remain unauthorized.
