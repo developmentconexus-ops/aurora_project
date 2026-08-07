@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.11.0
+version: 0.11.1
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -153,10 +153,10 @@ No implementation blocker exists because implementation is not authorized work.
 ## 8. Immediate next action
 
 ```text
-start a fresh repository-only R0 review against canonical revision d0ddfb794296e599ac96bb73bf3772937d371bf9
-→ read AGENTS.md and STATUS from that revision
+start a fresh repository-only R0 review from current canonical `main`
+→ resolve and record the exact `main` HEAD as the fixed R0 target revision before reading scope sources
+→ read AGENTS.md and STATUS from that exact revision
 → execute M0 ACRM R0 only
-→ re-run M0 ACRM R0 only
 → produce R0 PASS | FAIL | BLOCKED
 → stop before R1 unless R1 is separately authorized
 ```
