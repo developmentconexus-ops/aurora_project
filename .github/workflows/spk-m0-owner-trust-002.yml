@@ -67,9 +67,10 @@ jobs:
         run: |
           suffix=""
           if [[ "$RUNNER_OS" == "Windows" ]]; then suffix=".exe"; fi
-          binary="evidence/spk002-evidence${suffix}"
+          binary="${RUNNER_TEMP}/spk002-evidence${suffix}"
           go build -trimpath -o "$binary" ./cmd/evidence
           "$binary" -out "evidence/metrics-${RUNNER_OS}.json"
+          rm -f "$binary"
       - name: Enforce evidence secret hygiene
         shell: bash
         run: |
