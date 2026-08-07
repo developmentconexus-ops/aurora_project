@@ -1,0 +1,58 @@
+name: Close M0 R4 SPK-001 Evidence
+
+on:
+  push:
+    branches:
+      - docs/m0-r4-spk001-evidence
+    paths:
+      - ".github/workflows/close-m0-r4-spk001-evidence.yml"
+      - ".github/scripts/close_m0_r4_spk001_evidence.py"
+      - ".github/spk001-evidence-closeout.trigger"
+
+permissions:
+  contents: write
+
+jobs:
+  close:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply SPK-001 closeout tracking transformation
+        run: python .github/scripts/close_m0_r4_spk001_evidence.py
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+      - name: Validate documentation system
+        run: |
+          python scripts/validate_docs.py \
+            --generated-root "$RUNNER_TEMP/aurora-generated" \
+            --report "$RUNNER_TEMP/docs-validation-report.json"
+      - name: Verify closeout boundary
+        shell: bash
+        run: |
+          grep -q "SPK-AURORA-M0-SOVEREIGN-STORE-001.*PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED" docs/tracking/STATUS.md
+          grep -q "ADR-0007.*PROPOSED / EVIDENCE-READY" docs/tracking/STATUS.md
+          grep -q "SPK-AURORA-M0-OWNER-TRUST-002.*EXECUTION NOT AUTHORIZED" docs/tracking/STATUS.md
+          grep -q "R5 — Contract Readiness.*NOT AUTHORIZED" docs/tracking/STATUS.md
+          grep -q "status: proposed" docs/adr/0007-m0-sqlite-operational-store.md
+          grep -q "modernc.org/sqlite" docs/adr/0007-m0-sqlite-operational-store.md
+          grep -q "SPK-AURORA-M0-SOVEREIGN-STORE-001: PASS" docs/reviews/2026-08-07-m0-r4-spk001-sovereign-store-review.md
+          test ! -e spikes/m0-sovereign-store-001
+          git diff --check
+      - name: Commit validated docs-only closeout and remove helpers
+        shell: bash
+        run: |
+          rm -f \
+            .github/workflows/close-m0-r4-spk001-evidence.yml \
+            .github/scripts/close_m0_r4_spk001_evidence.py \
+            .github/spk001-evidence-closeout.trigger
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add docs .github
+          git diff --cached --check
+          git commit -m "docs: close SPK-001 evidence checkpoint"
+          git push origin HEAD:docs/m0-r4-spk001-evidence
