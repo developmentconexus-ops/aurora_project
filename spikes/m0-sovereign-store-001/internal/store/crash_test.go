@@ -44,7 +44,12 @@ func TestSPK001HelperProcess(t *testing.T) {
 			fmt.Fprintf(os.Stderr, "write marker: %v\n", err)
 			os.Exit(91)
 		}
-		select {}
+		// Keep a timer-backed goroutine state instead of select{} so the Go
+		// runtime cannot classify the helper as a deadlocked process and exit
+		// before the parent applies the OS process-kill primitive.
+		for {
+			time.Sleep(time.Hour)
+		}
 	}
 	if err := ApplyTransition(path, in, hook); err != nil {
 		fmt.Fprintf(os.Stderr, "apply transition: %v\n", err)
