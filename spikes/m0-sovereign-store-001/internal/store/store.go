@@ -11,12 +11,10 @@ import (
 	"github.com/developmentconexus-ops/aurora_project/spikes/m0-sovereign-store-001/internal/sqlitedriver"
 )
 
-const supportedSchemaVersion = 1
-
 var (
-	ErrAlreadyExists       = errors.New("store already exists")
-	ErrMissingStore        = errors.New("store does not exist")
-	ErrIncompatibleSchema  = errors.New("unsupported logical schema version")
+	ErrAlreadyExists        = errors.New("store already exists")
+	ErrMissingStore         = errors.New("store does not exist")
+	ErrIncompatibleSchema   = errors.New("unsupported logical schema version")
 	ErrIntegrityCheckFailed = errors.New("sqlite integrity check failed")
 )
 
@@ -45,8 +43,8 @@ func openDB(path string) (*sql.DB, error) {
 }
 
 func Bootstrap(path string, initial Snapshot) error {
-	if initial.SchemaVersion != supportedSchemaVersion {
-		return fmt.Errorf("%w: got %d want %d", ErrIncompatibleSchema, initial.SchemaVersion, supportedSchemaVersion)
+	if initial.SchemaVersion != bootstrapSchemaVersion {
+		return fmt.Errorf("%w: bootstrap got %d want %d", ErrIncompatibleSchema, initial.SchemaVersion, bootstrapSchemaVersion)
 	}
 	if _, err := os.Stat(path); err == nil {
 		return ErrAlreadyExists
@@ -161,8 +159,8 @@ func Inspect(path string) (Snapshot, error) {
 	if err != nil {
 		return Snapshot{}, fmt.Errorf("parse schema version: %w", err)
 	}
-	if schemaVersion != supportedSchemaVersion {
-		return Snapshot{}, fmt.Errorf("%w: got %d want %d", ErrIncompatibleSchema, schemaVersion, supportedSchemaVersion)
+	if schemaVersion < bootstrapSchemaVersion || schemaVersion > currentSchemaVersion {
+		return Snapshot{}, fmt.Errorf("%w: got %d supported %d..%d", ErrIncompatibleSchema, schemaVersion, bootstrapSchemaVersion, currentSchemaVersion)
 	}
 	if err := db.QueryRow(`SELECT value FROM meta WHERE key = 'aurora_id'`).Scan(&auroraID); err != nil {
 		return Snapshot{}, fmt.Errorf("read aurora id: %w", err)
