@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.5.0
+version: 0.6.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -230,9 +230,40 @@ The merge does **not** authorize:
 - stack selection;
 - bypassing ACRM readiness gates.
 
-The next product gate is:
+## 2026-08-06 — First Product Milestone selection
+
+The accepted roadmap was reviewed adversarially before choosing the next readiness subject.
+
+The main candidates were:
+
+- `M0 — Sovereign Core Walking Skeleton`;
+- `M1 — Governed Conversation, Project Context and Memory`;
+- `M2 — Capability Registry, AHDK Kernel and Reference Provider`.
+
+The review kept M0 first because:
+
+- Aurora must prove identity/state/authority survive process restart before memory builds on top of them;
+- M1 should consume a sovereign state/authority foundation rather than become that foundation;
+- M2 should prove provider/SDK contracts only after Aurora exists independently of those providers;
+- the accepted architecture requires the smallest topology that proves boundaries, not a premature platform.
+
+Leandro explicitly approved M0 as the first Product Milestone.
+
+Decision evidence:
 
 ```text
-select first Product Milestone
-→ begin ACRM R0 — Constitutional Baseline
+docs/acceptance/2026-08-06-m0-operator-selection.md
 ```
+
+Current gate:
+
+```text
+M0 — SELECTED
+ACRM R0 — AUTHORIZED TO BEGIN IN A FRESH SESSION
+R0 — NOT STARTED
+R1+ — NOT AUTHORIZED BY IMPLICATION
+IMPLEMENTATION — PROHIBITED
+STACK SELECTION — NOT PERFORMED
+```
+
+The next session must execute only R0, produce `PASS | FAIL | BLOCKED` with repository citations, identify constitutional gaps/contradictions if any, and stop before R1 unless separately authorized.
