@@ -1,0 +1,57 @@
+name: Validate M0 R4 Mastra assessment
+
+on:
+  push:
+    branches:
+      - docs/m0-r4-mastra-substrate-assessment
+    paths:
+      - "docs/**/*.md"
+      - "docs/research/*.json"
+      - "scripts/generate_docs.py"
+      - "scripts/validate_docs.py"
+      - ".github/workflows/validate-m0-r4-mastra-assessment.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+
+      - name: Validate documentation system
+        run: |
+          python scripts/validate_docs.py \
+            --generated-root "$RUNNER_TEMP/aurora-generated" \
+            --report "$RUNNER_TEMP/docs-validation-report.json"
+
+      - name: Check generated projections
+        run: |
+          diff -u docs/product/PRODUCT-BLUEPRINT.md "$RUNNER_TEMP/aurora-generated/docs/product/PRODUCT-BLUEPRINT.md"
+          diff -u docs/roadmap.md "$RUNNER_TEMP/aurora-generated/docs/roadmap.md"
+
+      - name: Verify Mastra materiality boundary
+        run: |
+          test "$(grep -o 'R4-Q-[A-Z]*-[0-9][0-9][0-9]' docs/capabilities/CAP-SOVEREIGN-CORE/R4-DECISION-COVERAGE.md | sort -u | wc -l)" -eq 15
+          grep -q '^status: proposed$' docs/adr/0009-mastra-cognitive-harness-runtime.md
+          grep -q 'Sovereign Core' docs/adr/0003-m0-go-core-runtime.md
+          grep -q 'does not add a new M0 blocker' docs/adr/0009-mastra-cognitive-harness-runtime.md
+          grep -q 'NEW M0 BLOCKER: NO' docs/reviews/2026-08-07-m0-r4-mastra-materiality-review.md
+          grep -q 'No new Mastra spike is required to continue M0' docs/research/AURORA-RESEARCH-MASTRA-COGNITIVE-HARNESS-R4-v1.md
+          if grep -R "Execution: AUTHORIZED" docs/design docs/adr docs/research; then
+            echo "unexpected execution authorization claim"
+            exit 1
+          fi
+          echo "M0 R4 Mastra assessment validation PASS"
