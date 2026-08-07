@@ -1,0 +1,49 @@
+name: Align M0 R0 remediation candidate lifecycle
+
+on:
+  push:
+    branches:
+      - docs/architecture-baseline
+    paths:
+      - scripts/align_m0_r0_candidate_lifecycle.py
+
+permissions:
+  contents: write
+
+jobs:
+  align:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/architecture-baseline
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Align proposed revision lifecycle
+        run: python scripts/align_m0_r0_candidate_lifecycle.py
+
+      - name: Regenerate projections
+        run: |
+          python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+          cp "$RUNNER_TEMP/aurora-generated/docs/product/PRODUCT-BLUEPRINT.md" docs/product/PRODUCT-BLUEPRINT.md
+          cp "$RUNNER_TEMP/aurora-generated/docs/roadmap.md" docs/roadmap.md
+
+      - name: Validate documentation system
+        run: |
+          python scripts/validate_docs.py \
+            --generated-root "$RUNNER_TEMP/aurora-generated" \
+            --report "$RUNNER_TEMP/aurora-generated/docs-validation-report.json"
+          python scripts/generate_docs.py --check
+
+      - name: Commit validated lifecycle alignment
+        run: |
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "docs: mark R0 remediation revision proposed"
+          git push origin HEAD:docs/architecture-baseline
