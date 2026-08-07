@@ -22,6 +22,7 @@ related:
   - ADR-AURORA-0002
 promotion_triggered_at: 2026-08-06
 promotion_attempt: 2
+adr2_alignment_triggered_at: 2026-08-06
 last_reviewed: 2026-08-06
 ---
 
