@@ -94,3 +94,37 @@ jobs:
           path: spikes/m0-sovereign-store-001/evidence/
           if-no-files-found: error
           retention-days: 14
+
+  aggregate:
+    name: aggregate-evidence
+    needs: full
+    if: always()
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: spikes/m0-sovereign-store-001
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download matrix artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: spk001-*
+          path: spikes/m0-sovereign-store-001/matrix
+          merge-multiple: true
+      - name: Aggregate and enforce complete matrix
+        run: |
+          python scripts/aggregate.py \
+            --root matrix \
+            --json-out evidence/spk001-matrix.json \
+            --md-out evidence/spk001-summary.md
+          cat evidence/spk001-summary.md
+      - name: Upload aggregate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spk001-aggregate
+          path: |
+            spikes/m0-sovereign-store-001/evidence/spk001-matrix.json
+            spikes/m0-sovereign-store-001/evidence/spk001-summary.md
+          if-no-files-found: warn
+          retention-days: 14
