@@ -14,3 +14,16 @@ func SQLiteVersion(path string) (string, error) {
 	}
 	return version, nil
 }
+
+func IntegrityStatus(path string) (string, error) {
+	db, err := openExistingDB(path)
+	if err != nil {
+		return "", err
+	}
+	defer db.Close()
+	var result string
+	if err := db.QueryRow(`PRAGMA integrity_check`).Scan(&result); err != nil {
+		return "", fmt.Errorf("integrity check: %w", err)
+	}
+	return result, nil
+}
