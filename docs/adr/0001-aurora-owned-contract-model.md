@@ -13,547 +13,566 @@ owners:
 approvers:
   - operator
 source_of_truth_for:
-  - proposed ownership of cross-Harness semantics
-  - proposed protocol binding policy
+  - ownership of cross-Harness semantics
+  - protocol binding policy
 related:
   - DOC-AURORA-BLUEPRINT-03
   - DOC-AURORA-BLUEPRINT-05
   - DOC-AURORA-BLUEPRINT-07
   - DOC-AURORA-BLUEPRINT-10
   - DOC-AURORA-BLUEPRINT-12
-  - RESEARCH-AURORA-HARNESS-ARCHITECTURE-V1
   - RESEARCH-AURORA-HARNESS-INTEROPERABILITY-V1
-  - DESIGN-AURORA-CAPABILITY-HARNESS-ARCHITECTURE
+  - RESEARCH-AURORA-HARNESS-ARCHITECTURE-V1
+  - DESIGN-AURORA-ARCHITECTURE-SPIKES
 supersedes: []
 superseded_by: null
 review_triggers:
-  - an open protocol covers the complete Aurora delegation domain
-  - contract-model spike evidence contradicts the proposal
-  - adapter/conformance cost becomes disproportionate
+  - open standard covers Aurora semantics without invariant loss
+  - adapter/conformance cost proves structurally disproportionate
+  - SPK-001, SPK-002, SPK-003 or SPK-008 contradict assumptions
 last_reviewed: 2026-08-06
 ---
 
 # ADR-0001 — Aurora-owned Contract Model and Replaceable Bindings
 
-## 1. Status
+## 1. Context
+
+Aurora must coordinate specialized providers that may be:
+
+- agentic or deterministic;
+- local or remote;
+- TypeScript, Python, Go, firmware or another language;
+- implemented with Mastra, LangGraph, Pi, OpenHands, custom code or a future runtime;
+- exposed through local SDK calls, RPC, A2A, MCP or other transports.
+
+The product also owns concepts not completely represented by any one studied protocol/framework:
 
 ```text
-PROPOSED
-```
-
-This ADR records a proposed architecture decision for operator review. It does not authorize implementation or a protocol selection.
-
-## 2. Decision scope
-
-This decision concerns the semantic boundary between Aurora and specialized Harnesses.
-
-It does **not** decide:
-
-- the Aurora Core language;
-- the wire format of every contract;
-- the first local RPC technology;
-- whether A2A or MCP is adopted in a particular milestone;
-- the internal framework/runtime of a Harness;
-- the durable execution engine;
-- the operational database;
-- the first real Harness integration.
-
-Those choices remain under future Capability Specs, spikes and ADRs.
-
-## 3. Context
-
-Aurora must eventually coordinate heterogeneous systems such as:
-
-- software engineering Harnesses, including a future MNFS adapter;
-- research and evaluation Harnesses;
-- hardware and firmware systems;
-- laboratory telemetry and device-control systems;
-- deterministic services;
-- local processes and remote agent applications;
-- future personal-domain capabilities.
-
-These providers may use different:
-
-- languages;
-- frameworks;
-- process boundaries;
-- transports;
-- security profiles;
-- state models;
-- durations;
-- data volumes;
-- evidence types;
-- failure and recovery behavior.
-
-Examples discussed during discovery include:
-
-```text
-Research Harness
-→ may use a TypeScript/Python agent workflow
-
-MNFS
-→ may use Pi and its own deterministic development control plane
-
-Laboratory Harness
-→ may combine deterministic device services, firmware and analysis agents
-
-Evaluation Harness
-→ may consume large telemetry/data artifacts without receiving global authority
-```
-
-Aurora must understand a common external meaning without requiring all systems to share one internal runtime.
-
-## 4. Problem
-
-If the model of one framework or protocol becomes the Aurora domain model, several failures become likely:
-
-### Framework lock-in
-
-Aurora concepts become constrained by how one runtime represents agents, graphs, sessions, tools or workflows.
-
-Changing the framework becomes a product-domain migration rather than an adapter change.
-
-### Semantic gaps hidden in prompts
-
-Concepts not supported by the chosen framework—such as delegated authority, data classification, evidence linked to criteria, build-bound trust, physical interlocks or global budget—may be improvised in text rather than represented as contracts.
-
-### Heterogeneous systems forced into an agent abstraction
-
-A deterministic hardware controller or telemetry service may be modeled as an “agent” even when it does not reason, creating unclear state and authority.
-
-### Global state leakage into Harnesses
-
-A Harness may start owning project state, memory, authority or cross-domain acceptance because the protocol lacks an explicit Aurora owner.
-
-### Protocol capability mistaken for permission
-
-A tool/agent advertises an operation and Aurora treats technical availability as authority to execute it.
-
-### Recovery and evidence divergence
-
-Each provider reports completion differently, making global reconciliation, audit and acceptance dependent on free-form narratives.
-
-## 5. Decision drivers
-
-The decision must support:
-
-1. stable product semantics across model/framework/provider replacement;
-2. first-party Harness ergonomics without universal runtime lock-in;
-3. local-first operation and future remote providers;
-4. agentic and deterministic providers;
-5. explicit identity, authority, budget, data and effect boundaries;
-6. durable/observable work lasting seconds to days;
-7. cancellation, restart, reconciliation and idempotency;
-8. artifacts and evidence, not only chat messages;
-9. physical and digital safety progression;
-10. machine-verifiable versioning and conformance;
-11. YAGNI—only concepts required by proved slices should be implemented;
-12. ability to adopt open standards where they fit.
-
-## 6. Alternatives
-
-### Option A — One framework owns the domain
-
-Examples:
-
-```text
-Aurora = one large Mastra application
-Aurora = one LangGraph graph
-Aurora = one OpenAI Agents SDK manager
-```
-
-#### Advantages
-
-- fastest initial prototyping;
-- fewer custom contracts;
-- framework-provided tools, memory, streaming and tracing;
-- one programming model.
-
-#### Disadvantages
-
-- framework lifecycle becomes product lifecycle;
-- physical/deterministic systems are awkwardly modeled;
-- global memory/authority/evidence inherit framework limitations;
-- future migration is broad and risky;
-- Harness independence becomes superficial;
-- provider-specific session state can be mistaken for authoritative Aurora state.
-
-#### Assessment
-
-Rejected as the constitutional architecture. Frameworks remain valid Harness-internal candidates.
-
----
-
-### Option B — MCP owns the domain
-
-Aurora models all external work as MCP tools/resources/prompts and optional Tasks.
-
-#### Advantages
-
-- open ecosystem;
-- strong tool/resource discovery;
-- standardized local/remote integrations;
-- official SDKs and conformance work.
-
-#### Disadvantages
-
-MCP does not by itself own the complete Aurora semantics for:
-
-- global Mission decomposition;
-- delegated authority and effect policy;
-- cross-Harness child Delegations;
-- project/world memory governance;
-- global budget and acceptance criteria;
-- provider/build trust lifecycle;
-- evidence and verdict distinction;
-- physical-safety envelopes.
-
-#### Assessment
-
-Rejected as the complete domain. Retained as a candidate binding for tools/resources and bounded asynchronous operations.
-
----
-
-### Option C — A2A owns the domain
-
-Aurora models Harnesses directly as A2A agents, tasks, messages and artifacts.
-
-#### Advantages
-
-- designed for opaque agent applications;
-- task lifecycle, artifacts, streaming/polling/push;
-- Agent Cards and multi-turn collaboration;
-- official conformance/TCK direction.
-
-#### Disadvantages
-
-A2A does not fully define Aurora-specific:
-
-- personal/project memory governance;
-- fine-grained Authority Grants and effect enforcement;
-- global budget/guardrail/stop conditions;
-- provider trust and data-class approvals;
-- causal evidence and Product Milestone acceptance;
-- physical device safety;
-- distinction between Aurora constitutional state and provider-local state.
-
-Language SDK maturity and protocol evolution may also differ at implementation time.
-
-#### Assessment
-
-Rejected as the complete domain. Retained as a leading candidate binding for remote, opaque and long-running Harness providers.
-
----
-
-### Option D — Every integration is bespoke
-
-Aurora has no canonical external model; each adapter translates directly to Core internals.
-
-#### Advantages
-
-- no up-front semantic design;
-- maximum freedom per integration;
-- quick first adapter.
-
-#### Disadvantages
-
-- semantic drift;
-- duplicate lifecycle and error handling;
-- no universal conformance;
-- testing and trust become adapter-specific;
-- difficult provider substitution;
-- Aurora cannot safely scaffold new Harnesses;
-- cross-Harness composition becomes special-case orchestration.
-
-#### Assessment
-
-Rejected.
-
----
-
-### Option E — Aurora-owned semantics with replaceable bindings
-
-Aurora defines a language/framework-neutral Contract Model. Bindings map it to native SDK calls, local RPC, A2A, MCP, HTTP/gRPC or event transports.
-
-#### Advantages
-
-- product meaning survives infrastructure replacement;
-- agentic and deterministic providers fit;
-- authority/evidence/recovery are explicit;
-- first-party Golden Paths can be rich without closing external interoperability;
-- conformance can test semantics independently of SDK/runtime;
-- protocols are adopted where strong rather than stretched beyond their domain.
-
-#### Disadvantages
-
-- Aurora must maintain schemas, versioning and conformance;
-- mapping to external protocols requires adapters;
-- risk of overengineering unused concepts;
-- semantic duplication is possible when Aurora concepts overlap standards.
-
-#### Assessment
-
-Recommended, subject to SPK-001/002/003/008 evidence.
-
-## 7. Proposed decision
-
-Aurora will own the canonical meaning of cross-domain concepts including:
-
-```text
-Capability
-Provider
-Provider Instance
-Capability Manifest
-Verification and Trust Assessment
-Approval for Scope
-Mission
-Delegation and Child Delegation
+Identity
+Project / Goal / Mission
+Capability / Provider / Harness
+Delegation
 Context Pack
-Authority Grant / Delegation Token
-Budget and Guardrails
-Decision Request
-Event and Checkpoint
-Effect Request / Decision / Receipt
-Artifact
-Observation
-Claim
-Receipt
-Evidence
-Verdict
-Outcome
-Cancellation and Recovery
+Authority Grant
+Budget / Guardrail
+Effect / Receipt
+Artifact / Claim / Evidence / Verdict
+Presence / Device
+Incident / Improvement Candidate
 ```
 
-The canonical model will be:
+Using an external protocol or framework as the product model would create semantic coupling between Aurora's constitution and a replaceable implementation mechanism.
 
-- independent of programming language;
-- independent of provider framework;
-- versioned;
-- schema-addressable;
-- compatible with code generation;
-- testable through black-box conformance;
-- minimal and expanded only by a proved Product Milestone.
+Research evidence:
 
-## 8. Binding policy
+- MCP provides a strong tool/resource protocol with extensions/tasks but does not own Aurora's Mission, authority, evidence and physical-safety model;
+- A2A provides agent discovery, tasks/messages/artifacts and remote opaque collaboration but does not own Aurora's global sovereignty/acceptance model;
+- agent frameworks intentionally expose framework-specific agent/workflow abstractions;
+- conformance ecosystems work better when protocol contracts are testable independently from one SDK implementation.
 
-Bindings transport or adapt Aurora semantics; they do not own them.
+See:
 
-### Native AHDK / in-process
+- `docs/research/AURORA-RESEARCH-HARNESS-INTEROPERABILITY-v1.md`;
+- `docs/research/AURORA-RESEARCH-HARNESS-ARCHITECTURE-v1.md`;
+- `docs/research/AURORA-RESEARCH-AGENT-FRAMEWORKS-RUNTIMES-v1.md`.
 
-Preferred candidate for first-party local providers where low overhead and typed integration matter.
+---
 
-### Local RPC
+## 2. Decision drivers
 
-Candidate when process isolation, independent restart or cross-language support is required.
+- preserve Aurora identity and product invariants across implementation replacement;
+- support heterogeneous digital and physical providers;
+- local-first operation;
+- least-authority context exchange;
+- independent conformance;
+- protocol/framework replaceability;
+- understandable versioning/migration;
+- avoid inventing a wire protocol without proven need;
+- YAGNI: define only semantics required by accepted Product Milestones.
 
-### A2A
+---
 
-Candidate for remote/opaque agent applications with stateful tasks and artifacts.
+## 3. Alternatives
 
-### MCP
+### A — Framework-owned product model
 
-Candidate for tools, resources and bounded calls, including provider-internal tool access.
+Choose Mastra/LangGraph/OpenHands/Pi or another framework and model Aurora directly in its concepts.
 
-### HTTP/gRPC/Event transport
+**Advantages**
 
-Candidates where explicit APIs, high-volume data or performance requirements justify them.
+- fastest initial coding;
+- framework-native tooling;
+- fewer adapters initially.
 
-A provider may expose multiple bindings. The Capability Registry records exact contract/binding versions and conformance results.
+**Rejected because**
 
-## 9. Mapping rule
+- identity/state becomes coupled to framework lifecycle;
+- non-agentic devices/services fit poorly;
+- replacing the framework becomes a product migration;
+- security/authority may be reduced to whatever the framework exposes;
+- cross-Harness semantics become implementation-specific.
 
-For every binding:
+### B — Protocol-owned product model
+
+Treat MCP or A2A objects as Aurora's canonical domain.
+
+**Advantages**
+
+- standards-based immediately;
+- interoperability tooling already exists.
+
+**Rejected because**
+
+- studied protocols solve narrower interoperability questions;
+- Aurora requires global authority, memory/context, budget, evidence, Presence and physical-effect semantics;
+- protocol evolution would become product-constitution evolution;
+- one protocol does not cover all provider classes efficiently.
+
+### C — Entirely custom Aurora protocol/runtime
+
+Invent domain plus wire protocol plus runtime immediately.
+
+**Advantages**
+
+- maximum control;
+- theoretically exact semantics.
+
+**Rejected because**
+
+- reinvents mature transport/interoperability work;
+- increases maintenance and security surface;
+- creates premature commitment before spikes prove gaps;
+- slows the product before actual integration evidence exists.
+
+### D — Aurora-owned domain contracts with replaceable bindings
+
+Aurora owns canonical semantics. Existing protocols/runtimes are adapted where suitable. Custom wire extensions appear only after demonstrated gaps.
+
+**Selected.**
+
+---
+
+## 4. Decision
+
+Aurora SHALL own a language-, framework- and transport-independent **Canonical Contract Model** for global cross-boundary concepts.
+
+Initial semantic families include, only as required by milestones:
 
 ```text
-Aurora canonical concept
-→ adapter mapping
-→ protocol concept
-→ provider behavior
+Capability / Provider / Provider Instance
+Manifest / compatibility
+Mission / Delegation / child Delegation
+Context Pack
+Authority Grant / Budget / Guardrail
+Lifecycle / checkpoint / cancellation / recovery
+Event
+Effect Request / Effect Receipt
+Artifact / Claim / Evidence / Verdict / Outcome
+Presence / Device identity references where crossing a boundary
 ```
 
-The adapter must document:
+The Contract Model is:
 
-- lossless mappings;
-- approximations;
-- unsupported behavior;
-- version constraints;
-- retry/idempotency semantics;
-- cancellation/recovery semantics;
-- security assumptions;
-- evidence/conformance coverage.
+- owned by Aurora Product/Capability Specs;
+- versioned independently from SDKs/transports;
+- implementation-neutral;
+- compatible with generated language types where chosen;
+- governed through ACRM/ADR change control.
 
-If a protocol cannot represent a required invariant, Aurora must either:
+Bindings MAY include:
 
-1. wrap it with an Aurora envelope;
-2. add a narrow extension after gap analysis;
-3. select another binding;
-4. reject the provider for that capability scope.
+- in-process AHDK implementation;
+- local RPC;
+- A2A;
+- MCP;
+- HTTP/gRPC;
+- event/message bindings;
+- future device protocols.
 
-Aurora must not silently weaken the invariant.
+A binding MUST NOT silently change semantic meaning.
 
-## 10. State ownership consequences
+---
 
-### Aurora owns global state
+## 5. Protocol adoption policy
 
-- identity and user authority;
-- Projects and global Missions;
-- Delegation relationships;
-- grants, approvals and global budgets;
-- Capability Registry trust/approval;
-- cross-Harness composition;
-- global criteria and outcomes;
-- operator interaction;
-- canonical project/world memory.
+Aurora will not create a custom network protocol merely because it owns domain contracts.
 
-### Harness owns local execution state
+For each boundary:
 
-- internal plan and agent/workflow graph;
-- local workers/attempts;
-- domain-specific intermediate state;
-- local checkpoints;
-- intermediate artifacts;
-- specialized methodology.
+1. define required Aurora semantics;
+2. identify open-standard candidates;
+3. map semantics to candidate protocol;
+4. identify information/authority/lifecycle gaps;
+5. run an Architecture Spike when consequential;
+6. adopt standard directly when it fits;
+7. create an adapter/extension when fit is partial;
+8. create a new binding/protocol only when evidence proves need.
 
-### Shared boundary
+This preserves both sovereignty and interoperability.
 
-- observable lifecycle snapshot;
-- context and authority contract;
-- significant events;
-- decision/escalation requests;
-- budget consumption;
-- artifacts/evidence;
-- cancellation and recovery.
+---
 
-Connection loss does not imply completion or failure. Aurora reconciles against durable provider state/checkpoints.
+## 6. Candidate role mapping
+
+The following is **research-informed and not an implementation selection**:
+
+| Need | Candidate mechanism | Current stance |
+|---|---|---|
+| local first-party Harness integration | native AHDK / local RPC | spike required |
+| tools/resources/prompts | MCP | strong candidate |
+| remote opaque task-oriented provider | A2A | strong candidate |
+| high-performance typed local/remote call | gRPC/Protobuf | candidate |
+| human-readable web API | HTTP/JSON | candidate |
+| event envelope | CloudEvents | candidate |
+| event-channel description | AsyncAPI | candidate |
+
+The table guides SPK-001/002/003; it does not select stack.
+
+---
+
+## 7. Semantic ownership invariant
+
+```text
+Aurora semantics
+        ↓
+Canonical schemas/contracts
+        ↓
+Adapter/binding
+        ↓
+External protocol/runtime
+```
+
+Never invert:
+
+```text
+External framework/protocol
+        ↓
+forces Aurora product semantics
+```
+
+If an external protocol cannot represent an Aurora invariant, the adapter must either:
+
+- carry approved extension metadata;
+- place a semantic gateway around the protocol;
+- reject unsupported operation;
+- or cause architecture reconsideration.
+
+It must not drop the invariant silently.
+
+---
+
+## 8. Versioning principles
+
+Contract compatibility must distinguish:
+
+```text
+semantic contract version
+schema representation version
+binding/protocol version
+AHDK version
+provider implementation/build version
+```
+
+Example:
+
+```text
+Delegation semantics: 1.1
+Delegation JSON schema: 1.1.2
+A2A binding profile: 0.3
+AHDK TS: 0.7
+Provider build: sha256:...
+```
+
+One update does not automatically require all layers to version together.
+
+A breaking semantic change requires:
+
+- impacted requirement analysis;
+- affected Capability Specs;
+- migration plan;
+- provider compatibility review;
+- conformance update;
+- ADR/contract change when material.
+
+---
+
+## 9. Translation loss
+
+Every adapter must make translation loss explicit.
+
+Potential classes:
+
+- unsupported lifecycle state;
+- missing authority field;
+- artifact representation mismatch;
+- absent cancellation semantics;
+- streaming mismatch;
+- provider discovery mismatch;
+- error taxonomy mismatch;
+- identity/auth mismatch.
+
+Adapter policy:
+
+```text
+lossless
+→ use normally
+
+lossy but safe and declared
+→ restrict capability/profile
+
+loss violates invariant
+→ unsupported / fail closed
+```
+
+---
+
+## 10. Conformance consequence
+
+Because semantics are Aurora-owned, conformance cannot test only transport syntax.
+
+A provider must satisfy:
+
+### Semantic conformance
+
+- state transitions;
+- required identifiers;
+- error behavior;
+- authority propagation rules;
+- artifact/evidence relationships;
+- cancellation/recovery expectations.
+
+### Binding conformance
+
+- MCP/A2A/RPC framing;
+- schema serialization;
+- protocol lifecycle;
+- compatibility negotiation.
+
+A provider may pass its upstream protocol TCK and still fail Aurora semantic conformance.
+
+---
 
 ## 11. Security consequences
 
-The Contract Model represents authority; it does not enforce effects by itself.
+Aurora-owned contracts carry authority *descriptions*, but do not themselves enforce effects.
+
+Security path remains:
 
 ```text
-Contract / Authority Grant
-→ policy decision
-→ Effect Gateway / Credential Broker
-→ sandbox or device boundary
-→ Effect Receipt
+Authority Grant
+→ Policy Decision
+→ Effect Gateway
+→ Credential/OS/device enforcement
+→ Receipt
 ```
 
-A protocol connection or advertised operation never grants permission.
+Therefore:
 
-Context transfer is minimized and classified. Child Delegations receive independent grants rather than inheriting parent credentials transitively.
+- protocol authentication is necessary but not full authorization;
+- SDK types are not sandboxing;
+- an A2A/MCP provider cannot self-declare its permitted scope;
+- translation must preserve identity and authority references;
+- unrepresentable security semantics fail closed.
 
-## 12. Reliability and observability consequences
+---
 
-- lifecycle transitions are structured and versioned;
-- significant state is recoverable, not only streamed;
-- retries depend on error class/idempotency;
-- ambiguous effects block until receipt reconciliation;
-- traces correlate Mission, Delegation, provider, tool/effect and artifact/evidence;
-- provider “success” is a Claim, not global acceptance;
-- contract/version changes during a run require explicit migration or binding to the original version.
+## 12. Control and data planes
 
-## 13. Implementation constraints if accepted
+The Contract Model governs the control plane even when data moves directly.
 
-1. No universal schema catalog before SPK-001 proves the minimal slice.
-2. The first Contract Model must include only concepts used by the reference journey.
-3. Each concept must declare a canonical owner and invariant.
-4. Source schemas and generated SDK types must remain distinguishable.
-5. A direct implementation and an AHDK implementation must pass the same conformance suite.
-6. Protocol adapters must not write Core state directly.
-7. The first real provider cannot define missing semantics ad hoc.
-8. No custom wire protocol unless a documented gap survives standard mapping/spike.
+Example:
 
-## 14. Validation plan
+```text
+Aurora Delegation
+→ authorize telemetry channel
+→ Lab Harness ─────────────→ Evaluation Harness
+             large waveform
+```
 
-### SPK-001 — Contract, AHDK and conformance
+The byte stream may use a protocol optimized for telemetry while the Aurora contracts record:
 
-Implement one minimal capability twice:
+- purpose;
+- producer/consumer;
+- data class;
+- schema;
+- duration/rate;
+- authorization;
+- retention;
+- evidence references.
 
-- official first-party AHDK path;
-- direct protocol path.
+---
 
-Both must produce identical observable lifecycle, artifacts, errors and conformance results.
+## 13. Failure and degraded behavior
 
-### SPK-002 — MCP mapping
+If a binding is unavailable:
 
-Prove tool/resource mapping, auth denial, error, cancellation and async behavior against the current official conformance suite.
+- Capability Registry may choose another compatible provider/binding;
+- Aurora may degrade to local capability;
+- work may pause awaiting reconnection;
+- no broader authority is granted to recover automatically.
 
-### SPK-003 — A2A mapping
+If adapter behavior becomes ambiguous:
 
-Prove Agent Card/task/artifact/stream/cancel/restart mapping and pass the official TCK plus Aurora conformance.
+```text
+ambiguity
+→ block affected operation
+→ emit Finding
+→ inspect contract/protocol mapping
+→ repair or revise ADR/profile
+```
 
-### SPK-008 — Runtime neutrality
+---
 
-Implement the same capability in two materially different internal runtimes without changing Aurora Mission/Delegation semantics.
-
-## 15. Acceptance evidence
-
-This ADR should not be accepted only from documentary reasoning. Required evidence before use in production planning:
-
-- approved Product Blueprint sections 03, 05, 07, 10 and 12;
-- reviewed interoperability research current for chosen protocol versions;
-- SPK-001 result showing independent semantics/conformance;
-- at least one protocol mapping spike;
-- explicit cost/complexity assessment;
-- documented removal criteria for abstractions not used by the first real slice.
-
-A0 may accept the architectural principle while exact schemas and bindings remain future decisions, provided STATUS and roadmap preserve that boundary.
-
-## 16. Consequences
+## 14. Consequences
 
 ### Positive
 
-- stable Aurora identity and architecture across runtime changes;
-- explicit boundaries for memory, authority, evidence and recovery;
-- provider substitution and multi-language support;
-- reusable first-party AHDK and external adapters;
-- safety model applicable to digital and physical systems;
-- conformance and provider trust tied to exact versions/builds;
-- avoids making MNFS or any current framework the center.
+- product semantics survive framework replacement;
+- heterogeneous Harnesses can coexist;
+- simpler mock/reference providers;
+- contract-first code generation possible;
+- standardized conformance;
+- independent security enforcement;
+- future protocol adoption remains possible;
+- MNFS does not define Aurora's architecture.
 
 ### Negative
 
-- more product-owned design and maintenance;
-- need for versioned schemas and compatibility policy;
-- adapter and conformance workload;
-- duplicated terminology if mappings are poorly managed;
-- first milestone can be delayed by over-modeling.
+- Aurora must own schemas/versioning;
+- adapters add work;
+- risk of duplicating concepts already present in protocols;
+- semantic migration becomes a project responsibility;
+- poorly designed abstractions can become an internal framework lock-in.
 
-### Neutral/trade-off
+### Operational costs
 
-Aurora intentionally owns semantics that no current standard fully covers, while reusing external standards for transport/tool/task behavior.
+- conformance suite maintenance;
+- compatibility matrix;
+- schema/code generation tooling;
+- adapter test environments;
+- migration documentation.
 
-## 17. Risks and mitigations
+---
 
-| Risk | Mitigation |
-|---|---|
-| speculative platform architecture | only add concepts consumed by a Product Milestone/Golden Proof |
-| adapter explosion | standardize official bindings; reject low-value providers; use AHDK first-party |
-| schema drift | canonical source, code generation, compatibility checks and conformance |
-| duplicate protocol semantics | mapping tables and explicit ownership; do not rename external concepts unnecessarily |
-| false sense of safety | enforcement remains in policy/gateways/sandbox, not schema |
-| central Core bottleneck | control plane remains governed; authorized data plane may be direct |
-| abstraction blocks domain-specific work | Harness retains internal autonomy and domain artifacts |
+## 15. Risks and mitigations
+
+### Overengineering contracts before real providers
+
+Mitigation:
+
+- only formalize semantics needed by accepted milestones;
+- SPK-001 uses a deliberately small reference capability;
+- no public SDK ecosystem in current scope.
+
+### Adapter explosion
+
+Mitigation:
+
+- support a small set of paved bindings;
+- per-provider custom adapters only when justified;
+- Capability profiles declare supported features.
+
+### Lowest-common-denominator contracts
+
+Mitigation:
+
+- semantic Core is minimal but extensible;
+- provider-specific capabilities remain namespaced;
+- optional profiles/extensions explicitly versioned.
+
+### Contract drift
+
+Mitigation:
+
+- generated types;
+- compatibility checks;
+- conformance suite;
+- stable IDs;
+- CI freshness;
+- migration policy.
+
+---
+
+## 16. Evidence and validation plan
+
+This decision requires evidence before production implementation.
+
+### SPK-001
+
+Proves one Capability is usable:
+
+- via AHDK;
+- via direct protocol implementation;
+- under the same Aurora conformance suite.
+
+### SPK-002
+
+Tests MCP mapping:
+
+- tool/resource;
+- Tasks;
+- cancellation;
+- auth;
+- errors;
+- Aurora extension gaps.
+
+### SPK-003
+
+Tests A2A mapping:
+
+- Agent Card;
+- Task;
+- streaming;
+- artifact;
+- input-required;
+- cancellation/reconnect;
+- Aurora Delegation gap.
+
+### SPK-008
+
+Implements same Capability in two internal runtimes and verifies Aurora contracts do not change.
+
+---
+
+## 17. Acceptance criteria
+
+The decision remains valid when:
+
+- two different provider implementations satisfy the same canonical contract;
+- Aurora does not branch domain logic based on internal framework;
+- binding failures do not corrupt global state;
+- semantic version mismatch is detected before unsafe execution;
+- adapter cannot silently drop authority/evidence fields;
+- protocol-specific fields remain outside constitutional sources unless promoted intentionally.
+
+---
 
 ## 18. Reconsideration triggers
 
-Re-open or supersede this ADR if:
+Reconsider this ADR when:
 
-- one stable open standard covers all required Aurora semantics without weakening invariants;
-- SPK-001 shows the canonical model cannot remain independent of implementation;
-- adapter/conformance maintenance exceeds demonstrated value;
-- most providers prove deterministic/simple enough for a smaller model;
-- protocol evolution makes the proposed wrapping approach incompatible;
-- security review finds authority/effect semantics cannot be safely carried;
-- a real Product Milestone requires a fundamentally different state owner.
+- an open standard demonstrably covers all required Aurora semantics without invariant loss;
+- maintaining Aurora contracts produces greater complexity than adapters eliminate;
+- real providers expose a fundamentally different boundary;
+- AHDK/contract conformance proves impractical;
+- physical device domains cannot fit the abstraction safely;
+- semantic versioning becomes operationally unmanageable.
 
-## 19. Decision record on acceptance
+A reconsideration does not mean automatically adopting a specific framework. It reopens the architecture question with evidence.
 
-If accepted, record:
+---
 
-- exact accepted version/hash;
-- which principles are accepted now;
-- which schema/binding details remain open;
-- which spikes are authorized separately;
-- affected requirements and future Capability Specs;
-- explicit statement that no runtime implementation is authorized by the ADR alone.
+## 19. Non-decisions
+
+This ADR does **not** select:
+
+- schema language;
+- wire protocol;
+- serialization;
+- AHDK implementation language;
+- MCP or A2A adoption;
+- durable execution engine;
+- event transport;
+- Capability Registry storage;
+- provider runtime;
+- MNFS adapter design.
