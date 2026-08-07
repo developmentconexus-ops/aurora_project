@@ -1,0 +1,40 @@
+name: Fix M0 R0 rerun target continuity
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - docs/acceptance/2026-08-07-m0-r0-rerun-target-finding.md
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply tracking-only continuity fix
+        run: python scripts/fix_m0_r0_rerun_target.py
+      - name: Validate documentation system
+        run: |
+          python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+          python scripts/validate_docs.py \
+            --generated-root "$RUNNER_TEMP/aurora-generated" \
+            --report "$RUNNER_TEMP/aurora-generated/docs-validation-report.json"
+          python scripts/generate_docs.py --check
+      - name: Commit validated continuity fix
+        run: |
+          git config user.name "developmentconexus-ops"
+          git config user.email "development.conexus@gmail.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "docs: fix M0 R0 rerun target continuity"
+          git push origin HEAD:main
