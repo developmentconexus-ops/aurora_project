@@ -572,3 +572,15 @@ R5, Mission Contract, Microdesign and implementation remain unauthorized.
 The operator explicitly accepted ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 and authorized execution of `SPK-AURORA-M0-SOVEREIGN-STORE-001` according to the canonical specification current at `36f46956bc275d0aec32b7e3ea4d959010fa9dcb` (spec blob `6ad7397d46208a0a9c762073d2c5239ceff4e056`).
 
 This promotes the five ADRs to accepted decision authority and opens only the disposable SPK-001 execution boundary. ADR-0007 and ADR-0008 remain proposed. `SPK-AURORA-M0-OWNER-TRUST-002`, R5, Mission Contract, Microdesign and production implementation remain unauthorized.
+
+## 2026-08-07 — SPK-001 Sovereign Store PASS / Evidence Closeout
+
+The authorized disposable `SPK-AURORA-M0-SOVEREIGN-STORE-001` experiment executed from canonical authorization baseline `a3192afad3dba9c6e699588c07ca2bcaac1161fd` against the fixed spike specification at `36f46956bc275d0aec32b7e3ea4d959010fa9dcb` / blob `6ad7397d46208a0a9c762073d2c5239ceff4e056`.
+
+Final executable evidence came from branch revision `4242342486f512320f12e0b603f052166264c4ea` and GitHub Actions run `31213792366`. The final matrix passed all four Ubuntu/Windows × `modernc.org/sqlite`/`mattn/go-sqlite3` correctness cases and the aggregate gate reported complete required evidence receipts. Process-kill, stale/invalid transitions, WAL/checkpoint recovery, interrupted backup, fresh restore after deleting the original work directory, identity collision, corruption, unsupported schema and migration fixtures all passed.
+
+An intermediate Windows/modernc failure was traced to the test harness using `select {}` as an artificial deadlock before parent kill; replacing only that blocking mechanism with timer-backed sleep eliminated the false negative, and the final expanded run passed. The finding is preserved as a resolved test-harness issue, not a database defect.
+
+Both bindings passed correctness. The reviewed tie-break recommends SQLite + `database/sql` + `modernc.org/sqlite` because it removes CGO/C-toolchain build dependence while preserving cross-platform correctness; `mattn/go-sqlite3` remains a tested fallback. PostgreSQL expansion was not triggered.
+
+SPK-001 is `PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED`. ADR-0007 revision `0.2.0` remains proposed/evidence-ready pending operator decision. `SPK-AURORA-M0-OWNER-TRUST-002`, ADR-0008, R5, Mission Contract, Microdesign and production implementation remain unauthorized/unresolved as applicable.

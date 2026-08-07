@@ -5,7 +5,7 @@ document_type: research_map
 form: reference
 authority: research
 status: current
-version: 0.4.0
+version: 0.4.1
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -88,7 +88,7 @@ These reports refresh implementation-near evidence for `M0 — Sovereign Core Wa
 
 | Research ID | Report | R4 decisions informed | Evidence boundary | Reviewed |
 |---|---|---|---|---|
-| RESEARCH-AURORA-M0-RUNTIME-PERSISTENCE-R4-V1 | [Runtime, Persistence and Durable Execution](AURORA-RESEARCH-M0-RUNTIME-PERSISTENCE-R4-v1.md) | Core runtime, store, state/event, atomicity, audit placement, topology, durable-engine applicability | documentary support for Go/local-state shape; store/driver/crash commitment still requires SPK-AURORA-M0-SOVEREIGN-STORE-001 | 2026-08-07 |
+| RESEARCH-AURORA-M0-RUNTIME-PERSISTENCE-R4-V1 | [Runtime, Persistence and Durable Execution](AURORA-RESEARCH-M0-RUNTIME-PERSISTENCE-R4-v1.md) | Core runtime, store, state/event, atomicity, audit placement, topology, durable-engine applicability | documentary support for Go/local-state shape; SPK-AURORA-M0-SOVEREIGN-STORE-001 has now closed PASS and informs ADR-0007 v0.2.0 | 2026-08-07 |
 | RESEARCH-AURORA-M0-PORTABILITY-INTEGRITY-R4-V1 | [Portability, Schema, Integrity and Export](AURORA-RESEARCH-M0-PORTABILITY-INTEGRITY-R4-v1.md) | logical schema, export, migration, digest/integrity boundary | documentary support for JSON Schema/JCS/age; authenticated local trust-anchor key custody remains coupled to SPK-002 | 2026-08-07 |
 | RESEARCH-AURORA-M0-OWNER-AUTHORITY-RECOVERY-R4-V1 | [Owner Root, Authority Freshness and Recovery Trust](AURORA-RESEARCH-M0-OWNER-AUTHORITY-RECOVERY-R4-v1.md) | owner auth/bootstrap, authenticated integrity, time rollback, restore freshness | cryptographic architecture supported; cross-file crash/rollback protocol requires SPK-AURORA-M0-OWNER-TRUST-002 | 2026-08-07 |
 | RESEARCH-AURORA-M0-OBSERVABILITY-R4-V1 | [Observability Mechanism](AURORA-RESEARCH-M0-OBSERVABILITY-R4-v1.md) | telemetry mechanism/backend boundary | documentary support sufficient; backend/export remains optional | 2026-08-07 |
@@ -147,7 +147,7 @@ Mastra now provides current A2A/ACP/SDK-subagent implementation surfaces, making
 
 The research supports a mandatory first-party Golden Path by policy while preserving contract/SDK independence.
 
-ADR-0009 proposes Mastra as the default agentic Harness substrate to evaluate first, not as the specification. AHDK remains Aurora-owned and may wrap Mastra provider/runtime APIs.
+Accepted ADR-0009 establishes Mastra as the preferred-first agentic Harness substrate to evaluate, not as the specification. AHDK remains Aurora-owned and may wrap Mastra provider/runtime APIs.
 
 Still open until the first consuming Capability:
 
@@ -177,7 +177,7 @@ Mastra is now the strongest current preferred candidate for generic first-party 
 
 | Product area | Required investigation before R4 commitment | Expected evidence | Current M0 status |
 |---|---|---|---|
-| Sovereign Core storage and recovery | local-first stores, event/state ownership, backup/restore | crash/restart/restore spike | documentary research complete; `SPK-AURORA-M0-SOVEREIGN-STORE-001` specified, execution not authorized |
+| Sovereign Core storage and recovery | local-first stores, event/state ownership, backup/restore | crash/restart/restore spike | `SPK-AURORA-M0-SOVEREIGN-STORE-001` PASS/CLOSED; SQLite + modernc evidence informs ADR-0007 v0.2.0 |
 | M0 owner root / rollback / restore freshness | key custody, trust anchor, backward time, historical authority restore | owner-root/recovery fault spike | documentary research complete; `SPK-AURORA-M0-OWNER-TRUST-002` specified, execution not authorized |
 | Mastra-backed first-party Harness boundary | Core/provider state ownership, authority interception, restart/reconciliation, contract/version isolation | bounded conformance proof in first consuming Capability | research complete; intentionally **not an M0 blocker** |
 | Memory and Context Builder | retrieval, consolidation, temporal/authority conflict, scale | benchmark/eval suite and adversarial journeys | future M1; Mastra is now a strong substrate candidate |
