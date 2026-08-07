@@ -42,6 +42,9 @@ var (
 	ErrInvalidDBMAC                = errors.New("governing state MAC is invalid")
 	ErrInvalidAnchorMAC            = errors.New("owner trust anchor MAC is invalid")
 	ErrStateRollback               = errors.New("governing state rollback detected")
+	ErrAnchorLag                   = errors.New("owner trust anchor lags authenticated governing state")
+	ErrTimeUntrusted               = errors.New("wall time is behind authenticated high-water")
+	ErrRevalidationRequired        = errors.New("restored historical state requires owner revalidation")
 	ErrStaleGeneration             = errors.New("stale expected generation")
 	ErrOwnerAuthenticationRequired = errors.New("authenticated owner required")
 	ErrRevalidationNotRequired     = errors.New("restore revalidation is not pending")
@@ -604,13 +607,49 @@ func Recover(layout Layout, passphrase []byte, now time.Time) (Evaluation, error
 	return Evaluate(layout, session, now)
 }
 
-func Advance(layout Layout, session *OwnerSession, mutation Mutation, now time.Time, hook FaultHook) (AdvanceMetrics, error) {
+func preflightOperationalMutation(layout Layout, session *OwnerSession, now time.Time) (dbState, anchorRecord, error) {
+	if _, err := os.Stat(layout.RestoreMarkerPath); err == nil {
+		return dbState{}, anchorRecord{}, ErrRevalidationRequired
+	} else if !os.IsNotExist(err) {
+		return dbState{}, anchorRecord{}, fmt.Errorf("inspect restore marker: %w", err)
+	}
+
+	db, err := openDB(layout.DBPath, false)
+	if err != nil {
+		return dbState{}, anchorRecord{}, err
+	}
+	state, err := readState(db)
+	_ = db.Close()
+	if err != nil {
+		return dbState{}, anchorRecord{}, err
+	}
+	if !verifyState(session, state) {
+		return dbState{}, anchorRecord{}, ErrInvalidDBMAC
+	}
+
 	anchor, err := loadAnchor(layout.AnchorPath)
 	if err != nil {
-		return AdvanceMetrics{}, err
+		return dbState{}, anchorRecord{}, err
 	}
 	if !verifyAnchor(session, anchor) {
-		return AdvanceMetrics{}, ErrInvalidAnchorMAC
+		return dbState{}, anchorRecord{}, ErrInvalidAnchorMAC
+	}
+	if state.Generation < anchor.Generation {
+		return dbState{}, anchorRecord{}, ErrStateRollback
+	}
+	if state.Generation > anchor.Generation {
+		return dbState{}, anchorRecord{}, ErrAnchorLag
+	}
+	if now.Unix() < anchor.WallTimeHighWaterUnix {
+		return dbState{}, anchorRecord{}, ErrTimeUntrusted
+	}
+	return state, anchor, nil
+}
+
+func Advance(layout Layout, session *OwnerSession, mutation Mutation, now time.Time, hook FaultHook) (AdvanceMetrics, error) {
+	_, anchor, err := preflightOperationalMutation(layout, session, now)
+	if err != nil {
+		return AdvanceMetrics{}, err
 	}
 
 	startDB := time.Now()
