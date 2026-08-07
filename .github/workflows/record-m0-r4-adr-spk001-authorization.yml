@@ -29,6 +29,10 @@ jobs:
       - name: Record operator decision and authorization
         run: python .github/scripts/record_m0_r4_adr_spk001_authorization.py
 
+      - name: Normalize worklog EOF
+        shell: bash
+        run: python -c "from pathlib import Path; p=Path('docs/tracking/WORKLOG.md'); p.write_text(p.read_text(encoding='utf-8').rstrip() + '\n', encoding='utf-8')"
+
       - name: Generate documentation projections
         run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
 
