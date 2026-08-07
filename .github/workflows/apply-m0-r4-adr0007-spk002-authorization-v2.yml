@@ -1,0 +1,53 @@
+name: Apply M0 R4 ADR-0007 and SPK-002 Authorization v2
+
+on:
+  push:
+    branches:
+      - docs/m0-r4-adr0007-spk002-authorization
+    paths:
+      - ".github/workflows/apply-m0-r4-adr0007-spk002-authorization-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/m0-r4-adr0007-spk002-authorization
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply exact authorization state
+        run: python scripts/tmp_apply_spk002_authorization.py
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+      - name: Validate documentation system
+        run: |
+          python scripts/validate_docs.py \
+            --generated-root "$RUNNER_TEMP/aurora-generated" \
+            --report "$RUNNER_TEMP/aurora-generated/docs-validation-report.json"
+      - name: Verify authorization boundary
+        shell: bash
+        run: |
+          grep -F 'status: accepted' docs/adr/0007-m0-sqlite-operational-store.md
+          grep -F 'SPK-002 AUTHORIZED ONLY' docs/tracking/STATUS.md
+          grep -F 'R5 — Contract Readiness:    NOT AUTHORIZED' docs/tracking/STATUS.md
+          grep -F 'ADR-0008 remains proposed' docs/acceptance/2026-08-07-m0-r4-adr0007-acceptance-spk002-authorization.md
+          git diff --check
+      - name: Commit validated authority state and remove helpers
+        shell: bash
+        run: |
+          rm .github/workflows/apply-m0-r4-adr0007-spk002-authorization.yml
+          rm .github/workflows/apply-m0-r4-adr0007-spk002-authorization-v2.yml
+          rm scripts/tmp_apply_spk002_authorization.py
+          git config user.name developmentconexus-ops
+          git config user.email development.conexus@gmail.com
+          git add docs .github/workflows scripts/tmp_apply_spk002_authorization.py
+          git diff --cached --check
+          git commit -m 'docs: accept ADR-0007 and authorize SPK-002'
+          git push origin HEAD:docs/m0-r4-adr0007-spk002-authorization
