@@ -12,9 +12,20 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: spk002-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  green-linux:
-    runs-on: ubuntu-24.04
+  full:
+    name: full-${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - windows-latest
+    runs-on: ${{ matrix.os }}
     defaults:
       run:
         working-directory: spikes/m0-owner-trust-002
@@ -26,7 +37,90 @@ jobs:
         with:
           go-version: "1.26.5"
           cache: false
-      - name: Resolve pinned dependency graph
-        run: go mod tidy
-      - name: Run SPK-002 scenario contract
-        run: go test -count=1 -timeout=8m ./...
+      - name: Capture environment
+        shell: bash
+        run: |
+          mkdir -p evidence
+          {
+            echo "runner_os=${RUNNER_OS}"
+            echo "runner_arch=${RUNNER_ARCH}"
+            echo "image_os=${ImageOS:-unknown}"
+            echo "image_version=${ImageVersion:-unknown}"
+            go version
+            go env GOOS GOARCH CGO_ENABLED GOTOOLCHAIN
+          } | tee "evidence/environment-${RUNNER_OS}.txt"
+      - name: Resolve and capture pinned graph
+        shell: bash
+        run: |
+          go mod tidy
+          go list -m all | tee "evidence/modules-${RUNNER_OS}.txt"
+          cp go.mod "evidence/go.mod-${RUNNER_OS}.txt"
+          cp go.sum "evidence/go.sum-${RUNNER_OS}.txt"
+      - name: Run S01-S12 and recovery classification suite
+        shell: bash
+        run: |
+          set -o pipefail
+          go test -count=1 -timeout=10m -json ./... \
+            | tee "evidence/tests-${RUNNER_OS}.json"
+      - name: Build and run sanitized evidence measurements
+        shell: bash
+        run: |
+          suffix=""
+          if [[ "$RUNNER_OS" == "Windows" ]]; then suffix=".exe"; fi
+          binary="evidence/spk002-evidence${suffix}"
+          go build -trimpath -o "$binary" ./cmd/evidence
+          "$binary" -out "evidence/metrics-${RUNNER_OS}.json"
+      - name: Enforce evidence secret hygiene
+        shell: bash
+        run: |
+          if grep -R -F -e 'spk002-owner-passphrase-fixture' \
+              -e 'spk002-owner-passphrase-rotated' \
+              -e 'spk002-evidence-owner-passphrase' \
+              evidence; then
+            echo 'plaintext fixture passphrase leaked into evidence' >&2
+            exit 1
+          fi
+      - name: Upload matrix evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spk002-${{ matrix.os }}
+          path: spikes/m0-owner-trust-002/evidence/
+          if-no-files-found: error
+          retention-days: 14
+
+  aggregate:
+    name: aggregate-evidence
+    needs: full
+    if: always()
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: spikes/m0-owner-trust-002
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download matrix artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: spk002-*
+          path: spikes/m0-owner-trust-002/matrix
+          merge-multiple: true
+      - name: Aggregate and enforce complete SPK-002 evidence
+        run: |
+          python scripts/aggregate.py \
+            --root matrix \
+            --json-out evidence/spk002-matrix.json \
+            --md-out evidence/spk002-summary.md \
+            --state-out evidence/spk002-recovery-model.md
+          cat evidence/spk002-summary.md
+      - name: Upload aggregate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spk002-aggregate
+          path: |
+            spikes/m0-owner-trust-002/evidence/spk002-matrix.json
+            spikes/m0-owner-trust-002/evidence/spk002-summary.md
+            spikes/m0-owner-trust-002/evidence/spk002-recovery-model.md
+          if-no-files-found: error
+          retention-days: 14
