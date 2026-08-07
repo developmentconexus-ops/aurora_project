@@ -175,7 +175,7 @@ This remediation does **not** authorize R1, Architecture Spike execution, Capabi
 
 ## 5. Current M0 decisions and cross-horizon Mastra direction
 
-R4 has researched and proposed concrete dispositions for all M0 mechanism questions, but none of the new M0 ADRs is accepted yet. Store/atomicity and owner-root/time/restore mechanisms additionally require reviewed Architecture Spike evidence before acceptance:
+R4 has researched concrete dispositions for all M0 mechanism questions. ADR-0003, ADR-0004, ADR-0005 and ADR-0006 are accepted; ADR-0007 and ADR-0008 remain proposed because store/atomicity and owner-root/time/restore mechanisms still require their reviewed Architecture Spike evidence:
 
 - Sovereign Core implementation language/runtime;
 - operational-state storage mechanism;
