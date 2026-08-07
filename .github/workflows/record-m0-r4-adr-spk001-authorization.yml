@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/record-m0-r4-adr-spk001-authorization.yml"
+      - ".github/scripts/record_m0_r4_adr_spk001_authorization.py"
       - ".github/m0-r4-adr-spk001-authorization.trigger"
 
 permissions:
@@ -26,193 +27,7 @@ jobs:
           python-version: "3.12"
 
       - name: Record operator decision and authorization
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          import subprocess
-
-          expected = "36f46956bc275d0aec32b7e3ea4d959010fa9dcb"
-          current = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-          if current not in {expected, "HEAD"} and not Path('.github/m0-r4-adr-spk001-authorization.trigger').exists():
-              raise SystemExit(f"unexpected baseline: {current}")
-
-          evidence_id = "DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION"
-          evidence_path = Path("docs/acceptance/2026-08-07-m0-r4-adr-acceptance-spk001-authorization.md")
-          evidence_path.write_text(f'''---
-id: {evidence_id}
-title: M0 R4 ADR Acceptance and SPK-001 Execution Authorization
-document_type: operator_authorization
-form: evidence
-authority: evidence
-status: current
-version: 1.0.0
-owners:
-  - developmentconexus-ops
-source_of_truth_for:
-  - operator acceptance of ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009
-  - operator authorization to execute SPK-AURORA-M0-SOVEREIGN-STORE-001
-related:
-  - DOC-AURORA-STATUS
-  - ADR-AURORA-0003
-  - ADR-AURORA-0004
-  - ADR-AURORA-0005
-  - ADR-AURORA-0006
-  - ADR-AURORA-0009
-  - DESIGN-AURORA-M0-SOVEREIGN-STORE-SPIKE-001
-source_revision: {expected}
-spike_spec_blob: 6ad7397d46208a0a9c762073d2c5239ceff4e056
-recorded_at: 2026-08-07
-last_reviewed: 2026-08-07
----
-
-# M0 R4 — ADR Acceptance and SPK-001 Execution Authorization
-
-## 1. Operator statement
-
-On 2026-08-07 the operator stated:
-
-> Aceito ADR-0003, ADR-0004, ADR-0005, ADR-0006 e ADR-0009, e autorizo a execução do SPK-AURORA-M0-SOVEREIGN-STORE-001 conforme a especificação canônica atual.
-
-## 2. Accepted decisions
-
-The statement explicitly promotes these ADRs to `accepted`:
-
-```text
-ADR-0003 — Go as the Initial Aurora Sovereign Core Runtime
-ADR-0004 — M0 Local State and Execution Shape
-ADR-0005 — M0 Portable Logical State and Export Envelope
-ADR-0006 — M0 Observability Boundary
-ADR-0009 — Mastra as Preferred First-Party Cognitive and Harness Runtime Substrate
-```
-
-Acceptance is limited to each ADR's stated decision scope. It does not authorize Aurora Core production implementation, Mastra implementation or later gates.
-
-## 3. Authorized spike
-
-Execution is authorized for exactly:
-
-```text
-spike_id: SPK-AURORA-M0-SOVEREIGN-STORE-001
-canonical specification path: docs/design/SPK-AURORA-M0-SOVEREIGN-STORE-001.md
-specification source revision: {expected}
-specification blob: 6ad7397d46208a0a9c762073d2c5239ceff4e056
-```
-
-The authorized execution may perform only the disposable experiment defined by that specification, including candidate setup, fault injection, crash/restart/recovery, supported backup/restore, corruption/incompatibility, migration fixture, measurements, evidence capture and adversarial review.
-
-## 4. Explicitly not authorized
-
-This statement does **not** authorize:
-
-- `SPK-AURORA-M0-OWNER-TRUST-002` execution;
-- acceptance of ADR-0007 or ADR-0008 before their required evidence;
-- M0 ACRM R5 or later gates;
-- Mission Contract creation/approval;
-- Microdesign/R6 production implementation planning;
-- Aurora Core production implementation;
-- AHDK implementation;
-- MNFS integration;
-- Mastra implementation;
-- promotion of spike code into production.
-
-## 5. Stop boundary
-
-```text
-record accepted ADRs + exact SPK-001 authority
-→ execute SPK-001 only
-→ review executable evidence
-→ update ADR-0007 as evidence supports
-→ STOP before SPK-002 unless separately authorized
-```
-''', encoding='utf-8')
-
-          adrs = [
-              Path("docs/adr/0003-m0-go-core-runtime.md"),
-              Path("docs/adr/0004-m0-local-state-execution-shape.md"),
-              Path("docs/adr/0005-m0-portable-state-export.md"),
-              Path("docs/adr/0006-m0-observability-boundary.md"),
-              Path("docs/adr/0009-mastra-cognitive-harness-runtime.md"),
-          ]
-          for p in adrs:
-              text = p.read_text(encoding='utf-8')
-              old = "status: proposed\n"
-              if old not in text:
-                  raise SystemExit(f"{p}: expected proposed status missing")
-              text = text.replace(old, f"status: accepted\naccepted_at: 2026-08-07\nacceptance_evidence: {evidence_id}\n", 1)
-              p.write_text(text, encoding='utf-8')
-
-          idx = Path("docs/adr/README.md")
-          text = idx.read_text(encoding='utf-8')
-          for n in (3,4,5,6,9):
-              pattern = rf"(\| \[ADR-{n:04d}\]\([^\n]+?\| )proposed(?: / cross-horizon)?( \|)"
-              text, count = re.subn(pattern, r"\1accepted\2", text, count=1)
-              if count != 1:
-                  raise SystemExit(f"ADR index row not promoted: {n}")
-          text = text.replace(
-              "ADR-0003 through ADR-0009 are proposals only. They are non-governing until operator review promotes each applicable decision to `accepted`. In particular, ADR-0007 and ADR-0008 MUST NOT be accepted before their named Architecture Spike evidence is complete and reviewed.\n\nADR-0009 is cross-horizon and does not add a new M0 blocker or authorize Mastra implementation. Its first implementation proof is deferred to the first Mastra-backed Capability that enters implementation horizon.",
-              "ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 were explicitly accepted by the operator on 2026-08-07 through `DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION`. ADR-0007 and ADR-0008 remain proposed and MUST NOT be accepted before their named Architecture Spike evidence is complete and reviewed.\n\nADR-0009 remains cross-horizon: acceptance establishes the preferred-first evaluation posture for Mastra but does not add an M0 blocker or authorize Mastra implementation. Its first implementation proof is deferred to the first Mastra-backed Capability that enters implementation horizon."
-          )
-          idx.write_text(text, encoding='utf-8')
-
-          decisions = Path("docs/tracking/DECISIONS.md")
-          text = decisions.read_text(encoding='utf-8')
-          text = text.replace("version: 0.3.0", "version: 0.4.0", 1)
-          anchor = "| D-044 | durable execution, policy decision, effect enforcement, containment, evidence and observability are separate layers | Blueprint 10–13 | accepted |"
-          addition = anchor + "\n| D-052 | Go is the accepted initial runtime for the Aurora Sovereign Core; other runtimes remain free behind contracts | ADR-0003 | accepted |\n| D-053 | M0 uses one local modular Sovereign Core with explicit current state/revisions and no full event sourcing or durable workflow engine | ADR-0004 | accepted |\n| D-054 | M0 portable logical state uses JSON Schema/JSON/JCS boundaries with protected export and application-owned migration semantics | ADR-0005 | accepted |\n| D-055 | M0 observability uses OTel traces/metrics plus structured Go logging while exporter/backend remains optional | ADR-0006 | accepted |\n| D-056 | Mastra is the accepted preferred-first substrate to evaluate for first-party agentic Harnesses while sovereign truth/authority remain Aurora-owned | ADR-0009 | accepted |"
-          if anchor not in text:
-              raise SystemExit("DECISIONS ADR anchor missing")
-          text = text.replace(anchor, addition, 1)
-          text = re.sub(r"\| O-001 \|[^\n]+\n", "", text, count=1)
-          decisions.write_text(text, encoding='utf-8')
-
-          status = Path("docs/tracking/STATUS.md")
-          text = status.read_text(encoding='utf-8')
-          text = text.replace("version: 0.17.0", "version: 0.18.0", 1)
-          relation_anchor = "  - DOC-AURORA-M0-R4-OPERATOR-AUTHORIZATION\n"
-          text = text.replace(relation_anchor, relation_anchor + f"  - {evidence_id}\n", 1)
-          replacements = {
-              "- **ADR-0003:** PROPOSED — Go narrowed explicitly to the Aurora Sovereign Core runtime": "- **ADR-0003:** ACCEPTED — Go is the initial Aurora Sovereign Core runtime",
-              "- **ADR-0004:** PROPOSED — M0 local Core/state shape; future Mastra workflow/durable mechanisms remain provider-local/port candidates": "- **ADR-0004:** ACCEPTED — M0 local Core/state shape; future Mastra workflow/durable mechanisms remain provider-local/port candidates",
-              "- **ADR-0005 / ADR-0006:** PROPOSED / documentary-ready for operator review": "- **ADR-0005 / ADR-0006:** ACCEPTED",
-              "- **ADR-0009:** PROPOSED / cross-horizon — Mastra preferred cognitive/Harness substrate; no M0 implementation or spike authorization": "- **ADR-0009:** ACCEPTED / cross-horizon — Mastra preferred-first cognitive/Harness substrate; no M0 implementation authorization",
-              "- **SPK-AURORA-M0-SOVEREIGN-STORE-001:** PROPOSED / EXECUTION NOT AUTHORIZED": "- **SPK-AURORA-M0-SOVEREIGN-STORE-001:** AUTHORIZED FOR EXECUTION — exact canonical spec at `36f46956bc275d0aec32b7e3ea4d959010fa9dcb` / blob `6ad7397d46208a0a9c762073d2c5239ceff4e056`",
-              "- **Accepted stack decisions:** none; R4 technical choices remain proposed pending required review/evidence": "- **Accepted technical decisions:** ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009; operational store and owner-root mechanisms remain unresolved",
-          }
-          for old, new in replacements.items():
-              if old not in text:
-                  raise SystemExit(f"STATUS replacement missing: {old}")
-              text = text.replace(old, new, 1)
-          text = text.replace(
-              "R4 M0 decision coverage:         15/15 mapped; 6 M0 proposed ADRs; 2 required spikes unexecuted",
-              "R4 M0 decision coverage:         15/15 mapped; ADR-0003/4/5/6 accepted; ADR-0007/8 spike-blocked"
-          )
-          text = text.replace(
-              "Cross-horizon ADR-0009:          PROPOSED — Mastra preferred agentic Harness substrate; not an M0 blocker",
-              "Cross-horizon ADR-0009:          ACCEPTED — Mastra preferred-first agentic Harness substrate; not an M0 blocker"
-          )
-          text = text.replace(
-              "Architecture Spike execution:   PROHIBITED / AWAITING EXPLICIT OPERATOR AUTHORIZATION",
-              "Architecture Spike execution:   SPK-001 AUTHORIZED ONLY; SPK-002 AND ALL OTHER SPIKES PROHIBITED"
-          )
-          text = text.replace("Accepted stack decisions:       NONE", "Accepted technical decisions:   ADR-0003 / ADR-0004 / ADR-0005 / ADR-0006 / ADR-0009")
-          text = text.replace(
-              "The original R4 gate blockers remain unchanged:\n\n1. ADR-0003 through ADR-0006 require operator review/acceptance at sufficient evidence;\n2. ADR-0007 remains blocked by `SPK-AURORA-M0-SOVEREIGN-STORE-001`;\n3. ADR-0008 remains blocked by `SPK-AURORA-M0-OWNER-TRUST-002`, sequenced after reviewed SPK-001 evidence;\n4. Architecture Spike execution remains prohibited until separately authorized.\n\nADR-0009 may be reviewed separately as a cross-horizon architecture direction. Its acceptance is not required to execute the M0 storage spike and does not authorize Mastra implementation.",
-              "The operator has now accepted ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 and separately authorized execution of the exact current `SPK-AURORA-M0-SOVEREIGN-STORE-001` specification.\n\nThe remaining R4 blockers are now narrower:\n\n1. execute and independently review `SPK-AURORA-M0-SOVEREIGN-STORE-001`;\n2. use that evidence to accept/reject/revise ADR-0007;\n3. ADR-0008 remains blocked by `SPK-AURORA-M0-OWNER-TRUST-002`, which is still NOT AUTHORIZED and remains sequenced after reviewed SPK-001 evidence.\n\nADR-0009 acceptance remains cross-horizon and does not authorize Mastra implementation."
-          )
-          old_next = "Mastra materiality assessment recorded\n→ STOP Mastra investigation for M0\n→ operator reviews revised ADR-0003 / ADR-0004 + ADR-0005 / ADR-0006\n→ ADR-0009 may be reviewed separately as cross-horizon direction\n→ separately authorize exact SPK-AURORA-M0-SOVEREIGN-STORE-001 execution if approved\n→ execute/review the actual M0 persistence proof\n→ SPK-002 remains blocked until SPK-001 evidence is reviewed\n→ do not begin R5"
-          new_next = "ADR-0003 / ADR-0004 / ADR-0005 / ADR-0006 / ADR-0009 accepted\n→ SPK-AURORA-M0-SOVEREIGN-STORE-001 execution explicitly authorized\n→ execute the exact disposable persistence spike against a fixed branch/revision\n→ review evidence and decide ADR-0007\n→ STOP\n→ SPK-002 remains NOT AUTHORIZED until separately approved after SPK-001 review\n→ do not begin R5"
-          if old_next not in text:
-              raise SystemExit("STATUS next-action block missing")
-          text = text.replace(old_next, new_next, 1)
-          status.write_text(text, encoding='utf-8')
-
-          worklog = Path("docs/tracking/WORKLOG.md")
-          w = worklog.read_text(encoding='utf-8').rstrip()
-          w += '''\n\n## 2026-08-07 — M0 R4 ADR Acceptance and SPK-001 Authorization\n\nThe operator explicitly accepted ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 and authorized execution of `SPK-AURORA-M0-SOVEREIGN-STORE-001` according to the canonical specification current at `36f46956bc275d0aec32b7e3ea4d959010fa9dcb` (spec blob `6ad7397d46208a0a9c762073d2c5239ceff4e056`).\n\nThis promotes the five ADRs to accepted decision authority and opens only the disposable SPK-001 execution boundary. ADR-0007 and ADR-0008 remain proposed. `SPK-AURORA-M0-OWNER-TRUST-002`, R5, Mission Contract, Microdesign and production implementation remain unauthorized.\n'''
-          worklog.write_text(w, encoding='utf-8')
-          PY
+        run: python .github/scripts/record_m0_r4_adr_spk001_authorization.py
 
       - name: Generate documentation projections
         run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
@@ -236,13 +51,16 @@ record accepted ADRs + exact SPK-001 authority
           grep -q "R5 — Contract Readiness.*NOT AUTHORIZED" docs/tracking/STATUS.md
           git diff --check
 
-      - name: Commit canonical authority update and remove helper
+      - name: Commit canonical authority update and remove helpers
         shell: bash
         run: |
-          rm -f .github/workflows/record-m0-r4-adr-spk001-authorization.yml .github/m0-r4-adr-spk001-authorization.trigger
+          rm -f \
+            .github/workflows/record-m0-r4-adr-spk001-authorization.yml \
+            .github/scripts/record_m0_r4_adr_spk001_authorization.py \
+            .github/m0-r4-adr-spk001-authorization.trigger
           git config user.name "developmentconexus-ops"
           git config user.email "development.conexus@gmail.com"
-          git add docs/acceptance docs/adr docs/tracking .github
+          git add docs .github
           git diff --cached --check
           git commit -m "docs: accept R4 ADRs and authorize SPK-001"
           git push origin HEAD:main
