@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.20.0
+version: 0.21.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -44,7 +44,9 @@ related:
   - DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
   - DOC-AURORA-M0-R4-SPK001-EVIDENCE-RECEIPT
   - DOC-AURORA-M0-R4-ADR0007-ACCEPTANCE-SPK002-AUTHORIZATION
+  - DOC-AURORA-M0-R4-SPK002-EVIDENCE-RECEIPT
   - REVIEW-AURORA-M0-R4-SPK001-SOVEREIGN-STORE-2026-08-07
+  - REVIEW-AURORA-M0-R4-SPK002-OWNER-TRUST-2026-08-07
   - DESIGN-AURORA-M0-R4-DECISION-LANDSCAPE
   - DESIGN-AURORA-M0-R4-MASTRA-FIT-MATRIX
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R4-DECISION-COVERAGE
@@ -107,11 +109,11 @@ last_reviewed: 2026-08-07
 - **ADR-0004:** ACCEPTED — M0 local Core/state shape; future Mastra workflow/durable mechanisms remain provider-local/port candidates
 - **ADR-0005 / ADR-0006:** ACCEPTED
 - **ADR-0007:** ACCEPTED — SQLite + `database/sql` + `modernc.org/sqlite` is the M0 operational-state baseline
-- **ADR-0008:** PROPOSED / SPK-002-BLOCKED
+- **ADR-0008:** PROPOSED / EVIDENCE-READY — SPK-002 PASS/CLOSED; operator decision pending
 - **ADR-0009:** ACCEPTED / cross-horizon — Mastra preferred-first cognitive/Harness substrate; no M0 implementation authorization
 - **SPK-AURORA-M0-SOVEREIGN-STORE-001:** PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED — final run `31213792366`, execution revision `4242342486f512320f12e0b603f052166264c4ea`, 4/4 matrix PASS
-- **SPK-AURORA-M0-OWNER-TRUST-002:** AUTHORIZED FOR EXECUTION — exact canonical spec v0.1.0 / blob `0ffb6fa2b35014e34b4301365dc2d5a8d96f021d`; no other spike authorized
-- **R4 verdict:** BLOCKED — ADR-0007 is accepted; SPK-002 execution/review and ADR-0008 operator decision remain
+- **SPK-AURORA-M0-OWNER-TRUST-002:** PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED — final run `31219882882`, execution revision `c76b96fee36878f15c54028b4ba1896f84ebdeca`, Linux/Windows PASS
+- **R4 verdict:** BLOCKED ONLY ON ADR-0008 OPERATOR DECISION — all required M0 architecture spikes are PASS/REVIEWED/CLOSED
 - **R5 — Contract Readiness:** NOT AUTHORIZED
 - **R6 and later gates:** NOT AUTHORIZED BY IMPLICATION
 - **Accepted technical decisions:** ADR-0003, ADR-0004, ADR-0005, ADR-0006, ADR-0007 and ADR-0009; owner-root mechanism remains unresolved
@@ -179,7 +181,7 @@ This remediation does **not** authorize R1, Architecture Spike execution, Capabi
 
 ## 5. Current M0 decisions and cross-horizon Mastra direction
 
-R4 has researched concrete dispositions for all M0 mechanism questions. ADR-0003, ADR-0004, ADR-0005 and ADR-0006 are accepted. SPK-001 has now proved and closed the store/atomicity/backup/migration uncertainty, making ADR-0007 evidence-ready; ADR-0008 remains proposed because owner-root/time/restore-freshness behavior still requires SPK-002 evidence:
+R4 has researched concrete dispositions for all M0 mechanism questions. ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0007 are accepted. SPK-001 and SPK-002 have both completed with reviewed PASS evidence. ADR-0008 v0.2.0 is evidence-ready and remains proposed pending the operator decision:
 
 - Sovereign Core implementation language/runtime;
 - operational-state storage mechanism;
@@ -232,12 +234,12 @@ R2 requirements baseline:       122 proposed atomic requirements; coverage 127/1
 M0 ACRM R3 — Capability Readiness: PASS — source baseline 9ea8adf5c115f54071d7e36e312695d19420d8b0
 R3 proposed Capability package: Spec + threat model + test plan + 122/122 allocation
 M0 ACRM R4 — Architecture/Decision Readiness: BLOCKED — documentary baseline d00cc1abfc2a41ac7e81e1f3478e188b3c5e9e52
-R4 M0 decision coverage:         15/15 mapped; ADR-0003/4/5/6/7 accepted; ADR-0008 SPK-002-blocked
+R4 M0 decision coverage:         15/15 mapped; all required spikes closed; ADR-0008 evidence-ready/operator-decision pending
 Cross-horizon ADR-0009:          ACCEPTED — Mastra preferred-first agentic Harness substrate; not an M0 blocker
 Mastra integration spike:       NOT REQUIRED FOR M0 / DEFERRED TO FIRST CONSUMING CAPABILITY
 ACRM R5 — Contract Readiness:    NOT AUTHORIZED
 ACRM R6+:                       NOT AUTHORIZED
-Architecture Spike execution:   SPK-001 CLOSED; SPK-002 AUTHORIZED ONLY; all other spikes NOT AUTHORIZED
+Architecture Spike execution:   SPK-001 CLOSED; SPK-002 CLOSED; all other spikes NOT AUTHORIZED
 Capability implementation:      PROHIBITED
 Aurora Core implementation:     PROHIBITED
 AHDK implementation:            PROHIBITED
@@ -257,17 +259,22 @@ The operator accepted ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 and au
 
 The operator accepted ADR-0007 revision `0.2.0`: SQLite + `database/sql` + `modernc.org/sqlite` is now the governing M0 store architecture decision. This acceptance does not authorize production implementation.
 
-The remaining R4 blockers are now narrower:
+SPK-002 has now completed successfully. Final hardened workflow `31219882882` passed the full S01–S12, recovery-classification, mutation-boundary and secret-hygiene evidence on Ubuntu and Windows. The independent review closed the spike as `PASS / REVIEWED / DECISION_INFORMED` and recommends ADR-0008 v0.2.0.
 
-1. execute and independently review the explicitly authorized `SPK-AURORA-M0-OWNER-TRUST-002`;
-2. after SPK-002 evidence is reviewed, ADR-0008 must be accepted/rejected/revised by the operator.
+No M0 architecture spike remains to execute. ADR-0008 v0.2.0 remains `proposed`; the exact remaining R4 blocker is the operator decision to ACCEPT, REJECT or REVISE it.
 
-ADR-0009 acceptance remains cross-horizon and does not authorize Mastra implementation. SPK-002 is now explicitly authorized by the operator; no other spike is authorized by implication.
+ADR-0009 acceptance remains cross-horizon and does not authorize Mastra implementation. Completion of the architecture spikes does not authorize R5 by implication.
 
-Therefore the independent R4 verdict remains:
+Therefore the current independent R4 verdict remains:
 
 ```text
 R4 BLOCKED
+```
+
+with exactly one remaining blocker:
+
+```text
+ADR-0008 v0.2.0 operator decision
 ```
 
 R5, Mission Contract, Microdesign and runtime implementation remain unauthorized.
@@ -275,11 +282,9 @@ R5, Mission Contract, Microdesign and runtime implementation remain unauthorized
 ## 8. Immediate next action
 
 ```text
-ADR-0007 v0.2.0 ACCEPTED
-→ SPK-AURORA-M0-OWNER-TRUST-002 AUTHORIZED
-→ execute exact disposable owner-root/trust spike against fixed revision
-→ independently review evidence
-→ present evidence-informed ADR-0008 decision to operator
+SPK-AURORA-M0-OWNER-TRUST-002 PASS / CLOSED
+→ operator reviews ADR-0008 v0.2.0
+→ ACCEPT | REJECT | REVISE
 → STOP
 → do not begin R5
 ```

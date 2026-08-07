@@ -590,3 +590,15 @@ SPK-001 is `PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED`. A
 The operator explicitly accepted ADR-0007 v0.2.0 and authorized execution of `SPK-AURORA-M0-OWNER-TRUST-002` according to the canonical specification at repository revision `f895ac44990cbebe3d366b703c661b2ec6f67e2b`, spec blob `0ffb6fa2b35014e34b4301365dc2d5a8d96f021d`, version 0.1.0.
 
 ADR-0007 is now accepted. SPK-002 is the only Architecture Spike authorized for execution. ADR-0008 remains proposed; R5, Mission Contract, Microdesign and production implementation remain unauthorized.
+
+## 2026-08-07 — SPK-002 Owner Trust PASS / Evidence Closeout
+
+The authorized disposable `SPK-AURORA-M0-OWNER-TRUST-002` executed from canonical authorization baseline `ba7a211b40e21bfcd9aa1b90e5ca3c21cd229d1b` against canonical specification blob `0ffb6fa2b35014e34b4301365dc2d5a8d96f021d` (v0.1.0).
+
+Final hardened executable evidence came from branch revision `c76b96fee36878f15c54028b4ba1896f84ebdeca` and GitHub Actions run `31219882882`. Ubuntu and Windows both passed S01–S12, all required DB/anchor recovery classifications, the post-review mutation-boundary hardening tests, measurements and secret-hygiene checks. The aggregate gate passed.
+
+Candidate A—random 256-bit ORK, Argon2id-derived KEK, AES-256-GCM wrapped ORK, HKDF-SHA-256 purpose keys, HMAC-SHA-256 governing/trust descriptors and an authenticated external generation/observed-time high-water—passed the intended M0 local threat boundary. Candidate B was not duplicated because Candidate A proved passphrase rotation can preserve stable ORK/domain-root lineage while the direct passphrase-root alternative would couple rotation to the long-lived integrity root/rekey continuity. Candidate C remains a future hardware/OS trust strengthening class if the threat model expands.
+
+Two findings were corrected before final evidence: (1) a measurement executable was initially placed inside the evidence artifact and contained deterministic fixture strings, so final packaging moved the binary outside evidence and both hygiene gates passed; (2) adversarial review found ordinary mutation needed to enforce anomaly classification itself, so `STATE_ROLLBACK`, `ANCHOR_LAG`, `TIME_UNTRUSTED` and `REVALIDATION_REQUIRED` now fail before normal mutation unless the explicit recovery path is used.
+
+The reviewed lifecycle is `PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED`. ADR-0008 was revised to v0.2.0 and remains `proposed / evidence-ready` pending explicit operator ACCEPT/REJECT/REVISE. R4 remains BLOCKED only on that operator decision. R5, Mission Contract, Microdesign and production implementation remain unauthorized.
