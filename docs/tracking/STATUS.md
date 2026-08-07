@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.10.0
+version: 0.11.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -23,6 +23,7 @@ related:
   - REVIEW-AURORA-M0-R0-CONSTITUTIONAL-BASELINE-2026-08-06
   - DOC-AURORA-M0-R0-REMEDIATION-AUTHORIZATION
   - DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
+  - DOC-AURORA-M0-R0-REMEDIATION-MERGE-CLOSEOUT
 last_reviewed: 2026-08-07
 ---
 
@@ -40,7 +41,8 @@ last_reviewed: 2026-08-07
 - **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED by operator
 - **Current readiness gate:** ACRM R0 — Constitutional Baseline
 - **Initial R0 verdict:** FAIL
-- **R0 remediation:** CORRECTED REVISION ACCEPTED BY OPERATOR / CANONICAL INTEGRATION AUTHORIZED
+- **Canonical R0 remediation merge:** `d0ddfb794296e599ac96bb73bf3772937d371bf9`
+- **R0 remediation:** ACCEPTED AND MERGED — `d0ddfb794296e599ac96bb73bf3772937d371bf9`
 - **R1 and later gates:** NOT AUTHORIZED BY IMPLICATION
 - **Stack decisions:** none
 - **Runtime implementation:** not started and not authorized
@@ -129,8 +131,8 @@ First Product Milestone:        M0 SELECTED
 Initial M0 R0:                 FAIL
 R0 documentary remediation:    AUTHORIZED
 Corrected constitutional rev:  OPERATOR ACCEPTED
-Canonical integration:         AUTHORIZED / PENDING MERGE
-R0 re-run:                      AUTHORIZED AFTER CANONICAL INTEGRATION
+Canonical integration:         COMPLETE — d0ddfb794296e599ac96bb73bf3772937d371bf9
+R0 re-run:                      AUTHORIZED / CURRENT NEXT ACTION
 ACRM R1+:                       NOT AUTHORIZED
 Architecture Spike execution:   PROHIBITED
 Capability implementation:      PROHIBITED
@@ -144,16 +146,16 @@ Microdesign/Implementation Plan: NOT STARTED
 
 ## 7. Current blocker/gate
 
-The corrected R0 remediation revision `b32cfe134f84eed3797d866e607c92c227514186` has been explicitly accepted by the operator. The remaining gate is canonical integration of the validated accepted revision; R1 remains unauthorized.
+The corrected R0 remediation has been accepted and canonically integrated at `d0ddfb794296e599ac96bb73bf3772937d371bf9`. There is no remaining remediation blocker. The current gate is the fresh M0 ACRM R0 re-run; R1 remains unauthorized.
 
 No implementation blocker exists because implementation is not authorized work.
 
 ## 8. Immediate next action
 
 ```text
-integrate the accepted R0 remediation revision into canonical main
-→ record the canonical merge/closeout revision
-→ start a fresh repository-only R0 review against that accepted revision
+start a fresh repository-only R0 review against canonical revision d0ddfb794296e599ac96bb73bf3772937d371bf9
+→ read AGENTS.md and STATUS from that revision
+→ execute M0 ACRM R0 only
 → re-run M0 ACRM R0 only
 → produce R0 PASS | FAIL | BLOCKED
 → stop before R1 unless R1 is separately authorized

@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.8.0
+version: 0.9.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -327,3 +327,16 @@ and responded:
 The decision accepts the corrected documentary/constitutional meaning and authorizes its lifecycle promotion and canonical integration. Promotion metadata and acceptance evidence may change after the approved semantic revision; the approved constitutional content itself must not drift during promotion.
 
 This acceptance does **not** authorize R1 or any later ACRM gate, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract or Microdesign. After canonical integration, the next allowed action is a fresh repository-only re-run of M0 ACRM R0 only.
+
+
+## 2026-08-07 — M0 R0 remediation canonically integrated
+
+The operator-accepted R0 remediation was merged through PR #2 into canonical `main`:
+
+```text
+Merge commit: d0ddfb794296e599ac96bb73bf3772937d371bf9
+```
+
+Pre-merge evidence included semantic-drift verification from approved revision `b32cfe134f84eed3797d866e607c92c227514186`, accepted-lifecycle promotion, generated projection refresh, promotion validation run `31144371490` and normal Documentation workflow run `31144424887`, both successful.
+
+The remediation merge does not authorize R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract or Microdesign. The next authorized action is a fresh repository-only M0 ACRM R0 re-run.
