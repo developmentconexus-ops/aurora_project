@@ -1,0 +1,78 @@
+name: SPK-001 Sovereign Store
+
+on:
+  push:
+    branches:
+      - spike/m0-sovereign-store-001
+    paths:
+      - "spikes/m0-sovereign-store-001/**"
+      - ".github/workflows/spk-m0-sovereign-store-001.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  basic:
+    name: basic-${{ matrix.os }}-${{ matrix.driver }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            driver: modernc
+            cgo: "0"
+          - os: ubuntu-24.04
+            driver: mattn
+            cgo: "1"
+          - os: windows-latest
+            driver: modernc
+            cgo: "0"
+          - os: windows-latest
+            driver: mattn
+            cgo: "1"
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: spikes/m0-sovereign-store-001
+    env:
+      CGO_ENABLED: ${{ matrix.cgo }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.5"
+          cache: false
+      - name: Capture environment
+        shell: bash
+        run: |
+          mkdir -p evidence
+          {
+            echo "candidate=${{ matrix.driver }}"
+            echo "runner_os=${RUNNER_OS}"
+            echo "runner_arch=${RUNNER_ARCH}"
+            echo "image_os=${ImageOS:-unknown}"
+            echo "image_version=${ImageVersion:-unknown}"
+            go version
+            go env GOOS GOARCH CGO_ENABLED CC CXX
+            if command -v gcc >/dev/null 2>&1; then gcc --version | head -n 1; else echo "gcc=missing"; fi
+          } | tee "evidence/environment-${{ matrix.driver }}.txt"
+      - name: Resolve pinned module graph
+        shell: bash
+        run: |
+          go mod tidy
+          go list -m all | tee "evidence/modules-${{ matrix.driver }}.txt"
+      - name: Run bootstrap/reopen contract
+        shell: bash
+        run: go test -count=1 -tags "${{ matrix.driver }}" ./...
+      - name: Upload basic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spk001-basic-${{ matrix.os }}-${{ matrix.driver }}
+          path: |
+            spikes/m0-sovereign-store-001/evidence/
+            spikes/m0-sovereign-store-001/go.mod
+            spikes/m0-sovereign-store-001/go.sum
+          if-no-files-found: warn
+          retention-days: 14
