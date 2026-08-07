@@ -309,4 +309,4 @@ The remediation:
 - regenerates Product Blueprint/Roadmap projections;
 - validates documentation before operator review.
 
-R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized.
+R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized. The revised normative documents remain `PROPOSED` on the non-canonical branch until explicit operator acceptance; the last accepted versions remain canonical on `main`.

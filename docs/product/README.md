@@ -4,9 +4,7 @@ title: Aurora Product Documentation
 document_type: product_index
 form: reference
 authority: constitutional
-status: accepted
-accepted_at: 2026-08-06
-acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
+status: proposed
 version: 0.2.1
 owners:
   - developmentconexus-ops

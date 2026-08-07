@@ -13,7 +13,7 @@ generated_from:
 ---
 <!-- GENERATED — DO NOT EDIT DIRECTLY
 Canonical source: docs/product/blueprint/14-capability-roadmap.md
-Source SHA-256: 9a1827b411a0b3cc036d04a60515ce742b44ef0abf49992585ec7f39710570fb
+Source SHA-256: 0a02f927bfdde56cdf94dff1512fdd9b66289ee75571826156b3dbbd4fe74989
 Generator: scripts/generate_docs.py
 -->
 
