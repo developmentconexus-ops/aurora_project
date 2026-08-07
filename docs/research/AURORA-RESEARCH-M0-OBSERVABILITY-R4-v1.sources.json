@@ -1,0 +1,47 @@
+{
+  "research_id": "RESEARCH-AURORA-M0-OBSERVABILITY-R4-V1",
+  "accessed_at": "2026-08-07",
+  "selection_policy": "Official OpenTelemetry specifications/documentation and Go standard-library documentation for current trace, metric, log and export maturity.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "OpenTelemetry Go",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/languages/go/",
+      "type": "official_project_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["Go traces stable", "Go metrics stable", "Go logs beta"],
+      "limitations": ["language implementation maturity differs by signal"]
+    },
+    {
+      "id": "S02",
+      "title": "OTLP Specification 1.11.0",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/specs/otlp/",
+      "type": "official_specification",
+      "accessed_at": "2026-08-07",
+      "supports": ["stable OTLP traces/metrics/logs transport", "HTTP and gRPC exporters"],
+      "limitations": ["transport availability cannot be required for canonical state or evidence correctness"]
+    },
+    {
+      "id": "S03",
+      "title": "Go log/slog",
+      "publisher": "The Go Project",
+      "url": "https://pkg.go.dev/log/slog",
+      "type": "official_standard_library_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["structured local logging with levels and key-value attributes"],
+      "limitations": ["logging is not telemetry backend or audit authority"]
+    },
+    {
+      "id": "S04",
+      "title": "OpenTelemetry Go Instrumentation",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/languages/go/instrumentation/",
+      "type": "official_project_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["Go log bridges including slog", "stdout/file and direct collector patterns"],
+      "limitations": ["direct Go log SDK workflow remains less mature than traces/metrics"]
+    }
+  ]
+}
