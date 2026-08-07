@@ -98,9 +98,9 @@ jobs:
           git config user.email development.conexus@gmail.com
           git add docs .github/workflows/prepare-m0-r5-contract-readiness.yml .github/workflows/prepare-m0-r5-contract-readiness-v2.yml scripts/tmp_prepare_m0_r5.py scripts/tmp_patch_prepare_m0_r5.py
           git diff --cached --check
-          bad="$(git diff --cached --name-only | grep -Ev '^docs/' || true)"
+          bad="$(git diff --cached --name-status | awk '$1 != "D" && $2 !~ /^docs\// { print $0 }')"
           if [[ -n "$bad" ]]; then
-            echo "non-doc permanent R5 diff detected:" >&2
+            echo "non-doc permanent R5 addition/modification detected:" >&2
             echo "$bad" >&2
             exit 1
           fi
