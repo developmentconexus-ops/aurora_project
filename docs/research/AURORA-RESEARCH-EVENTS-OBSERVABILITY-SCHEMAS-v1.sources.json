@@ -1,0 +1,87 @@
+{
+  "research_id": "RESEARCH-AURORA-EVENTS-OBSERVABILITY-SCHEMAS-V1",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Official specifications and official tooling documentation for telemetry, trace propagation, event envelopes, event API description, schemas and compatibility.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "OpenTelemetry Specification Overview",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/specs/otel/overview/",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["traces, metrics and logs data/SDK model", "vendor-neutral observability"],
+      "limitations": ["Telemetry is not domain state or evidence"]
+    },
+    {
+      "id": "S02",
+      "title": "OpenTelemetry Semantic Conventions",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/specs/semconv/",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["standard attribute/event naming patterns", "cross-component telemetry conventions"],
+      "limitations": ["Aurora-specific conventions require their own specification"]
+    },
+    {
+      "id": "S03",
+      "title": "W3C Trace Context",
+      "publisher": "W3C",
+      "url": "https://www.w3.org/TR/trace-context/",
+      "type": "web_standard",
+      "accessed_at": "2026-08-05",
+      "supports": ["traceparent and tracestate propagation across distributed systems"],
+      "limitations": ["Trace context is not authentication or authorization"]
+    },
+    {
+      "id": "S04",
+      "title": "CloudEvents Specification",
+      "publisher": "Cloud Native Computing Foundation",
+      "url": "https://github.com/cloudevents/spec",
+      "type": "official_specification_repository",
+      "accessed_at": "2026-08-05",
+      "supports": ["common event envelope", "event attributes and protocol bindings"],
+      "limitations": ["Does not define Aurora event meaning, durability or ordering"]
+    },
+    {
+      "id": "S05",
+      "title": "AsyncAPI Specification and Tooling",
+      "publisher": "AsyncAPI Initiative",
+      "url": "https://www.asyncapi.com/docs/reference/specification/latest",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["event-driven API/channel/message description", "tooling and code-generation ecosystem"],
+      "limitations": ["Does not enforce authority or runtime delivery semantics"]
+    },
+    {
+      "id": "S06",
+      "title": "JSON Schema 2020-12",
+      "publisher": "JSON Schema",
+      "url": "https://json-schema.org/draft/2020-12",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["portable validation for JSON contracts", "references and vocabularies"],
+      "limitations": ["No built-in semantic compatibility or lifecycle behavior"]
+    },
+    {
+      "id": "S07",
+      "title": "Protocol Buffers Overview",
+      "publisher": "Google",
+      "url": "https://protobuf.dev/overview/",
+      "type": "official_specification_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["typed multi-language schemas", "compact serialization and code generation", "gRPC ecosystem"],
+      "limitations": ["Not human-readable and not justified for all boundaries"]
+    },
+    {
+      "id": "S08",
+      "title": "Buf Breaking Change Detection",
+      "publisher": "Buf",
+      "url": "https://buf.build/docs/breaking/",
+      "type": "official_tool_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["automated Protobuf API compatibility checks"],
+      "limitations": ["Structural checks do not cover authority/evidence semantic changes"]
+    }
+  ]
+}

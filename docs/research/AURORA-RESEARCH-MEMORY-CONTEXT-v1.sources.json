@@ -1,0 +1,227 @@
+{
+  "research_id": "RESEARCH-AURORA-MEMORY-CONTEXT-V1",
+  "title": "Aurora Research — Memory, Knowledge and Context Architecture",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Official implementations and primary research for material technical claims; recent papers are treated as emerging evidence with explicit limitations.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Observational Memory: 95% on LongMemEval",
+      "publisher": "Mastra Research",
+      "url": "https://mastra.ai/research/observational-memory",
+      "type": "official_technical_report",
+      "date": "2026-02-09",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "Observer and Reflector architecture",
+        "stable-context-window approach",
+        "reported LongMemEval evaluation"
+      ],
+      "limitations": [
+        "Vendor-authored evaluation",
+        "Primarily conversational benchmark",
+        "Does not establish project authority, operational state or physical memory"
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "Inside OpenAI’s in-house data agent",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/inside-our-in-house-data-agent/",
+      "type": "official_engineering_report",
+      "date": "2026-01-29",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "layered context architecture",
+        "global and personal editable memories",
+        "live runtime validation when stored information is stale",
+        "retrieval of relevant enriched context"
+      ],
+      "limitations": [
+        "Describes a bespoke internal data agent",
+        "Does not publish full implementation or benchmark suite",
+        "Domain differs from personal engineering/laboratory Aurora"
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "Dreaming: Better memory for a more helpful ChatGPT",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/chatgpt-memory-dreaming/",
+      "type": "official_research_product_report",
+      "date": "2026-06-04",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "asynchronous memory maintenance",
+        "temporal revision of memories",
+        "need to keep personal memory current"
+      ],
+      "limitations": [
+        "Product-level description rather than full architecture",
+        "Does not establish evidence/authority semantics for engineering projects"
+      ]
+    },
+    {
+      "id": "S04",
+      "title": "Letta (formerly MemGPT)",
+      "publisher": "Letta",
+      "url": "https://github.com/letta-ai/letta",
+      "type": "official_open_source_repository",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "stateful agents with persistent/editable memory",
+        "model-agnostic agent identity",
+        "SDK/API architecture"
+      ],
+      "limitations": [
+        "Repository/product semantics are not Aurora semantics",
+        "Current feature behavior requires version-specific verification"
+      ]
+    },
+    {
+      "id": "S05",
+      "title": "Letta Code — The memory-first coding agent",
+      "publisher": "Letta",
+      "url": "https://github.com/letta-ai/letta-code",
+      "type": "official_open_source_repository",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "cohesive identity across models",
+        "Git-tracked memory/context through MemFS",
+        "multiple interaction channels and remote environments",
+        "self-improvement and memory auditing patterns"
+      ],
+      "limitations": [
+        "Coding-agent focus",
+        "Self-described capabilities require independent evaluation",
+        "Does not define Aurora authority/device model"
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "Agent File (.af)",
+      "publisher": "Letta",
+      "url": "https://github.com/letta-ai/agent-file",
+      "type": "official_open_source_specification_repository",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "portable serialization of agent state",
+        "separation of history, system prompt, memory blocks and tools",
+        "cross-framework adaptation requirement"
+      ],
+      "limitations": [
+        "Format support is implementation-specific",
+        "Serialization does not guarantee semantic equivalence or security"
+      ]
+    },
+    {
+      "id": "S07",
+      "title": "From Storage to Experience: A Survey on the Evolution of LLM Agent Memory Mechanisms",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2605.06716",
+      "type": "primary_research_preprint",
+      "date": "2026-05-07",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "Storage–Reflection–Experience evolutionary framework",
+        "trajectory preservation, refinement and abstraction",
+        "continual-learning direction"
+      ],
+      "limitations": [
+        "Recent preprint",
+        "Survey framework rather than an Aurora implementation proof"
+      ]
+    },
+    {
+      "id": "S08",
+      "title": "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2603.07670",
+      "type": "primary_research_preprint_survey",
+      "date": "2026-03-08",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "write–manage–read memory lifecycle",
+        "mechanism taxonomy",
+        "evaluation and engineering challenges",
+        "privacy, contradiction and latency concerns"
+      ],
+      "limitations": [
+        "Recent survey preprint",
+        "Synthesizes heterogeneous systems and benchmarks"
+      ]
+    },
+    {
+      "id": "S09",
+      "title": "A Survey on Long-Term Memory Security in LLM Agents",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2604.16548",
+      "type": "primary_research_preprint_survey",
+      "date": "2026-04-17",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "security across write/store/retrieve/execute/share/forget lifecycle",
+        "integrity, confidentiality, availability and governance objectives",
+        "need for provenance, versioning and policy-aware retention"
+      ],
+      "limitations": [
+        "Recent survey preprint",
+        "Formal recommendations require implementation-specific validation"
+      ]
+    },
+    {
+      "id": "S10",
+      "title": "LongMemEval-V2: Evaluating Long-Term Agent Memory Toward Experienced Colleagues",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2605.12493",
+      "type": "primary_research_preprint_benchmark",
+      "date": "2026-05-12",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "evaluation of static/dynamic state, workflow, gotchas and premise awareness",
+        "file/coding-agent evidence gathering approach",
+        "accuracy-latency trade-off"
+      ],
+      "limitations": [
+        "Web-agent environments differ from Aurora",
+        "Reported methods and results need reproduction for selected models"
+      ]
+    },
+    {
+      "id": "S11",
+      "title": "When Stored Evidence Stops Being Usable: Scale-Conditioned Evaluation of Agent Memory",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2605.07313",
+      "type": "primary_research_preprint_benchmark",
+      "date": "2026-05-08",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "scale-conditioned memory evaluation",
+        "budget-compliant reliability",
+        "usable-scale boundary and irrelevant-session degradation"
+      ],
+      "limitations": [
+        "Recent preprint",
+        "Results depend on tested agent, memory interface and budgets"
+      ]
+    },
+    {
+      "id": "S12",
+      "title": "Supersede: Diagnosing and Training the Memory-Update Gap in LLM Agents",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2606.27472",
+      "type": "primary_research_preprint",
+      "date": "2026-06-25",
+      "accessed_at": "2026-08-05",
+      "supports": [
+        "supersession as a distinct memory failure",
+        "memory size alone does not resolve current-value selection",
+        "need for explicit evaluation/training of updates"
+      ],
+      "limitations": [
+        "Very recent preprint",
+        "Training result is preliminary and does not select an Aurora mechanism"
+      ]
+    }
+  ]
+}

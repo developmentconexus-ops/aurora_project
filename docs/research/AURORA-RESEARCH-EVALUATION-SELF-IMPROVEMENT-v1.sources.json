@@ -1,0 +1,71 @@
+{
+  "research_id": "RESEARCH-AURORA-EVALUATION-SELF-IMPROVEMENT-V1",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Primary research papers and official evaluation/optimization repositories for reflection, self-refinement, skill learning and reproducible evaluation.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2303.11366",
+      "type": "primary_research_paper",
+      "date": "2023-03-20",
+      "accessed_at": "2026-08-05",
+      "supports": ["episodic verbal reflection used to improve subsequent attempts", "feedback memory without weight updates"],
+      "limitations": ["Self-reflection does not prove causal diagnosis or production safety"]
+    },
+    {
+      "id": "S02",
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2303.17651",
+      "type": "primary_research_paper",
+      "date": "2023-03-30",
+      "accessed_at": "2026-08-05",
+      "supports": ["generate-feedback-refine iterative process", "improvement without supervised training"],
+      "limitations": ["Generator and critic may share blind spots", "No independent promotion or effect governance"]
+    },
+    {
+      "id": "S03",
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2305.16291",
+      "type": "primary_research_paper",
+      "date": "2023-05-25",
+      "accessed_at": "2026-08-05",
+      "supports": ["automatic curriculum", "environment feedback", "iterative prompting", "growing skill library"],
+      "limitations": ["Game environment differs from real software/laboratory authority and safety"]
+    },
+    {
+      "id": "S04",
+      "title": "DSPy Documentation",
+      "publisher": "Stanford NLP / DSPy",
+      "url": "https://dspy.ai/",
+      "type": "official_project_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["programmatic optimization of LM programs against metrics/examples", "explicit modules and optimizers"],
+      "limitations": ["Metric/data quality and production governance remain application responsibilities"]
+    },
+    {
+      "id": "S05",
+      "title": "OpenAI Evals",
+      "publisher": "OpenAI",
+      "url": "https://github.com/openai/evals",
+      "type": "official_open_source_repository",
+      "accessed_at": "2026-08-05",
+      "supports": ["versioned evaluation definitions and runners", "reproducible model/task evaluation patterns"],
+      "limitations": ["Repository framework does not define Aurora domain evaluation or promotion"]
+    },
+    {
+      "id": "S06",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "publisher": "arXiv",
+      "url": "https://arxiv.org/abs/2310.06770",
+      "type": "primary_research_benchmark",
+      "date": "2023-10-10",
+      "accessed_at": "2026-08-05",
+      "supports": ["artifact/environment-based evaluation on real repositories", "importance of reproducible task instances and tests"],
+      "limitations": ["Software benchmark only", "Public benchmark contamination and transfer to local projects require care"]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "research_id": "RESEARCH-AURORA-AUTHORITY-IDENTITY-EFFECTS-V1",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Official specifications and project documentation for policy, delegation, workload identity, agent security limitations and provenance.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Cedar Policy Language Documentation",
+      "publisher": "Cedar Policy",
+      "url": "https://docs.cedarpolicy.com/",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["principal-action-resource-context authorization model", "allow/forbid policies", "schemas and entity relationships"],
+      "limitations": ["Does not issue credentials or enforce physical effects", "Aurora fit requires a policy spike"]
+    },
+    {
+      "id": "S02",
+      "title": "Open Policy Agent Documentation",
+      "publisher": "Open Policy Agent",
+      "url": "https://www.openpolicyagent.org/docs/latest/",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["separation of policy decision and enforcement", "Rego policies over structured input", "bundles and decision logs"],
+      "limitations": ["Does not define Aurora domain or physical enforcement", "Policy maintainability and deployment require testing"]
+    },
+    {
+      "id": "S03",
+      "title": "OAuth 2.0 Token Exchange (RFC 8693)",
+      "publisher": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc8693.html",
+      "type": "internet_standard",
+      "date": "2020-01",
+      "accessed_at": "2026-08-05",
+      "supports": ["token exchange", "subject and actor delegation semantics", "scoped/audience token patterns"],
+      "limitations": ["Web/API authorization standard, not complete Aurora authority or device model"]
+    },
+    {
+      "id": "S04",
+      "title": "SPIFFE Documentation — SVIDs",
+      "publisher": "SPIFFE",
+      "url": "https://spiffe.io/docs/latest/deploying/svids/",
+      "type": "official_specification_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["workload identity", "short-lived X.509/JWT SVIDs", "service identity independent of network location"],
+      "limitations": ["Operational overhead may be excessive for early single-user deployment", "Does not provide application authorization"]
+    },
+    {
+      "id": "S05",
+      "title": "Pi Coding Agent",
+      "publisher": "Pi project",
+      "url": "https://github.com/badlogic/pi-mono",
+      "type": "official_open_source_repository",
+      "accessed_at": "2026-08-05",
+      "supports": ["agent process uses host permissions unless externally isolated", "SDK/RPC integration patterns"],
+      "limitations": ["Repository/version details must be reverified at implementation", "Pi is not selected as Aurora Core"]
+    },
+    {
+      "id": "S06",
+      "title": "OpenHands Security Architecture",
+      "publisher": "OpenHands",
+      "url": "https://docs.openhands.dev/sdk/arch/security",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["security analysis and policy limitations", "need for sandboxed execution", "tool-path bypass considerations"],
+      "limitations": ["Coding-agent-specific architecture", "Does not replace Aurora threat model"]
+    },
+    {
+      "id": "S07",
+      "title": "SLSA Provenance v1.2",
+      "publisher": "SLSA",
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["build provenance model", "source/material/builder/artifact linkage", "attestation as supply-chain evidence"],
+      "limitations": ["Provenance does not prove functional correctness or safe source code"]
+    }
+  ]
+}

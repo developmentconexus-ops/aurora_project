@@ -1,0 +1,87 @@
+{
+  "research_id": "RESEARCH-AURORA-AGENT-FRAMEWORKS-RUNTIMES-V1",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Official documentation and repositories for frameworks already material to the Aurora design discussion.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Mastra Documentation",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/docs",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["TypeScript agents, tools, workflows, memory, observability and evals", "workflow branching/loops/suspend-resume"],
+      "limitations": ["Framework features do not constitute Aurora domain/security/durability"]
+    },
+    {
+      "id": "S02",
+      "title": "Introducing Temporal Workflows in Mastra",
+      "publisher": "Mastra",
+      "url": "https://mastra.ai/blog/introducing-temporal-workflows",
+      "type": "official_engineering_announcement",
+      "accessed_at": "2026-08-05",
+      "supports": ["Temporal integration for longer durable workflows", "separation of framework and durable engine"],
+      "limitations": ["Vendor announcement; requires implementation testing"]
+    },
+    {
+      "id": "S03",
+      "title": "LangGraph Overview and Persistence",
+      "publisher": "LangChain",
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["low-level stateful graph runtime", "durable execution/checkpointing", "human-in-the-loop and streaming"],
+      "limitations": ["Framework graph state is not Aurora global state", "External effect semantics remain application responsibility"]
+    },
+    {
+      "id": "S04",
+      "title": "Pi Mono Repository",
+      "publisher": "Pi project",
+      "url": "https://github.com/badlogic/pi-mono",
+      "type": "official_open_source_repository",
+      "accessed_at": "2026-08-05",
+      "supports": ["minimal coding agent, model API, extensions and SDK", "coding specialization and TypeScript ecosystem"],
+      "limitations": ["Coding-agent focus", "Repository details must be revalidated before integration"]
+    },
+    {
+      "id": "S05",
+      "title": "Pi RPC Documentation",
+      "publisher": "Pi project",
+      "url": "https://pi.dev/docs/latest/rpc",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["process-isolated RPC integration option", "SDK versus RPC trade-off"],
+      "limitations": ["Does not define Aurora contracts or authority"]
+    },
+    {
+      "id": "S06",
+      "title": "OpenHands SDK Architecture",
+      "publisher": "OpenHands",
+      "url": "https://docs.openhands.dev/sdk/arch/design",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["software-agent architecture, conversations, tools, workspaces and events", "remote agent server patterns"],
+      "limitations": ["Large software-specific platform surface", "Not personal memory or laboratory architecture"]
+    },
+    {
+      "id": "S07",
+      "title": "OpenAI Agents SDK",
+      "publisher": "OpenAI",
+      "url": "https://openai.github.io/openai-agents-python/",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["agents, tools, handoffs, guardrails, sessions and tracing", "manager and handoff patterns"],
+      "limitations": ["Guardrails do not replace effect enforcement", "Provider/framework semantics are not Aurora domain"]
+    },
+    {
+      "id": "S08",
+      "title": "Langflow Documentation",
+      "publisher": "Langflow",
+      "url": "https://docs.langflow.org/",
+      "type": "official_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["visual AI flow construction", "component ecosystem and MCP tooling"],
+      "limitations": ["Visual prototype/runtime is not current Aurora Core hypothesis", "Production governance requires evaluation"]
+    }
+  ]
+}

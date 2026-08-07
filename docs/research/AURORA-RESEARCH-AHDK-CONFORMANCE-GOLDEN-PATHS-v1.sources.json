@@ -1,0 +1,87 @@
+{
+  "research_id": "RESEARCH-AURORA-AHDK-CONFORMANCE-GOLDEN-PATHS-V1",
+  "accessed_at": "2026-08-05",
+  "selection_policy": "Primary specifications and official platform/tooling documentation for SDK, code generation, compatibility, conformance and Golden Path patterns.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "OpenTelemetry Specification Overview",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/specs/otel/overview/",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["separation of API, SDK and data/export concepts", "cross-language specification model"],
+      "limitations": ["Telemetry domain differs from Harness execution contracts"]
+    },
+    {
+      "id": "S02",
+      "title": "OpenTelemetry Library Guidelines",
+      "publisher": "OpenTelemetry",
+      "url": "https://opentelemetry.io/docs/specs/otel/library-guidelines/",
+      "type": "official_specification_guidance",
+      "accessed_at": "2026-08-05",
+      "supports": ["library/SDK instrumentation patterns", "semantic conventions and stable APIs"],
+      "limitations": ["Does not define Aurora provider lifecycle or authority"]
+    },
+    {
+      "id": "S03",
+      "title": "Protocol Buffers Documentation",
+      "publisher": "Google",
+      "url": "https://protobuf.dev/overview/",
+      "type": "official_specification_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["schema-driven multi-language code generation", "versioned serialized contracts"],
+      "limitations": ["Binary schema choice not yet justified for all Aurora boundaries"]
+    },
+    {
+      "id": "S04",
+      "title": "Buf Breaking Change Detection",
+      "publisher": "Buf",
+      "url": "https://buf.build/docs/breaking/",
+      "type": "official_tool_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["mechanical API/schema compatibility checks"],
+      "limitations": ["Field compatibility does not prove semantic compatibility"]
+    },
+    {
+      "id": "S05",
+      "title": "JSON Schema 2020-12",
+      "publisher": "JSON Schema",
+      "url": "https://json-schema.org/draft/2020-12",
+      "type": "official_specification",
+      "accessed_at": "2026-08-05",
+      "supports": ["machine-readable validation for JSON contracts", "portable schema vocabulary"],
+      "limitations": ["Does not define lifecycle, compatibility policy or code generation quality"]
+    },
+    {
+      "id": "S06",
+      "title": "MCP Conformance",
+      "publisher": "Model Context Protocol",
+      "url": "https://github.com/modelcontextprotocol/conformance",
+      "type": "official_conformance_repository",
+      "accessed_at": "2026-08-05",
+      "supports": ["external conformance testing independent of one SDK"],
+      "limitations": ["Protocol conformance only"]
+    },
+    {
+      "id": "S07",
+      "title": "A2A Technology Compatibility Kit",
+      "publisher": "A2A Project",
+      "url": "https://github.com/a2aproject/a2a-tck",
+      "type": "official_conformance_repository",
+      "accessed_at": "2026-08-05",
+      "supports": ["cross-implementation compatibility testing"],
+      "limitations": ["Does not cover Aurora-specific extensions or provider quality"]
+    },
+    {
+      "id": "S08",
+      "title": "Backstage Software Templates",
+      "publisher": "Backstage",
+      "url": "https://backstage.io/docs/features/software-templates/",
+      "type": "official_platform_documentation",
+      "accessed_at": "2026-08-05",
+      "supports": ["self-service scaffolding", "Golden Path encoding of organizational standards", "template-driven component creation"],
+      "limitations": ["Backstage itself is not selected and targets organizational developer portals"]
+    }
+  ]
+}
