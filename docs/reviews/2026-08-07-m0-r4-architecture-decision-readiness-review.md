@@ -5,11 +5,11 @@ document_type: adversarial_review
 form: explanation
 authority: evidence
 status: current
-version: 1.0.0
+version: 1.0.1
 owners:
   - developmentconexus-ops
 source_of_truth_for:
-  - M0 R4 documentary architecture review observations and current verdict
+  - M0 R4 documentary architecture review observations and verdict at the pre-spike checkpoint
 related:
   - DOC-AURORA-STATUS
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
@@ -20,6 +20,7 @@ related:
   - DOC-AURORA-RESEARCH-MAP
   - DESIGN-AURORA-M0-SOVEREIGN-STORE-SPIKE-001
   - DESIGN-AURORA-M0-OWNER-TRUST-SPIKE-002
+  - REVIEW-AURORA-M0-R4-ARCHITECTURE-DECISION-READINESS-RERUN-2026-08-07
 source_revision: d00cc1abfc2a41ac7e81e1f3478e188b3c5e9e52
 r4_documentary_package_revision: ef7cdcc31bf09a0c91ea88eee5ef6f501c9eeff7
 reviewed_at: 2026-08-07

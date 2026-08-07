@@ -4,14 +4,16 @@ title: M0 Owner Root and Recovery Trust Boundary
 document_type: adr
 form: explanation
 authority: decision
-status: proposed
+status: accepted
+accepted_at: 2026-08-07
+acceptance_evidence: DOC-AURORA-M0-R4-ADR0008-ACCEPTANCE
 version: 0.2.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed M0 local owner authentication, integrity-anchor, time rollback and restore revalidation mechanism
+  - M0 local owner authentication, integrity-anchor, time rollback and restore revalidation mechanism
 related:
   - DOC-AURORA-CAP-SOVEREIGN-CORE-SPEC
   - DOC-AURORA-CAP-SOVEREIGN-CORE-THREAT-MODEL
@@ -20,6 +22,8 @@ related:
   - DESIGN-AURORA-M0-OWNER-TRUST-SPIKE-002
   - DOC-AURORA-M0-R4-SPK002-EVIDENCE-RECEIPT
   - REVIEW-AURORA-M0-R4-SPK002-OWNER-TRUST-2026-08-07
+  - DOC-AURORA-M0-R4-ADR0008-ACCEPTANCE
+  - REVIEW-AURORA-M0-R4-ARCHITECTURE-DECISION-READINESS-RERUN-2026-08-07
 supersedes: []
 superseded_by: null
 last_reviewed: 2026-08-07
@@ -97,7 +101,7 @@ Not selected for M0. This remains a strengthening/fallback class if the threat m
 
 ## Decision
 
-**Proposed, evidence-ready for operator acceptance:** use a random **256-bit Owner Root Key (ORK)** as the stable local owner/domain integrity root.
+**Accepted by the operator on 2026-08-07:** use a random **256-bit Owner Root Key (ORK)** as the stable local owner/domain integrity root.
 
 ### Root custody and unlock
 
@@ -314,14 +318,7 @@ SPK-AURORA-M0-OWNER-TRUST-002
 → CLOSED
 ```
 
-Before this ADR becomes governing:
-
-```text
-operator reviews ADR-0008 v0.2.0
-→ ACCEPTED | REJECTED | REVISED
-```
-
-This ADR remains `proposed` until that explicit operator decision.
+ADR-0008 v0.2.0 was explicitly accepted by the operator through `DOC-AURORA-M0-R4-ADR0008-ACCEPTANCE`. It is now a governing R4 architecture decision. Acceptance does not authorize R5, Microdesign or production implementation.
 
 ## Reconsideration triggers
 
@@ -339,5 +336,7 @@ This ADR remains `proposed` until that explicit operator decision.
 - `RESEARCH-AURORA-M0-PORTABILITY-INTEGRITY-R4-V1`
 - `DOC-AURORA-M0-R4-SPK002-EVIDENCE-RECEIPT`
 - `REVIEW-AURORA-M0-R4-SPK002-OWNER-TRUST-2026-08-07`
+- `DOC-AURORA-M0-R4-ADR0008-ACCEPTANCE`
+- `REVIEW-AURORA-M0-R4-ARCHITECTURE-DECISION-READINESS-RERUN-2026-08-07`
 - `SPK-AURORA-M0-OWNER-TRUST-002`
 - RFC 9106, RFC 5869, NIST GCM/HMAC/SHA sources captured by the R4 research manifests

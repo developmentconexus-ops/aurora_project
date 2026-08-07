@@ -602,3 +602,11 @@ Candidate A—random 256-bit ORK, Argon2id-derived KEK, AES-256-GCM wrapped ORK,
 Two findings were corrected before final evidence: (1) a measurement executable was initially placed inside the evidence artifact and contained deterministic fixture strings, so final packaging moved the binary outside evidence and both hygiene gates passed; (2) adversarial review found ordinary mutation needed to enforce anomaly classification itself, so `STATE_ROLLBACK`, `ANCHOR_LAG`, `TIME_UNTRUSTED` and `REVALIDATION_REQUIRED` now fail before normal mutation unless the explicit recovery path is used.
 
 The reviewed lifecycle is `PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED`. ADR-0008 was revised to v0.2.0 and remains `proposed / evidence-ready` pending explicit operator ACCEPT/REJECT/REVISE. R4 remains BLOCKED only on that operator decision. R5, Mission Contract, Microdesign and production implementation remain unauthorized.
+
+## 2026-08-07 — ADR-0008 Acceptance and M0 R4 PASS
+
+The operator explicitly accepted ADR-0008 v0.2.0, bound to blob `2a1497f8311ba9d04cd61f5025d7eae2af2fc57f` at canonical pre-acceptance main `35ce98fb2ddde16133c01a4da2f3545c8ae5e308`.
+
+The final M0 R4 readiness rerun resolved the last open gate blocker. All 15 M0 architecture questions now have governing dispositions; ADR-0003 through ADR-0008 are accepted for their scopes, ADR-0009 is accepted cross-horizon, and SPK-001/SPK-002 are `PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED`.
+
+The final verdict is `M0 ACRM R4 PASS`. This does not authorize R5. Mission Contract, Microdesign, production implementation, promotion of spike code and all other later-gate work remain prohibited until separately authorized by the operator.
