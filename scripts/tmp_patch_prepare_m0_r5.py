@@ -21,4 +21,49 @@ for old, new in repls.items():
     text = text.replace(old, new, 1)
 
 path.write_text(text.rstrip() + "\n", encoding="utf-8")
-print("patched R5 helper expectations for current Spec")
+
+coverage_path = Path("docs/capabilities/CAP-SOVEREIGN-CORE/R5-COVERAGE.md")
+coverage = coverage_path.read_text(encoding="utf-8")
+placeholder = '"+table+"'
+if coverage.count(placeholder) != 1:
+    raise SystemExit(f"R5 coverage placeholder count={coverage.count(placeholder)}")
+
+def criterion_for(req: int) -> int:
+    if 1 <= req <= 9:
+        return 1
+    if 10 <= req <= 20:
+        return 2
+    if 21 <= req <= 30:
+        return 3
+    if req == 31:
+        return 12
+    if 32 <= req <= 45:
+        return 4
+    if 46 <= req <= 55:
+        return 5
+    if 56 <= req <= 66:
+        return 6
+    if 67 <= req <= 76:
+        return 7
+    if 77 <= req <= 88:
+        return 8
+    if 89 <= req <= 95:
+        return 9
+    if 96 <= req <= 107:
+        return 10
+    if 108 <= req <= 122:
+        return 11
+    raise ValueError(req)
+
+rows = []
+for req in range(1, 123):
+    crit = criterion_for(req)
+    rows.append(
+        f"| `CAP-SOVEREIGN-CORE-REQ-{req:03d}` | "
+        f"`MIS-M0-SOVEREIGN-CORE-001-CRIT-{crit:03d}` | "
+        "`R3-COVERAGE.md` + `TEST-PLAN.md` | `ALLOCATED` |"
+    )
+coverage = coverage.replace(placeholder, "\n".join(rows), 1)
+coverage_path.write_text(coverage.rstrip() + "\n", encoding="utf-8")
+
+print("patched R5 helper expectations and materialized 122/122 coverage rows")
