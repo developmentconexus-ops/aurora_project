@@ -73,7 +73,7 @@ jobs:
           set -o pipefail
           go test -count=1 -timeout=6m -json -tags "${{ matrix.driver }}" ./... \
             | tee "evidence/tests-${RUNNER_OS}-${{ matrix.driver }}.json"
-      - name: Measure build and runtime
+      - name: Measure build and small/medium runtime fixtures
         shell: bash
         run: |
           suffix=""
@@ -86,6 +86,10 @@ jobs:
           "$binary" \
             -transitions 100 \
             -out "evidence/metrics-${RUNNER_OS}-${{ matrix.driver }}.json"
+          "$binary" \
+            -transitions 20 \
+            -baseline-bytes 4194304 \
+            -out "evidence/metrics-medium-${RUNNER_OS}-${{ matrix.driver }}.json"
       - name: Upload matrix evidence
         if: always()
         uses: actions/upload-artifact@v4
