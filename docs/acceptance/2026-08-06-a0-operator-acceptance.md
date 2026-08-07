@@ -20,6 +20,7 @@ related:
   - DOC-AURORA-GP-A0-FRESH-001-EVALUATION
   - ADR-AURORA-0001
   - ADR-AURORA-0002
+promotion_triggered_at: 2026-08-06
 last_reviewed: 2026-08-06
 ---
 
