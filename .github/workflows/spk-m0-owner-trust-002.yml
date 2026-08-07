@@ -13,16 +13,20 @@ permissions:
   contents: read
 
 jobs:
-  red:
+  green-linux:
     runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: spikes/m0-owner-trust-002
+    env:
+      CGO_ENABLED: "0"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version: "1.26.5"
           cache: false
-      - name: Confirm contract is not implemented yet
-        run: go test -count=1 ./...
+      - name: Resolve pinned dependency graph
+        run: go mod tidy
+      - name: Run SPK-002 scenario contract
+        run: go test -count=1 -timeout=8m ./...
