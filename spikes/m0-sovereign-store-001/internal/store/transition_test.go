@@ -82,3 +82,53 @@ func TestAcceptedTransitionIsAtomicAndStaleTransitionMutatesNothing(t *testing.T
 		t.Fatalf("stale transition mutated durable rows\nbefore: %#v\n after: %#v", countsBeforeStale, countsAfterStale)
 	}
 }
+
+func TestInvalidRevisionTransitionMutatesNothing(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "aurora.db")
+	initial := Snapshot{
+		SchemaVersion:     1,
+		AuroraID:          "AURORA-SPIKE-001",
+		ProjectID:         "PROJECT-SPIKE-001",
+		CurrentRevision:   1,
+		AuthorityRevision: "AUTH-1",
+		StateKind:         "ACTIVE",
+		StateSummary:      "revision one",
+	}
+	if err := Bootstrap(path, initial); err != nil {
+		t.Fatalf("bootstrap: %v", err)
+	}
+	beforeCounts, err := InspectCounts(path)
+	if err != nil {
+		t.Fatalf("counts before invalid transition: %v", err)
+	}
+
+	invalid := TransitionInput{
+		AttemptID:          "ATTEMPT-INVALID",
+		ProjectID:          initial.ProjectID,
+		ExpectedRevision:   1,
+		NewRevision:        9,
+		AuthorityRevision:  "AUTH-1",
+		StateKind:          "ACTIVE",
+		StateSummary:       "must never exist",
+		AuditID:            "AUDIT-INVALID",
+		EvidenceID:         "EVIDENCE-INVALID",
+		EvidenceRef:        "sha256:invalid",
+	}
+	if err := ApplyTransition(path, invalid, nil); !errors.Is(err, ErrInvalidRevision) {
+		t.Fatalf("invalid transition error = %v, want ErrInvalidRevision", err)
+	}
+	got, err := Inspect(path)
+	if err != nil {
+		t.Fatalf("inspect after invalid transition: %v", err)
+	}
+	if !reflect.DeepEqual(got, initial) {
+		t.Fatalf("invalid transition changed governing state\nwant: %#v\n got: %#v", initial, got)
+	}
+	afterCounts, err := InspectCounts(path)
+	if err != nil {
+		t.Fatalf("counts after invalid transition: %v", err)
+	}
+	if !reflect.DeepEqual(afterCounts, beforeCounts) {
+		t.Fatalf("invalid transition mutated durable rows\nbefore: %#v\n after: %#v", beforeCounts, afterCounts)
+	}
+}
