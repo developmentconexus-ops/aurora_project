@@ -513,3 +513,56 @@ R3 PASS
 ```
 
 The package was integrated canonically at `58a7946b62f27d8b8784169e7e3741eec24ecc95` and passed the normal Documentation workflow. Spec/threat/test artifacts remain `proposed`; merge/CI do not constitute operator acceptance. No stack, Architecture Spike, Mission Contract, Microdesign or implementation was selected or executed. R4 remains separately gated and unauthorized.
+
+## 2026-08-07 — M0 R4 Documentary Architecture/Decision Checkpoint
+
+After R3 PASS, the operator authorized `M0 ACRM R4 — Architecture/Decision Readiness` with `Vamos para próximo passo então` and subsequently approved the decision philosophy of long-horizon exploration with evidence-bounded commitment.
+
+R4 fixed its source baseline at:
+
+```text
+d00cc1abfc2a41ac7e81e1f3478e188b3c5e9e52
+```
+
+A decision landscape mapped all 15 R3-open architecture questions by dependency and lock-in. Four focused current research reports plus source manifests were created for runtime/persistence, portability/integrity/export, owner-root/authority/recovery trust and observability.
+
+Six ADRs were proposed but not accepted:
+
+```text
+ADR-0003 Go as initial Core runtime
+ADR-0004 local modular Core + explicit current state/revisions + no full event sourcing/durable engine in M0
+ADR-0005 JSON Schema/JSON/JCS portable state + age outer export + explicit migrations
+ADR-0006 OpenTelemetry traces/metrics + slog; optional backend
+ADR-0007 SQLite operational store — spike-blocked
+ADR-0008 Owner Root/recovery trust boundary — spike-blocked
+```
+
+Two sequential Architecture Spikes were specified but not authorized to execute:
+
+```text
+SPK-AURORA-M0-SOVEREIGN-STORE-001
+→ compare Go SQLite bindings and prove crash/restart/backup/restore/atomicity
+
+SPK-AURORA-M0-OWNER-TRUST-002
+→ only after reviewed SPK-001 result; prove owner-root/rollback/time/restore-freshness protocol
+```
+
+The documentary validator initially exposed a test/index identifier mismatch; after correction it passed. The repository documentation validator then exposed invalid conceptual `SPK-*` values being used as canonical document IDs. The package was corrected to use `DESIGN-*` document IDs while preserving explicit `spike_id: SPK-*` identities. GitHub Actions run `31200153496` then passed R4 package validation, docs generation, documentation validation and projection freshness. The formal R4 review also passed validation in run `31200329122`.
+
+The clean R4 documentary package/review was integrated to canonical `main` at:
+
+```text
+71f64bab2a82c2a7781d28274224f60abc277b2c
+```
+
+Normal main Documentation workflow run `31200439197` completed successfully.
+
+The formal R4 verdict is:
+
+```text
+R4 BLOCKED
+```
+
+This is not an architecture failure. All 15 questions are accounted for, but accepted governance requires executable crash/restart/restore evidence before storage/recovery commitment, Architecture Spike execution has not been authorized, and all six new ADRs remain proposed. ADR-0003..0006 are ready for operator review; ADR-0007..0008 must remain proposed until their exact spike evidence is complete and reviewed.
+
+R5, Mission Contract, Microdesign and implementation remain unauthorized.
