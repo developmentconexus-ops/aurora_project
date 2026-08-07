@@ -13,9 +13,9 @@ owners:
 approvers:
   - operator
 source_of_truth_for:
-  - proposed first-party AHDK policy
-  - proposed universal conformance policy
-  - proposed waiver boundary
+  - first-party AHDK policy
+  - universal conformance policy
+  - waiver boundary
 related:
   - DOC-AURORA-BLUEPRINT-05
   - DOC-AURORA-BLUEPRINT-07
@@ -38,10 +38,10 @@ last_reviewed: 2026-08-06
 ## 1. Status
 
 ```text
-PROPOSED
+ACCEPTED
 ```
 
-This ADR proposes an organizational and technical policy. It does not choose the first SDK language or authorize implementation.
+This ADR establishes an organizational and technical policy accepted in A0. It does not choose the first SDK language or authorize implementation.
 
 ## 2. Decision scope
 
@@ -220,9 +220,9 @@ First-party Harnesses must use the official development kit unless an explicit w
 
 #### Assessment
 
-Recommended, subject to SPK-001.
+Selected as the A0 policy direction. Implementation readiness remains subject to SPK-001 and the applicable ACRM gates.
 
-## 7. Proposed decision
+## 7. Decision
 
 ### Universal requirements
 
@@ -543,7 +543,7 @@ Breaking changes require:
 - updated generated types/docs;
 - trust/approval review for material changes.
 
-## 17. Implementation constraints if accepted
+## 17. Implementation constraints under the accepted policy
 
 1. Build one AHDK first; no premature TypeScript/Python/Go parity.
 2. Generate repeated types from canonical schemas where practical.
@@ -593,9 +593,9 @@ Create a new provider through the Golden Path and demonstrate that a fresh imple
 
 Attempt direct filesystem/network/credential access outside AHDK and prove external enforcement denies or contains it.
 
-## 19. Acceptance evidence
+## 19. Implementation-readiness evidence
 
-Before accepting this policy for implementation planning:
+Before advancing this accepted A0 policy into implementation planning:
 
 - ADR-0001 principle is accepted or compatible;
 - AHDK-focused research is current;
@@ -605,7 +605,7 @@ Before accepting this policy for implementation planning:
 - first Product Milestone identifies an actual first-party consumer;
 - removal conditions exist for unused abstractions.
 
-A0 may accept the policy direction without selecting language or implementing the kit.
+A0 accepts the policy direction without selecting a language or implementing the kit; implementation readiness remains a later gate.
 
 ## 20. Consequences
 
