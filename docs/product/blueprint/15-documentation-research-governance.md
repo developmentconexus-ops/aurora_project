@@ -7,7 +7,7 @@ authority: constitutional
 status: accepted
 accepted_at: 2026-08-06
 acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.2.0
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -1259,19 +1259,23 @@ Documentation defects can be product/security defects.
 
 ---
 
-## 15.31 Current A0 gate
+## 15.31 A0 acceptance rule and post-A0 current-state ownership
 
-A0 remains `IN_REVIEW` until:
+A0 acceptance required:
 
-- all fifteen sections are complete and reviewed;
-- discovery coverage is full;
-- focused research program is published enough to support proposed ADRs;
-- Capability Realization Method and traceability exist;
-- aggregate/index/read paths are current;
-- adversarial and fresh-session review pass;
-- Leandro explicitly accepts baseline and ADR status.
+- all fifteen sections complete and reviewed;
+- full discovery coverage;
+- focused research sufficient to support the A0 decision set;
+- Capability Realization Method and traceability;
+- current aggregate/index/read paths;
+- adversarial and fresh-session review;
+- explicit Leandro acceptance of the baseline and ADR status.
 
-Implementation remains prohibited.
+Those conditions were satisfied and A0 was explicitly accepted on 2026-08-06, then merged to `main`.
+
+After A0, mutable coordination state is not owned by this constitutional section. `docs/tracking/STATUS.md` owns the selected Product Milestone, current ACRM gate, blockers, authorization boundary and exact next action.
+
+A0 acceptance never authorizes later gates, Architecture Spike execution or implementation by implication. Each transition still requires the authority defined by the Capability Realization Method and current `STATUS.md`.
 
 ---
 

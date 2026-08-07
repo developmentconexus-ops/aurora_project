@@ -7,7 +7,7 @@ authority: constitutional
 status: accepted
 accepted_at: 2026-08-06
 acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.2.0
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -31,35 +31,24 @@ last_reviewed: 2026-08-06
 
 # Aurora Documentation Map
 
-## 1. Current phase
+## 1. Accepted baseline and current-state owner
 
-```text
-A0 — Product, Discovery and Architecture Baseline
-```
+A0 transformed the initial Aurora discovery dialogue into the accepted, research-backed and resumable product constitution. The A0 baseline was explicitly accepted and merged on 2026-08-06.
 
-A0 exists to transform the initial Aurora discovery dialogue into a complete, research-backed and resumable product constitution before runtime implementation begins.
+A0 established:
 
-Current work includes:
-
-- Product Blueprint definition;
+- the Product Blueprint and canonical ownership model;
 - preservation of origin, examples and decision reasoning;
 - focused research with primary-source manifests;
-- proposed architecture decisions;
-- constitutional requirement derivation;
-- a Blueprint-to-build realization method;
-- roadmap and Golden Proof definition;
-- mechanical and adversarial documentation validation.
+- accepted ADR-0001 and ADR-0002;
+- constitutional requirements and traceability;
+- the Blueprint-to-build Capability Realization Method;
+- roadmap and Golden Proof definitions;
+- mechanical, adversarial and fresh-session validation.
 
-Current work does **not** authorize:
+This Documentation Map does **not** own mutable coordination state after A0. The authoritative source for the selected Product Milestone, current readiness gate, blockers, authorizations, prohibitions and exact next action is always [`docs/tracking/STATUS.md`](tracking/STATUS.md).
 
-- Aurora Core implementation;
-- AHDK implementation;
-- architecture spike execution;
-- stack selection;
-- MNFS integration;
-- device or laboratory control.
-
-The authoritative current boundary is always recorded in [`docs/tracking/STATUS.md`](tracking/STATUS.md).
+A0 acceptance does not, by itself, authorize Aurora Core/AHDK/MNFS implementation, Architecture Spike execution, stack selection or later ACRM gates. Those permissions must be explicit in `STATUS.md` and their owning evidence.
 
 ---
 

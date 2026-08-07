@@ -70,16 +70,23 @@ Aurora governa objetivo global, contexto, authority, budget, composição e rela
 
 ## Estado atual
 
+O estado mutável do programa não é duplicado neste README. A fonte canônica para Product Milestone selecionado, gate ACRM atual, blockers, autorizações, proibições e próxima ação é:
+
 ```text
-A0 baseline: ACCEPTED — 2026-08-06
-ADR-0001 / ADR-0002: ACCEPTED
-Next product gate: select first Product Milestone → begin ACRM R0
-Runtime implementation: PROHIBITED
-Architecture Spikes: NOT AUTHORIZED
-Stack selection: NOT PERFORMED
+docs/tracking/STATUS.md
 ```
 
-A0 foi explicitamente aceita pelo operador após validação mecânica, revisão adversarial e Golden Proof independente. Essa aceitação estabelece a constituição do produto; não autoriza implementação. O próximo passo é selecionar o primeiro Product Milestone e iniciar ACRM R0.
+A baseline durável já estabelecida é:
+
+```text
+A0 baseline: ACCEPTED / MERGED — 2026-08-06
+ADR-0001 / ADR-0002: ACCEPTED
+Stack selection by A0: NOT PERFORMED
+Runtime implementation: NOT AUTHORIZED BY A0
+Architecture Spike execution: NOT AUTHORIZED BY A0
+```
+
+A aceitação de A0 estabelece a constituição do produto; cada milestone, gate, decisão técnica, spike e execução posterior continua exigindo sua própria promoção e autorização explícita. Consulte `STATUS.md` em vez de inferir o próximo passo deste resumo.
 
 ## Documentação
 

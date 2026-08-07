@@ -5,7 +5,7 @@ document_type: traceability_matrix
 form: reference
 authority: tracking
 status: current
-version: 2.0.0
+version: 2.0.1
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -225,14 +225,14 @@ A0 cannot close with `MISSING`, `UNMAPPED` or `OPEN_GAP` coverage.
 | Conversation as discovery, repository as canonical memory | FULL | Blueprint 15, History | promotion and historical preservation |
 | Aggregate Blueprint publication | FULL | Product Index, generated aggregate | deterministic source hashes and CI freshness |
 | Capability Realization Method | FULL | ACRM | R0–R8 gates and artifact model |
-| Requirements traceability | FULL | Requirements Traceability | 294 proposed constitutional requirements |
+| Requirements traceability | FULL | Requirements Traceability | 294 accepted A0 constitutional requirements |
 | Mechanical documentation validation | FULL | scripts and CI | structure, IDs, relations, links, manifests, requirements and freshness |
 
 ---
 
 ## 12. Quantitative baseline
 
-At the current remediation state:
+At A0 acceptance:
 
 ```text
 Blueprint sections:          15
@@ -261,7 +261,7 @@ The following remain deliberately open and do not constitute documentation gaps:
 - event transport/backend;
 - memory mechanism mix;
 - first reference Harness runtime;
-- first Product Milestone contract after A0.
+- exact first Mission Contract for the selected M0 milestone.
 
 Each requires focused readiness work under the Aurora Capability Realization Method.
 
@@ -278,10 +278,14 @@ Discovery coverage is considered complete for A0 when:
 5. a fresh session passes the documentation Golden Proof;
 6. Leandro explicitly accepts A0.
 
-Current state:
+A0 exit state:
 
 ```text
 CONTENT REMEDIATION COMPLETE
-MECHANICAL VALIDATION IN PROGRESS
-OPERATOR ACCEPTANCE NOT YET GRANTED
+MECHANICAL + ADVERSARIAL VALIDATION COMPLETE
+INDEPENDENT FRESH-SESSION GOLDEN PROOF: PASS
+OPERATOR ACCEPTANCE: GRANTED — 2026-08-06
+A0 MERGE: COMPLETE
 ```
+
+This coverage matrix does not own post-A0 milestone/gate coordination. Current readiness state is recorded only in `docs/tracking/STATUS.md`.

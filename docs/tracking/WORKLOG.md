@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.6.0
+version: 0.7.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -267,3 +267,46 @@ STACK SELECTION — NOT PERFORMED
 ```
 
 The next session must execute only R0, produce `PASS | FAIL | BLOCKED` with repository citations, identify constitutional gaps/contradictions if any, and stop before R1 unless separately authorized.
+
+## 2026-08-06 — M0 R0 constitutional baseline review
+
+A fresh repository-only review executed ACRM R0 for selected `M0 — Sovereign Core Walking Skeleton` against fixed commit:
+
+```text
+1da990f368a1bc693c09191c41d30a3db454d11e
+```
+
+Verdict:
+
+```text
+R0 FAIL
+```
+
+Findings:
+
+- `R0-F01`: selected M0 did not satisfy the complete milestone anatomy required by Blueprint 14; the requirement also needed clarification that full executable anatomy applies when a milestone enters the executable horizon, preserving directional future milestones from premature detail;
+- `R0-F02`: the ADR index reported ADR-0001/0002 as proposed despite accepted ADR owners and explicit operator acceptance;
+- `R0-F03`: mutable current-state snapshots had drifted across AGENTS, README/index/constitutional/coverage documents after A0 merge and M0 selection.
+
+The review deliberately did not choose language, storage, framework, runtime, protocol, topology or spike implementation and did not advance to R1.
+
+Review record:
+
+```text
+docs/reviews/2026-08-06-m0-r0-constitutional-baseline-review.md
+```
+
+## 2026-08-06 — M0 R0 documentary remediation authorized
+
+After receiving the R0 FAIL and exact allowed next action, Leandro instructed the project to continue. This is recorded as authorization to remediate the R0 documentation/constitutional findings only.
+
+The remediation:
+
+- completes selected M0's executable-horizon roadmap anatomy using only already-accepted intent;
+- aligns the roadmap requirement with the two-horizon model;
+- aligns ADR status discovery;
+- removes duplicated mutable gate ownership from durable documents;
+- regenerates Product Blueprint/Roadmap projections;
+- validates documentation before operator review.
+
+R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized.

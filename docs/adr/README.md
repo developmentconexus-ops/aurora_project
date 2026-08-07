@@ -7,7 +7,7 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-06
 acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.2.0
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -116,10 +116,10 @@ Acceptance of an ADR does not automatically authorize a Capability Spec, Mission
 
 | ADR | Title | Status | Primary decision |
 |---|---|---|---|
-| [ADR-0001](0001-aurora-owned-contract-model.md) | Aurora-owned Contract Model and Replaceable Bindings | proposed | Aurora owns cross-Harness semantics; protocols remain bindings |
-| [ADR-0002](0002-first-party-harness-development-kit.md) | First-party Harness Development Kit and Universal Conformance | proposed | first-party Harnesses use AHDK by policy; conformance remains universal |
+| [ADR-0001](0001-aurora-owned-contract-model.md) | Aurora-owned Contract Model and Replaceable Bindings | accepted | Aurora owns cross-Harness semantics; protocols remain bindings |
+| [ADR-0002](0002-first-party-harness-development-kit.md) | First-party Harness Development Kit and Universal Conformance | accepted | first-party Harnesses use AHDK by policy; conformance remains universal |
 
-No ADR is accepted in A0 yet.
+ADR-0001 and ADR-0002 were explicitly accepted by the operator as part of the A0 decision gate on 2026-08-06. Future ADRs remain non-governing until their own lifecycle and required authority promote them.
 
 ## 7. Numbering and filenames
 

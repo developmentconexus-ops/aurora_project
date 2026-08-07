@@ -34,20 +34,27 @@ When sources conflict, do not choose silently. Raise `DOCUMENTATION_DIVERGENCE`,
 
 ## 3. Current phase and authorization
 
+Mutable coordination state has exactly one owner:
+
 ```text
-Phase: A0 — ACCEPTED Product, Discovery and Architecture Baseline
-Repository disposition: PR #1 merge AUTHORIZED; consult STATUS for completion
-A0 constitutional content: ACCEPTED
-ADR-0001 / ADR-0002: ACCEPTED
-First Product Milestone: NOT YET SELECTED
-Aurora Core implementation: PROHIBITED
-AHDK implementation: PROHIBITED
-Architecture Spikes: PROPOSED, NOT AUTHORIZED
-Stack selection: NOT PERFORMED
-MNFS integration: PROHIBITED
+docs/tracking/STATUS.md
 ```
 
-A0 is accepted. Product Milestone selection and ACRM R0 preparation are authorized next; implementation remains prohibited until the applicable gates and a separate execution authorization pass.
+A fresh session MUST read `STATUS.md` for the selected Product Milestone, current ACRM gate, blockers, authorizations, prohibitions and exact next action. This file intentionally does not duplicate those mutable values.
+
+Stable accepted baseline:
+
+```text
+A0 constitutional baseline: ACCEPTED / MERGED
+ADR-0001 / ADR-0002: ACCEPTED
+Stack selection from A0: NOT PERFORMED
+Aurora Core implementation: NOT AUTHORIZED BY A0
+AHDK implementation: NOT AUTHORIZED BY A0
+Architecture Spike execution: NOT AUTHORIZED BY A0
+MNFS integration: NOT AUTHORIZED BY A0
+```
+
+After A0, every readiness transition remains explicit. Selection of a Product Milestone authorizes only the readiness work recorded in `STATUS`; completing one ACRM gate does not authorize the next gate, and no implementation follows from file existence or absence of a prohibition.
 
 Do not implement runtime, database, SDK, protocol binding, UI, model router, memory engine, device controller or MNFS adapter until:
 

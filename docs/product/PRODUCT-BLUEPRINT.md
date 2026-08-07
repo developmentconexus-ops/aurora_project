@@ -40,7 +40,7 @@ Generator: scripts/generate_docs.py
 
 | Section | Canonical source | SHA-256 |
 |---:|---|---|
-| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `b7c835b0342f0c9a0d240f6637d6c270dcc10b7770576923a779123a16fbf8e8` |
+| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `f9572d914bc55938d34a6ccb11c981c1ed7acff2baf7b3c9ec766ef0be913ea6` |
 | 02 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md` | `9f8e65c84870ec92f48f7bf0820fd5ad01dc244bbc824b6f0d108c77c9e64f37` |
 | 03 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md` | `2aac158f6ff6a7dae3aeb58cacac2706eed5068fc23d6be3c61d6f9dcaf1d622` |
 | 04 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `c448cf0c680cd0a2468790537cc7a094e14dc4c7a7e2f23062a233bdf8f3d411` |
@@ -53,8 +53,8 @@ Generator: scripts/generate_docs.py
 | 11 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md` | `45abdfa563250f50d40e1a3063992af72fe883d62ab47cd6eadc677684d20518` |
 | 12 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md` | `48037455d51c38b447fb43067af51d430dd66a9a377f003c9282244c065896d1` |
 | 13 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md` | `f3b637d88822a4d16081e9306d7f51e0c65a04e21ff2eace388e93a341c2bba8` |
-| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `5d04a5dc293f1c8b9fd2af4d122391d3937a2806fcb2557a65464d6dcb88a2cc` |
-| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `f72f135ad43e93f6b1f3c3fd315dab48e9984eddf8d6447b492ff3dbc81dadfe` |
+| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `9a1827b411a0b3cc036d04a60515ce742b44ef0abf49992585ec7f39710570fb` |
+| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `d390232565736821668b24e00038cf5041b1156ba484eb5232996ec9916b247a` |
 
 ---
 
@@ -723,21 +723,19 @@ Aurora fails the vision if she becomes:
 
 ---
 
-## 1.19 Current product phase
+## 1.19 Authorization boundary after A0
 
-```text
-A0 — Product, Discovery and Architecture Baseline
-```
+A0 was explicitly accepted and merged on 2026-08-06. That acceptance establishes Aurora's constitutional product direction; it does not create runtime authority or select implementation mechanisms.
 
-Current work is documentation, research, adversarial review and architectural clarification.
+Mutable coordination state after A0 belongs to `docs/tracking/STATUS.md`, including:
 
-Implementation remains prohibited until:
+- selected Product Milestone;
+- current ACRM gate;
+- active blockers/findings;
+- authorized versus prohibited work;
+- exact next action.
 
-- all fifteen Blueprint sections are reviewed;
-- A0 requirements and traceability are accepted;
-- ADR status is explicitly decided;
-- next milestone is promoted to readiness;
-- architecture spikes and implementation plan are separately authorized.
+Material implementation can advance only through the applicable Capability Realization gates and separate execution authorization. Research, examples, accepted constitutional direction or the existence of a candidate spike/framework never substitute for that authority.
 
 ---
 
@@ -13156,7 +13154,7 @@ Product Milestone is not the same as an internal mission milestone.
 
 ## 14.5 Required milestone anatomy
 
-Every Product Milestone must define:
+Every Product Milestone **promoted into the current executable horizon** must define:
 
 ```text
 Outcome
@@ -13174,6 +13172,10 @@ Dependencies
 Replan triggers
 Promotion/authority boundary
 ```
+
+Directional future milestones may intentionally leave executable fields less specific while preserving enough outcome, risk, proof direction and boundaries to protect sequencing. Before such a milestone can pass its own R0, it must be expanded to the complete anatomy above without silently importing technical commitment from a distant horizon.
+
+For the selected/current milestone, a missing required field is a constitutional readiness defect, not something R1/R2 should invent on behalf of the roadmap owner.
 
 A milestone cannot close because files exist or a demo looks plausible.
 
@@ -13339,7 +13341,7 @@ Aurora is merely a running session; restart destroys identity and state.
 - storage and language spikes complete enough for one local implementation;
 - backup/restore and migration strategy for the slice.
 
-## Capabilities
+## Capabilities involved
 
 - sovereign identity;
 - project registry;
@@ -13347,6 +13349,15 @@ Aurora is merely a running session; restart destroys identity and state.
 - authority snapshot;
 - event/audit minimum;
 - CLI or simple interface.
+
+## Architecture spikes
+
+M0 requires evidence for the two implementation-blocking uncertainty classes already named by its entry criteria:
+
+- local operational-state persistence/recovery, including the export/restore and migration needs of this slice;
+- Core implementation language/runtime fit for the smallest local implementation.
+
+The roadmap does **not** select spike IDs, candidate technologies, procedures or winners. R1–R4 must determine exact applicability and whether an existing portfolio item is reusable or a narrower M0 spike is required. Every spike still requires its own authorization before execution.
 
 ## Golden Proof
 
@@ -13361,13 +13372,36 @@ initialize Aurora instance
 → export and restore state
 ```
 
-## Evidence
+## Evidence requirements
 
 - state hashes/IDs;
 - restart receipt;
 - invalid transition test;
 - backup/restore result;
 - no transcript dependency.
+
+## Exit criteria
+
+- the complete M0 Golden Proof passes end to end against one fixed accepted revision;
+- Aurora identity, project identity, accepted project state, authority snapshot and next action survive the process restart represented by the proof;
+- the invalid transition is rejected without being accepted as current state;
+- export and restore reproduce the M0 state required by the proof;
+- evidence demonstrates that transcript, external model and Harness state are not the authority required for recovery;
+- limitations and residual risks are explicit;
+- operator-visible value is demonstrated and M0 receives its R8 closeout verdict rather than being inferred from component completion.
+
+## Telemetry baseline
+
+M0 records only the structured signals needed to explain and verify its own walking skeleton:
+
+- stable Aurora/project/proof-run correlation identities;
+- attempted and accepted/rejected lifecycle transitions;
+- restart/recovery boundary and result;
+- export/restore attempt and result;
+- integrity/hash references used by the M0 evidence;
+- classified failure reason when a proof step cannot complete.
+
+No telemetry backend, event transport, schema technology or observability framework is selected by this baseline.
 
 ## Non-goals
 
@@ -13379,11 +13413,27 @@ initialize Aurora instance
 - cloud;
 - physical devices.
 
+## Dependencies
+
+M0 depends on the prerequisites expressed by its entry criteria and the accepted constitutional owners for identity, project/state, authority, sovereignty, architecture and evidence.
+
+M0 does **not** depend on M1 conversational memory, M2 Capability Registry/AHDK, MNFS integration, cloud deployment or physical-device capability. Those remain later roadmap concerns.
+
 ## Replan triggers
 
 - store cannot preserve required state simply;
 - domain model proves too broad for slice;
 - operational burden exceeds single-user baseline.
+
+## Promotion/authority boundary
+
+M0 selection authorizes readiness analysis only to the extent recorded in `docs/tracking/STATUS.md`.
+
+- R0–R6 may refine applicability, verifiable requirements, Capability design, technical decisions and the exact implementation contract, but MUST NOT silently change this outcome, named risk, Golden Proof direction or non-goals;
+- completing one ACRM gate does not authorize the next;
+- language, storage, runtime, topology, schema, event/audit and backup mechanisms remain technical decisions for later applicable gates;
+- Architecture Spike execution and Aurora Core implementation require separate explicit authorization;
+- M0 becomes accepted only through R8 closeout with end-to-end evidence and the required operator verdict.
 
 ---
 
@@ -15393,19 +15443,23 @@ Documentation defects can be product/security defects.
 
 ---
 
-## 15.31 Current A0 gate
+## 15.31 A0 acceptance rule and post-A0 current-state ownership
 
-A0 remains `IN_REVIEW` until:
+A0 acceptance required:
 
-- all fifteen sections are complete and reviewed;
-- discovery coverage is full;
-- focused research program is published enough to support proposed ADRs;
-- Capability Realization Method and traceability exist;
-- aggregate/index/read paths are current;
-- adversarial and fresh-session review pass;
-- Leandro explicitly accepts baseline and ADR status.
+- all fifteen sections complete and reviewed;
+- full discovery coverage;
+- focused research sufficient to support the A0 decision set;
+- Capability Realization Method and traceability;
+- current aggregate/index/read paths;
+- adversarial and fresh-session review;
+- explicit Leandro acceptance of the baseline and ADR status.
 
-Implementation remains prohibited.
+Those conditions were satisfied and A0 was explicitly accepted on 2026-08-06, then merged to `main`.
+
+After A0, mutable coordination state is not owned by this constitutional section. `docs/tracking/STATUS.md` owns the selected Product Milestone, current ACRM gate, blockers, authorization boundary and exact next action.
+
+A0 acceptance never authorizes later gates, Architecture Spike execution or implementation by implication. Each transition still requires the authority defined by the Capability Realization Method and current `STATUS.md`.
 
 ---
 
