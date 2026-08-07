@@ -24,6 +24,14 @@ jobs:
           python-version: "3.12"
       - name: Apply accepted ADR and R4 PASS state
         run: python scripts/tmp_accept_adr0008_r4_pass.py
+      - name: Normalize WORKLOG EOF
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('docs/tracking/WORKLOG.md')
+          p.write_text(p.read_text(encoding='utf-8').rstrip() + '\n', encoding='utf-8')
+          PY
       - name: Generate documentation projections
         run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
       - name: Validate documentation system
@@ -37,7 +45,7 @@ jobs:
           grep -F 'status: accepted' docs/adr/0008-m0-owner-root-recovery-trust.md
           grep -F 'acceptance_evidence: DOC-AURORA-M0-R4-ADR0008-ACCEPTANCE' docs/adr/0008-m0-owner-root-recovery-trust.md
           grep -F 'M0 ACRM R4 — Architecture/Decision Readiness: PASS' docs/tracking/STATUS.md
-          grep -F 'R5 — Contract Readiness:** NOT AUTHORIZED' docs/tracking/STATUS.md || grep -F 'R5 — Contract Readiness:** NOT AUTHORIZED' docs/tracking/STATUS.md || grep -F 'R5 — Contract Readiness:    NOT AUTHORIZED' docs/tracking/STATUS.md
+          grep -F 'R5 — Contract Readiness:** NOT AUTHORIZED' docs/tracking/STATUS.md || grep -F 'R5 — Contract Readiness:    NOT AUTHORIZED' docs/tracking/STATUS.md
           grep -F 'R4 PASS' docs/reviews/2026-08-07-m0-r4-architecture-decision-readiness-rerun.md
           grep -F 'R5 NOT AUTHORIZED' docs/reviews/2026-08-07-m0-r4-architecture-decision-readiness-rerun.md
           test ! -d spikes/m0-owner-trust-002
@@ -52,4 +60,10 @@ jobs:
           git add docs .github/workflows/accept-adr0008-r4-pass.yml scripts/tmp_accept_adr0008_r4_pass.py
           git diff --cached --check
           git commit -m 'docs: accept ADR-0008 and close M0 R4 PASS'
+          bad=$(git diff --name-only origin/main...HEAD | grep -v '^docs/' || true)
+          if [[ -n "$bad" ]]; then
+            echo "non-document closeout diff detected:" >&2
+            echo "$bad" >&2
+            exit 1
+          fi
           git push origin HEAD:docs/m0-r4-adr0008-acceptance-r4-pass
