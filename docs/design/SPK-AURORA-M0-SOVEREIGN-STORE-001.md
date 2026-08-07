@@ -1,5 +1,6 @@
 ---
-id: SPK-AURORA-M0-SOVEREIGN-STORE-001
+id: DESIGN-AURORA-M0-SOVEREIGN-STORE-SPIKE-001
+spike_id: SPK-AURORA-M0-SOVEREIGN-STORE-001
 title: M0 Sovereign Store Crash, Restart and Restore Spike
 document_type: architecture_spike
 form: reference
