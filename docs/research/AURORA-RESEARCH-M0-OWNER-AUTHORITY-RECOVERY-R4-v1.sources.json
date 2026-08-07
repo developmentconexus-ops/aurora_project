@@ -1,0 +1,126 @@
+{
+  "research_id": "RESEARCH-AURORA-M0-OWNER-AUTHORITY-RECOVERY-R4-V1",
+  "accessed_at": "2026-08-07",
+  "selection_policy": "Primary cryptographic standards and current Go standard/official extension documentation for owner authentication, key derivation, key wrapping, trust-anchor integrity, secure randomness and time semantics.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "RFC 9106 — Argon2",
+      "publisher": "RFC Editor / CFRG",
+      "url": "https://www.rfc-editor.org/info/rfc9106/",
+      "type": "rfc_informational_cfrg",
+      "accessed_at": "2026-08-07",
+      "supports": ["Argon2id password-based key derivation", "64 MiB/time=3/parallelism=4 recommended lower-memory profile"],
+      "limitations": ["Parameters still need operational latency validation on target hardware"]
+    },
+    {
+      "id": "S02",
+      "title": "golang.org/x/crypto/argon2",
+      "publisher": "The Go Project",
+      "url": "https://pkg.go.dev/golang.org/x/crypto/argon2",
+      "type": "official_go_package_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["Go Argon2id implementation", "RFC 9106 parameter guidance"],
+      "limitations": ["External module rather than Go standard library"]
+    },
+    {
+      "id": "S03",
+      "title": "Go crypto/rand",
+      "publisher": "The Go Project",
+      "url": "https://pkg.go.dev/crypto/rand",
+      "type": "official_standard_library_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["cryptographically secure random bytes for root keys, salts and nonces"],
+      "limitations": ["Random generation does not define key custody"]
+    },
+    {
+      "id": "S04",
+      "title": "NIST SP 800-38D — GCM",
+      "publisher": "NIST",
+      "url": "https://csrc.nist.gov/pubs/sp/800/38/d/final",
+      "type": "standard_guidance",
+      "accessed_at": "2026-08-07",
+      "supports": ["AES-GCM authenticated encryption for confidentiality and integrity"],
+      "limitations": ["Nonce uniqueness and key management remain application responsibilities", "NIST is revising the publication"]
+    },
+    {
+      "id": "S05",
+      "title": "Go crypto/aes",
+      "publisher": "The Go Project",
+      "url": "https://pkg.go.dev/crypto/aes",
+      "type": "official_standard_library_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["AES-256 key support", "Go AES implementation"],
+      "limitations": ["constant-time properties depend on hardware support"]
+    },
+    {
+      "id": "S06",
+      "title": "Go crypto/cipher",
+      "publisher": "The Go Project",
+      "url": "https://pkg.go.dev/crypto/cipher",
+      "type": "official_standard_library_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["standard AES-GCM AEAD API"],
+      "limitations": ["safe nonce lifecycle remains caller responsibility"]
+    },
+    {
+      "id": "S07",
+      "title": "RFC 5869 — HKDF",
+      "publisher": "RFC Editor / IETF",
+      "url": "https://www.rfc-editor.org/info/rfc5869/",
+      "type": "rfc_informational",
+      "accessed_at": "2026-08-07",
+      "supports": ["derive independent labeled subkeys from a root key"],
+      "limitations": ["requires strong initial keying material"]
+    },
+    {
+      "id": "S08",
+      "title": "Go crypto/hkdf",
+      "publisher": "The Go Project",
+      "url": "https://pkg.go.dev/crypto/hkdf",
+      "type": "official_standard_library_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["Go 1.26 standard HKDF implementation"],
+      "limitations": []
+    },
+    {
+      "id": "S09",
+      "title": "Go crypto/hmac",
+      "publisher": "The Go Project",
+      "url": "https://pkg.go.dev/crypto/hmac",
+      "type": "official_standard_library_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["keyed HMAC and constant-time comparison helper"],
+      "limitations": ["rollback detection requires a key/trust anchor outside the rolled-back store"]
+    },
+    {
+      "id": "S10",
+      "title": "Go time",
+      "publisher": "The Go Project",
+      "url": "https://pkg.go.dev/time",
+      "type": "official_standard_library_documentation",
+      "accessed_at": "2026-08-07",
+      "supports": ["time.Now carries in-process monotonic reading", "serialized Time representations do not preserve process monotonic-clock semantics"],
+      "limitations": ["monotonic time cannot directly establish freshness across process restart"]
+    },
+    {
+      "id": "S11",
+      "title": "FIPS 198-1 — HMAC",
+      "publisher": "NIST",
+      "url": "https://csrc.nist.gov/pubs/fips/198-1/final",
+      "type": "standard",
+      "accessed_at": "2026-08-07",
+      "supports": ["keyed message authentication model"],
+      "limitations": ["NIST plans migration to SP 800-224"]
+    },
+    {
+      "id": "S12",
+      "title": "FIPS 180-4 — Secure Hash Standard",
+      "publisher": "NIST",
+      "url": "https://csrc.nist.gov/pubs/fips/180-4/upd1/final",
+      "type": "standard",
+      "accessed_at": "2026-08-07",
+      "supports": ["SHA-256 hash primitive used under HMAC/HKDF"]
+    }
+  ]
+}
