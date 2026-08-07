@@ -21,6 +21,7 @@ related:
   - ADR-AURORA-0001
   - ADR-AURORA-0002
 promotion_triggered_at: 2026-08-06
+promotion_attempt: 2
 last_reviewed: 2026-08-06
 ---
 
