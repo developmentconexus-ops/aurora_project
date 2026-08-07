@@ -82,6 +82,15 @@ func TestNaiveMainFileCopyWhileCommittedRevisionLivesInWALIsNotCurrentBackup(t *
 	}
 
 	cmd, _ := startHelperAtPoint(t, "transition", source, "", "after_commit")
+	walInfo, err := os.Stat(source + "-wal")
+	if err != nil {
+		killHelper(t, cmd)
+		t.Fatalf("committed revision did not leave an observable WAL before restart: %v", err)
+	}
+	if walInfo.Size() == 0 {
+		killHelper(t, cmd)
+		t.Fatal("observable WAL was empty before restart")
+	}
 	copyFileForTest(t, source, naive)
 
 	naiveSnapshot, naiveErr := Inspect(naive)
@@ -93,7 +102,7 @@ func TestNaiveMainFileCopyWhileCommittedRevisionLivesInWALIsNotCurrentBackup(t *
 
 	got, err := Inspect(source)
 	if err != nil {
-		t.Fatalf("inspect original after kill: %v", err)
+		t.Fatalf("inspect original after kill with WAL present: %v", err)
 	}
 	if got.CurrentRevision != 2 || got.StateSummary != "revision two after crash boundary" {
 		t.Fatalf("original did not recover committed WAL state: %#v", got)
