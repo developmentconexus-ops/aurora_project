@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"testing"
 )
 
@@ -86,4 +87,4 @@ func runCommandInput(bin string, args []string, stdin string) (string, string, e
 	return stdout.String(), stderr.String(), err
 }
 
-func formatInt(v float64) string { return json.Number(string(rune(0))).String() /* replaced below */ }
+func formatInt(v float64) string { return strconv.FormatUint(uint64(v), 10) }
