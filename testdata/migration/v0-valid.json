@@ -1,0 +1,94 @@
+{
+  "format": "aurora-sovereign-export",
+  "version": 0,
+  "created_at": "2026-08-10T12:00:00Z",
+  "generation": 3,
+  "aurora": {
+    "aurora_id": "AUR-fixture-v0",
+    "owner_operator_id": "OWNER-LEANDRO",
+    "created_at": "2026-08-10T10:00:00Z",
+    "identity_revision": 1,
+    "capability_contract_version": "0.2.0"
+  },
+  "projects": [{
+    "project": {
+      "project_id": "PRJ-fixture-v0",
+      "display_label": "Migration Fixture",
+      "objective_summary": "Preserve M0 semantics",
+      "current_state_revision": 1,
+      "created_at": "2026-08-10T10:05:00Z",
+      "updated_at": "2026-08-10T10:10:00Z"
+    },
+    "revisions": [{
+      "project_id": "PRJ-fixture-v0",
+      "state_revision": 1,
+      "accepted_state": {
+        "state_schema_version": "1",
+        "state_kind": "note",
+        "state_summary": "Legacy accepted state",
+        "state_payload": {"value": 7}
+      },
+      "proposed_next_action": {
+        "action_class": "review",
+        "summary": "Review migration",
+        "project_id": "PRJ-fixture-v0",
+        "required_authority_action": "review"
+      },
+      "accepted_by_actor": "OWNER-LEANDRO",
+      "accepted_at": "2026-08-10T10:10:00Z",
+      "transition_attempt_id": "ATT-v0-1"
+    }]
+  }],
+  "authority": {
+    "current_revision": 1,
+    "revisions": [{
+      "revision": 1,
+      "grants": [{
+        "authority_id": "AUTH-v0-review",
+        "authority_revision": 1,
+        "subject_operator_id": "OWNER-LEANDRO",
+        "actor_id": "AURORA_CORE",
+        "project_scope": ["PRJ-fixture-v0"],
+        "permitted_action_classes": ["review"],
+        "lifecycle_status": "ACTIVE",
+        "issued_at": "2026-08-10T10:06:00Z",
+        "provenance": "fixture-v0-owner"
+      }],
+      "revalidation_required": false,
+      "changed_by": "OWNER-LEANDRO",
+      "changed_at": "2026-08-10T10:06:00Z"
+    }]
+  },
+  "transition_attempts": [{
+    "attempt_id": "ATT-v0-1",
+    "project_id": "PRJ-fixture-v0",
+    "actor_id": "OWNER-LEANDRO",
+    "requested_at": "2026-08-10T10:10:00Z",
+    "requested_state": {"state_schema_version":"1","state_kind":"note","state_summary":"Legacy accepted state","state_payload":{"value":7}},
+    "result": "ACCEPTED",
+    "reason": "ACCEPTED",
+    "accepted_state_revision": 1
+  }],
+  "records": [{
+    "record_id": "REC-v0-1",
+    "kind": "AUDIT",
+    "operation_id": "ATT-v0-1",
+    "project_id": "PRJ-fixture-v0",
+    "state_revision": 1,
+    "outcome": "ACCEPTED",
+    "reason": "STATE_TRANSITION",
+    "details": {},
+    "created_at": "2026-08-10T10:10:00Z"
+  }],
+  "owner_recovery": {
+    "version": 1,
+    "root_id": "ROOT-fixture-v0",
+    "kdf": "argon2id",
+    "memory_kib": 65536,
+    "iterations": 3,
+    "parallelism": 4,
+    "salt": "AA",
+    "nonce": "BB",
+    "wrapped_ork": "CC"
+  }
+}
