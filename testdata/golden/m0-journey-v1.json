@@ -1,0 +1,10 @@
+{
+  "fixture_id": "FIX-GP-M0-SOVEREIGN-CORE-001",
+  "project_label": "Golden Project",
+  "project_objective": "Prove sovereign restart, authority, portability and recovery",
+  "state_kind": "accepted",
+  "state_summary": "M0 golden state R1",
+  "next_action": "project.next.execute",
+  "next_summary": "Execute the next governed project action",
+  "required_authority_action": "project.next.execute"
+}
