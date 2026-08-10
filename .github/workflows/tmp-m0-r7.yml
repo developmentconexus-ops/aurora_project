@@ -43,8 +43,8 @@ jobs:
                   changed.append(str(path))
           print('normalized helper delimiter artifacts:', changed)
           PY
-            echo '--- initialize.go 135-145 after normalization ---'
-            nl -ba internal/application/initialize.go | sed -n '135,145p'
+            echo '--- initialize.go 135-165 after normalization ---'
+            nl -ba internal/application/initialize.go | sed -n '135,165p'
           fi
       - name: Format and lock modules
         shell: bash
