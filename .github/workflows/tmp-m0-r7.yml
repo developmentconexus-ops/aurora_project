@@ -1,0 +1,48 @@
+name: Temporary M0 R7
+
+on:
+  push:
+    branches:
+      - feat/m0-r7-sovereign-core
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.5'
+      - name: Test
+        env:
+          CGO_ENABLED: '0'
+        run: go test ./...
+      - name: Vet
+        if: success()
+        env:
+          CGO_ENABLED: '0'
+        run: go vet ./...
+      - name: Build
+        if: success()
+        env:
+          CGO_ENABLED: '0'
+        run: go build ./cmd/aurora
+
+  windows-trust:
+    if: ${{ hashFiles('go.mod') != '' }}
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.5'
+      - name: Trust package tests
+        shell: pwsh
+        env:
+          CGO_ENABLED: '0'
+        run: |
+          if (Test-Path 'internal/adapters/trustfs') { go test ./internal/adapters/trustfs } else { Write-Host 'trustfs not introduced yet' }
