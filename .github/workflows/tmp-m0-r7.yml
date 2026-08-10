@@ -37,14 +37,15 @@ jobs:
                   if stripped.startswith('if ') and ':=' in line and '%' in line:
                       line=line.replace('%', ';', 1)
                       dirty=True
+                  if '% err' in line:
+                      line=line.replace('% err', '; err')
+                      dirty=True
                   out.append(line)
               if dirty:
                   path.write_text(''.join(out))
                   changed.append(str(path))
           print('normalized helper delimiter artifacts:', changed)
           PY
-            echo '--- initialize.go 135-165 after normalization ---'
-            nl -ba internal/application/initialize.go | sed -n '135,165p'
           fi
       - name: Format and lock modules
         shell: bash
@@ -128,6 +129,9 @@ jobs:
                   stripped=line.lstrip()
                   if stripped.startswith('if ') and ':=' in line and '%' in line:
                       line=line.replace('%', ';', 1)
+                      dirty=True
+                  if '% err' in line:
+                      line=line.replace('% err', '; err')
                       dirty=True
                   out.append(line)
               if dirty:
