@@ -40,14 +40,14 @@ func TestOpenConfiguresSQLiteAndBootstrapIsAtomic(t *testing.T) {
 	}
 
 	mutation := ports.BootstrapMutation{
-		OperationID:              "OP-BOOTSTRAP-1",
-		AuroraID:                 "AUR-FIXTURE",
-		OwnerOperatorID:          "OWNER-LOCAL",
-		CreatedAt:                time.Date(2026, 8, 9, 20, 0, 0, 0, time.UTC),
-		AuthorityRevision:        1,
-		AuthorityJSON:            []byte(`{"revision":1,"grants":[]}`),
-		GoverningGeneration:      1,
-		GoverningDescriptorHMAC:  []byte("fixture-mac"),
+		OperationID:             "OP-BOOTSTRAP-1",
+		AuroraID:                "AUR-FIXTURE",
+		OwnerOperatorID:         "OWNER-LOCAL",
+		CreatedAt:               time.Date(2026, 8, 9, 20, 0, 0, 0, time.UTC),
+		AuthorityRevision:       1,
+		AuthorityJSON:           []byte(`{"revision":1,"grants":[]}`),
+		GoverningGeneration:     1,
+		GoverningDescriptorHMAC: []byte("fixture-mac"),
 	}
 	result, err := store.Bootstrap(ctx, mutation)
 	if err != nil {
