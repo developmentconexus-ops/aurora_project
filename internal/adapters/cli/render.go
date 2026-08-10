@@ -1,11 +1,4 @@
 package cli
 
-import(
-	"encoding/json"
-	"fmt"
-	"io"
-
-	"github.com/developmentconexus-ops/aurora_project/internal/application"
-	"github.com/developmentconexus-ops/aurora_project/internal/domain/project"
-)
-func renderResult(out io.Writer,asJSON bool,v any)error{if asJSON{return json.NewEncoder(out).Encode(v)};switch r:=v.(type){case application.InitializeResult:_,err:=fmt.Fprintf(out,"Aurora initialized\nAurora ID: %s\nOwner: %s\nGeneration: %d\n",r.AuroraID,r.OwnerOperatorID,r.GoverningGeneration);return err;case application.InspectResult:_,err:=fmt.Fprintf(out,"Aurora ID: %s\nOwner: %s\nAuthority revision: %d\nGeneration: %d\nTrust: %s\n",r.AuroraID,r.OwnerOperatorID,r.CurrentAuthorityRevision,r.GoverningGeneration,r.TrustStatus);return err;case project.Project:_,err:=fmt.Fprintf(out,"Project created\nProject ID: %s\nLabel: %s\nObjective: %s\n",r.ProjectID,r.DisplayLabel,r.ObjectiveSummary);return err;case application.ProjectView:_,err:=fmt.Fprintf(out,"Project ID: %s\nLabel: %s\nObjective: %s\n",r.Project.ProjectID,r.Project.DisplayLabel,r.Project.ObjectiveSummary);return err;default:return fmt.Errorf("unsupported CLI result type %T",v)}}
+import("encoding/json";"fmt";"io";"github.com/developmentconexus-ops/aurora_project/internal/application";"github.com/developmentconexus-ops/aurora_project/internal/domain/project")
+func renderResult(out io.Writer,asJSON bool,v any)error{if asJSON{return json.NewEncoder(out).Encode(v)};switch r:=v.(type){case application.InitializeResult:_,err:=fmt.Fprintf(out,"Aurora initialized\nAurora ID: %s\nOwner: %s\nGeneration: %d\n",r.AuroraID,r.OwnerOperatorID,r.GoverningGeneration);return err;case application.InspectResult:_,err:=fmt.Fprintf(out,"Aurora ID: %s\nOwner: %s\nAuthority revision: %d\nGeneration: %d\nTrust: %s\n",r.AuroraID,r.OwnerOperatorID,r.CurrentAuthorityRevision,r.GoverningGeneration,r.TrustStatus);return err;case project.Project:_,err:=fmt.Fprintf(out,"Project created\nProject ID: %s\nLabel: %s\nObjective: %s\n",r.ProjectID,r.DisplayLabel,r.ObjectiveSummary);return err;case application.ProjectView:_,err:=fmt.Fprintf(out,"Project ID: %s\nLabel: %s\nObjective: %s\n",r.Project.ProjectID,r.Project.DisplayLabel,r.Project.ObjectiveSummary);if err!=nil{return err};if r.CurrentState==nil{_,err=fmt.Fprintln(out,"Current state: NONE");return err};_,err=fmt.Fprintf(out,"Current state revision: %d\nState kind: %s\nState summary: %s\n",r.CurrentState.Revision,r.CurrentState.State.Kind,r.CurrentState.State.Summary);return err;default:return fmt.Errorf("unsupported CLI result type %T",v)}}

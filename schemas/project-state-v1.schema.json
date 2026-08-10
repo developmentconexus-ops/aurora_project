@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aurora.local/schemas/project-state-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["state_schema_version", "state_kind", "state_summary"],
+  "properties": {
+    "state_schema_version": {"const": "1"},
+    "state_kind": {"type": "string", "minLength": 1, "maxLength": 100},
+    "state_summary": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "state_payload": {}
+  }
+}
