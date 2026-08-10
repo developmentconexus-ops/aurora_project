@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/base64"
 	"errors"
-	"time"
 
 	"github.com/developmentconexus-ops/aurora_project/internal/domain/project"
 	"github.com/developmentconexus-ops/aurora_project/internal/ports"
@@ -79,14 +78,11 @@ func (s *Service) CreateProject(ctx context.Context, ownerPassphrase []byte, in 
 }
 
 func (s *Service) ShowProject(ctx context.Context, ownerPassphrase []byte, id project.ProjectID) (ProjectView, error) {
-	if _, err := s.Inspect(ctx, ownerPassphrase); err != nil {
-		return ProjectView{}, err
-	}
-	record, err := s.State.LoadProject(ctx, string(id))
+	inspection, err := s.InspectProject(ctx, ownerPassphrase, id)
 	if err != nil {
 		return ProjectView{}, err
 	}
-	return projectFromRecord(record), nil
+	return inspection.Project, nil
 }
 
 func projectFromRecord(r ports.ProjectRecord) project.Project {
@@ -97,5 +93,3 @@ func projectFromRecord(r ports.ProjectRecord) project.Project {
 	}
 	return project.Project{ProjectID: project.ProjectID(r.ProjectID), DisplayLabel: r.DisplayLabel, ObjectiveSummary: r.ObjectiveSummary, CurrentStateRevision: rev, CreatedAt: r.CreatedAt, UpdatedAt: r.UpdatedAt}
 }
-
-var _ = time.Time{}

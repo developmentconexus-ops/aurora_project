@@ -11,14 +11,35 @@ var (
 	ErrNotInitialized     = errors.New("Aurora is not initialized")
 	ErrProjectExists      = errors.New("project already exists")
 	ErrProjectNotFound    = errors.New("project not found")
+	ErrCurrentStateMissing = errors.New("current project state revision is missing")
 	ErrGenerationConflict = errors.New("governing generation conflict")
 )
+
+type StateEnvelopeRecord struct {
+	SchemaVersion string
+	Kind          string
+	Summary       string
+	Payload       []byte
+}
+
+type ProjectStateRecord struct {
+	ProjectID              string
+	Revision               uint64
+	PredecessorRevision    *uint64
+	State                   StateEnvelopeRecord
+	AcceptedIntentRef       string
+	ProposedNextActionJSON  []byte
+	AcceptedByActor         string
+	AcceptedAt              time.Time
+	TransitionAttemptID     string
+}
 
 type ProjectRecord struct {
 	ProjectID            string
 	DisplayLabel         string
 	ObjectiveSummary     string
 	CurrentStateRevision *uint64
+	CurrentState         *ProjectStateRecord
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
 }
@@ -60,4 +81,5 @@ type StateStore interface {
 	LoadCurrent(context.Context) (CurrentSnapshot, error)
 	CreateProject(context.Context, CreateProjectMutation) (ProjectRecord, error)
 	LoadProject(context.Context, string) (ProjectRecord, error)
+	LoadProjectCurrent(context.Context, string) (ProjectRecord, *ProjectStateRecord, error)
 }
