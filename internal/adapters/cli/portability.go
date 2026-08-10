@@ -1,11 +1,188 @@
 package cli
 
-import(
-	"context";"flag";"fmt";"io";"os";"path/filepath"
+import (
+	"context"
+	"flag"
+	"fmt"
+	"io"
+	"os"
+	"path/filepath"
+
 	"github.com/developmentconexus-ops/aurora_project/internal/adapters/exportage"
 	"github.com/developmentconexus-ops/aurora_project/internal/adapters/sqlite"
 	"github.com/developmentconexus-ops/aurora_project/internal/adapters/trustfs"
 	"github.com/developmentconexus-ops/aurora_project/internal/application"
 )
-func runExport(ctx context.Context,svc *application.Service,args []string,opts globalOptions,out,errOut io.Writer)int{fs:=flag.NewFlagSet("export",flag.ContinueOnError);fs.SetOutput(errOut);path:=fs.String("out","","output .aurora.age path");if err:=fs.Parse(args);err!=nil{return 2};if *path==""{fmt.Fprintln(errOut,"export requires --out");return 2};owner,err:=promptSecret("Owner passphrase: ",errOut);if err!=nil{return 1};defer wipe(owner);secret,err:=promptSecret("Export passphrase: ",errOut);if err!=nil{return 1};defer wipe(secret);result,err:=svc.Export(ctx,owner,secret);if err!=nil{fmt.Fprintln(errOut,"export:",err);return 1};if err:=os.WriteFile(*path,result.Ciphertext,0o600);err!=nil{fmt.Fprintln(errOut,"write export:",err);return 1};if err:=renderResult(out,opts.json,result);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0}
-func runRestore(args []string,opts globalOptions,out,errOut io.Writer)int{fs:=flag.NewFlagSet("restore",flag.ContinueOnError);fs.SetOutput(errOut);in:=fs.String("in","","input .aurora.age path");target:=fs.String("target-data-dir","","fresh target data directory");if err:=fs.Parse(args);err!=nil{return 2};if *in==""||*target==""{fmt.Fprintln(errOut,"restore requires --in and --target-data-dir");return 2};if _,err:=os.Stat(*target);err==nil{fmt.Fprintln(errOut,"restore target must not already exist");return 1}else if !os.IsNotExist(err){fmt.Fprintln(errOut,"inspect restore target:",err);return 1};ciphertext,err:=os.ReadFile(*in);if err!=nil{fmt.Fprintln(errOut,"read export:",err);return 1};exportSecret,err:=promptSecret("Export passphrase: ",errOut);if err!=nil{return 1};defer wipe(exportSecret);owner,err:=promptSecret("Owner passphrase: ",errOut);if err!=nil{return 1};defer wipe(owner);parent:=filepath.Dir(*target);if err:=os.MkdirAll(parent,0o700);err!=nil{fmt.Fprintln(errOut,err);return 1};stage,err:=os.MkdirTemp(parent,"."+filepath.Base(*target)+".restore-*");if err!=nil{fmt.Fprintln(errOut,err);return 1};published:=false;defer func(){if !published{_ = os.RemoveAll(stage)}}();store,err:=sqlite.Open(stage);if err!=nil{fmt.Fprintln(errOut,err);return 1};svc:=&application.Service{State:store,Trust:trustfs.New(stage),Clock:wallClock{},ExportProtection:exportage.Protection{}};result,err:=svc.Restore(context.Background(),ciphertext,exportSecret,owner);closeErr:=store.Close();if err!=nil{fmt.Fprintln(errOut,"restore:",err);return 1};if closeErr!=nil{fmt.Fprintln(errOut,"close restored store:",closeErr);return 1};if err:=os.Rename(stage,*target);err!=nil{fmt.Fprintln(errOut,"publish restored target:",err);return 1};published=true;if err:=renderResult(out,opts.json,result);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0}
+
+func runExport(ctx context.Context, svc *application.Service, args []string, opts globalOptions, out, errOut io.Writer) int {
+	fs := flag.NewFlagSet("export", flag.ContinueOnError)
+	fs.SetOutput(errOut)
+	path := fs.String("out", "", "output .aurora.age path")
+	if err := fs.Parse(args); err != nil {
+		return 2
+	}
+	if *path == "" {
+		fmt.Fprintln(errOut, "export requires --out")
+		return 2
+	}
+	owner, err := promptSecret("Owner passphrase: ", errOut)
+	if err != nil {
+		return 1
+	}
+	defer wipe(owner)
+	secret, err := promptSecret("Export passphrase: ", errOut)
+	if err != nil {
+		return 1
+	}
+	defer wipe(secret)
+	result, err := svc.Export(ctx, owner, secret)
+	if err != nil {
+		fmt.Fprintln(errOut, "export:", err)
+		return 1
+	}
+	if err := os.WriteFile(*path, result.Ciphertext, 0o600); err != nil {
+		fmt.Fprintln(errOut, "write export:", err)
+		return 1
+	}
+	if err := renderResult(out, opts.json, result); err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	return 0
+}
+
+func runRestore(args []string, opts globalOptions, out, errOut io.Writer) int {
+	fs := flag.NewFlagSet("restore", flag.ContinueOnError)
+	fs.SetOutput(errOut)
+	in := fs.String("in", "", "input .aurora.age path")
+	target := fs.String("target-data-dir", "", "fresh target data directory")
+	if err := fs.Parse(args); err != nil {
+		return 2
+	}
+	if *in == "" || *target == "" {
+		fmt.Fprintln(errOut, "restore requires --in and --target-data-dir")
+		return 2
+	}
+	if _, err := os.Stat(*target); err == nil {
+		fmt.Fprintln(errOut, "restore target must not already exist")
+		return 1
+	} else if !os.IsNotExist(err) {
+		fmt.Fprintln(errOut, "inspect restore target:", err)
+		return 1
+	}
+	ciphertext, err := os.ReadFile(*in)
+	if err != nil {
+		fmt.Fprintln(errOut, "read export:", err)
+		return 1
+	}
+	exportSecret, err := promptSecret("Export passphrase: ", errOut)
+	if err != nil {
+		return 1
+	}
+	defer wipe(exportSecret)
+	owner, err := promptSecret("Owner passphrase: ", errOut)
+	if err != nil {
+		return 1
+	}
+	defer wipe(owner)
+	parent := filepath.Dir(*target)
+	if err := os.MkdirAll(parent, 0o700); err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	stage, err := os.MkdirTemp(parent, "."+filepath.Base(*target)+".restore-*")
+	if err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	published := false
+	defer func() {
+		if !published {
+			_ = os.RemoveAll(stage)
+		}
+	}()
+	store, err := sqlite.Open(stage)
+	if err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	svc := &application.Service{
+		State:            store,
+		Trust:            trustfs.New(stage),
+		Clock:            wallClock{},
+		ExportProtection: exportage.Protection{},
+	}
+	result, err := svc.Restore(context.Background(), ciphertext, exportSecret, owner)
+	closeErr := store.Close()
+	if err != nil {
+		fmt.Fprintln(errOut, "restore:", err)
+		return 1
+	}
+	if closeErr != nil {
+		fmt.Fprintln(errOut, "close restored store:", closeErr)
+		return 1
+	}
+	if err := os.Rename(stage, *target); err != nil {
+		fmt.Fprintln(errOut, "publish restored target:", err)
+		return 1
+	}
+	published = true
+	if err := renderResult(out, opts.json, result); err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	return 0
+}
+
+func runMigrate(args []string, opts globalOptions, out, errOut io.Writer) int {
+	fs := flag.NewFlagSet("migrate", flag.ContinueOnError)
+	fs.SetOutput(errOut)
+	in := fs.String("in", "", "input prior-version .aurora.age path")
+	output := fs.String("out", "", "output current-version .aurora.age path")
+	if err := fs.Parse(args); err != nil {
+		return 2
+	}
+	if *in == "" || *output == "" {
+		fmt.Fprintln(errOut, "migrate requires --in and --out")
+		return 2
+	}
+	inAbs, err := filepath.Abs(*in)
+	if err != nil {
+		fmt.Fprintln(errOut, "resolve migration input:", err)
+		return 1
+	}
+	outAbs, err := filepath.Abs(*output)
+	if err != nil {
+		fmt.Fprintln(errOut, "resolve migration output:", err)
+		return 1
+	}
+	if filepath.Clean(inAbs) == filepath.Clean(outAbs) {
+		fmt.Fprintln(errOut, "migrate input and output must be different files")
+		return 2
+	}
+	ciphertext, err := os.ReadFile(*in)
+	if err != nil {
+		fmt.Fprintln(errOut, "read migration input:", err)
+		return 1
+	}
+	secret, err := promptSecret("Export passphrase: ", errOut)
+	if err != nil {
+		return 1
+	}
+	defer wipe(secret)
+	svc := &application.Service{ExportProtection: exportage.Protection{}}
+	result, err := svc.MigratePackage(context.Background(), ciphertext, secret)
+	if err != nil {
+		fmt.Fprintln(errOut, "migrate:", err)
+		return 1
+	}
+	if err := os.WriteFile(*output, result.Ciphertext, 0o600); err != nil {
+		fmt.Fprintln(errOut, "write migration output:", err)
+		return 1
+	}
+	if err := renderResult(out, opts.json, result); err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	return 0
+}

@@ -1,5 +1,66 @@
 package sqlite
 
+import (
+	"context"
+	"database/sql"
+	"errors"
+	"fmt"
+)
+
+var ErrUnsupportedPhysicalSchema = errors.New("unsupported SQLite physical schema version")
+
+type physicalMigration struct {
+	Version int
+	Name    string
+	SQL     string
+}
+
+var physicalMigrations = []physicalMigration{
+	{Version: 1, Name: "0001_initial.sql", SQL: initialSchema},
+}
+
+func applyMigrations(ctx context.Context, db *sql.DB) error {
+	var current int
+	if err := db.QueryRowContext(ctx, "PRAGMA user_version").Scan(&current); err != nil {
+		return fmt.Errorf("read SQLite user_version: %w", err)
+	}
+	latest := physicalMigrations[len(physicalMigrations)-1].Version
+	if current < 0 || current > latest {
+		return fmt.Errorf("%w: current=%d latest=%d", ErrUnsupportedPhysicalSchema, current, latest)
+	}
+	for _, migration := range physicalMigrations {
+		if migration.Version <= current {
+			continue
+		}
+		if migration.Version != current+1 {
+			return fmt.Errorf("%w: migration gap after version %d", ErrUnsupportedPhysicalSchema, current)
+		}
+		if err := applyPhysicalMigration(ctx, db, migration); err != nil {
+			return err
+		}
+		current = migration.Version
+	}
+	return nil
+}
+
+func applyPhysicalMigration(ctx context.Context, db *sql.DB, migration physicalMigration) error {
+	tx, err := db.BeginTx(ctx, nil)
+	if err != nil {
+		return fmt.Errorf("begin %s: %w", migration.Name, err)
+	}
+	defer tx.Rollback()
+	if _, err := tx.ExecContext(ctx, migration.SQL); err != nil {
+		return fmt.Errorf("apply %s: %w", migration.Name, err)
+	}
+	if _, err := tx.ExecContext(ctx, fmt.Sprintf("PRAGMA user_version=%d", migration.Version)); err != nil {
+		return fmt.Errorf("mark %s: %w", migration.Name, err)
+	}
+	if err := tx.Commit(); err != nil {
+		return fmt.Errorf("commit %s: %w", migration.Name, err)
+	}
+	return nil
+}
+
 const initialSchema = `
 CREATE TABLE IF NOT EXISTS authority_revisions (
   authority_revision INTEGER PRIMARY KEY,
