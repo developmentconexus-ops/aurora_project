@@ -27,11 +27,11 @@ type StateEnvelope struct {
 }
 
 type ActionDescriptor struct {
-	ActionClass              string    `json:"action_class"`
-	Summary                  string    `json:"summary"`
-	ProjectID                ProjectID `json:"project_id"`
-	RequiredAuthorityAction  string    `json:"required_authority_action"`
-	PreconditionRef          string    `json:"precondition_ref,omitempty"`
+	ActionClass             string    `json:"action_class"`
+	Summary                 string    `json:"summary"`
+	ProjectID               ProjectID `json:"project_id"`
+	RequiredAuthorityAction string    `json:"required_authority_action"`
+	PreconditionRef         string    `json:"precondition_ref,omitempty"`
 }
 
 type ProjectStateRevision struct {

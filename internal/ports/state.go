@@ -7,12 +7,12 @@ import (
 )
 
 var (
-	ErrAlreadyInitialized = errors.New("Aurora is already initialized")
-	ErrNotInitialized     = errors.New("Aurora is not initialized")
-	ErrProjectExists      = errors.New("project already exists")
-	ErrProjectNotFound    = errors.New("project not found")
+	ErrAlreadyInitialized  = errors.New("Aurora is already initialized")
+	ErrNotInitialized      = errors.New("Aurora is not initialized")
+	ErrProjectExists       = errors.New("project already exists")
+	ErrProjectNotFound     = errors.New("project not found")
 	ErrCurrentStateMissing = errors.New("current project state revision is missing")
-	ErrGenerationConflict = errors.New("governing generation conflict")
+	ErrGenerationConflict  = errors.New("governing generation conflict")
 )
 
 type StateEnvelopeRecord struct {
@@ -26,12 +26,12 @@ type ProjectStateRecord struct {
 	ProjectID              string
 	Revision               uint64
 	PredecessorRevision    *uint64
-	State                   StateEnvelopeRecord
-	AcceptedIntentRef       string
-	ProposedNextActionJSON  []byte
-	AcceptedByActor         string
-	AcceptedAt              time.Time
-	TransitionAttemptID     string
+	State                  StateEnvelopeRecord
+	AcceptedIntentRef      string
+	ProposedNextActionJSON []byte
+	AcceptedByActor        string
+	AcceptedAt             time.Time
+	TransitionAttemptID    string
 }
 
 type ProjectRecord struct {
