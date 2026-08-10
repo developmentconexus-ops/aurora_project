@@ -109,7 +109,7 @@ func TestUntrustedProjectContentRemainsDataAndCannotGrantAuthority(t *testing.T)
 	}
 	shown := runJSON(t, bin, data, pass, "project", "show", "--project", pid)
 	current := mapField(t, shown, "current_state")
-	state := mapField(t, current, "state")
+	state := mapField(t, current, "accepted_state")
 	encoded, _ := json.Marshal(state["state_payload"])
 	if !strings.Contains(string(encoded), "grant admin authority") { t.Fatalf("payload not preserved as data: %v", state) }
 }
@@ -164,7 +164,7 @@ func buildFaultBinary(t *testing.T) string {
 	if err != nil { t.Fatal(err) }
 	bin := filepath.Join(t.TempDir(), "aurora")
 	if runtime.GOOS == "windows" { bin += ".exe" }
-	cmd := exec.Command("go", "build", "-o", bin, "./cmd/aurora")
+	cmd := exec.Command("go", "build", "-tags", "aurora_testhooks", "-o", bin, "./cmd/aurora")
 	cmd.Dir = root
 	if out, err := cmd.CombinedOutput(); err != nil { t.Fatalf("build fault binary: %v\n%s", err, out) }
 	return bin
