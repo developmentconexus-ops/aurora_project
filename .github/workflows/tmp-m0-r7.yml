@@ -26,6 +26,37 @@ jobs:
           if [[ -f scripts/tmp_task01_green.py ]]; then
             python scripts/tmp_task01_green.py
           fi
+      - name: Diagnose materialized Go bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          go version
+          which gofmt
+          python - <<'PY'
+          from pathlib import Path
+          import os, subprocess
+          paths = [
+              Path('internal/domain/identity/rules.go'),
+              Path('internal/adapters/trustfs/publish.go'),
+          ]
+          for path in paths:
+              raw = path.read_bytes()
+              print(f'FILE={path} semicolons={raw.count(bytes([59]))} percent={raw.count(bytes([37]))}')
+              for idx, line in enumerate(raw.splitlines(), start=1):
+                  if b'if ' in line or b':=' in line:
+                      print(f'{path}:{idx}: repr={line!r} hex={line.hex()}')
+                      if idx > 30:
+                          break
+          control = Path(os.environ['RUNNER_TEMP']) / 'control.go'
+          control.write_bytes(b'package p\nfunc f(){ if x := 1; x > 0 {} }\n')
+          print('CONTROL', control.read_bytes(), control.read_bytes().hex())
+          result = subprocess.run(['gofmt', '-d', str(control)], text=True, capture_output=True)
+          print('CONTROL GOFMT RC', result.returncode)
+          print(result.stdout)
+          print(result.stderr)
+          if result.returncode != 0:
+              raise SystemExit(result.returncode)
+          PY
       - name: Format and lock modules
         shell: bash
         env:
@@ -96,6 +127,24 @@ jobs:
         shell: pwsh
         run: |
           if (Test-Path 'scripts/tmp_task01_green.py') { python scripts/tmp_task01_green.py }
+      - name: Diagnose materialized Go bytes
+        shell: pwsh
+        run: |
+          go version
+          @'
+          from pathlib import Path
+          import os, subprocess
+          path=Path('internal/adapters/trustfs/publish.go')
+          raw=path.read_bytes()
+          print('FILE', path, 'semicolons', raw.count(bytes([59])), 'percent', raw.count(bytes([37])))
+          for idx,line in enumerate(raw.splitlines(),start=1):
+              if b'if ' in line or b':=' in line:
+                  print(idx, repr(line), line.hex())
+          control=Path(os.environ['RUNNER_TEMP'])/'control.go'
+          control.write_bytes(b'package p\nfunc f(){ if x := 1; x > 0 {} }\n')
+          result=subprocess.run(['gofmt','-d',str(control)],text=True,capture_output=True)
+          print('CONTROL RC',result.returncode,result.stdout,result.stderr)
+          '@ | python
       - name: Trust package tests when present
         shell: pwsh
         env:
