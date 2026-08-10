@@ -1,11 +1,5 @@
 package cli
-
-import (
-	"fmt"
-	"io"
-	"os"
-)
-
+import("fmt";"io";"os")
 const helpText=`Aurora Sovereign Core
 
 Usage:
@@ -13,6 +7,7 @@ Usage:
   aurora [--data-dir <path>] [--json] status
   aurora [--data-dir <path>] [--json] project create --label <label> --objective <summary>
   aurora [--data-dir <path>] [--json] project show --project <id>
+  aurora [--data-dir <path>] [--json] project set-state --project <id> --expected <n|none> --kind <kind> --summary <summary> [--payload-json <json>]
   aurora --help
 `
 type globalOptions struct{dataDir string;json bool}
