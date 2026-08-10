@@ -11,6 +11,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/developmentconexus-ops/aurora_project/internal/domain/authority"
 	"github.com/gowebpki/jcs"
 	"github.com/santhosh-tekuri/jsonschema/v6"
 )
