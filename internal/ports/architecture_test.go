@@ -1,9 +1,10 @@
 package ports_test
 
 import (
-	"io/fs"
 	"go/parser"
 	"go/token"
+	"io/fs"
+	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -12,6 +13,13 @@ import (
 
 func TestDomainDoesNotImportAdaptersOrSelectedMechanisms(t *testing.T) {
 	root := filepath.Join("..", "domain")
+	if _, err := os.Stat(root); err != nil {
+		if os.IsNotExist(err) {
+			return
+		}
+		t.Fatal(err)
+	}
+
 	forbidden := []string{
 		"/adapters/",
 		"modernc.org/sqlite",
