@@ -38,20 +38,20 @@ const (
 )
 
 type Grant struct {
-	AuthorityID            string                `json:"authority_id"`
-	AuthorityRevision      uint64                `json:"authority_revision"`
-	SubjectOperatorID      identity.OperatorID   `json:"subject_operator_id"`
-	ActorID                string                `json:"actor_id"`
-	ProjectScope           []project.ProjectID   `json:"project_scope"`
-	PermittedActionClasses []string              `json:"permitted_action_classes"`
-	Conditions             map[string]string     `json:"conditions"`
-	ValidFrom              *time.Time            `json:"valid_from"`
-	ValidUntil             *time.Time            `json:"valid_until"`
-	LifecycleStatus        LifecycleStatus       `json:"lifecycle_status"`
-	IssuedAt               time.Time             `json:"issued_at"`
-	RevokedAt              *time.Time            `json:"revoked_at"`
-	Supersedes             string                `json:"supersedes"`
-	Provenance             string                `json:"provenance"`
+	AuthorityID            string              `json:"authority_id"`
+	AuthorityRevision      uint64              `json:"authority_revision"`
+	SubjectOperatorID      identity.OperatorID `json:"subject_operator_id"`
+	ActorID                string              `json:"actor_id"`
+	ProjectScope           []project.ProjectID `json:"project_scope"`
+	PermittedActionClasses []string            `json:"permitted_action_classes"`
+	Conditions             map[string]string   `json:"conditions"`
+	ValidFrom              *time.Time          `json:"valid_from"`
+	ValidUntil             *time.Time          `json:"valid_until"`
+	LifecycleStatus        LifecycleStatus     `json:"lifecycle_status"`
+	IssuedAt               time.Time           `json:"issued_at"`
+	RevokedAt              *time.Time          `json:"revoked_at"`
+	Supersedes             string              `json:"supersedes"`
+	Provenance             string              `json:"provenance"`
 }
 
 type State struct {

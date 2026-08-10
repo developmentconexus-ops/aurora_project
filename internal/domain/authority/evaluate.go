@@ -22,10 +22,14 @@ func Evaluate(state State, projectID project.ProjectID, action string, now time.
 		}
 		switch grant.LifecycleStatus {
 		case StatusRevoked:
-			if best == EffectiveInvalid { best = EffectiveRevoked }
+			if best == EffectiveInvalid {
+				best = EffectiveRevoked
+			}
 			continue
 		case StatusSuperseded:
-			if best == EffectiveInvalid { best = EffectiveSuperseded }
+			if best == EffectiveInvalid {
+				best = EffectiveSuperseded
+			}
 			continue
 		case StatusActive:
 		default:
@@ -64,12 +68,22 @@ func NextSafeAction(state State, stateRevision project.StateRevision, action *pr
 }
 
 func scopeMatches(scope []project.ProjectID, projectID project.ProjectID) bool {
-	if len(scope) == 0 { return true }
-	for _, item := range scope { if item == projectID { return true } }
+	if len(scope) == 0 {
+		return true
+	}
+	for _, item := range scope {
+		if item == projectID {
+			return true
+		}
+	}
 	return false
 }
 
 func contains(items []string, wanted string) bool {
-	for _, item := range items { if item == wanted { return true } }
+	for _, item := range items {
+		if item == wanted {
+			return true
+		}
+	}
 	return false
 }
