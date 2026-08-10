@@ -1,23 +1,11 @@
 package cli
 
-import (
+import(
 	"encoding/json"
 	"fmt"
 	"io"
 
 	"github.com/developmentconexus-ops/aurora_project/internal/application"
+	"github.com/developmentconexus-ops/aurora_project/internal/domain/project"
 )
-
-func renderResult(out io.Writer, asJSON bool, v any) error {
-	if asJSON { return json.NewEncoder(out).Encode(v) }
-	switch r := v.(type) {
-	case application.InitializeResult:
-		_, err := fmt.Fprintf(out, "Aurora initialized\nAurora ID: %s\nOwner: %s\nGeneration: %d\n", r.AuroraID, r.OwnerOperatorID, r.GoverningGeneration)
-		return err
-	case application.InspectResult:
-		_, err := fmt.Fprintf(out, "Aurora ID: %s\nOwner: %s\nAuthority revision: %d\nGeneration: %d\nTrust: %s\n", r.AuroraID, r.OwnerOperatorID, r.CurrentAuthorityRevision, r.GoverningGeneration, r.TrustStatus)
-		return err
-	default:
-		return fmt.Errorf("unsupported CLI result type %T", v)
-	}
-}
+func renderResult(out io.Writer,asJSON bool,v any)error{if asJSON{return json.NewEncoder(out).Encode(v)};switch r:=v.(type){case application.InitializeResult:_,err:=fmt.Fprintf(out,"Aurora initialized\nAurora ID: %s\nOwner: %s\nGeneration: %d\n",r.AuroraID,r.OwnerOperatorID,r.GoverningGeneration);return err;case application.InspectResult:_,err:=fmt.Fprintf(out,"Aurora ID: %s\nOwner: %s\nAuthority revision: %d\nGeneration: %d\nTrust: %s\n",r.AuroraID,r.OwnerOperatorID,r.CurrentAuthorityRevision,r.GoverningGeneration,r.TrustStatus);return err;case project.Project:_,err:=fmt.Fprintf(out,"Project created\nProject ID: %s\nLabel: %s\nObjective: %s\n",r.ProjectID,r.DisplayLabel,r.ObjectiveSummary);return err;case application.ProjectView:_,err:=fmt.Fprintf(out,"Project ID: %s\nLabel: %s\nObjective: %s\n",r.Project.ProjectID,r.Project.DisplayLabel,r.Project.ObjectiveSummary);return err;default:return fmt.Errorf("unsupported CLI result type %T",v)}}
