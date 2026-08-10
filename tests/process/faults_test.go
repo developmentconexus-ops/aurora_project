@@ -62,7 +62,7 @@ func TestExternalKillAfterSQLiteCommitRequiresReconciliationBeforeRetry(t *testi
 	store, err := sqlite.Open(data)
 	if err != nil { t.Fatal(err) }
 	trust := trustfs.New(data)
-	svc := &application.Service{State: store, Trust: trust, Clock: processClock{now: time.Now().UTC().Add(time.Second)}}
+	svc := &application.Service{State: store, Trust: trust, Clock: processClock{now: time.Now().UTC()}}
 	classification, err := svc.ClassifyTrust(context.Background(), []byte(pass))
 	if err != nil { t.Fatal(err) }
 	if classification.Status != application.TrustAnchorLag {
