@@ -1,0 +1,12 @@
+package application
+
+import(
+	"encoding/json";"errors"
+	"github.com/developmentconexus-ops/aurora_project/internal/domain/authority"
+	"github.com/developmentconexus-ops/aurora_project/internal/domain/portability"
+	"github.com/developmentconexus-ops/aurora_project/internal/ports"
+)
+func rootToPortable(v ports.RootEnvelope)portability.RootEnvelope{return portability.RootEnvelope{Version:v.Version,RootID:v.RootID,KDF:v.KDF,MemoryKiB:v.MemoryKiB,Iterations:v.Iterations,Parallelism:v.Parallelism,Salt:v.Salt,Nonce:v.Nonce,WrappedORK:v.WrappedORK}}
+func portableToRoot(v portability.RootEnvelope)ports.RootEnvelope{return ports.RootEnvelope{Version:v.Version,RootID:v.RootID,KDF:v.KDF,MemoryKiB:v.MemoryKiB,Iterations:v.Iterations,Parallelism:v.Parallelism,Salt:v.Salt,Nonce:v.Nonce,WrappedORK:v.WrappedORK}}
+func storeStateToCurrentSnapshot(state portability.StoreState)(ports.CurrentSnapshot,error){var currentRaw []byte;found:=false;for _,st:=range state.Authority.Revisions{if st.Revision==state.Authority.CurrentRevision{raw,err:=json.Marshal(st);if err!=nil{return ports.CurrentSnapshot{},err};currentRaw=raw;found=true;break}};if !found{return ports.CurrentSnapshot{},errors.New("current authority revision missing from export history")};snap:=ports.CurrentSnapshot{Identity:state.Aurora,AuthorityStateJSON:currentRaw,CurrentAuthorityRevision:uint64(state.Authority.CurrentRevision),GoverningGeneration:state.GoverningGeneration};for _,bundle:=range state.Projects{snap.Projects=append(snap.Projects,bundle.Project);if bundle.Project.CurrentStateRevision==nil{continue};matched:=false;for _,rev:=range bundle.Revisions{if rev.Revision==*bundle.Project.CurrentStateRevision{snap.CurrentStates=append(snap.CurrentStates,rev);matched=true;break}};if !matched{return ports.CurrentSnapshot{},errors.New("Project current state revision missing from export history")}};return snap,nil}
+func storeStateFromDocument(doc portability.Document)portability.StoreState{return portability.StoreState{GoverningGeneration:doc.GoverningGeneration,Aurora:doc.Aurora,Projects:append([]portability.ProjectBundle(nil),doc.Projects...),Authority:portability.AuthorityBundle{CurrentRevision:doc.Authority.CurrentRevision,Revisions:append([]authority.State(nil),doc.Authority.Revisions...)},Attempts:append([]portability.TransitionAttempt(nil),doc.Attempts...),Records:append([]portability.Record(nil),doc.Records...)}}
