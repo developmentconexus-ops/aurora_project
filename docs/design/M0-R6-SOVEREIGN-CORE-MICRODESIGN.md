@@ -4,14 +4,17 @@ title: M0 Sovereign Core Implementation Microdesign
 document_type: implementation_microdesign
 form: reference
 authority: design
-status: proposed
+status: accepted
+accepted_at: 2026-08-09
+acceptance_evidence: DOC-AURORA-M0-R6-MICRODESIGN-OPERATOR-ACCEPTANCE
+accepted_from_blob: d76cf237211b7fe35c33d1a32f14905e769702a7
 version: 0.1.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed M0 R6 implementation design for MIS-M0-SOVEREIGN-CORE-001 v0.1.0
+  - accepted M0 R6 implementation design for MIS-M0-SOVEREIGN-CORE-001 v0.1.0
 related:
   - DOC-AURORA-STATUS
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
@@ -50,7 +53,7 @@ R6 question:
 
 > Can an implementer execute the approved M0 Contract without inventing material architecture or product behavior while coding?
 
-This document remains `proposed` until the operator reviews the written synthesis. It does **not** authorize R7 or production/source implementation.
+This Microdesign was explicitly accepted by the operator through `DOC-AURORA-M0-R6-MICRODESIGN-OPERATOR-ACCEPTANCE`. Acceptance fixes the R6 design but does **not** authorize R7 or production/source implementation.
 
 ```text
 R6 design only
@@ -983,7 +986,7 @@ The written design must pass these checks before an R6 verdict can be proposed:
 
 ## 26. Written-review gate
 
-This synthesis incorporates the operator-approved conversational direction from the R6 design discussion, including the explicit anti-overengineering correction. The document itself remains proposed until the operator reviews this written form.
+This synthesis incorporates the operator-approved conversational direction from the R6 design discussion, including the explicit anti-overengineering correction. The written form was explicitly accepted by the operator. The remaining R6 work is exact task allocation plus adversarial plan review.
 
 After written approval:
 

@@ -634,3 +634,13 @@ M0 ACRM R5 — PASS
 ```
 
 R6, Microdesign and Aurora Core implementation remain NOT AUTHORIZED. Exact next action is to stop and await separate operator authorization for M0 ACRM R6 — Implementation Design Readiness.
+
+## 2026-08-09 — M0 R6 Microdesign Acceptance, Implementation Plan and PASS
+
+The operator explicitly accepted M0 R6 Sovereign Core Microdesign v0.1.0, bound to proposal blob `d76cf237211b7fe35c33d1a32f14905e769702a7` at branch revision `0f596602988a90205ff412fdb860e968700dbcb2`.
+
+R6 then produced `M0-R6-SOVEREIGN-CORE-IMPLEMENTATION-PLAN.md` v0.1.0 with TASK-00..13 and exact file/interface/test/verification/commit boundaries. `R6-IMPLEMENTATION-COVERAGE.md` assigns all 122 accepted requirements to one primary implementation task and covers all 12 Mission criteria.
+
+Adversarial review resolved two material planning findings before verdict: the governing HMAC was corrected to cover the complete current governing logical snapshot rather than only revision heads, and dependency pins were moved from foundation-only pre-staging to just-in-time first consumers.
+
+Final verdict is `M0 ACRM R6 PASS`. R7 Execution and Evidence, production Go source, deployment, Mastra/AHDK/MNFS implementation and later gates remain unauthorized.

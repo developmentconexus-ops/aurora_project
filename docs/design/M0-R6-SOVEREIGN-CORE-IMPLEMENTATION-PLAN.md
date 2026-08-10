@@ -48,6 +48,7 @@ last_reviewed: 2026-08-09
 - CLI is a proof/control adapter only; domain/application code never prints UI text or owns terminal input.
 - Tests are slice-local TDD. The accepted 84-test catalog is a final coverage obligation, not an upfront file count.
 - Every task ends with a green test/build result and an independently reviewable commit. No unrelated refactor.
+- External modules are introduced just-in-time in the first TASK that imports them; `go mod tidy` must not be used to pre-stage unused framework/dependency surface.
 - Any implementation finding that requires changing accepted A2 behavior, ADR mechanism class, Mission criteria, topology or threat claim stops execution and triggers replan.
 
 ---
@@ -99,7 +100,7 @@ Test files live beside the package under test unless they require external proce
 
 - [ ] **Step 1 — RED:** create `cli_test.go` asserting `Run([]string{"--help"}, ...) == 0` and output contains `Aurora Sovereign Core`; create `architecture_test.go` that parses imports under `internal/domain/**` and fails on imports containing `/adapters/`, `modernc.org/sqlite`, `go.opentelemetry.io`, `filippo.io/age` or OS-specific trust code.
 - [ ] **Step 2 — verify RED:** run `go test ./...`; expected failure because module/CLI do not yet exist.
-- [ ] **Step 3 — pin baseline:** initialize `go.mod` with Go `1.26.5`; pin current R6-validated dependencies. Run `go mod tidy`. Verify `go list -m all` contains `modernc.org/sqlite v1.54.0` and `modernc.org/libc v1.74.1`; fail if modernc resolves a different libc pin.
+- [ ] **Step 3 — module baseline:** initialize `go.mod` with module `github.com/developmentconexus-ops/aurora_project` and Go `1.26.5`. Do not pre-stage unused external modules in TASK-00.
 - [ ] **Step 4 — minimal GREEN:** implement `cmd/aurora/main.go` as `os.Exit(cli.Run(os.Args[1:], os.Stdout, os.Stderr))`; implement only `--help` and unknown-command failure in `cli.Run`.
 - [ ] **Step 5 — verify:** `CGO_ENABLED=0 go test ./... && CGO_ENABLED=0 go vet ./... && CGO_ENABLED=0 go build ./cmd/aurora`; run built binary `--help`.
 - [ ] **Step 6 — commit:** `git commit -m "build(core): establish M0 Go production skeleton"`.
@@ -129,15 +130,16 @@ func (s *Service) Inspect(ctx context.Context, passphrase []byte) (InspectResult
 
 `crypto.go` exposes package-private `newRootEnvelope`, `unlockORK`, `derivePurposeKey`, `governingMAC`, `anchorMAC`; plaintext ORK never enters persistence structs.
 
-- [ ] **Step 1 — RED domain/crypto:** tests assert IDs are random stable prefixed IDs; root creation produces a 32-byte ORK only in memory; wrong passphrase fails; unsupported/extreme KDF params fail before Argon2 call; rewrapping preserves ORK bytes.
-- [ ] **Step 2 — RED store:** SQLite integration test opens temp data dir, applies `0001_initial.sql`, verifies WAL/FULL/FK and single-connection posture, and proves bootstrap creates one `core_state` row + authority revision + governing record transactionally.
-- [ ] **Step 3 — RED trustfs:** Unix/Windows-targeted tests verify temp-write + sync + replace behavior; no partial JSON is accepted. Build Windows package with `GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go test ./internal/adapters/trustfs` at CI time.
-- [ ] **Step 4 — implement crypto:** use `crypto/rand`, `argon2.IDKey`, AES-GCM, HKDF-SHA-256 and HMAC-SHA-256 exactly as accepted; root JSON encodes binary fields with base64url and validates version/KDF allowlist before allocation.
-- [ ] **Step 5 — implement bootstrap ordering:** create/publish root envelope first; then SQLite bootstrap with initial owner authority and generation `1`; then publish authenticated anchor generation `1`; incomplete bootstrap is explicitly classified, never silently reinitialized.
-- [ ] **Step 6 — CLI:** `aurora init [--data-dir]` reads owner passphrase through adapter-local `SecretReader`; `aurora status` unlocks and verifies governing state, returning structured result rendered as text or `--json`.
-- [ ] **Step 7 — verify journey:** with a temp data dir, run real binary `init`; terminate; run a second binary invocation `status`; assert identical `aurora_id`. Running `init` again must fail without replacing identity.
-- [ ] **Step 8 — verify hygiene:** grep test logs/artifacts for fixture passphrase and ORK bytes; expected zero matches.
-- [ ] **Step 9 — commit:** `git commit -m "feat(core): initialize sovereign Aurora identity"`.
+- [ ] **Step 1 — dependency lock for this slice:** add `modernc.org/sqlite v1.54.0`, exact compatible `modernc.org/libc v1.74.1`, `golang.org/x/crypto v0.54.0`, `github.com/gowebpki/jcs v1.0.1`, and the then-current supported exact `golang.org/x/sys` version required by the Windows publication adapter. Run `go mod tidy` only after imports exist; verify modernc/libc exact compatibility.
+- [ ] **Step 2 — RED domain/crypto:** tests assert IDs are random stable prefixed IDs; root creation produces a 32-byte ORK only in memory; wrong passphrase fails; unsupported/extreme KDF params fail before Argon2 call; rewrapping preserves ORK bytes.
+- [ ] **Step 3 — RED store:** SQLite integration test opens temp data dir, applies `0001_initial.sql`, verifies WAL/FULL/FK and single-connection posture, and proves bootstrap creates one `core_state` row + authority revision + governing record transactionally.
+- [ ] **Step 4 — RED trustfs:** Unix/Windows-targeted tests verify temp-write + sync + replace behavior; no partial JSON is accepted. Build Windows package with `GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go test ./internal/adapters/trustfs` at CI time.
+- [ ] **Step 5 — implement crypto:** use `crypto/rand`, `argon2.IDKey`, AES-GCM, HKDF-SHA-256 and HMAC-SHA-256 exactly as accepted; root JSON encodes binary fields with base64url and validates version/KDF allowlist before allocation.
+- [ ] **Step 6 — implement bootstrap ordering:** create/publish root envelope first; then SQLite bootstrap with initial owner authority and generation `1`; then publish authenticated anchor generation `1`; incomplete bootstrap is explicitly classified, never silently reinitialized.
+- [ ] **Step 7 — CLI:** `aurora init [--data-dir]` reads owner passphrase through adapter-local `SecretReader`; `aurora status` unlocks and verifies governing state, returning structured result rendered as text or `--json`.
+- [ ] **Step 8 — verify journey:** with a temp data dir, run real binary `init`; terminate; run a second binary invocation `status`; assert identical `aurora_id`. Running `init` again must fail without replacing identity.
+- [ ] **Step 9 — verify hygiene:** grep test logs/artifacts for fixture passphrase and ORK bytes; expected zero matches.
+- [ ] **Step 10 — commit:** `git commit -m "feat(core): initialize sovereign Aurora identity"`.
 
 ---
 
@@ -175,6 +177,7 @@ func (s *Service) ShowProject(ctx context.Context, ownerPassphrase []byte, id pr
 
 **Files:** `domain/project/types.go`, `domain/project/transition.go`, `application/transition_project.go`, `application/inspect.go`, SQLite revision queries/mutations, `schemas/project-state-v1.schema.json`, tests.
 
+- [ ] Add and pin `github.com/santhosh-tekuri/jsonschema/v6 v6.0.3`, then run `go mod tidy`; this is its first production consumer.
 - [ ] RED: schema/unit tests define `StateEnvelope{SchemaVersion,Kind,Summary,Payload}` and prove payload content resembling identity/authority remains opaque data.
 - [ ] RED: integration test with broken `projects.current_state_revision` must return degraded/error; history may not be auto-promoted.
 - [ ] Implement state envelope validation with the pinned JSON Schema validator and immutable revision loading.
@@ -284,6 +287,7 @@ func NextSafeAction(state State, rev project.ProjectStateRevision, now time.Time
 
 **Logical format:** one `aurora-sovereign-export` JSON document v1. Digest is SHA-256 over JCS-canonical document with top-level `integrity` omitted; complete JSON is age passphrase protected.
 
+- [ ] Add and pin `filippo.io/age v1.3.1`, then run `go mod tidy`; this is its first production consumer.
 - [ ] RED schema/digest tests: valid export validates; a byte/semantic alteration fails digest/schema before apply; unsupported version fails explicitly.
 - [ ] Implement `ExportProtection` with `filippo.io/age` scrypt/passphrase API; export secret is separate from owner passphrase and only adapter/test injection sees it.
 - [ ] Implement export from canonical domain snapshot, including version metadata, records and wrapped root recovery envelope but excluding current trust high-water as freshness authority.
@@ -321,6 +325,7 @@ func NextSafeAction(state State, rev project.ProjectStateRevision, now time.Time
 
 **Files:** evidence domain types, record helpers, observability adapter, application operation correlation, tests.
 
+- [ ] Add and pin OpenTelemetry Go API/SDK `v1.44.0`, then run `go mod tidy`; no exporter/backend dependency is added unless a current test needs one.
 - [ ] RED: accepted/rejected operations produce attributable records with stable `operation_id`, Aurora/Project/revision refs, outcome/reason; EvidenceRecord includes criterion/test method/environment/revision/limitations fields.
 - [ ] RED: telemetry sink absent/failing cannot alter Core operation result; sensitive payload/passphrase/ORK/export secret never appears in logs/traces.
 - [ ] Implement `slog` structured fields and OTel trace/metric instrumentation with no required exporter. Initial metrics only operation total/failure total unless a current test requires another signal.
