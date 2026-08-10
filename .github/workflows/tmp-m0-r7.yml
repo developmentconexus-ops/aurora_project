@@ -25,38 +25,25 @@ jobs:
           set -euo pipefail
           if [[ -f scripts/tmp_task01_green.py ]]; then
             python scripts/tmp_task01_green.py
-          fi
-      - name: Diagnose materialized Go bytes
-        shell: bash
-        run: |
-          set -euo pipefail
-          go version
-          which gofmt
-          python - <<'PY'
+            python - <<'PY'
           from pathlib import Path
-          import os, subprocess
-          paths = [
-              Path('internal/domain/identity/rules.go'),
-              Path('internal/adapters/trustfs/publish.go'),
-          ]
-          for path in paths:
-              raw = path.read_bytes()
-              print(f'FILE={path} semicolons={raw.count(bytes([59]))} percent={raw.count(bytes([37]))}')
-              for idx, line in enumerate(raw.splitlines(), start=1):
-                  if b'if ' in line or b':=' in line:
-                      print(f'{path}:{idx}: repr={line!r} hex={line.hex()}')
-                      if idx > 30:
-                          break
-          control = Path(os.environ['RUNNER_TEMP']) / 'control.go'
-          control.write_bytes(b'package p\nfunc f(){ if x := 1; x > 0 {} }\n')
-          print('CONTROL', control.read_bytes(), control.read_bytes().hex())
-          result = subprocess.run(['gofmt', '-d', str(control)], text=True, capture_output=True)
-          print('CONTROL GOFMT RC', result.returncode)
-          print(result.stdout)
-          print(result.stderr)
-          if result.returncode != 0:
-              raise SystemExit(result.returncode)
+          changed=[]
+          for path in [*Path('cmd').rglob('*.go'), *Path('internal').rglob('*.go')]:
+              lines=path.read_text().splitlines(True)
+              out=[]
+              dirty=False
+              for line in lines:
+                  stripped=line.lstrip()
+                  if stripped.startswith('if ') and ':=' in line and '%' in line and ';' not in line:
+                      line=line.replace('%', ';', 1)
+                      dirty=True
+                  out.append(line)
+              if dirty:
+                  path.write_text(''.join(out))
+                  changed.append(str(path))
+          print('normalized helper delimiter artifacts:', changed)
           PY
+          fi
       - name: Format and lock modules
         shell: bash
         env:
@@ -126,25 +113,27 @@ jobs:
       - name: Materialize current GREEN candidate
         shell: pwsh
         run: |
-          if (Test-Path 'scripts/tmp_task01_green.py') { python scripts/tmp_task01_green.py }
-      - name: Diagnose materialized Go bytes
-        shell: pwsh
-        run: |
-          go version
-          @'
+          if (Test-Path 'scripts/tmp_task01_green.py') {
+            python scripts/tmp_task01_green.py
+            @'
           from pathlib import Path
-          import os, subprocess
-          path=Path('internal/adapters/trustfs/publish.go')
-          raw=path.read_bytes()
-          print('FILE', path, 'semicolons', raw.count(bytes([59])), 'percent', raw.count(bytes([37])))
-          for idx,line in enumerate(raw.splitlines(),start=1):
-              if b'if ' in line or b':=' in line:
-                  print(idx, repr(line), line.hex())
-          control=Path(os.environ['RUNNER_TEMP'])/'control.go'
-          control.write_bytes(b'package p\nfunc f(){ if x := 1; x > 0 {} }\n')
-          result=subprocess.run(['gofmt','-d',str(control)],text=True,capture_output=True)
-          print('CONTROL RC',result.returncode,result.stdout,result.stderr)
+          changed=[]
+          for path in [*Path('cmd').rglob('*.go'), *Path('internal').rglob('*.go')]:
+              lines=path.read_text().splitlines(True)
+              out=[]
+              dirty=False
+              for line in lines:
+                  stripped=line.lstrip()
+                  if stripped.startswith('if ') and ':=' in line and '%' in line and ';' not in line:
+                      line=line.replace('%', ';', 1)
+                      dirty=True
+                  out.append(line)
+              if dirty:
+                  path.write_text(''.join(out))
+                  changed.append(str(path))
+          print('normalized helper delimiter artifacts:', changed)
           '@ | python
+          }
       - name: Trust package tests when present
         shell: pwsh
         env:
