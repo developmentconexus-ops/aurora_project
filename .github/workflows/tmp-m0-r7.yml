@@ -34,7 +34,7 @@ jobs:
               dirty=False
               for line in lines:
                   stripped=line.lstrip()
-                  if stripped.startswith('if ') and ':=' in line and '%' in line and ';' not in line:
+                  if stripped.startswith('if ') and ':=' in line and '%' in line:
                       line=line.replace('%', ';', 1)
                       dirty=True
                   out.append(line)
@@ -124,7 +124,7 @@ jobs:
               dirty=False
               for line in lines:
                   stripped=line.lstrip()
-                  if stripped.startswith('if ') and ':=' in line and '%' in line and ';' not in line:
+                  if stripped.startswith('if ') and ':=' in line and '%' in line:
                       line=line.replace('%', ';', 1)
                       dirty=True
                   out.append(line)
