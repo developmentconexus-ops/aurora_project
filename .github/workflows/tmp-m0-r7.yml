@@ -89,6 +89,34 @@ jobs:
           assert status['governing_generation'] == 2
           print('TASK-02 real binary Project continuity: PASS')
           PY
+      - name: TASK-07 fresh-process recovery proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          DATA_DIR="$RUNNER_TEMP/aurora-task07"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" init > "$RUNNER_TEMP/t7-init.json"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" project create --label 'Recovery' --objective 'Recover same state' > "$RUNNER_TEMP/t7-project.json"
+          PROJECT_ID="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["project_id"])' "$RUNNER_TEMP/t7-project.json")"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" project set-state --project "$PROJECT_ID" --expected none --kind WORK_NOTE --summary R1 --payload '{}' --next-action BUILD > "$RUNNER_TEMP/t7-state.json"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" authority grant --project "$PROJECT_ID" --action BUILD > "$RUNNER_TEMP/t7-grant.json"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" recover > "$RUNNER_TEMP/t7-recover.json"
+          python - <<'PY'
+          import json, os
+          root=os.environ['RUNNER_TEMP']
+          init=json.load(open(root+'/t7-init.json'))
+          project=json.load(open(root+'/t7-project.json'))
+          recovered=json.load(open(root+'/t7-recover.json'))
+          assert recovered['status'] == 'RECOVERED', recovered
+          assert recovered['trust_state'] == 'NORMAL', recovered
+          assert recovered['aurora_id'] == init['aurora_id'], recovered
+          assert recovered['authority_state_revision'] == 2, recovered
+          assert len(recovered['projects']) == 1, recovered
+          item=recovered['projects'][0]
+          assert item['project_id'] == project['project_id'], item
+          assert item['current_state_revision'] == 1, item
+          assert item['next_safe_action']['decision'] == 'PERMITTED', item
+          print('TASK-07 fresh-process recovery: PASS')
+          PY
       - name: Secret hygiene regression
         shell: bash
         run: |
