@@ -1,7 +1,15 @@
 package cli
 
-import(
-	"context";"encoding/json";"flag";"fmt";"io";"strconv";"time"
+import (
+	"context"
+	"encoding/json"
+	"flag"
+	"fmt"
+	"io"
+	"os"
+	"strconv"
+	"time"
+
 	"github.com/developmentconexus-ops/aurora_project/internal/adapters/exportage"
 	"github.com/developmentconexus-ops/aurora_project/internal/adapters/sqlite"
 	"github.com/developmentconexus-ops/aurora_project/internal/adapters/trustfs"
@@ -9,12 +17,316 @@ import(
 	"github.com/developmentconexus-ops/aurora_project/internal/domain/authority"
 	"github.com/developmentconexus-ops/aurora_project/internal/domain/project"
 )
-type wallClock struct{};func(wallClock)Now()time.Time{return time.Now()}
-func runCommand(command []string,opts globalOptions,out,errOut io.Writer)int{if len(command)==1&&command[0]=="help"{fmt.Fprint(out,helpText);return 0};if command[0]=="restore"{return runRestore(command[1:],opts,out,errOut)};store,err:=sqlite.Open(opts.dataDir);if err!=nil{fmt.Fprintln(errOut,"open state:",err);return 1};defer store.Close();svc:=&application.Service{State:store,Trust:trustfs.New(opts.dataDir),Clock:wallClock{},ExportProtection:exportage.Protection{}};ctx:=context.Background();switch command[0]{case"init":return runInit(ctx,svc,opts,out,errOut);case"status":return runStatus(ctx,svc,opts,out,errOut);case"project":return runProject(ctx,svc,command[1:],opts,out,errOut);case"authority":return runAuthority(ctx,svc,command[1:],opts,out,errOut);case"export":return runExport(ctx,svc,command[1:],opts,out,errOut);default:fmt.Fprintf(errOut,"unknown command %q; use --help\n",command[0]);return 2}}
-func ownerSecret(errOut io.Writer)([]byte,error){return promptSecret("Owner passphrase: ",errOut)}
-func runInit(ctx context.Context,svc *application.Service,opts globalOptions,out,errOut io.Writer)int{secret,err:=ownerSecret(errOut);if err!=nil{fmt.Fprintln(errOut,"read owner passphrase:",err);return 1};defer wipe(secret);result,err:=svc.Initialize(ctx,secret);if err!=nil{fmt.Fprintln(errOut,"initialize:",err);return 1};if err:=renderResult(out,opts.json,result);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0}
-func runStatus(ctx context.Context,svc *application.Service,opts globalOptions,out,errOut io.Writer)int{secret,err:=ownerSecret(errOut);if err!=nil{fmt.Fprintln(errOut,"read owner passphrase:",err);return 1};defer wipe(secret);result,err:=svc.Inspect(ctx,secret);if err!=nil{fmt.Fprintln(errOut,"status:",err);return 1};if err:=renderResult(out,opts.json,result);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0}
-func runProject(ctx context.Context,svc *application.Service,args []string,opts globalOptions,out,errOut io.Writer)int{if len(args)==0{fmt.Fprintln(errOut,"project requires create, show or set-state");return 2};switch args[0]{case"create":fs:=flag.NewFlagSet("project create",flag.ContinueOnError);fs.SetOutput(errOut);label:=fs.String("label","","Project display label");objective:=fs.String("objective","","Project objective summary");if err:=fs.Parse(args[1:]);err!=nil{return 2};secret,err:=ownerSecret(errOut);if err!=nil{return 1};defer wipe(secret);p,err:=svc.CreateProject(ctx,secret,application.CreateProjectInput{DisplayLabel:*label,ObjectiveSummary:*objective});if err!=nil{fmt.Fprintln(errOut,"project create:",err);return 1};if err:=renderResult(out,opts.json,p);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0;case"show":fs:=flag.NewFlagSet("project show",flag.ContinueOnError);fs.SetOutput(errOut);id:=fs.String("project","","Project ID");if err:=fs.Parse(args[1:]);err!=nil{return 2};secret,err:=ownerSecret(errOut);if err!=nil{return 1};defer wipe(secret);view,err:=svc.ShowProject(ctx,secret,project.ProjectID(*id));if err!=nil{fmt.Fprintln(errOut,"project show:",err);return 1};if err:=renderResult(out,opts.json,view);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0;case"set-state":return runSetState(ctx,svc,args[1:],opts,out,errOut);default:fmt.Fprintf(errOut,"unknown project command %q\n",args[0]);return 2}}
-func runSetState(ctx context.Context,svc *application.Service,args []string,opts globalOptions,out,errOut io.Writer)int{fs:=flag.NewFlagSet("project set-state",flag.ContinueOnError);fs.SetOutput(errOut);id:=fs.String("project","","Project ID");expected:=fs.String("expected","none","expected revision number or none");kind:=fs.String("kind","","state kind");summary:=fs.String("summary","","state summary");payload:=fs.String("payload-json","","optional JSON payload");nextClass:=fs.String("next-action","","optional next action class");nextSummary:=fs.String("next-summary","","optional next action summary");nextAuth:=fs.String("next-authority-action","","required authority action for next action");if err:=fs.Parse(args);err!=nil{return 2};var exp *project.StateRevision;if *expected!="none"{n,err:=strconv.ParseUint(*expected,10,64);if err!=nil{fmt.Fprintln(errOut,"invalid --expected:",err);return 2};r:=project.StateRevision(n);exp=&r};var raw json.RawMessage;if *payload!=""{raw=json.RawMessage(*payload)};var action *project.ActionDescriptor;if *nextClass!=""||*nextSummary!=""||*nextAuth!=""{action=&project.ActionDescriptor{ActionClass:*nextClass,Summary:*nextSummary,ProjectID:project.ProjectID(*id),RequiredAuthorityAction:*nextAuth}};attempt:=fmt.Sprintf("ATT-%d",time.Now().UnixNano());secret,err:=ownerSecret(errOut);if err!=nil{return 1};defer wipe(secret);rev,err:=svc.TransitionProject(ctx,secret,application.TransitionProjectInput{AttemptID:attempt,ProjectID:project.ProjectID(*id),ExpectedRevision:exp,State:project.StateEnvelope{SchemaVersion:"1",Kind:*kind,Summary:*summary,Payload:raw},ProposedNextAction:action});if err!=nil{fmt.Fprintln(errOut,"project set-state:",err);return 1};if err:=renderResult(out,opts.json,rev);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0}
-func runAuthority(ctx context.Context,svc *application.Service,args []string,opts globalOptions,out,errOut io.Writer)int{if len(args)==0{fmt.Fprintln(errOut,"authority requires show, grant, revoke or revalidate");return 2};secret,err:=ownerSecret(errOut);if err!=nil{return 1};defer wipe(secret);switch args[0]{case"show":view,err:=svc.ShowAuthority(ctx,secret);if err!=nil{fmt.Fprintln(errOut,"authority show:",err);return 1};if err:=renderResult(out,opts.json,view);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0;case"grant":fs:=flag.NewFlagSet("authority grant",flag.ContinueOnError);fs.SetOutput(errOut);expected:=fs.Uint64("expected",0,"expected authority state revision");pid:=fs.String("project","","Project scope; omit for Aurora-wide");action:=fs.String("action","","permitted action class");until:=fs.String("valid-until","","optional RFC3339 expiry");if err:=fs.Parse(args[1:]);err!=nil{return 2};var validUntil *time.Time;if *until!=""{parsed,err:=time.Parse(time.RFC3339,*until);if err!=nil{fmt.Fprintln(errOut,"invalid --valid-until:",err);return 2};validUntil=&parsed};view,err:=svc.GrantAuthority(ctx,secret,application.GrantAuthorityInput{ExpectedRevision:authority.Revision(*expected),ProjectID:project.ProjectID(*pid),ActionClass:*action,ValidUntil:validUntil});if err!=nil{fmt.Fprintln(errOut,"authority grant:",err);return 1};if err:=renderResult(out,opts.json,view);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0;case"revoke":fs:=flag.NewFlagSet("authority revoke",flag.ContinueOnError);fs.SetOutput(errOut);expected:=fs.Uint64("expected",0,"expected authority state revision");id:=fs.String("authority","","Authority ID");if err:=fs.Parse(args[1:]);err!=nil{return 2};view,err:=svc.RevokeAuthority(ctx,secret,application.RevokeAuthorityInput{ExpectedRevision:authority.Revision(*expected),AuthorityID:authority.AuthorityID(*id)});if err!=nil{fmt.Fprintln(errOut,"authority revoke:",err);return 1};if err:=renderResult(out,opts.json,view);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0;case"revalidate":if err:=svc.RevalidateRestoredAuthority(ctx,secret);err!=nil{fmt.Fprintln(errOut,"authority revalidate:",err);return 1};view,err:=svc.ShowAuthority(ctx,secret);if err!=nil{fmt.Fprintln(errOut,"authority show after revalidate:",err);return 1};if err:=renderResult(out,opts.json,view);err!=nil{fmt.Fprintln(errOut,err);return 1};return 0;default:fmt.Fprintf(errOut,"unknown authority command %q\n",args[0]);return 2}}
-func wipe(v []byte){for i:=range v{v[i]=0}}
+
+type wallClock struct{}
+
+func (wallClock) Now() time.Time { return time.Now() }
+
+func runCommand(command []string, opts globalOptions, out, errOut io.Writer) int {
+	if len(command) == 1 && command[0] == "help" {
+		fmt.Fprint(out, helpText)
+		return 0
+	}
+	if command[0] == "restore" {
+		return runRestore(command[1:], opts, out, errOut)
+	}
+	store, err := sqlite.Open(opts.dataDir)
+	if err != nil {
+		fmt.Fprintln(errOut, "open state:", err)
+		return 1
+	}
+	defer store.Close()
+
+	svc := &application.Service{
+		State:            store,
+		Trust:            trustfs.New(opts.dataDir),
+		Clock:            wallClock{},
+		ExportProtection: exportage.Protection{},
+	}
+	obs := attachObservability(svc, os.Stderr)
+	defer func() { _ = obs.Shutdown(context.Background()) }()
+
+	ctx := context.Background()
+	switch command[0] {
+	case "init":
+		return runInit(ctx, svc, opts, out, errOut)
+	case "status":
+		return runStatus(ctx, svc, opts, out, errOut)
+	case "project":
+		return runProject(ctx, svc, command[1:], opts, out, errOut)
+	case "authority":
+		return runAuthority(ctx, svc, command[1:], opts, out, errOut)
+	case "export":
+		return runExport(ctx, svc, command[1:], opts, out, errOut)
+	default:
+		fmt.Fprintf(errOut, "unknown command %q; use --help\n", command[0])
+		return 2
+	}
+}
+
+func ownerSecret(errOut io.Writer) ([]byte, error) {
+	return promptSecret("Owner passphrase: ", errOut)
+}
+
+func runInit(ctx context.Context, svc *application.Service, opts globalOptions, out, errOut io.Writer) int {
+	secret, err := ownerSecret(errOut)
+	if err != nil {
+		fmt.Fprintln(errOut, "read owner passphrase:", err)
+		return 1
+	}
+	defer wipe(secret)
+	result, err := svc.Initialize(ctx, secret)
+	if err != nil {
+		fmt.Fprintln(errOut, "initialize:", err)
+		return 1
+	}
+	if err := renderResult(out, opts.json, result); err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	return 0
+}
+
+func runStatus(ctx context.Context, svc *application.Service, opts globalOptions, out, errOut io.Writer) int {
+	secret, err := ownerSecret(errOut)
+	if err != nil {
+		fmt.Fprintln(errOut, "read owner passphrase:", err)
+		return 1
+	}
+	defer wipe(secret)
+	result, err := svc.Inspect(ctx, secret)
+	if err != nil {
+		fmt.Fprintln(errOut, "status:", err)
+		return 1
+	}
+	if err := renderResult(out, opts.json, result); err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	return 0
+}
+
+func runProject(ctx context.Context, svc *application.Service, args []string, opts globalOptions, out, errOut io.Writer) int {
+	if len(args) == 0 {
+		fmt.Fprintln(errOut, "project requires create, show or set-state")
+		return 2
+	}
+	switch args[0] {
+	case "create":
+		fs := flag.NewFlagSet("project create", flag.ContinueOnError)
+		fs.SetOutput(errOut)
+		label := fs.String("label", "", "Project display label")
+		objective := fs.String("objective", "", "Project objective summary")
+		if err := fs.Parse(args[1:]); err != nil {
+			return 2
+		}
+		secret, err := ownerSecret(errOut)
+		if err != nil {
+			return 1
+		}
+		defer wipe(secret)
+		p, err := svc.CreateProject(ctx, secret, application.CreateProjectInput{DisplayLabel: *label, ObjectiveSummary: *objective})
+		if err != nil {
+			fmt.Fprintln(errOut, "project create:", err)
+			return 1
+		}
+		if err := renderResult(out, opts.json, p); err != nil {
+			fmt.Fprintln(errOut, err)
+			return 1
+		}
+		return 0
+	case "show":
+		fs := flag.NewFlagSet("project show", flag.ContinueOnError)
+		fs.SetOutput(errOut)
+		id := fs.String("project", "", "Project ID")
+		if err := fs.Parse(args[1:]); err != nil {
+			return 2
+		}
+		secret, err := ownerSecret(errOut)
+		if err != nil {
+			return 1
+		}
+		defer wipe(secret)
+		view, err := svc.ShowProject(ctx, secret, project.ProjectID(*id))
+		if err != nil {
+			fmt.Fprintln(errOut, "project show:", err)
+			return 1
+		}
+		if err := renderResult(out, opts.json, view); err != nil {
+			fmt.Fprintln(errOut, err)
+			return 1
+		}
+		return 0
+	case "set-state":
+		return runSetState(ctx, svc, args[1:], opts, out, errOut)
+	default:
+		fmt.Fprintf(errOut, "unknown project command %q\n", args[0])
+		return 2
+	}
+}
+
+func runSetState(ctx context.Context, svc *application.Service, args []string, opts globalOptions, out, errOut io.Writer) int {
+	fs := flag.NewFlagSet("project set-state", flag.ContinueOnError)
+	fs.SetOutput(errOut)
+	id := fs.String("project", "", "Project ID")
+	expected := fs.String("expected", "none", "expected revision number or none")
+	kind := fs.String("kind", "", "state kind")
+	summary := fs.String("summary", "", "state summary")
+	payload := fs.String("payload-json", "", "optional JSON payload")
+	nextClass := fs.String("next-action", "", "optional next action class")
+	nextSummary := fs.String("next-summary", "", "optional next action summary")
+	nextAuth := fs.String("next-authority-action", "", "required authority action for next action")
+	if err := fs.Parse(args); err != nil {
+		return 2
+	}
+	var exp *project.StateRevision
+	if *expected != "none" {
+		n, err := strconv.ParseUint(*expected, 10, 64)
+		if err != nil {
+			fmt.Fprintln(errOut, "invalid --expected:", err)
+			return 2
+		}
+		r := project.StateRevision(n)
+		exp = &r
+	}
+	var raw json.RawMessage
+	if *payload != "" {
+		raw = json.RawMessage(*payload)
+	}
+	var action *project.ActionDescriptor
+	if *nextClass != "" || *nextSummary != "" || *nextAuth != "" {
+		action = &project.ActionDescriptor{
+			ActionClass:             *nextClass,
+			Summary:                 *nextSummary,
+			ProjectID:               project.ProjectID(*id),
+			RequiredAuthorityAction: *nextAuth,
+		}
+	}
+	attempt := fmt.Sprintf("ATT-%d", time.Now().UnixNano())
+	secret, err := ownerSecret(errOut)
+	if err != nil {
+		return 1
+	}
+	defer wipe(secret)
+	rev, err := svc.TransitionProject(ctx, secret, application.TransitionProjectInput{
+		AttemptID:          attempt,
+		ProjectID:          project.ProjectID(*id),
+		ExpectedRevision:   exp,
+		State:              project.StateEnvelope{SchemaVersion: "1", Kind: *kind, Summary: *summary, Payload: raw},
+		ProposedNextAction: action,
+	})
+	if err != nil {
+		fmt.Fprintln(errOut, "project set-state:", err)
+		return 1
+	}
+	if err := renderResult(out, opts.json, rev); err != nil {
+		fmt.Fprintln(errOut, err)
+		return 1
+	}
+	return 0
+}
+
+func runAuthority(ctx context.Context, svc *application.Service, args []string, opts globalOptions, out, errOut io.Writer) int {
+	if len(args) == 0 {
+		fmt.Fprintln(errOut, "authority requires show, grant, revoke or revalidate")
+		return 2
+	}
+	secret, err := ownerSecret(errOut)
+	if err != nil {
+		return 1
+	}
+	defer wipe(secret)
+
+	switch args[0] {
+	case "show":
+		view, err := svc.ShowAuthority(ctx, secret)
+		if err != nil {
+			fmt.Fprintln(errOut, "authority show:", err)
+			return 1
+		}
+		if err := renderResult(out, opts.json, view); err != nil {
+			fmt.Fprintln(errOut, err)
+			return 1
+		}
+		return 0
+	case "grant":
+		fs := flag.NewFlagSet("authority grant", flag.ContinueOnError)
+		fs.SetOutput(errOut)
+		expected := fs.Uint64("expected", 0, "expected authority state revision")
+		pid := fs.String("project", "", "Project scope; omit for Aurora-wide")
+		action := fs.String("action", "", "permitted action class")
+		until := fs.String("valid-until", "", "optional RFC3339 expiry")
+		if err := fs.Parse(args[1:]); err != nil {
+			return 2
+		}
+		var validUntil *time.Time
+		if *until != "" {
+			parsed, err := time.Parse(time.RFC3339, *until)
+			if err != nil {
+				fmt.Fprintln(errOut, "invalid --valid-until:", err)
+				return 2
+			}
+			validUntil = &parsed
+		}
+		view, err := svc.GrantAuthority(ctx, secret, application.GrantAuthorityInput{
+			ExpectedRevision: authority.Revision(*expected),
+			ProjectID:        project.ProjectID(*pid),
+			ActionClass:      *action,
+			ValidUntil:       validUntil,
+		})
+		if err != nil {
+			fmt.Fprintln(errOut, "authority grant:", err)
+			return 1
+		}
+		if err := renderResult(out, opts.json, view); err != nil {
+			fmt.Fprintln(errOut, err)
+			return 1
+		}
+		return 0
+	case "revoke":
+		fs := flag.NewFlagSet("authority revoke", flag.ContinueOnError)
+		fs.SetOutput(errOut)
+		expected := fs.Uint64("expected", 0, "expected authority state revision")
+		id := fs.String("authority", "", "Authority ID")
+		if err := fs.Parse(args[1:]); err != nil {
+			return 2
+		}
+		view, err := svc.RevokeAuthority(ctx, secret, application.RevokeAuthorityInput{
+			ExpectedRevision: authority.Revision(*expected),
+			AuthorityID:      authority.AuthorityID(*id),
+		})
+		if err != nil {
+			fmt.Fprintln(errOut, "authority revoke:", err)
+			return 1
+		}
+		if err := renderResult(out, opts.json, view); err != nil {
+			fmt.Fprintln(errOut, err)
+			return 1
+		}
+		return 0
+	case "revalidate":
+		if err := svc.RevalidateRestoredAuthority(ctx, secret); err != nil {
+			fmt.Fprintln(errOut, "authority revalidate:", err)
+			return 1
+		}
+		view, err := svc.ShowAuthority(ctx, secret)
+		if err != nil {
+			fmt.Fprintln(errOut, "authority show after revalidate:", err)
+			return 1
+		}
+		if err := renderResult(out, opts.json, view); err != nil {
+			fmt.Fprintln(errOut, err)
+			return 1
+		}
+		return 0
+	default:
+		fmt.Fprintf(errOut, "unknown authority command %q\n", args[0])
+		return 2
+	}
+}
+
+func wipe(v []byte) {
+	for i := range v {
+		v[i] = 0
+	}
+}

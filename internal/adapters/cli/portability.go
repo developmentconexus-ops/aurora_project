@@ -112,6 +112,9 @@ func runRestore(args []string, opts globalOptions, out, errOut io.Writer) int {
 		Clock:            wallClock{},
 		ExportProtection: exportage.Protection{},
 	}
+	obs := attachObservability(svc, os.Stderr)
+	defer func() { _ = obs.Shutdown(context.Background()) }()
+
 	result, err := svc.Restore(context.Background(), ciphertext, exportSecret, owner)
 	closeErr := store.Close()
 	if err != nil {
@@ -171,6 +174,9 @@ func runMigrate(args []string, opts globalOptions, out, errOut io.Writer) int {
 	}
 	defer wipe(secret)
 	svc := &application.Service{ExportProtection: exportage.Protection{}}
+	obs := attachObservability(svc, os.Stderr)
+	defer func() { _ = obs.Shutdown(context.Background()) }()
+
 	result, err := svc.MigratePackage(context.Background(), ciphertext, secret)
 	if err != nil {
 		fmt.Fprintln(errOut, "migrate:", err)
