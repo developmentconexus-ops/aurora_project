@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	ErrStaleStateRevision     = ports.ErrStaleStateRevision
+	ErrStaleStateRevision      = ports.ErrStaleStateRevision
 	ErrIdentityMutationAttempt = errors.New("interpreted transition field attempts to mutate Project identity")
 	ErrTransitionNotAuthorized = errors.New("current authority does not permit Project state transition")
 )
@@ -152,6 +152,10 @@ func (s *Service) TransitionProject(ctx context.Context, ownerPassphrase []byte,
 		} else {
 			op.finish("FAILED", "STATE_COMMIT_FAILED")
 		}
+		return project.ProjectStateRevision{}, err
+	}
+	if err := pauseAfterStateCommitForTest(); err != nil {
+		op.finish("FAILED", "TEST_CRASH_HOOK_FAILED")
 		return project.ProjectStateRevision{}, err
 	}
 
