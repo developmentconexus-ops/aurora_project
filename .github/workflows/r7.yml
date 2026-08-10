@@ -37,6 +37,13 @@ jobs:
         env:
           CGO_ENABLED: '0'
         run: go build ./cmd/aurora
+      - name: Module tidy check
+        if: ${{ hashFiles('go.mod') != '' }}
+        env:
+          CGO_ENABLED: '0'
+        run: |
+          go mod tidy
+          git diff --exit-code -- go.mod go.sum
 
   docs:
     runs-on: ubuntu-24.04
