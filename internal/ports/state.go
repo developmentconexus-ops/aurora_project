@@ -7,15 +7,15 @@ import (
 )
 
 var (
-	ErrAlreadyInitialized   = errors.New("Aurora is already initialized")
-	ErrNotInitialized       = errors.New("Aurora is not initialized")
-	ErrProjectExists        = errors.New("project already exists")
-	ErrProjectNotFound      = errors.New("project not found")
-	ErrCurrentStateMissing  = errors.New("current project state revision is missing")
-	ErrGenerationConflict   = errors.New("governing generation conflict")
+	ErrAlreadyInitialized    = errors.New("Aurora is already initialized")
+	ErrNotInitialized        = errors.New("Aurora is not initialized")
+	ErrProjectExists         = errors.New("project already exists")
+	ErrProjectNotFound       = errors.New("project not found")
+	ErrCurrentStateMissing   = errors.New("current project state revision is missing")
+	ErrGenerationConflict    = errors.New("governing generation conflict")
 	ErrStateRevisionConflict = errors.New("project state revision conflict")
-	ErrUnauthorized         = errors.New("operation is not authorized")
-	ErrInvalidTransition    = errors.New("invalid project state transition")
+	ErrUnauthorized          = errors.New("operation is not authorized")
+	ErrInvalidTransition     = errors.New("invalid project state transition")
 )
 
 type StateEnvelopeRecord struct {
@@ -26,9 +26,9 @@ type StateEnvelopeRecord struct {
 }
 
 type ProjectStateRecord struct {
-	ProjectID             string
-	Revision              uint64
-	PredecessorRevision   *uint64
+	ProjectID              string
+	Revision               uint64
+	PredecessorRevision    *uint64
 	State                  StateEnvelopeRecord
 	AcceptedIntentRef      string
 	ProposedNextActionJSON []byte
@@ -80,39 +80,39 @@ type CreateProjectMutation struct {
 }
 
 type ProjectTransitionMutation struct {
-	AttemptID           string
-	AuditRecordID       string
-	EvidenceRecordID    string
-	ProjectID           string
-	ActorID             string
-	RequestedAt         time.Time
-	ExpectedRevision    *uint64
-	State                ProjectStateRecord
-	RequestedStateJSON   string
+	AttemptID              string
+	AuditRecordID          string
+	EvidenceRecordID       string
+	ProjectID              string
+	ActorID                string
+	RequestedAt            time.Time
+	ExpectedRevision       *uint64
+	State                  ProjectStateRecord
+	RequestedStateJSON     string
 	ProposedNextActionJSON []byte
 	AuthorityEvaluationRef string
-	ExpectedGeneration  uint64
-	NewGeneration       uint64
-	GoverningHMAC       []byte
+	ExpectedGeneration     uint64
+	NewGeneration          uint64
+	GoverningHMAC          []byte
 }
 
 type ProjectTransitionResult struct {
-	ProjectID            string
-	StateRevision        uint64
-	GoverningGeneration  uint64
+	ProjectID           string
+	StateRevision       uint64
+	GoverningGeneration uint64
 }
 
 type TransitionRejection struct {
-	AttemptID             string
-	AuditRecordID         string
-	ProjectID             string
-	ActorID               string
-	RequestedAt           time.Time
-	ExpectedRevision      *uint64
-	RequestedStateJSON    string
+	AttemptID              string
+	AuditRecordID          string
+	ProjectID              string
+	ActorID                string
+	RequestedAt            time.Time
+	ExpectedRevision       *uint64
+	RequestedStateJSON     string
 	ProposedNextActionJSON []byte
 	AuthorityEvaluationRef string
-	Reason                string
+	Reason                 string
 }
 
 type StateStore interface {
