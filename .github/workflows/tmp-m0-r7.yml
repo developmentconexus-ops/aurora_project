@@ -31,6 +31,21 @@ jobs:
         env:
           CGO_ENABLED: '0'
         run: go build ./cmd/aurora
+      - name: Prepare module lock
+        if: success()
+        env:
+          CGO_ENABLED: '0'
+        run: go mod tidy
+      - name: Upload module lock
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m0-r7-module-lock
+          path: |
+            go.mod
+            go.sum
+          if-no-files-found: error
+          retention-days: 7
 
   windows-trust:
     runs-on: windows-latest
