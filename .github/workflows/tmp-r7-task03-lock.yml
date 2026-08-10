@@ -1,0 +1,26 @@
+name: Temporary R7 TASK03 Lock
+on:
+  push:
+    branches: [feat/m0-r7-sovereign-core-20260810]
+    paths: [.github/workflows/tmp-r7-task03-lock.yml]
+permissions:
+  contents: write
+jobs:
+  lock:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-go@v6
+        with: {go-version-file: go.mod, cache: false}
+      - env: {CGO_ENABLED: '0'}
+        run: |
+          go mod tidy
+          go mod verify
+      - run: |
+          rm .github/workflows/tmp-r7-task03-lock.yml
+          git add go.mod go.sum .github/workflows/tmp-r7-task03-lock.yml
+          git config user.name developmentconexus-ops
+          git config user.email development.conexus@gmail.com
+          git commit -m "build(state): lock TASK-03 schema dependency"
+          git push origin HEAD:feat/m0-r7-sovereign-core-20260810
