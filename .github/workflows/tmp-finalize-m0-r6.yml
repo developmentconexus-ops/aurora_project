@@ -1,0 +1,89 @@
+name: Temporary Finalize M0 R6
+
+on:
+  push:
+    branches:
+      - docs/m0-r6-implementation-design-readiness
+    paths:
+      - "scripts/tmp_finalize_m0_r6.py"
+      - ".github/workflows/tmp-finalize-m0-r6.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply exact R6 documentary closeout
+        run: python scripts/tmp_finalize_m0_r6.py
+      - name: Mechanical R6 plan review
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          plan = Path('docs/design/M0-R6-SOVEREIGN-CORE-IMPLEMENTATION-PLAN.md').read_text()
+          micro = Path('docs/design/M0-R6-SOVEREIGN-CORE-MICRODESIGN.md').read_text()
+          coverage = Path('docs/capabilities/CAP-SOVEREIGN-CORE/R6-IMPLEMENTATION-COVERAGE.md').read_text()
+          status = Path('docs/tracking/STATUS.md').read_text()
+          tasks = re.findall(r'^### (TASK-\d{2}) —', plan, re.M)
+          assert tasks == [f'TASK-{i:02d}' for i in range(14)], tasks
+          assert 'status: accepted' in micro
+          assert 'accepted_from_blob: d76cf237211b7fe35c33d1a32f14905e769702a7' in micro
+          for bad in ('TODO', 'TBD', 'PLACEHOLDER'):
+              assert bad not in plan, bad
+          reqs = re.findall(r'`CAP-SOVEREIGN-CORE-REQ-(\d{3})` \| `TASK-\d{2}`', coverage)
+          assert reqs == [f'{i:03d}' for i in range(1,123)], (len(reqs), reqs[:3], reqs[-3:])
+          crits = set(re.findall(r'`CRIT-(\d{3})`', coverage))
+          assert crits == {f'{i:03d}' for i in range(1,13)}, crits
+          assert 'M0 ACRM R6 — PASS' in status
+          assert 'R7 NOT AUTHORIZED' in status or 'ACRM R7+' in status
+          assert 'TASK-00..13' in status
+          print('R6 mechanical plan review: PASS')
+          PY
+          git diff --check
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py
+      - name: Validate documentation system
+        run: python scripts/validate_docs.py
+      - name: Verify docs-only net change and stop boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=a6769fe8e28dc2dd693f12ad8b9f2460e95b8bc5
+          git diff --check
+          python - <<'PY'
+          from pathlib import Path
+          status = Path('docs/tracking/STATUS.md').read_text()
+          review = Path('docs/reviews/2026-08-09-m0-r6-implementation-design-readiness-review.md').read_text()
+          assert 'R6 PASS' in review
+          assert 'R7 NOT AUTHORIZED' in review
+          assert 'Aurora Core implementation, production source creation/execution' in status
+          PY
+      - name: Commit docs-only R6 closeout and remove helpers
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm scripts/tmp_finalize_m0_r6.py .github/workflows/tmp-finalize-m0-r6.yml
+          git add -A
+          python - <<'PY'
+          import subprocess
+          files = subprocess.check_output(['git','diff','--cached','--name-only'], text=True).splitlines()
+          bad = [p for p in files if not p.startswith('docs/') and p not in {'scripts/tmp_finalize_m0_r6.py','.github/workflows/tmp-finalize-m0-r6.yml'}]
+          if bad:
+              raise SystemExit(f'non-doc permanent changes: {bad}')
+          print('\n'.join(files))
+          PY
+          git config user.name developmentconexus-ops
+          git config user.email development.conexus@gmail.com
+          git commit -m "docs: close M0 R6 implementation design readiness PASS"
+          git push origin HEAD:docs/m0-r6-implementation-design-readiness
