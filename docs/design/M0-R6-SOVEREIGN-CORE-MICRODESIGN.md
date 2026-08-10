@@ -224,6 +224,8 @@ cmd/adapters → application → domain + ports
 adapters → ports/domain types where required
 ```
 
+`application` may receive the accepted non-authoritative standard observability APIs (`*slog.Logger`, OTel `trace.Tracer`, OTel `metric.Meter`) from the composition root. Exporter/provider construction remains in `adapters/observability`; domain packages never depend on observability.
+
 Prohibited:
 
 ```text
@@ -365,11 +367,11 @@ type StateStore interface {
 }
 ```
 
-Accepted governing mutations include required audit/evidence references in the same SQLite transaction. Rejected/non-governing attempts may be recorded without advancing governing state.
+The mutation/result structs named above are defined in `ports/state.go` and contain domain values plus operation IDs/preconditions only; they contain no SQL rows, statements or driver-specific types. Accepted governing mutations include required audit/evidence references in the same SQLite transaction. Rejected/non-governing attempts may be recorded without advancing governing state.
 
 ### 8.2 `OwnerTrustStore`
 
-Required because ADR-0008 mandates a physically independent trust boundary.
+Required because ADR-0008 mandates a physically independent trust boundary. `RootEnvelope` and `Anchor` are port contract structs declared in `ports/owner_trust.go`; neither exposes the plaintext ORK.
 
 ```go
 type OwnerTrustStore interface {
@@ -414,7 +416,7 @@ Resolution order:
 ```text
 --data-dir
 → AURORA_DATA_DIR
-→ platform user config directory / Aurora
+→ ~/.aurora
 ```
 
 Physical layout:
@@ -517,7 +519,6 @@ M0 stores each complete immutable authority state revision as canonical JSON ins
 authority_revision INTEGER PRIMARY KEY
 predecessor_revision INTEGER NULL
 authority_state_json TEXT NOT NULL
-revalidation_required INTEGER NOT NULL CHECK(revalidation_required IN (0,1))
 changed_by TEXT NOT NULL
 changed_at TEXT NOT NULL
 ```
@@ -549,23 +550,38 @@ SQLite provides transaction atomicity/durability; Aurora does not rebuild a tran
 
 ADR-0008 requires one authenticated governing descriptor so raw DB modification alone cannot silently redefine governing truth.
 
-The descriptor contains only governing heads:
+The descriptor is one compact **current governing logical snapshot**, not a list of physical SQLite bytes and not merely revision pointers. It binds:
+
+- immutable Aurora/owner identity binding required by M0;
+- `governing_generation`;
+- every Project's current canonical metadata, current revision number and current `StateEnvelope`/proposed-next-action/acceptance attribution;
+- the complete current logical `authority.State`, including revalidation status.
+
+Conceptually:
 
 ```json
 {
   "version": 1,
-  "aurora_id": "AUR-...",
+  "aurora": {"aurora_id":"AUR-...","owner_operator_id":"OWNER-..."},
   "governing_generation": 14,
   "projects": [
-    {"project_id":"PRJ-...","state_revision":3}
+    {
+      "project_id":"PRJ-...",
+      "display_label":"...",
+      "current_state_revision":3,
+      "current_state": {"schema_version":"1","kind":"...","summary":"...","payload":{}},
+      "proposed_next_action": null,
+      "accepted_by_actor":"...",
+      "accepted_at":"..."
+    }
   ],
-  "authority_revision": 5
+  "authority": {"revision":5,"revalidation_required":false,"grants":[]}
 }
 ```
 
-Project entries are sorted by `project_id`. The logical object is JCS-canonicalized and authenticated once with HMAC-SHA-256 using the ORK-derived governing-state key.
+Project entries and any set-like fields use stable documented ordering before JCS. The logical object is JCS-canonicalized and authenticated **once** with HMAC-SHA-256 using the ORK-derived governing-state key. Therefore changing the contents of the current Project or authority revision without the ORK invalidates governing integrity even if revision numbers are left unchanged.
 
-M0 does **not** add per-table HMACs, Merkle trees, hash chains, event-sourced integrity or a custom transaction protocol.
+M0 does **not** add per-table/per-row HMACs, Merkle trees, hash chains, event-sourced integrity or a custom transaction protocol.
 
 ## 11. Owner root/trust files
 
@@ -632,7 +648,7 @@ No additional `anchor + 1` restriction or stronger time-high-water write policy 
 5. close;
 6. atomically rename/replace target;
 7. on Unix, open and sync the parent directory;
-8. on Windows, record that temp-file Sync + replace is the supported M0 compatibility behavior and do not claim stronger directory-flush semantics than R7 evidence demonstrates.
+8. on Windows, after temp-file `Sync` + close, replace the target with `MoveFileExW` using `MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH` through `golang.org/x/sys/windows`; do not claim Unix-style parent-directory fsync semantics on Windows beyond the R7 evidence.
 
 R7 fault tests verify the supported target classes. No generalized filesystem durability framework is created.
 
@@ -676,7 +692,7 @@ M0 export is one logical JSON document; no ZIP/TAR/member framework.
 }
 ```
 
-Logical content is validated by `schemas/sovereign-export-v1.schema.json`, canonicalized with JCS for digest input and protected externally with age.
+Logical content is validated by `schemas/sovereign-export-v1.schema.json`. `integrity.payload_sha256` is SHA-256 over the JCS-canonical JSON of the export document with the top-level `integrity` member omitted; verification reconstructs that same canonical input before accepting the package. The complete document is then protected externally with age.
 
 Normal sensitive file:
 
@@ -895,6 +911,7 @@ Allowed dependency classes are only those required by accepted decisions:
 - Go standard library;
 - `modernc.org/sqlite` compatible exact module set;
 - `golang.org/x/crypto` where required by ADR-0008;
+- `golang.org/x/sys/windows` for the Windows trust-file replacement primitive;
 - maintained age implementation;
 - maintained JSON Schema 2020-12 validator;
 - maintained RFC 8785/JCS implementation;
@@ -926,7 +943,26 @@ Persistent schema changes are forward-migrated explicitly and tested against fix
 
 Architecture spike code remains disposable evidence and is not promoted by copy/merge as production implementation.
 
-## 24. R6 self-review checklist
+## 24. Mission-criterion design coverage
+
+| Mission criterion | Primary design realization | Vertical proof slice |
+|---|---|---|
+| `CRIT-001` Stable identity/scope | §§7.1, 9, 11 | Slices 1–2 |
+| `CRIT-002` Canonical state ownership | §§7.2, 9–10 | Slices 2–3 |
+| `CRIT-003` Revision-bound transitions | §§7.2, 8.1, 13 | Slice 3 |
+| `CRIT-004` Authority/next-safe-action | §§7.3, 11, 13 | Slices 4–5 |
+| `CRIT-005` Fresh-process recovery | §§9–13 | Slice 6 |
+| `CRIT-006` Export/restore/migration | §§14–15 | Slices 7–8 |
+| `CRIT-007` Security/sovereignty/secrets | §§10–14, 17 | Slices 1, 4–5, 7, 10 |
+| `CRIT-008` Audit/evidence/telemetry | §§9.3, 17, 19 | Slice 9 |
+| `CRIT-009` Reliability/fault containment | §§12–13, 20, 23 | Slices 5–6, 10 |
+| `CRIT-010` Architecture guards | §§2–6, 21–22 | all slices / static review |
+| `CRIT-011` Documentation/traceability | §§1–2, 21–25 | R6/R7 reviews |
+| `CRIT-012` Complete M0 Golden Proof | §§18–20 | Slice 11 |
+
+The task-by-task Implementation Plan created after written Microdesign approval must expand this to explicit requirement/test allocations; this table proves no Mission criterion is structurally orphaned at the design level.
+
+## 25. R6 self-review checklist
 
 The written design must pass these checks before an R6 verdict can be proposed:
 
@@ -945,7 +981,7 @@ The written design must pass these checks before an R6 verdict can be proposed:
 - future Presence/Mastra evolution remains possible without prebuilding it;
 - no R7 implementation authority implied.
 
-## 25. Written-review gate
+## 26. Written-review gate
 
 This synthesis incorporates the operator-approved conversational direction from the R6 design discussion, including the explicit anti-overengineering correction. The document itself remains proposed until the operator reviews this written form.
 
