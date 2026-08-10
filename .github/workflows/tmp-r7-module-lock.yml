@@ -1,0 +1,41 @@
+name: Temporary R7 Module Lock
+
+on:
+  push:
+    branches:
+      - feat/m0-r7-sovereign-core-20260810
+    paths:
+      - .github/workflows/tmp-r7-module-lock.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Resolve exact module lock
+        env:
+          CGO_ENABLED: '0'
+        run: |
+          set -euo pipefail
+          go mod tidy
+          go mod verify
+          go list -m all
+      - name: Commit lock and remove helper
+        run: |
+          set -euo pipefail
+          rm .github/workflows/tmp-r7-module-lock.yml
+          git add go.mod go.sum .github/workflows/tmp-r7-module-lock.yml
+          git config user.name developmentconexus-ops
+          git config user.email development.conexus@gmail.com
+          git commit -m "build(core): lock TASK-01 Go dependencies"
+          git push origin HEAD:feat/m0-r7-sovereign-core-20260810
