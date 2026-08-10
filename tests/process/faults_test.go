@@ -88,7 +88,7 @@ func TestExternalKillAfterSQLiteCommitRequiresReconciliationBeforeRetry(t *testi
 	if err != nil { t.Fatal(err) }
 	accepted := 0
 	for _, attempt := range logical.Attempts {
-		if attempt.ProjectID == pid && attempt.Result == "ACCEPTED" { accepted++ }
+		if string(attempt.ProjectID) == pid && attempt.Result == "ACCEPTED" { accepted++ }
 	}
 	if accepted != 1 { t.Fatalf("accepted attempts=%d want exactly 1; attempts=%+v", accepted, logical.Attempts) }
 }
