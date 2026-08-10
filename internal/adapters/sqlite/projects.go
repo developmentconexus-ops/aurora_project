@@ -84,18 +84,23 @@ func (s *Store) loadProjects(ctx context.Context) ([]ports.ProjectRecord, error)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 	var ids []string
 	for rows.Next() {
 		var id string
 		if err := rows.Scan(&id); err != nil {
+			_ = rows.Close()
 			return nil, err
 		}
 		ids = append(ids, id)
 	}
 	if err := rows.Err(); err != nil {
+		_ = rows.Close()
 		return nil, err
 	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+
 	out := make([]ports.ProjectRecord, 0, len(ids))
 	for _, id := range ids {
 		p, state, err := s.LoadProjectCurrent(ctx, id)
