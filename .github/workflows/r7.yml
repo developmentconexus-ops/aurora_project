@@ -1,0 +1,49 @@
+name: M0 R7
+
+on:
+  push:
+    branches:
+      - feat/m0-r7-sovereign-core-20260810
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v6
+        if: ${{ hashFiles('go.mod') != '' }}
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Go test
+        if: ${{ hashFiles('go.mod') != '' }}
+        env:
+          CGO_ENABLED: '0'
+        run: go test ./...
+      - name: Go vet
+        if: ${{ hashFiles('go.mod') != '' }}
+        env:
+          CGO_ENABLED: '0'
+        run: go vet ./...
+      - name: Go build
+        if: ${{ hashFiles('go.mod') != '' }}
+        env:
+          CGO_ENABLED: '0'
+        run: go build ./cmd/aurora
+
+  docs:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+      - run: python scripts/validate_docs.py --generated-root "$RUNNER_TEMP/aurora-generated" --report "$RUNNER_TEMP/docs-validation-report.json"
