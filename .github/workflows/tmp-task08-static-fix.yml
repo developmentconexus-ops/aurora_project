@@ -1,0 +1,68 @@
+name: Temporary TASK-08 Static Fix
+
+on:
+  push:
+    branches:
+      - feat/m0-r7-sovereign-core
+    paths:
+      - .github/workflows/tmp-task08-static-fix.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.5'
+      - name: Apply three static corrections
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          p=Path('internal/adapters/sqlite/portability.go')
+          s=p.read_text()
+          s=s.replace('\n\t"errors"','')
+          p.write_text(s)
+
+          p=Path('internal/application/portability.go')
+          s=p.read_text()
+          old='projects:=make(map[string]*portability.ProjectExport,len(state.Current.Projects));ordered:=make([]portability.ProjectExport,0,len(state.Current.Projects));for _,p:=range state.Current.Projects{var rev *project.StateRevision;if p.CurrentStateRevision!=nil{v:=project.StateRevision(*p.CurrentStateRevision);rev=&v};ordered=append(ordered,portability.ProjectExport{ProjectID:project.ProjectID(p.ProjectID),DisplayLabel:p.DisplayLabel,ObjectiveSummary:p.ObjectiveSummary,CurrentStateRevision:rev,CreatedAt:p.CreatedAt,UpdatedAt:p.UpdatedAt,Revisions:[]project.ProjectStateRevision{}});projects[p.ProjectID]=&ordered[len(ordered)-1]}\n\tfor _,r:=range state.ProjectRevisions{converted,err:=projectStateFromRecord(r);if err!=nil{return portability.ExportDocument{},err};entry:=projects[r.ProjectID];if entry==nil{return portability.ExportDocument{},fmt.Errorf("orphan project revision %s/%d",r.ProjectID,r.Revision)};entry.Revisions=append(entry.Revisions,converted)}'
+          new='projectIndex:=make(map[string]int,len(state.Current.Projects));ordered:=make([]portability.ProjectExport,0,len(state.Current.Projects));for _,p:=range state.Current.Projects{var rev *project.StateRevision;if p.CurrentStateRevision!=nil{v:=project.StateRevision(*p.CurrentStateRevision);rev=&v};projectIndex[p.ProjectID]=len(ordered);ordered=append(ordered,portability.ProjectExport{ProjectID:project.ProjectID(p.ProjectID),DisplayLabel:p.DisplayLabel,ObjectiveSummary:p.ObjectiveSummary,CurrentStateRevision:rev,CreatedAt:p.CreatedAt,UpdatedAt:p.UpdatedAt,Revisions:[]project.ProjectStateRevision{}})}\n\tfor _,r:=range state.ProjectRevisions{converted,err:=projectStateFromRecord(r);if err!=nil{return portability.ExportDocument{},err};idx,ok:=projectIndex[r.ProjectID];if !ok{return portability.ExportDocument{},fmt.Errorf("orphan project revision %s/%d",r.ProjectID,r.Revision)};ordered[idx].Revisions=append(ordered[idx].Revisions,converted)}'
+          if old not in s: raise SystemExit('project grouping pattern not found')
+          p.write_text(s.replace(old,new))
+
+          p=Path('internal/domain/portability/export.go')
+          s=p.read_text()
+          old='''func logicalDigest(doc ExportDocument) (string, error) {\n\traw, err := json.Marshal(doc)\n\tif err != nil {\n\t\treturn "", fmt.Errorf("marshal logical export: %w", err)\n\t}\n\tcanonical, err := jcs.Transform(raw)'''
+          new='''func logicalDigest(doc ExportDocument) (string, error) {\n\traw, err := json.Marshal(doc)\n\tif err != nil {\n\t\treturn "", fmt.Errorf("marshal logical export: %w", err)\n\t}\n\tvar members map[string]json.RawMessage\n\tif err := json.Unmarshal(raw, &members); err != nil {\n\t\treturn "", fmt.Errorf("decode logical export members: %w", err)\n\t}\n\tdelete(members, "integrity")\n\traw, err = json.Marshal(members)\n\tif err != nil {\n\t\treturn "", fmt.Errorf("marshal logical export digest view: %w", err)\n\t}\n\tcanonical, err := jcs.Transform(raw)'''
+          if old not in s: raise SystemExit('digest pattern not found')
+          p.write_text(s.replace(old,new))
+          PY
+          find cmd internal schemas -name '*.go' -print0 | xargs -0 gofmt -w
+          go mod tidy
+      - name: Commit corrections and remove helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/tmp-task08-static-fix.yml
+          git add -A
+          git config user.name developmentconexus-ops
+          git config user.email development.conexus@gmail.com
+          git commit -m "fix(portability): align export restore invariants"
+          git push origin HEAD:feat/m0-r7-sovereign-core
+      - name: Compile and test corrected tree
+        env:
+          CGO_ENABLED: '0'
+        run: |
+          go test ./...
+          go vet ./...
+          go build ./cmd/aurora
