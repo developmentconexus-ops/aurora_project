@@ -48,11 +48,11 @@ type BootstrapResult struct {
 type CurrentSnapshot = BootstrapResult
 
 type CreateProjectMutation struct {
-	OperationID          string
-	Project              ProjectRecord
-	ExpectedGeneration   uint64
-	NewGeneration        uint64
-	GoverningHMAC        []byte
+	OperationID        string
+	Project            ProjectRecord
+	ExpectedGeneration uint64
+	NewGeneration      uint64
+	GoverningHMAC      []byte
 }
 
 type StateStore interface {

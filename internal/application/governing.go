@@ -24,10 +24,10 @@ func governingSnapshot(current ports.CurrentSnapshot) bootstrapGoverningSnapshot
 	}
 	sort.Slice(projects, func(i, j int) bool { return projects[i].ProjectID < projects[j].ProjectID })
 	return bootstrapGoverningSnapshot{
-		Version: 1,
-		Aurora: bootstrapAurora{AuroraID: current.AuroraID, OwnerOperatorID: current.OwnerOperatorID},
+		Version:             1,
+		Aurora:              bootstrapAurora{AuroraID: current.AuroraID, OwnerOperatorID: current.OwnerOperatorID},
 		GoverningGeneration: current.GoverningGeneration,
-		Projects: projects,
-		Authority: json.RawMessage(current.AuthorityJSON),
+		Projects:            projects,
+		Authority:           json.RawMessage(current.AuthorityJSON),
 	}
 }
