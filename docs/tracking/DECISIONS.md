@@ -5,12 +5,12 @@ document_type: decision_index
 form: reference
 authority: tracking
 status: current
-version: 0.5.0
+version: 0.6.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - current decision discovery and status index
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-09
 ---
 
 # Aurora Decision Index
@@ -26,7 +26,7 @@ Index entry
 → never redefines the decision
 ```
 
-A0 and ADR-0001/0002 were explicitly accepted by the operator and merged to `main`. The first Product Milestone was subsequently selected as M0. Technical mechanisms and later ACRM gates remain open unless separately accepted/authorized.
+A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are operator-accepted; `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 is the approved first M0 Mission Contract. Later ACRM gates remain explicit and separately authorized through `STATUS.md`.
 
 ## 2. Constitutional direction
 
@@ -103,6 +103,8 @@ A0 and ADR-0001/0002 were explicitly accepted by the operator and merged to `mai
 | D-056 | Mastra is the accepted preferred-first substrate to evaluate for first-party agentic Harnesses while sovereign truth/authority remain Aurora-owned | ADR-0009 | accepted |
 | D-057 | SQLite + `database/sql` + `modernc.org/sqlite` is the accepted M0 operational-state baseline | ADR-0007 | accepted |
 | D-058 | M0 owner trust uses a random wrapped ORK + authenticated external generation/time high-water with fail-closed restore/revalidation semantics | ADR-0008 | accepted |
+| D-059 | CAP-SOVEREIGN-CORE Requirements v0.1.1, Spec v0.2.0, Threat Model v0.2.0 and Test Plan v0.2.0 are the accepted R4-aligned M0 A2 package | CAP-SOVEREIGN-CORE A2 documents + R5 operator acceptance | accepted |
+| D-060 | MIS-M0-SOVEREIGN-CORE-001 v0.1.0 is the approved first scoped M0 Mission Contract | MIS-M0-SOVEREIGN-CORE-001 + R5 operator acceptance | approved |
 
 ## 7. Methodology, documentation and milestone decisions
 
@@ -134,9 +136,6 @@ These are not yet decisions and must not be inferred from examples, research can
 | O-012 | memory storage/retrieval/consolidation mix | CAP-MEMORY-CONTEXT + eval spikes |
 | O-013 | first reference Harness runtime | M2/M3 contract after M0/M1 readiness |
 | O-014 | first real engineering Harness | roadmap readiness; MNFS is one candidate |
-| O-015 | exact first Mission Contract for selected M0 | `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 proposed in R5; operator approval pending |
-
-`O-015` previously combined milestone selection and first Contract. The milestone portion is resolved by `D-051`. R5 now proposes `MIS-M0-SOVEREIGN-CORE-001` v0.1.0; the decision remains open until explicit operator approval.
 
 ## 9. Status-change rule
 

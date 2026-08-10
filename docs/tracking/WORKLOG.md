@@ -618,3 +618,19 @@ The operator authorized M0 ACRM R5 with `Seguir` after canonical R4 PASS at `741
 R5 prepared one vertical Mission Contract, `MIS-M0-SOVEREIGN-CORE-001` v0.1.0, plus a 122/122 requirement-to-criterion allocation. The R5 preflight also found that R2/R3 gate PASS had intentionally left the normative Requirements/Spec/Threat/Test artifacts `proposed`. Because Blueprint 15 gives accepted A2 specifications precedence over approved A3 contracts, R5 prepared minimal R4-aligned A2 revisions rather than silently allowing a Contract to outrank proposed reusable semantics.
 
 The adversarial R5 review finds the package technically/traceably ready but returns `R5 BLOCKED` pending explicit operator acceptance of Requirements v0.1.1, Spec v0.2.0, Threat Model v0.2.0 and Test Plan v0.2.0 plus approval of `MIS-M0-SOVEREIGN-CORE-001` v0.1.0. No R6 or implementation authority is implied.
+
+## 2026-08-09 — M0 R5 A2/Contract Acceptance and PASS
+
+The operator explicitly accepted the exact R4-aligned `CAP-SOVEREIGN-CORE` A2 package and approved `MIS-M0-SOVEREIGN-CORE-001` v0.1.0. Acceptance is bound to proposal baseline `abbcb063c90c834ad45f6b04ca5abe308f9dacb2` and proposal blobs recorded in `DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE`.
+
+Lifecycle promotion changed acceptance metadata and stale lifecycle wording only. The workflow mechanically verified that all 122 atomic requirement table rows and all 12 Mission criterion sections remained identical to the approved proposal semantics.
+
+The final R5 rerun verified 122/122 requirement allocation, exact Mission identity/baseline, scope/non-goals, authority/prohibitions, evidence/thresholds, replan path, accepted R4 bindings and absence of hidden R6/M1+/Mastra/AHDK/MNFS scope.
+
+Final verdict:
+
+```text
+M0 ACRM R5 — PASS
+```
+
+R6, Microdesign and Aurora Core implementation remain NOT AUTHORIZED. Exact next action is to stop and await separate operator authorization for M0 ACRM R6 — Implementation Design Readiness.

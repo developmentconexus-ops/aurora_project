@@ -4,7 +4,10 @@ title: CAP-SOVEREIGN-CORE Threat Model
 document_type: threat_model
 form: explanation
 authority: specification
-status: proposed
+status: accepted
+accepted_at: 2026-08-09
+acceptance_evidence: DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
+accepted_from_blob: 7e97f816d0c4966ba6b12cf0447c7a2210fbea34
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -21,6 +24,7 @@ related:
   - ADR-AURORA-0007
   - ADR-AURORA-0008
   - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
+  - DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
 source_revision: 9ea8adf5c115f54071d7e36e312695d19420d8b0
 r4_alignment_revision: 74167bd1404d9076423ffdbae20f97958283527c
 review_triggers:

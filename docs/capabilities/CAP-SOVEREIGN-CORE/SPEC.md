@@ -4,7 +4,10 @@ title: CAP-SOVEREIGN-CORE Capability Specification
 document_type: capability_spec
 form: reference
 authority: specification
-status: proposed
+status: accepted
+accepted_at: 2026-08-09
+acceptance_evidence: DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
+accepted_from_blob: dd6f66c23c08fc635d780aac5e70533a82e72a75
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -32,6 +35,7 @@ related:
   - ADR-AURORA-0007
   - ADR-AURORA-0008
   - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
+  - DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
 source_revision: 9ea8adf5c115f54071d7e36e312695d19420d8b0
 r4_alignment_revision: 74167bd1404d9076423ffdbae20f97958283527c
 review_triggers:
@@ -46,7 +50,7 @@ last_reviewed: 2026-08-07
 
 ## 1. Status, purpose and R3 boundary
 
-This document is the proposed reusable Capability/System Specification for:
+This document is the accepted reusable Capability/System Specification for:
 
 ```text
 CAP-SOVEREIGN-CORE
@@ -1013,7 +1017,7 @@ Future R7 executes implementation tests/evidence against the approved Contract/P
 
 Future R8 requires the complete M0 Golden Proof and operator verdict.
 
-Current promotion state is `G1`; the R5 package is proposed and cannot advance to G2 without the required operator decisions.
+The R4-aligned A2 package and `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 were explicitly accepted/approved by the operator. The R5 rerun determines Contract Readiness PASS; R6 remains separately gated.
 
 ---
 
@@ -1075,14 +1079,15 @@ R3 gate verdict is evidence that the proposed package satisfies readiness condit
 
 ## 22. Governance boundary
 
-This Spec is the proposed R4-aligned A2 reusable-behavior authority for CAP-SOVEREIGN-CORE.
+This Spec is the accepted R4-aligned A2 reusable-behavior authority for CAP-SOVEREIGN-CORE.
 
 It does not itself authorize any gate or implementation. Current progression is governed by `STATUS.md` and the Capability Realization Method:
 
 ```text
 R4 PASS
-→ R5 package/operator decision
+→ A2 package + Mission Contract accepted/approved
+→ R5 rerun
 → STOP before R6 unless separately authorized
 ```
 
-R6 may define implementation detail only after the A2 package and Mission Contract are accepted and R5 passes.
+R6 may define implementation detail only after R5 passes and R6 is separately authorized.

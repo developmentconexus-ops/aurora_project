@@ -4,7 +4,10 @@ title: CAP-SOVEREIGN-CORE Capability Test Plan
 document_type: capability_test_plan
 form: reference
 authority: specification
-status: proposed
+status: accepted
+accepted_at: 2026-08-09
+acceptance_evidence: DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
+accepted_from_blob: 8b42cc451439038e63e8b567702877b8951c5edb
 version: 0.2.0
 owners:
   - developmentconexus-ops
@@ -20,6 +23,7 @@ related:
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R4-DECISION-COVERAGE
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R5-COVERAGE
   - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
+  - DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
 source_revision: 9ea8adf5c115f54071d7e36e312695d19420d8b0
 r4_alignment_revision: 74167bd1404d9076423ffdbae20f97958283527c
 review_triggers:

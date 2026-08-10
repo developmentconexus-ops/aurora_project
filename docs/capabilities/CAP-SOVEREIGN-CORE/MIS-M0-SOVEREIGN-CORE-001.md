@@ -4,14 +4,17 @@ title: MIS-M0-SOVEREIGN-CORE-001 Mission Contract
 document_type: mission_contract
 form: reference
 authority: contract
-status: proposed
+status: accepted
+accepted_at: 2026-08-09
+acceptance_evidence: DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
+accepted_from_blob: 1db39012874828f54f293bf76571259494ba5a79
 version: 0.1.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed exact implementation commitment for M0 Sovereign Core Walking Skeleton
+  - exact scoped implementation commitment for M0 Sovereign Core Walking Skeleton
 related:
   - DOC-AURORA-M0-R5-OPERATOR-AUTHORIZATION
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
@@ -28,6 +31,7 @@ related:
   - ADR-AURORA-0007
   - ADR-AURORA-0008
   - ADR-AURORA-0009
+  - DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
 mission_id: MIS-M0-SOVEREIGN-CORE-001
 contract_revision: 0.1.0
 source_revision: 74167bd1404d9076423ffdbae20f97958283527c
@@ -44,12 +48,12 @@ Contract:         v0.1.0
 Capability:       CAP-SOVEREIGN-CORE
 Product Milestone: M0 — Sovereign Core Walking Skeleton
 Baseline:         74167bd1404d9076423ffdbae20f97958283527c
-Status:           PROPOSED
+Status:           APPROVED
 ```
 
 This Contract commits one **vertical M0 walking skeleton**. It does not split Identity, Project State, Authority, Recovery or Audit/Evidence into independently productized services or Missions.
 
-The Contract becomes governing only after explicit operator approval. Approval of this Contract does not itself authorize R6, production implementation or merge/promotion.
+The Contract was explicitly approved by the operator through `DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE` and is the governing scoped M0 implementation commitment. Approval does not itself authorize R6, production implementation or merge/promotion.
 
 ## 2. Outcome
 

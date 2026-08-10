@@ -4,10 +4,15 @@ title: CAP-SOVEREIGN-CORE Atomic Requirements
 document_type: capability_requirements
 form: reference
 authority: specification
-status: proposed
+status: accepted
+accepted_at: 2026-08-09
+acceptance_evidence: DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
+accepted_from_blob: de234e4a57c04d1d0b68cd017597e06a618fd68b
 version: 0.1.1
 owners:
   - developmentconexus-ops
+approvers:
+  - operator
 source_of_truth_for:
   - M0 atomic requirements for CAP-SOVEREIGN-CORE
 related:
@@ -18,6 +23,7 @@ related:
   - DOC-AURORA-M0-R2-OPERATOR-AUTHORIZATION
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R5-COVERAGE
   - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
+  - DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
 source_revision: 495b712142d7c3d722da2298f7a0b060707f9f5e
 review_triggers:
   - applicable constitutional requirement changes
@@ -43,7 +49,7 @@ R1 selected 127 active constitutional source rows (`78 APPLIES + 49 PARTIALLY_AP
 
 This document does **not** define the complete Capability/System design or threat model (R3), select architecture/stack/spike winners (R4), create a Mission Contract (R5), create Microdesign/implementation allocation (R6), or authorize implementation (R7).
 
-All 122 requirements were proposed at R2. This v0.1.1 preserves their normative statements unchanged while making the package review-ready for R5 operator acceptance. R3 owns mechanism/test allocation and `R5-COVERAGE.md` owns requirement-to-Mission allocation; this document remains `proposed` until explicitly accepted by the operator.
+All 122 requirements were proposed at R2. This v0.1.1 preserves their normative statements unchanged while making the package review-ready for R5 operator acceptance. R3 owns mechanism/test allocation and `R5-COVERAGE.md` owns requirement-to-Mission allocation; this document was explicitly accepted by the operator through `DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE`.
 
 ## 2. Interpretation
 

@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.23.0
+version: 0.24.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -68,7 +68,9 @@ related:
   - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
   - DOC-AURORA-CAP-SOVEREIGN-CORE-R5-COVERAGE
   - REVIEW-AURORA-M0-R5-CONTRACT-READINESS-2026-08-07
-last_reviewed: 2026-08-07
+  - DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
+  - REVIEW-AURORA-M0-R5-CONTRACT-READINESS-RERUN-2026-08-09
+last_reviewed: 2026-08-09
 ---
 
 # Aurora Project Status
@@ -83,7 +85,7 @@ last_reviewed: 2026-08-07
 - **ADR-0001:** ACCEPTED
 - **ADR-0002:** ACCEPTED
 - **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED by operator
-- **Current readiness gate:** ACRM R5 — Contract Readiness — BLOCKED / OPERATOR APPROVAL REQUIRED; R4 PASS
+- **Current readiness gate:** ACRM R5 — Contract Readiness — PASS; R6 NOT AUTHORIZED
 - **Initial R0 verdict:** FAIL
 - **R0 re-run target:** `6054f84d007347c0aa9eef9e71317134b1047d3c`
 - **R0 re-run verdict:** PASS
@@ -95,7 +97,7 @@ last_reviewed: 2026-08-07
 - **R1 active constitutional sources for R2:** 127 (`78 APPLIES + 49 PARTIALLY_APPLIES`)
 - **R2 source baseline:** `495b712142d7c3d722da2298f7a0b060707f9f5e`
 - **R2 reviewed requirements package:** `a8ffbbe22995b8e683d9d49ad06f487c745709f9`
-- **R2 derived requirements:** 122 proposed atomic requirements; coverage 127/127 active sources
+- **R2 derived requirements:** 122 accepted atomic requirements; coverage 127/127 active sources
 - **R2 canonical integration:** `9bfab2b30eaccb92ddb55852f97735653172f064`
 - **R2 verdict:** PASS
 - **R3 source baseline:** `9ea8adf5c115f54071d7e36e312695d19420d8b0`
@@ -120,12 +122,12 @@ last_reviewed: 2026-08-07
 - **SPK-AURORA-M0-SOVEREIGN-STORE-001:** PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED — final run `31213792366`, execution revision `4242342486f512320f12e0b603f052166264c4ea`, 4/4 matrix PASS
 - **SPK-AURORA-M0-OWNER-TRUST-002:** PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED — final run `31219882882`, execution revision `c76b96fee36878f15c54028b4ba1896f84ebdeca`, Linux/Windows PASS
 - **R4 verdict:** PASS — all 15 M0 architecture questions decided; all required spikes PASS/REVIEWED/CLOSED
-- **R5 — Contract Readiness:** AUTHORIZED / PACKAGE PREPARED / BLOCKED ON OPERATOR APPROVAL
+- **R5 — Contract Readiness:** PASS — exact A2 package accepted and MIS-M0-SOVEREIGN-CORE-001 v0.1.0 approved
 - **R6 and later gates:** NOT AUTHORIZED BY IMPLICATION
 - **Accepted technical decisions:** ADR-0003, ADR-0004, ADR-0005, ADR-0006, ADR-0007, ADR-0008 and ADR-0009
-- **R5 proposed A2 package:** Requirements v0.1.1 + Spec v0.2.0 + Threat Model v0.2.0 + Test Plan v0.2.0 — operator acceptance pending
-- **R5 proposed Mission Contract:** `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 — operator approval pending; 122/122 requirements allocated
-- **R5 verdict:** BLOCKED only on the exact operator approvals above; no new research/spike blocker
+- **R5 accepted A2 package:** Requirements v0.1.1 + Spec v0.2.0 + Threat Model v0.2.0 + Test Plan v0.2.0 — accepted from exact proposal blobs
+- **R5 approved Mission Contract:** `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 — approved; 122/122 requirements allocated
+- **R5 verdict:** PASS — final rerun after exact operator acceptance; no unresolved Contract Readiness blocker
 - **Runtime implementation:** not started and not authorized
 
 ## 2. M0 selection
@@ -239,15 +241,15 @@ M0 ACRM R0 re-run:             PASS — target 6054f84d007347c0aa9eef9e71317134b
 M0 ACRM R1 — Applicability:    PASS — source baseline 735f269025e2cc317424e4931f3a5cd414cd6f2a
 R1 applicability coverage:     294/294 classified; 127 active sources
 M0 ACRM R2 — Requirements:     PASS — source baseline 495b712142d7c3d722da2298f7a0b060707f9f5e
-R2 requirements baseline:       122 proposed atomic requirements; coverage 127/127
+R2 requirements baseline:       122 accepted atomic requirements; coverage 127/127
 M0 ACRM R3 — Capability Readiness: PASS — source baseline 9ea8adf5c115f54071d7e36e312695d19420d8b0
-R3 proposed Capability package: Spec + threat model + test plan + 122/122 allocation
+R3 Capability package:          ACCEPTED — R4-aligned Requirements/Spec/Threat/Test + 122/122 allocation
 M0 ACRM R4 — Architecture/Decision Readiness: PASS — final rerun after ADR-0008 v0.2.0 acceptance
 R4 M0 decision coverage:         15/15 decided; all required spikes closed; no unresolved material M0 architecture choice
-R5 Mission proposal:              MIS-M0-SOVEREIGN-CORE-001 v0.1.0; 122/122 requirement allocation
+R5 Mission Contract:             APPROVED — MIS-M0-SOVEREIGN-CORE-001 v0.1.0; 122/122 requirement allocation
 Cross-horizon ADR-0009:          ACCEPTED — Mastra preferred-first agentic Harness substrate; not an M0 blocker
 Mastra integration spike:       NOT REQUIRED FOR M0 / DEFERRED TO FIRST CONSUMING CAPABILITY
-ACRM R5 — Contract Readiness:    AUTHORIZED / BLOCKED ON OPERATOR APPROVAL
+ACRM R5 — Contract Readiness:    PASS — exact A2 package + Mission Contract accepted/approved
 ACRM R6+:                       NOT AUTHORIZED
 Architecture Spike execution:   SPK-001 CLOSED; SPK-002 CLOSED; all other spikes NOT AUTHORIZED
 Capability implementation:      PROHIBITED
@@ -255,42 +257,40 @@ Aurora Core implementation:     PROHIBITED
 AHDK implementation:            PROHIBITED
 MNFS integration:               PROHIBITED
 Accepted technical decisions:   ADR-0003 / ADR-0004 / ADR-0005 / ADR-0006 / ADR-0007 / ADR-0008 / ADR-0009
-Mission Contract:               PROPOSED — MIS-M0-SOVEREIGN-CORE-001 v0.1.0; not yet approved
+Mission Contract:               APPROVED — MIS-M0-SOVEREIGN-CORE-001 v0.1.0
 Microdesign/Implementation Plan: NOT STARTED
 ```
 
 ## 7. Current blocker/gate
 
-M0 ACRM R4 has completed the documentary architecture/decision investigation against fixed source baseline `d00cc1abfc2a41ac7e81e1f3478e188b3c5e9e52`. All 15 R3-open M0 architecture questions have explicit dispositions.
+The operator explicitly accepted the R4-aligned A2 package and approved `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 through `DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE`, bound to the exact proposal blobs at baseline `abbcb063c90c834ad45f6b04ca5abe308f9dacb2`.
 
-The later focused Mastra assessment is complete enough for the current decision: Mastra is the accepted preferred-first substrate to evaluate for future first-party agentic Harnesses, but it does not own the Sovereign Core and does not create a new M0 blocker. Investigation stops at this boundary for M0.
+The final R5 rerun verified:
 
-The operator accepted ADR-0003, ADR-0004, ADR-0005, ADR-0006 and ADR-0009 and authorized the exact SPK-001 specification. SPK-001 has now completed successfully: final workflow `31213792366` passed all four Ubuntu/Windows × modernc/mattn correctness cases and the required evidence receipts; the independent review closed the spike as `PASS / REVIEWED / DECISION_INFORMED`.
-
-The operator accepted ADR-0007 revision `0.2.0`: SQLite + `database/sql` + `modernc.org/sqlite` is now the governing M0 store architecture decision. This acceptance does not authorize production implementation.
-
-SPK-002 completed successfully and ADR-0008 v0.2.0 was explicitly accepted by the operator through `DOC-AURORA-M0-R4-ADR0008-ACCEPTANCE`.
-
-The final R4 readiness rerun reviewed all 15 M0 architecture questions, all accepted ADRs, both required closed spikes, Blueprint compatibility and migration/rollback posture. No unresolved material M0 architecture choice remains.
+```text
+accepted Requirements/Spec/Threat/Test package
++ approved Mission Contract
++ 122/122 requirements allocated to 12 Mission criteria
++ accepted R4 architecture carried forward
++ no hidden M1+/Mastra/AHDK/MNFS scope
++ no R6 Microdesign performed
++ implementation remains prohibited
+```
 
 Final verdict:
 
 ```text
-R4 PASS
+M0 ACRM R5 — PASS
 ```
 
-Carry-forward R6/R7 constraints remain explicit, including bounded Argon2id envelope parameters, target filesystem publication/directory-sync validation, mutation-boundary anomaly enforcement and no overclaim beyond the tested local fault/threat model. These are implementation/evidence obligations, not unresolved R4 architecture choices.
-
-R5, Mission Contract, Microdesign and runtime implementation remain unauthorized.
+There is no current R5 blocker. R6 remains a separate authorization boundary.
 
 ## 8. Immediate next action
 
 ```text
-R5 package review complete
-→ operator reviews exact proposed A2 package + MIS-M0-SOVEREIGN-CORE-001 v0.1.0
-→ ACCEPT | REJECT | REVISE
-→ if accepted, rerun R5
-→ STOP before R6
+R5 PASS
+→ STOP
+→ await explicit operator authorization for M0 ACRM R6 — Implementation Design Readiness
 ```
 
-R6, Microdesign and implementation remain NOT AUTHORIZED.
+R6, Microdesign and Aurora Core implementation remain NOT AUTHORIZED.
