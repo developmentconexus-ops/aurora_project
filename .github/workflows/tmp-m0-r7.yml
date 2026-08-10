@@ -7,54 +7,25 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   linux:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version: '1.26.5'
-      - name: Materialize current GREEN candidate
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [[ -f scripts/tmp_task01_green.py ]]; then
-            python scripts/tmp_task01_green.py
-            python - <<'PY'
-          from pathlib import Path
-          changed=[]
-          for path in [*Path('cmd').rglob('*.go'), *Path('internal').rglob('*.go')]:
-              lines=path.read_text().splitlines(True)
-              out=[]
-              dirty=False
-              for line in lines:
-                  stripped=line.lstrip()
-                  if stripped.startswith('if ') and ':=' in line and '%' in line:
-                      line=line.replace('%', ';', 1)
-                      dirty=True
-                  if '% err' in line:
-                      line=line.replace('% err', '; err')
-                      dirty=True
-                  out.append(line)
-              if dirty:
-                  path.write_text(''.join(out))
-                  changed.append(str(path))
-          print('normalized helper delimiter artifacts:', changed)
-          PY
-          fi
-      - name: Format and lock modules
+      - name: Format check and module lock check
         shell: bash
         env:
           CGO_ENABLED: '0'
         run: |
           set -euo pipefail
-          find cmd internal -name '*.go' -print0 | xargs -0 gofmt -w
+          test -z "$(gofmt -l cmd internal)"
           go mod tidy
+          git diff --exit-code -- go.mod go.sum
       - name: Test
         env:
           CGO_ENABLED: '0'
@@ -67,44 +38,57 @@ jobs:
         env:
           CGO_ENABLED: '0'
         run: go build -o "$RUNNER_TEMP/aurora" ./cmd/aurora
-      - name: TASK-01 real binary continuity and hygiene
+      - name: TASK-01 real binary continuity regression
         shell: bash
         run: |
           set -euo pipefail
           DATA_DIR="$RUNNER_TEMP/aurora-task01"
-          mkdir -p "$DATA_DIR"
-          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" init > "$RUNNER_TEMP/init.json" 2> "$RUNNER_TEMP/init.err"
-          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" status > "$RUNNER_TEMP/status.json" 2> "$RUNNER_TEMP/status.err"
-          if printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" init > "$RUNNER_TEMP/reinit.json" 2> "$RUNNER_TEMP/reinit.err"; then
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" init > "$RUNNER_TEMP/t1-init.json" 2> "$RUNNER_TEMP/t1-init.err"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" status > "$RUNNER_TEMP/t1-status.json" 2> "$RUNNER_TEMP/t1-status.err"
+          if printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" init > "$RUNNER_TEMP/t1-reinit.json" 2> "$RUNNER_TEMP/t1-reinit.err"; then
             echo 'second init unexpectedly succeeded' >&2
             exit 1
           fi
           python - <<'PY'
           import json, os
           root=os.environ['RUNNER_TEMP']
-          with open(root+'/init.json') as f: init=json.load(f)
-          with open(root+'/status.json') as f: status=json.load(f)
-          assert init['aurora_id'] == status['aurora_id'], (init, status)
-          assert status['trust_state'] == 'NORMAL', status
-          assert init['governing_generation'] == 1
+          init=json.load(open(root+'/t1-init.json'))
+          status=json.load(open(root+'/t1-status.json'))
+          assert init['aurora_id'] == status['aurora_id']
+          assert status['trust_state'] == 'NORMAL'
           assert status['governing_generation'] == 1
-          print('TASK-01 real binary continuity: PASS')
           PY
-          if grep -R -F 'fixture-owner-passphrase' "$RUNNER_TEMP"/*.json "$RUNNER_TEMP"/*.err; then
-            echo 'fixture passphrase leaked to journey output' >&2
-            exit 1
-          fi
-      - name: Commit verified TASK-01 candidate
-        if: ${{ hashFiles('scripts/tmp_task01_green.py') != '' }}
+      - name: TASK-02 real binary Project continuity
         shell: bash
         run: |
           set -euo pipefail
-          rm scripts/tmp_task01_green.py
-          git add -A
-          git config user.name developmentconexus-ops
-          git config user.email development.conexus@gmail.com
-          git commit -m "feat(core): initialize sovereign Aurora identity"
-          git push origin HEAD:feat/m0-r7-sovereign-core
+          DATA_DIR="$RUNNER_TEMP/aurora-task02"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" init > "$RUNNER_TEMP/t2-init.json"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" project create --label 'Projeto Fonte' --objective 'Construir fonte' > "$RUNNER_TEMP/t2-create.json"
+          PROJECT_ID="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["project_id"])' "$RUNNER_TEMP/t2-create.json")"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" project show --project "$PROJECT_ID" > "$RUNNER_TEMP/t2-show.json"
+          printf 'fixture-owner-passphrase\n' | "$RUNNER_TEMP/aurora" --json --data-dir "$DATA_DIR" status > "$RUNNER_TEMP/t2-status.json"
+          python - <<'PY'
+          import json, os
+          root=os.environ['RUNNER_TEMP']
+          created=json.load(open(root+'/t2-create.json'))
+          shown=json.load(open(root+'/t2-show.json'))
+          status=json.load(open(root+'/t2-status.json'))
+          assert created['project_id'] == shown['project_id']
+          assert shown['display_label'] == 'Projeto Fonte'
+          assert shown['objective_summary'] == 'Construir fonte'
+          assert status['trust_state'] == 'NORMAL'
+          assert status['governing_generation'] == 2
+          print('TASK-02 real binary Project continuity: PASS')
+          PY
+      - name: Secret hygiene regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -R -F 'fixture-owner-passphrase' "$RUNNER_TEMP"/*.json "$RUNNER_TEMP"/*.err 2>/dev/null; then
+            echo 'fixture passphrase leaked to journey output' >&2
+            exit 1
+          fi
 
   windows-trust:
     runs-on: windows-latest
@@ -113,41 +97,8 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: '1.26.5'
-      - name: Materialize current GREEN candidate
-        shell: pwsh
-        run: |
-          if (Test-Path 'scripts/tmp_task01_green.py') {
-            python scripts/tmp_task01_green.py
-            @'
-          from pathlib import Path
-          changed=[]
-          for path in [*Path('cmd').rglob('*.go'), *Path('internal').rglob('*.go')]:
-              lines=path.read_text().splitlines(True)
-              out=[]
-              dirty=False
-              for line in lines:
-                  stripped=line.lstrip()
-                  if stripped.startswith('if ') and ':=' in line and '%' in line:
-                      line=line.replace('%', ';', 1)
-                      dirty=True
-                  if '% err' in line:
-                      line=line.replace('% err', '; err')
-                      dirty=True
-                  out.append(line)
-              if dirty:
-                  path.write_text(''.join(out))
-                  changed.append(str(path))
-          print('normalized helper delimiter artifacts:', changed)
-          '@ | python
-          }
-      - name: Trust package tests when present
+      - name: Trust package tests
         shell: pwsh
         env:
           CGO_ENABLED: '0'
-        run: |
-          if (Test-Path 'internal/adapters/trustfs') {
-            go mod tidy
-            go test ./internal/adapters/trustfs
-          } else {
-            Write-Host 'trustfs not introduced yet'
-          }
+        run: go test ./internal/adapters/trustfs
