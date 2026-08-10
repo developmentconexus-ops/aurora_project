@@ -33,16 +33,19 @@ jobs:
         run: go build ./cmd/aurora
 
   windows-trust:
-    if: ${{ hashFiles('go.mod') != '' }}
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version: '1.26.5'
-      - name: Trust package tests
+      - name: Trust package tests when present
         shell: pwsh
         env:
           CGO_ENABLED: '0'
         run: |
-          if (Test-Path 'internal/adapters/trustfs') { go test ./internal/adapters/trustfs } else { Write-Host 'trustfs not introduced yet' }
+          if (Test-Path 'go.mod') {
+            if (Test-Path 'internal/adapters/trustfs') { go test ./internal/adapters/trustfs } else { Write-Host 'trustfs not introduced yet' }
+          } else {
+            Write-Host 'go.mod not introduced yet'
+          }
