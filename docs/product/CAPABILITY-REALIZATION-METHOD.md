@@ -6,8 +6,8 @@ form: reference
 
 authority: standard
 status: accepted
-accepted_at: 2026-08-06
-acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
+accepted_at: 2026-08-12
+acceptance_evidence: DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
 version: 0.2.0
 owners:
   - developmentconexus-ops
