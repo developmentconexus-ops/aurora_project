@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.32.0
+version: 0.33.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -21,10 +21,7 @@ related:
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
   - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
   - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
-  - DOC-AURORA-TECHNICAL-ARCHITECTURE-MAP-OPERATOR-ACCEPTANCE
-  - REVIEW-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP-2026-08-12
-  - DOC-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MERGE-CLOSEOUT
-  - DESIGN-AURORA-SAR-A1-STAGE-A-AVAILABILITY-ACTIVATION
+  - DESIGN-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-WORKLOG
 last_reviewed: 2026-08-12
@@ -35,9 +32,8 @@ last_reviewed: 2026-08-12
 ## 1. Current summary
 
 - **Canonical branch:** `main`
-- **System Architecture Rebaseline merge:** `59f5819de97208bea88fdd3c2b30e13f417c2963`
-- **Technical Architecture Baseline merge:** `b6fb31c46aa709aa5a93eca57076bf7f4ab2b71d`
-- **Technical Architecture closeout commit:** `4061a03839357a857ea549e391658f88a4a04bba`
+- **Canonical revision at TA-01/TA-02 start:** `9cbce1efe4f742f90623b894c0c1ba2eaa3cebcc`
+- **Current documentary branch:** `docs/ta-01-02-module-runtime-topology-20260812`
 - **A0:** ACCEPTED / MERGED
 - **ADR-0001..0009:** ACCEPTED within exact scope
 - **M0 R0–R6:** PASS
@@ -45,152 +41,182 @@ last_reviewed: 2026-08-12
 - **M0 R7 Verdict:** NOT ISSUED
 - **M0 R8:** NOT AUTHORIZED / NOT PERFORMED
 - **Technical Architecture Baseline map:** ACCEPTED / MERGED
-- **Current program:** `AURORA TECHNICAL ARCHITECTURE BASELINE`
-- **Current tranche:** `TA-01 + TA-02 — DISCOVERY / DESIGN AUTHORIZED`
+- **Current tranche:** `TA-01 + TA-02`
+- **Current tranche state:** PROPOSED DESIGN PRODUCED / REVIEW IN PROGRESS
 - **Aurora implementation:** PAUSED
 
-## 2. Current direction
+## 2. Current objective
 
-Aurora product meaning is already defined. Current work must establish the cross-system technical architecture before implementation resumes.
-
-A question is current only when it changes module/data ownership, dependency direction, process/runtime/deployment boundaries, contract compatibility, security/effect boundaries, storage/recovery ownership or the next implementation decision. Otherwise record a future consumer/reconsideration trigger and `DEFER` it.
-
-The accepted work order is:
+The current work converts accepted Aurora product architecture into a coherent technical structure by deciding:
 
 ```text
-TA-01 Logical modules and canonical ownership
-TA-02 Process, runtime and evolutionary topology
-TA-03 Repository, source and build architecture
-TA-04 Contracts, APIs, events and communication
-TA-05 Data, storage, portability and lifecycle architecture
-TA-06 Identity, authentication, authorization, policy and secrets
-TA-07 Brain, models, memory and Harness integration
-TA-08 Configuration, observability, deployment and operation
+TA-01
+→ minimum technical component set
+→ canonical responsibility/data ownership
+→ allowed and forbidden dependencies
+
+TA-02
+→ Stage A deployables/processes/runtimes
+→ always-active versus on-demand placement
+→ failure and restart ownership
+→ bounded Stage B evolution
 ```
 
-Owners:
+The proposed owner is:
 
 ```text
-docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md
-docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md
-docs/acceptance/2026-08-12-technical-architecture-baseline-merge-closeout.md
+docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md
 ```
 
-This map is not a new ACRM gate, lifecycle or score.
+It remains `status: proposed` until operator acceptance.
 
-## 3. Current tranche — TA-01 + TA-02
+## 3. Proposed architecture under review
 
-The tranche must produce:
-
-1. technical component catalog;
-2. module responsibility matrix;
-3. canonical entity/data ownership matrix;
-4. allowed and forbidden dependency directions;
-5. 2–3 coherent module/runtime approaches;
-6. Stage A process/runtime topology;
-7. always-active versus on-demand responsibilities;
-8. Go, TypeScript/Mastra and future-runtime scope map;
-9. failure-domain and restart ownership;
-10. Stage B evolution path;
-11. `DECIDE / RESEARCH / SPIKE / DEFER` register;
-12. exact inputs required before TA-03 repository architecture.
-
-TA-01 and TA-02 are coupled: process placement follows ownership, while module boundaries must survive real runtime and failure analysis.
-
-## 4. Promotion evidence
+The proposal compares three complete approaches:
 
 ```text
-final PR head: d49d093dbeea1d8eafa91294f9368b157e30123f
-final push run: 31620696722 — SUCCESS
-final PR run: 31620703690 — SUCCESS
-merge commit: b6fb31c46aa709aa5a93eca57076bf7f4ab2b71d
-canonical merge run: 31620818155 — SUCCESS
-review threads: 3 / 3 RESOLVED
+A — Core-centric single application
+B — early service decomposition
+C — Evolutionary Sovereign Host with one early provider-runtime seam
 ```
 
-Review fixes restored the mandatory bootstrap order, added the material `WORKLOG` entry and clarified activation-detection terminology. Reviews and CI do not accept a future TA-01/TA-02 design or authorize implementation.
+Current recommendation:
 
-## 5. Authorized work
+```text
+Approach C
+
+one persistent Go Aurora Sovereign Host
+→ multiple logically independent Aurora-owned domain modules
+→ application coordination and canonical state/recovery
+→ thin local Presence/activation adapter initially co-packaged
+
+one independently replaceable cognitive/provider runtime boundary
+→ starts when first consumed
+→ Mastra/TypeScript remains preferred-first to evaluate
+→ provider-local state only
+
+specialized Harnesses remain independent providers
+
+all other process splits require a named lifecycle, runtime,
+security, fault, resource, remote-node or consumer trigger
+```
+
+The recommendation does not select the exact local transport, repository strategy, store, authentication product, service manager or Mastra implementation.
+
+## 4. Proposed canonical domain owners
+
+The design proposes:
+
+1. Identity and Relationship;
+2. Project and World State;
+3. Mission and Delegation Control;
+4. Authority and Policy;
+5. Capability and Provider Registry;
+6. Memory, Knowledge and Context;
+7. Artifact and Evidence;
+8. Presence and Interaction;
+9. Attention and Proactivity — future/deferred;
+10. Failure Intelligence and Evaluation — future/deferred.
+
+It also separates application coordinators, deployables, enforcement boundaries, provider runtimes and mechanism adapters from canonical domain ownership.
+
+A provider, model, Harness, Presence, memory index, telemetry backend or store adapter cannot write canonical Aurora state directly.
+
+## 5. Validation evidence
+
+Initial design commit:
+
+```text
+2192f182c24eed0c8406062957e035a0db6e88a5
+```
+
+Documentation workflow:
+
+```text
+run: 31623255539
+result: SUCCESS
+```
+
+The green workflow proves documentary structural consistency only. Adversarial architecture review and operator acceptance remain required.
+
+## 6. Current authorized work
 
 Authorized:
 
 - inspect accepted Blueprint, ADR, research, M0 and frozen-R7 evidence relevant to TA-01/TA-02;
-- derive and challenge the minimum coherent component set;
-- map responsibility, entity/data ownership and dependency directions;
-- compare 2–3 complete Stage A module/runtime approaches;
-- define always-active/on-demand responsibilities, process boundaries, failure domains, restart ownership and runtime scope;
-- map bounded Stage B evolution;
-- research current primary sources where they change a near decision;
-- specify an Architecture Spike where documentary evidence is insufficient;
-- prepare and review the TA-01/TA-02 design package.
+- revise the proposed module/ownership/runtime design;
+- perform duplicate-owner, framework-capture, God-process and service-sprawl review;
+- compare Stage A approaches and Stage B evolution;
+- classify unresolved questions as `DECIDE`, `RESEARCH`, `SPIKE` or `DEFER`;
+- prepare a draft PR and fixed review revision;
+- use current primary sources only if they change a near TA-01/TA-02 decision;
+- specify but not execute an Architecture Spike;
+- present the proposal for operator review.
+
+## 7. Explicitly prohibited
 
 Not authorized:
 
 - Aurora runtime implementation;
-- modifying, merging or promoting the frozen M0 R7 candidate;
+- modification, merge or promotion of the frozen M0 R7 candidate;
 - an M0 R7 Verdict or M0 R8 closeout;
 - M1+ implementation;
 - Architecture Spike execution;
-- creating/restructuring production repositories;
-- selecting monorepo/polyrepo before TA-01/TA-02 review;
-- selecting universal APIs, new stores or identity/policy/secrets products before their owning technical tranche;
+- TA-03 repository strategy finalization;
+- production repository creation/restructuring;
+- choosing monorepo/polyrepo;
+- selecting HTTP, gRPC, Connect, MCP, A2A, event transport or local IPC;
+- selecting new databases/stores;
+- selecting Keycloak, Zitadel, Authentik, Ory, SPIFFE, OPA, Cedar, Vault or equivalents;
 - implementing AHDK, MNFS, Mastra adapter, Brain, memory, Voice, Presence, model routing or observability systems;
-- treating M0 Go/SQLite/JSON-JCS/OTel choices as universal;
+- treating Go/SQLite/JSON-JCS/OTel M0 choices as universal;
+- creating one process/service per conceptual module;
 - returning to Presence/session micro-policy unless structurally material.
 
-## 6. Preserved Stage A inputs
-
-Accepted downstream constraints:
-
-- one Leandro-controlled workstation is the Stage A sovereign host and first Presence;
-- minimum Core and activation responsibilities may remain available;
-- heavy cognition starts on demand;
-- activation is Presence-owned;
-- button/UI/hotkey are baseline trigger classes;
-- local wake word is optional;
-- activation is not authentication or authority;
-- while locked, Aurora may acknowledge availability but requires unlock before private interaction.
-
-Further Presence micro-policy is `DEFER` unless it changes TA-01/TA-02.
-
-## 7. Blocker and next action
+## 8. Current architecture blockers
 
 ```text
-TA-01/TA-02 DESIGN: NOT YET PRODUCED OR REVIEWED
-TA-03 FINALIZATION: BLOCKED ON TA-01/TA-02
+TA-01/TA-02 OPERATOR ACCEPTANCE: NOT ISSUED
+TA-03 FINALIZATION: BLOCKED
 AURORA IMPLEMENTATION: BLOCKED
 ARCHITECTURE SPIKE EXECUTION: NOT AUTHORIZED
 ```
 
-Next:
+Open review questions include:
+
+- whether the proposed domain-owner set is minimal and complete;
+- whether any global entity has duplicate or missing ownership;
+- whether the Cognitive Runtime process boundary should be fixed structurally before the first M1 consumer;
+- whether the thin local Presence may remain co-packaged in Stage A;
+- whether the recommended Sovereign Host can remain modular without becoming a God process.
+
+## 9. Immediate next action
 
 ```text
-begin TA-01/TA-02 discovery
-→ derive minimum coherent components
-→ define canonical ownership and dependency rules
-→ compare 2–3 module/runtime approaches
-→ recommend one with explicit trade-offs
-→ present design for operator review
-→ STOP before TA-03 finalization, Spike execution or implementation
+adversarially review the proposed TA-01/TA-02 design
+→ remediate admitted findings
+→ open/update one draft PR
+→ validate the fixed revision
+→ present Approach C and alternatives to the operator
+→ ACCEPT | REVISE | REJECT
+→ STOP before TA-03 finalization or implementation
 ```
 
-First question:
+No technology implementation follows automatically from accepting the topology.
 
-> What is the minimum set of technical components required to preserve Aurora's accepted ownership boundaries, and which should share or cross a process boundary in Stage A?
+## 10. Fresh-session read order
 
-## 8. Fresh-session read order
+After `AGENTS.md`, a new TA-01/TA-02 session must read:
 
-After `AGENTS.md`, a new technical-architecture session must read:
-
-1. `docs/tracking/STATUS.md`;
+1. this `STATUS.md`;
 2. `docs/DOCUMENTATION-MAP.md`;
 3. `docs/product/README.md`;
 4. `docs/roadmap.md`;
 5. `docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md`;
 6. `docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md`;
-7. `docs/reviews/2026-08-12-technical-architecture-baseline-map-review.md`;
+7. `docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md`;
 8. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
-9. relevant Product Blueprint sections and scoped ADRs;
-10. current TA-01/TA-02 artifacts.
+9. relevant Product Blueprint sections and accepted ADRs;
+10. the frozen R7 candidate only as evidence when needed.
 
-Do not restart product discovery, continue Presence micro-policy by default, choose frameworks first or implement code.
+The session must not restart broad product discovery, choose products before boundaries, or implement code.
