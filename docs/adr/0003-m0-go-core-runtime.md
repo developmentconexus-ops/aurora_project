@@ -7,7 +7,7 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-07
 acceptance_evidence: DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
-version: 0.2.0
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -23,7 +23,7 @@ related:
   - DOC-AURORA-M0-R4-OPERATOR-AUTHORIZATION
 supersedes: []
 superseded_by: null
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-12
 ---
 
 # ADR-0003 — Go as the Initial Aurora Sovereign Core Runtime
@@ -86,7 +86,7 @@ Would move a material M0 implementation decision into R5/R6 and violate R4's pur
 
 ## Decision
 
-**Proposed:** implement the initial Aurora **Sovereign Core** in **Go**.
+**Accepted decision:** implement the initial Aurora **Sovereign Core** in **Go**.
 
 Mission/implementation baselines MUST pin a current supported Go patch release rather than treating one patch version as permanent product meaning.
 

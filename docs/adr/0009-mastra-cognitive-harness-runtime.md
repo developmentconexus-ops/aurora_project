@@ -7,7 +7,7 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-07
 acceptance_evidence: DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
-version: 0.1.0
+version: 0.1.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -25,7 +25,7 @@ related:
   - ADR-AURORA-0004
 supersedes: []
 superseded_by: null
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-12
 ---
 
 # ADR-0009 — Mastra as Preferred First-Party Cognitive and Harness Runtime Substrate
@@ -79,7 +79,7 @@ Cons: violates accepted ownership boundaries by allowing framework state/semanti
 
 ## Decision
 
-**Proposed:** choose **Option C**.
+**Accepted decision:** choose **Option C**.
 
 For first-party **agentic Harnesses and cognitive execution capabilities**, Mastra becomes the **preferred default substrate to evaluate first** before Aurora builds generic equivalent infrastructure.
 

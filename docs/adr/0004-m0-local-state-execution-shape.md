@@ -7,7 +7,7 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-07
 acceptance_evidence: DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
-version: 0.2.0
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -22,7 +22,7 @@ related:
   - ADR-AURORA-0009
 supersedes: []
 superseded_by: null
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-12
 ---
 
 # ADR-0004 — M0 Local State and Execution Shape
@@ -54,7 +54,7 @@ Affected requirements include `REQ-010..020`, `024..031`, `046..055`, `077..088`
 
 ## Decision
 
-**Proposed:** M0 uses **one local modular Sovereign Core process** with:
+**Accepted decision:** M0 uses **one local modular Sovereign Core process** with:
 
 ```text
 explicit current governing state
