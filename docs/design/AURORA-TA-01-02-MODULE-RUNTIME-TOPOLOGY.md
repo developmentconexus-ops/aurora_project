@@ -177,7 +177,7 @@ A provider runtime is independently restartable, replaceable and limited to prov
 │                    AURORA-OWNED DOMAIN                        │
 │ C01 Identity & Relationship                                   │
 │ C02 Project, World & Experiment State                         │
-│ C03 Intent, Mission & Delegation Control                              │
+│ C03 Intent, Mission & Delegation Control                      │
 │ C04 Authority & Policy                                        │
 │ C05 Capability & Provider Registry                            │
 │ C06 Memory, Knowledge & Context                               │
@@ -862,7 +862,6 @@ Stage B adds service identity, Presence authentication, transport, egress, offli
 | G01 | non-deployable | never service for ownership alone |
 | C01/C02/C03/C04/C12 | Host | proven security/scale/topology/storage lifecycle reason |
 | A05 lifecycle coordination | Host | remains Aurora-side owner; TA-08 may replace only the supervisor/process adapter |
-| C03 | Host when implemented | durable/multi-node need |
 | C05 | Host when implemented | remote/independent trust lifecycle |
 | C06 governance | Host hypothesis | M1 runtime/resource/sovereignty evidence |
 | memory index worker | on-demand | M1 eval |

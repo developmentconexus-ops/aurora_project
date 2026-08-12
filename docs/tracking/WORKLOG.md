@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.15.0
+version: 0.16.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -893,5 +893,55 @@ fix final review/STATUS/PR revision and validation
 → present Approach C + G01/C01–C12 + B01 to the operator
 → ACCEPT | REVISE | REJECT
 → STOP before TA-03/TA-04/TA-05/TA-08 finalization,
+  Architecture Spike execution or Aurora implementation
+```
+
+## 2026-08-12 — TA-01/TA-02 final reviewer remediation
+
+The TA-01/TA-02 proposal advanced from v0.4.0 to v0.5.0 after final review of the ownership and multi-process lifecycle boundaries.
+
+The final semantic remediation added:
+
+- interpreted `Intent` as a canonical C03 responsibility before explicit promotion to Mission;
+- `A05 — Runtime Lifecycle Coordination` as the Aurora-side owner of start, attach, readiness, drain, stop, restart and reconciliation policy;
+- `runtime_incarnation_id` as a new identity for every concrete provider-process start;
+- a clear separation between G01 Contract semantics and Git/document artifact custody;
+- E01-only production of Effect Receipts, with providers carrying references only;
+- Stage B re-registration of environment-bound `provider_instance_id` values plus fresh C05 approval snapshots;
+- reconciliation rather than canonical import of provider-local state after migration;
+- wording, heading and UI-policy cleanup requested by review.
+
+The design keeps the supervisor implementation undecided. TA-08 may choose Windows Service, systemd, another process supervisor or packaging mechanism, but those adapters cannot take lifecycle-policy ownership away from A05.
+
+The recommended topology remains:
+
+```text
+Approach C — Evolutionary Sovereign Host
+
+one small persistent Aurora Sovereign Host
+→ G01/C01–C12 ownership boundaries
+→ A01 application coordination
+→ A05 runtime lifecycle coordination
+→ C12 audit/exact-history append path
+→ thin local Presence adapter initially co-packaged
+
+one separate on-demand Cognitive Runtime Provider at first consumer
+→ B01 transport-neutral lifecycle/reconciliation profile
+→ Mastra/TypeScript remains preferred-first to evaluate
+→ provider-local state only
+
+specialized Harnesses remain independent providers
+```
+
+No repository, transport, storage, authentication, policy, supervisor, provider or implementation product was selected by this remediation.
+
+Exact next action:
+
+```text
+fix the final review, STATUS and PR revision
+→ run final branch and PR validation
+→ present the TA-01/TA-02 semantic package to the operator
+→ ACCEPT | REVISE | REJECT
+→ STOP before merge, later-tranche finalization,
   Architecture Spike execution or Aurora implementation
 ```
