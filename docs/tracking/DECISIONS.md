@@ -5,7 +5,7 @@ document_type: decision_index
 form: reference
 authority: tracking
 status: current
-version: 0.7.0
+version: 0.8.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -14,6 +14,9 @@ related:
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
   - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
+  - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
+  - DOC-AURORA-TECHNICAL-ARCHITECTURE-MAP-OPERATOR-ACCEPTANCE
+  - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
 last_reviewed: 2026-08-12
 ---
 
@@ -21,7 +24,7 @@ last_reviewed: 2026-08-12
 
 ## 1. Authority notice
 
-This file indexes decisions and open choices. It does not replace the Product Blueprint, accepted ADRs, accepted System Architecture Rebaseline design or operator decision evidence.
+This file indexes decisions and open choices. It does not replace the Product Blueprint, accepted ADRs, accepted System Architecture Rebaseline, accepted Technical Architecture Baseline Map or operator decision evidence.
 
 ```text
 Index entry
@@ -30,7 +33,7 @@ Index entry
 → never redefines the decision
 ```
 
-A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are operator-accepted; `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 is the approved first M0 Mission Contract. M0 R7 produced a frozen non-canonical candidate, but no independent R7 Verdict or R8 closeout exists. Current implementation expansion is paused for the accepted program-level System Architecture Rebaseline recorded in `STATUS.md`.
+A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are operator-accepted; `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 is the approved first M0 Mission Contract. M0 R7 produced a frozen non-canonical candidate, but no independent R7 Verdict or R8 closeout exists. Current implementation remains paused while the accepted Technical Architecture Baseline begins with TA-01/TA-02.
 
 ## 2. Constitutional direction
 
@@ -110,7 +113,7 @@ A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are 
 | D-059 | CAP-SOVEREIGN-CORE Requirements v0.1.1, Spec v0.2.0, Threat Model v0.2.0 and Test Plan v0.2.0 are the accepted R4-aligned M0 A2 package | CAP-SOVEREIGN-CORE A2 documents + R5 operator acceptance | accepted |
 | D-060 | MIS-M0-SOVEREIGN-CORE-001 v0.1.0 is the approved first scoped M0 Mission Contract | MIS-M0-SOVEREIGN-CORE-001 + R5 operator acceptance | approved |
 
-## 7. Methodology, documentation and milestone decisions
+## 7. Methodology, documentation and architecture-program decisions
 
 | ID | Decision/direction | Canonical owner | Current state |
 |---|---|---|---|
@@ -120,36 +123,45 @@ A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are 
 | D-048 | material capabilities follow readiness gates R0–R8 | ACRM | accepted |
 | D-049 | Product Milestones close through end-to-end Golden Proofs, not task completion | Blueprint 14, ACRM | accepted |
 | D-050 | aggregate Product Blueprint and roadmap are generated from modular canonical sources | Blueprint 15, Product Index | accepted |
-| D-051 | `M0 — Sovereign Core Walking Skeleton` is the first Product Milestone after A0; R0 begins in a fresh session before any technical commitment | Blueprint 14 + M0 operator selection evidence | accepted |
-| D-061 | before further multi-subsystem Aurora implementation expansion, the program performs a System Architecture Rebaseline inside the existing ACRM rather than creating a parallel lifecycle | accepted Rebaseline design + operator direction + ACRM | accepted |
-| D-062 | global architecture questions are treated as `DECIDE`, `RESEARCH`, `SPIKE` or `DEFER`, with earliest consumer, evidence need, owner and reconsideration trigger | accepted Rebaseline design + ACRM | accepted |
+| D-051 | `M0 — Sovereign Core Walking Skeleton` is the first Product Milestone after A0 | Blueprint 14 + M0 operator selection evidence | accepted |
+| D-061 | before further multi-subsystem implementation, Aurora performs a System Architecture Rebaseline inside ACRM rather than creating a parallel lifecycle | accepted Rebaseline design + operator direction + ACRM | accepted |
+| D-062 | global architecture questions use `DECIDE`, `RESEARCH`, `SPIKE` or `DEFER`, with consumer, evidence, owner and reconsideration trigger | accepted Rebaseline design + ACRM | accepted |
 | D-063 | the software-development Harness may build, test, review and package evidence for Aurora but is not a sovereign Aurora runtime dependency | accepted Rebaseline design | accepted |
-| D-064 | the M0 R7 implementation candidate remains frozen, preserved and non-canonical pending architecture rebaseline review; code/CI existence is not acceptance | operator direction + STATUS | accepted current coordination |
+| D-064 | the M0 R7 implementation candidate remains frozen, preserved and non-canonical; code/CI existence is not acceptance | operator direction + STATUS | accepted current coordination |
+| D-065 | current program priority is the cross-system Technical Architecture Baseline, not additional broad product-definition dialogue or Presence micro-policy decomposition | Technical Architecture Map + operator acceptance | accepted |
+| D-066 | a technical question is current only when it changes ownership, structural/runtime/contract/security/data boundaries or the next implementation decision; otherwise it is deferred | Technical Architecture Map | accepted |
+| D-067 | technical architecture proceeds in dependency order TA-01 modules, TA-02 runtimes, TA-03 repositories, TA-04 contracts, TA-05 data, TA-06 identity/security, TA-07 cognition/Harnesses and TA-08 operations | Technical Architecture Map | accepted |
+| D-068 | accepted Stage A Presence/activation/locked-workstation rules remain downstream constraints, while further session-policy detail is deferred until a consuming Capability | Stage A design + Technical Architecture Map | accepted |
+| D-069 | the current active architecture tranche is TA-01 + TA-02, producing module ownership and Stage A/B process/runtime topology before repository or stack finalization | Technical Architecture Map + operator acceptance + STATUS | active/authorized |
 
 ## 8. Deliberately open decisions
 
-These are not yet decisions and must not be inferred from examples, research candidates, the selected M0 milestone or the frozen R7 candidate. The complete dependency and earliest-consumer map is `DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE`.
+These are not yet decisions and must not be inferred from examples, research candidates, the selected M0 milestone or the frozen R7 candidate. The complete dependency map is `DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP` and `DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE`.
 
 | Open ID | Decision required | Expected owner/path |
 |---|---|---|
 | O-002 | first AHDK language and source-code generation stack | CAP-AHDK research/spike + ADR |
 | O-003 | schema representation per boundary | Contract Model Spec + consuming R4 evidence |
-| O-004 | local RPC binding | interoperability research/spike + ADR |
+| O-004 | local RPC binding | TA-04 interoperability research/spike + ADR |
 | O-005 | exact MCP/A2A/ACP adoption/mapping | consuming capability spike + ADR/profile |
 | O-006 | durable execution engine | M4 Capability Spec + comparative spike + ADR |
-| O-007 | policy decision implementation | Effect/Authority Capability Spec + spike + ADR |
-| O-008 | workload/device identity implementation | security Capability Spec + actor-specific spike |
-| O-010 | Artifact/Evidence Store | evidence capability research/spike |
-| O-011 | event transport and telemetry backend | observability/event capability research/spike |
-| O-012 | memory storage/retrieval/consolidation mix | CAP-MEMORY-CONTEXT + eval spikes |
-| O-013 | first reference Harness runtime | M2/M3 contract after current architecture review |
-| O-014 | first real engineering Harness | roadmap readiness; MNFS is one candidate |
-| O-015 | global logical module ownership and allowed dependency direction | System Architecture Rebaseline design/landscape, then owning Spec/ADR if material |
-| O-016 | Stage A/B human, service, provider, Presence and device authentication mechanisms by actor class | security/identity research + capability-specific ADRs |
-| O-017 | API profiles, error taxonomy, idempotency and streaming conventions per boundary | Contract/API research + first consuming capability R4 |
-| O-018 | configuration, environment and secret-reference precedence model | system architecture/configuration research + Standard/ADR |
-| O-019 | M1 model/inference and Brain/Core ownership boundary | M1 research, Capability Spec and first-consumer conformance proof |
-| O-020 | physical storage choices beyond M0 for memory, artifacts, telemetry and derived indexes | data-owner/access-pattern analysis + consumer-specific research/spike |
+| O-007 | policy decision implementation | TA-06 Effect/Authority Spec + spike + ADR |
+| O-008 | workload/device identity implementation | TA-06 security Spec + actor-specific spike |
+| O-010 | Artifact/Evidence Store | TA-05/TA-07 evidence capability research/spike |
+| O-011 | event transport and telemetry backend | TA-04/TA-08 research/spike |
+| O-012 | memory storage/retrieval/consolidation mix | TA-05/TA-07 + CAP-MEMORY-CONTEXT eval spikes |
+| O-013 | first reference Harness runtime | TA-07/M2 after current architecture review |
+| O-014 | first real engineering Harness | roadmap readiness; MNFS remains one candidate |
+| O-015 | global logical module ownership and allowed dependency direction | TA-01 design and owning Specs/ADRs if material |
+| O-016 | Stage A/B actor authentication mechanisms by class | TA-06 research + capability-specific ADRs |
+| O-017 | API profiles, error taxonomy, idempotency and streaming conventions per boundary | TA-04 + first consuming capability R4 |
+| O-018 | configuration, environment and secret-reference precedence model | TA-08 Standard/ADR |
+| O-019 | model/inference and Brain/Core ownership boundary | TA-07 + M1 research/Capability Spec |
+| O-020 | physical storage beyond M0 for memory, artifacts, telemetry and derived indexes | TA-05 consumer-specific research/spike |
+| O-021 | minimum coherent technical component set and canonical owner for each global concept | TA-01 current tranche |
+| O-022 | Stage A same-process/separate-process boundaries and Stage B evolution | TA-02 current tranche |
+| O-023 | monorepo, polyrepo or staged source strategy | TA-03 after TA-01/TA-02 acceptance |
+| O-024 | exact Go ↔ TypeScript/Mastra process and contract boundary | TA-02/TA-04/TA-07, first consumer evidence |
 
 ## 9. Status-change rule
 
@@ -165,8 +177,8 @@ accepted Product Blueprint/design
 accepted ADR
 → promotes a specific technical decision
 
-selected Product Milestone
-→ identifies the next readiness subject but does not authorize implementation
+accepted Technical Architecture Map
+→ orders questions and work; does not select mechanisms by itself
 
 approved Contract
 → creates scoped implementation commitment
@@ -175,4 +187,4 @@ implementation branch/green CI
 → produces Claim/Evidence only; never acceptance by itself
 ```
 
-No entry is promoted merely because code exists, CI is green or a PR is merged.
+No entry is promoted merely because code exists, CI is green, a framework is popular or a PR is merged.
