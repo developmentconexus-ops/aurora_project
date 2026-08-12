@@ -7,7 +7,7 @@ authority: design
 status: accepted
 accepted_at: 2026-08-12
 acceptance_evidence: DOC-AURORA-SAR-A1-LOCKED-WORKSTATION-OPERATOR-ACCEPTANCE
-version: 0.2.0
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -277,7 +277,7 @@ Speaker recognition, if later adopted, is an authentication signal with uncertai
 
 ## 8. Locked-workstation boundary
 
-Stage A accepts **recognition with mandatory workstation unlock before continuing**.
+Stage A accepts **activation detection with mandatory workstation unlock before continuing**.
 
 When the workstation is locked, the local Presence may continue to detect an enabled explicit trigger or optional local wake word. Detection does not open a normal Aurora interaction session.
 
