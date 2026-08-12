@@ -1,0 +1,58 @@
+name: Append Final TA-01/TA-02 Continuity
+
+on:
+  push:
+    branches:
+      - docs/ta-01-02-module-runtime-topology-20260812
+    paths:
+      - .github/workflows/ta-final-continuity.yml
+
+permissions:
+  contents: write
+
+jobs:
+  append:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: docs/ta-01-02-module-runtime-topology-20260812
+          fetch-depth: 0
+
+      - name: Clean design and append Worklog
+        shell: bash
+        run: |
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+
+          design = Path('docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md')
+          text = design.read_text(encoding='utf-8')
+          text = text.replace('│ C03 Intent, Mission & Delegation Control                              │', '│ C03 Intent, Mission & Delegation Control                      │', 1)
+          text = text.replace('| C03 | Host when implemented | durable/multi-node need |\n', '', 1)
+          design.write_text(text, encoding='utf-8')
+
+          worklog = Path('docs/tracking/WORKLOG.md')
+          w = worklog.read_text(encoding='utf-8')
+          heading = '## 2026-08-12 — TA-01/TA-02 final reviewer remediation'
+          if heading not in w:
+              old = 'version: 0.15.0'
+              if old not in w:
+                  raise SystemExit('expected WORKLOG version 0.15.0 not found')
+              w = w.replace(old, 'version: 0.16.0', 1)
+              entry = base64.b64decode('IyMgMjAyNi0wOC0xMiDigJQgVEEtMDEvVEEtMDIgZmluYWwgcmV2aWV3ZXIgcmVtZWRpYXRpb24KClRoZSBUQS0wMS9UQS0wMiBwcm9wb3NhbCBhZHZhbmNlZCBmcm9tIHYwLjQuMCB0byB2MC41LjAgYWZ0ZXIgZmluYWwgcmV2aWV3IG9mIHRoZSBvd25lcnNoaXAgYW5kIG11bHRpLXByb2Nlc3MgbGlmZWN5Y2xlIGJvdW5kYXJpZXMuCgpUaGUgZmluYWwgc2VtYW50aWMgcmVtZWRpYXRpb24gYWRkZWQ6CgotIGludGVycHJldGVkIGBJbnRlbnRgIGFzIGEgY2Fub25pY2FsIEMwMyByZXNwb25zaWJpbGl0eSBiZWZvcmUgZXhwbGljaXQgcHJvbW90aW9uIHRvIE1pc3Npb247Ci0gYEEwNSDigJQgUnVudGltZSBMaWZlY3ljbGUgQ29vcmRpbmF0aW9uYCBhcyB0aGUgQXVyb3JhLXNpZGUgb3duZXIgb2Ygc3RhcnQsIGF0dGFjaCwgcmVhZGluZXNzLCBkcmFpbiwgc3RvcCwgcmVzdGFydCBhbmQgcmVjb25jaWxpYXRpb24gcG9saWN5OwotIGBydW50aW1lX2luY2FybmF0aW9uX2lkYCBhcyBhIG5ldyBpZGVudGl0eSBmb3IgZXZlcnkgY29uY3JldGUgcHJvdmlkZXItcHJvY2VzcyBzdGFydDsKLSBhIGNsZWFyIHNlcGFyYXRpb24gYmV0d2VlbiBHMDEgQ29udHJhY3Qgc2VtYW50aWNzIGFuZCBHaXQvZG9jdW1lbnQgYXJ0aWZhY3QgY3VzdG9keTsKLSBFMDEtb25seSBwcm9kdWN0aW9uIG9mIEVmZmVjdCBSZWNlaXB0cywgd2l0aCBwcm92aWRlcnMgY2FycnlpbmcgcmVmZXJlbmNlcyBvbmx5OwotIFN0YWdlIEIgcmUtcmVnaXN0cmF0aW9uIG9mIGVudmlyb25tZW50LWJvdW5kIGBwcm92aWRlcl9pbnN0YW5jZV9pZGAgdmFsdWVzIHBsdXMgZnJlc2ggQzA1IGFwcHJvdmFsIHNuYXBzaG90czsKLSByZWNvbmNpbGlhdGlvbiByYXRoZXIgdGhhbiBjYW5vbmljYWwgaW1wb3J0IG9mIHByb3ZpZGVyLWxvY2FsIHN0YXRlIGFmdGVyIG1pZ3JhdGlvbjsKLSB3b3JkaW5nLCBoZWFkaW5nIGFuZCBVSS1wb2xpY3kgY2xlYW51cCByZXF1ZXN0ZWQgYnkgcmV2aWV3LgoKVGhlIGRlc2lnbiBrZWVwcyB0aGUgc3VwZXJ2aXNvciBpbXBsZW1lbnRhdGlvbiB1bmRlY2lkZWQuIFRBLTA4IG1heSBjaG9vc2UgV2luZG93cyBTZXJ2aWNlLCBzeXN0ZW1kLCBhbm90aGVyIHByb2Nlc3Mgc3VwZXJ2aXNvciBvciBwYWNrYWdpbmcgbWVjaGFuaXNtLCBidXQgdGhvc2UgYWRhcHRlcnMgY2Fubm90IHRha2UgbGlmZWN5Y2xlLXBvbGljeSBvd25lcnNoaXAgYXdheSBmcm9tIEEwNS4KClRoZSByZWNvbW1lbmRlZCB0b3BvbG9neSByZW1haW5zOgoKYGBgdGV4dApBcHByb2FjaCBDIOKAlCBFdm9sdXRpb25hcnkgU292ZXJlaWduIEhvc3QKCm9uZSBzbWFsbCBwZXJzaXN0ZW50IEF1cm9yYSBTb3ZlcmVpZ24gSG9zdArihpIgRzAxL0MwMeKAk0MxMiBvd25lcnNoaXAgYm91bmRhcmllcwrihpIgQTAxIGFwcGxpY2F0aW9uIGNvb3JkaW5hdGlvbgrihpIgQTA1IHJ1bnRpbWUgbGlmZWN5Y2xlIGNvb3JkaW5hdGlvbgrihpIgQzEyIGF1ZGl0L2V4YWN0LWhpc3RvcnkgYXBwZW5kIHBhdGgK4oaSIHRoaW4gbG9jYWwgUHJlc2VuY2UgYWRhcHRlciBpbml0aWFsbHkgY28tcGFja2FnZWQKCm9uZSBzZXBhcmF0ZSBvbi1kZW1hbmQgQ29nbml0aXZlIFJ1bnRpbWUgUHJvdmlkZXIgYXQgZmlyc3QgY29uc3VtZXIK4oaSIEIwMSB0cmFuc3BvcnQtbmV1dHJhbCBsaWZlY3ljbGUvcmVjb25jaWxpYXRpb24gcHJvZmlsZQrihpIgTWFzdHJhL1R5cGVTY3JpcHQgcmVtYWlucyBwcmVmZXJyZWQtZmlyc3QgdG8gZXZhbHVhdGUK4oaSIHByb3ZpZGVyLWxvY2FsIHN0YXRlIG9ubHkKCnNwZWNpYWxpemVkIEhhcm5lc3NlcyByZW1haW4gaW5kZXBlbmRlbnQgcHJvdmlkZXJzCmBgYAoKTm8gcmVwb3NpdG9yeSwgdHJhbnNwb3J0LCBzdG9yYWdlLCBhdXRoZW50aWNhdGlvbiwgcG9saWN5LCBzdXBlcnZpc29yLCBwcm92aWRlciBvciBpbXBsZW1lbnRhdGlvbiBwcm9kdWN0IHdhcyBzZWxlY3RlZCBieSB0aGlzIHJlbWVkaWF0aW9uLgoKRXhhY3QgbmV4dCBhY3Rpb246CgpgYGB0ZXh0CmZpeCB0aGUgZmluYWwgcmV2aWV3LCBTVEFUVVMgYW5kIFBSIHJldmlzaW9uCuKGkiBydW4gZmluYWwgYnJhbmNoIGFuZCBQUiB2YWxpZGF0aW9uCuKGkiBwcmVzZW50IHRoZSBUQS0wMS9UQS0wMiBzZW1hbnRpYyBwYWNrYWdlIHRvIHRoZSBvcGVyYXRvcgrihpIgQUNDRVBUIHwgUkVWSVNFIHwgUkVKRUNUCuKGkiBTVE9QIGJlZm9yZSBtZXJnZSwgbGF0ZXItdHJhbmNoZSBmaW5hbGl6YXRpb24sCiAgQXJjaGl0ZWN0dXJlIFNwaWtlIGV4ZWN1dGlvbiBvciBBdXJvcmEgaW1wbGVtZW50YXRpb24KYGBgCg==').decode('utf-8')
+              worklog.write_text(w.rstrip() + '\n\n' + entry.rstrip() + '\n', encoding='utf-8')
+          PY
+
+      - name: Commit continuity
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md docs/tracking/WORKLOG.md
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "docs: close final TA-01 and TA-02 continuity"
+          git push origin HEAD:docs/ta-01-02-module-runtime-topology-20260812
