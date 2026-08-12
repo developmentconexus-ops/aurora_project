@@ -5,7 +5,7 @@ document_type: system_architecture_design
 form: reference
 authority: design
 status: proposed
-version: 0.4.0
+version: 0.5.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -109,7 +109,7 @@ That pattern is evidence. The M0 source tree, Go runtime, SQLite store and proce
 11. Processes are disposable; canonical state survives them.
 12. Stage A is one Leandro-controlled workstation with a persistent minimum and on-demand cognition.
 13. Mastra is preferred-first to evaluate for agentic/cognitive runtimes, never as sovereign state or authority owner.
-14. Detailed Presence/session policy is deferred unless it changes a structural or near implementation decision.
+14. Detailed Presence/session policy is deferred unless it changes a structural or near-term implementation decision.
 
 ---
 
@@ -177,7 +177,7 @@ A provider runtime is independently restartable, replaceable and limited to prov
 │                    AURORA-OWNED DOMAIN                        │
 │ C01 Identity & Relationship                                   │
 │ C02 Project, World & Experiment State                         │
-│ C03 Mission & Delegation Control                              │
+│ C03 Intent, Mission & Delegation Control                              │
 │ C04 Authority & Policy                                        │
 │ C05 Capability & Provider Registry                            │
 │ C06 Memory, Knowledge & Context                               │
@@ -233,13 +233,34 @@ Does not own accepted ADR/source contents, Mission lifecycle, governed Memory, i
 
 ---
 
-### C03 — Mission and Delegation Control
+### C03 — Intent, Mission and Delegation Control
 
-Owns Mission, Delegation/parent-child relationships, global Run/Attempt references, lifecycle/dependencies/stop/escalation/pending decisions, global budgets/reconciled consumption and final Mission/Delegation Outcome after evidence/verdict composition.
+**Purpose:** own interpreted intent once it becomes decision-relevant, then govern explicit promotion into Mission/Delegation work without treating raw utterance or model inference as committed intent.
+
+Owns:
+
+- canonical `Intent` identity, interpreted meaning, provenance and confidence once validated;
+- the relationship from an Interaction Session to one or more committed Intents;
+- Intent lifecycle and explicit promotion/rejection/expiry decisions;
+- Mission, Delegation and parent/child relationships;
+- global Run/Attempt references, lifecycle, dependencies, stop/escalation and pending decisions;
+- global budgets/reconciled consumption;
+- final Mission/Delegation Outcome after evidence/verdict composition.
+
+Intent lifecycle:
+
+```text
+CANDIDATE
+→ VALIDATED
+→ COMMITTED_TO_INTERACTION | PROMOTED_TO_MISSION |
+  REJECTED | EXPIRED
+```
+
+Raw audio/text and exact interaction history remain C08/C12 records. A02 or P01 may propose an Intent candidate; only C03 validates and commits the interpreted Intent. Creating a Mission requires an explicit C03 transition and does not follow automatically from model classification.
 
 Does not own Harness plan/workers/retries, Context Pack, provider trust, effect permission, artifact contents or durable-engine history.
 
-**Stage A:** owner fixed; implementation deferred until current consumer.
+**Stage A:** Intent ownership is required by M1 interaction; full Mission/Delegation implementation grows with the first consuming milestone.
 
 ---
 
@@ -372,20 +393,72 @@ interaction / Mission need
 → obtain C02/C04 inputs
 → C06 builds Context Pack
 → C05 resolves provider against G01
+→ A05 ensures an approved runtime incarnation is READY
 → A03 invokes through B01
-→ receive proposal/observation/artifact/capability request
-→ validate/route to owner
+→ receive Intent/proposal/observation/artifact/capability request
+→ route Intent candidate to C03 and other outputs to their owners
 ```
 
-No provider thread becomes Aurora truth.
+A02 owns reasoning-use-case sequencing only. It neither commits interpreted Intent nor turns a provider thread into Aurora truth.
 
 ### A03 — Capability Fabric / Harness Integration
 
-Owns dispatch/translation/reconciliation mechanics: connection, Delegation dispatch, status ingestion, cancellation, health, child requests, artifact refs and binding translation. Does not own G01, C05 approval, C03 lifecycle or provider state.
+Owns dispatch/translation/reconciliation mechanics: connection, Delegation dispatch, status ingestion, cancellation, health, child requests, artifact refs and binding translation. It dispatches only to an A05-READY runtime and does not own G01, C05 approval, C03 lifecycle, A05 desired runtime state or provider-local execution state.
 
 ### A04 — Durable Execution Port
 
 Port for timers, waits, checkpoints and durable execution. Engine history remains mechanism state reconciled with C03/C12.
+
+### A05 — Runtime Lifecycle Coordination
+
+**Purpose:** own Aurora-side desired lifecycle and recovery decisions for separately running providers without selecting or becoming an operating-system supervisor product.
+
+Owns:
+
+- desired runtime state for each approved provider role;
+- start, attach, readiness, drain, stop, restart and reconcile decisions;
+- one new `runtime_incarnation_id` for every concrete process/runtime start;
+- coordination of D01/D02/D03 shutdown ordering;
+- restart policy decisions constrained by current C03/C04/C05 state;
+- runtime health interpretation and transition to READY, DEGRADED, FAILED or UNKNOWN;
+- C12 lifecycle/audit append requests for material runtime transitions.
+
+Lifecycle:
+
+```text
+ABSENT
+→ STARTING
+→ READY
+→ DRAINING
+→ STOPPED
+
+STARTING | READY | DRAINING
+→ DEGRADED | FAILED | UNKNOWN
+```
+
+Startup sequence:
+
+```text
+current demand + C05-approved provider instance
+→ A05 selects approved runtime configuration
+→ supervisor/process adapter starts or attaches
+→ new runtime_incarnation_id
+→ G01/B01 compatibility and readiness handshake
+→ READY or explicit failure
+```
+
+Shutdown/restart sequence:
+
+```text
+A05 blocks new dispatch
+→ requests B01 cancel/drain
+→ reconciles C03/C07/C12 state
+→ supervisor adapter stops the process
+→ restart, replacement or terminal failure decision
+→ every restart creates a new runtime_incarnation_id
+```
+
+A05 does not own provider identity/trust/approval (C05), interpreted Intent/Mission/Attempt state (C03), provider checkpoints, G01 semantics, evidence, telemetry or the OS supervisor mechanism. TA-08 chooses supervisor adapters and operational products; it cannot displace A05 as lifecycle-policy owner.
 
 ---
 
@@ -448,6 +521,7 @@ Stores, indexes, blobs, protocol bindings, UI/Voice adapters, supervisors, OTel 
 | Presence/InteractionSession | C08 | Presence adapter | cannot broaden actor/authority |
 | Device/Environment inventory | C11 | registration adapter | live telemetry/provider alone |
 | Project/current Project state | C02 | proposals through A01 | Memory/model/Harness/UI/DB client |
+| Interpreted Intent and promotion decision | C03 | C08/A02/P01 candidate | model/Presence/provider cannot commit or auto-create Mission |
 | Hypothesis/Experiment lifecycle | C02 | operator/cognitive/Harness | provider workflow alone |
 | Observation/Measurement | C07 | instrument/provider/Harness | producer cannot rewrite provenance |
 | Mission/Delegation/global Attempt | C03 | operator/cognitive/child request | provider/Harness directly |
@@ -467,10 +541,11 @@ Stores, indexes, blobs, protocol bindings, UI/Voice adapters, supervisors, OTel 
 | Proactive candidate/attention budget | C09 | module nomination | provider cannot self-interrupt |
 | Incident/ImprovementCandidate | C10 | modules/evidence processors | candidate cannot self-promote |
 | Raw telemetry | source/telemetry mechanism | components | not state/verdict/history automatically |
-| Source code/ADR/Spec/Contract | Git/document owner | governed process | runtime store not source owner |
+| Source-code bytes and commit history | Git repository | governed development workflow | Aurora runtime/provider cannot redefine source |
+| Accepted ADR/Spec/Contract document custody and commit history | Git/document repository | governed authoring and promotion workflow | custody does not own G01 Contract semantics/version/deprecation/conformance |
 | Live device state | device/telemetry source | controller/sensor | registry/memory cannot override |
 
-### 5.1 Ownership verbs
+## 5.1 Ownership verbs
 
 ```text
 READ     query/consume
@@ -538,7 +613,7 @@ request/proposal
 → post-commit notification/projection
 ```
 
-Provider output is proposal/observation/artifact/claim/capability request/status/receipt—not implicit canonical mutation.
+Provider output is an Intent candidate, proposal, observation, artifact, claim, capability request, provider-local status or reference to an E01-controlled receipt—never an implicit canonical mutation.
 
 ## 6.5 Cross-owner consistency
 
@@ -581,8 +656,9 @@ Strong isolation; premature RPC, identity, discovery, supervision and distribute
 ```text
 Stage A workstation
 ├── Aurora Sovereign Host — persistent
-│   ├── current domain owners including C12 append path
-│   ├── A01 coordination
+│   ├── current domain owners including C03 Intent and C12 history
+│   ├── A01 application coordination
+│   ├── A05 runtime lifecycle coordination
 │   ├── canonical state/recovery
 │   ├── thin Presence adapter
 │   └── B01 provider endpoint
@@ -603,7 +679,7 @@ B01 defines process-crossing semantics without selecting transport/schema.
 
 ## 9.1 Identity/compatibility envelope
 
-Provider ID/instance/build/environment, capability version, G01 semantic version, schema/binding version, permitted Aurora refs and C05 approval snapshot. Reject incompatibility before execution.
+Provider ID/instance/build/environment, `runtime_incarnation_id`, capability version, G01 semantic version, schema/binding version, permitted Aurora refs and C05 approval snapshot. Reject incompatibility before execution. `provider_instance_id` identifies an approved exact build/environment registration; `runtime_incarnation_id` identifies one concrete process start under A05.
 
 ## 9.2 Correlation/idempotency
 
@@ -672,13 +748,13 @@ M0 Go fact
 → M1+ placement/language requires consuming revalidation
 ```
 
-Persistent: bootstrap/identity, state/recovery, current Project/authority, A01, C12 append path, minimal interaction, thin Presence, B01 endpoint, fail-closed behavior.
+Persistent: bootstrap/identity, state/recovery, current Project/authority, C03 Intent ownership, A01 coordination, A05 runtime lifecycle coordination, C12 append path, minimal interaction, thin Presence, B01 endpoint and fail-closed behavior.
 
 Not always active: LLM/Mastra/STT/TTS/heavy indexing/Harness/eval/device control.
 
 ## D02 — Cognitive Runtime
 
-Starts on demand and conforms to B01. Core owners validate outputs.
+A05 starts or attaches D02 only after current demand and C05 approval, creates a new runtime incarnation, requires the G01/B01 readiness handshake and exposes it to A03 only in READY state. Core owners validate every output.
 
 ## D03 — Harness Provider
 
@@ -702,8 +778,9 @@ E01/E02 split when credentials/material effects/privilege/containment demand. No
 | Project/authority state | always available |
 | C12 audit/exact-history append path | always available for governed operations |
 | controlled application/B01 endpoint | always |
+| A05 runtime lifecycle coordination | always available; provider processes remain on demand |
 | local activation adapter | configured |
-| full UI | on demand possible |
+| full UI | possible on demand |
 | Cognitive Runtime/Mastra | on demand |
 | models | on demand |
 | Context Builder | on demand; governance owned |
@@ -738,11 +815,11 @@ E01/E02 split when credentials/material effects/privilege/containment demand. No
 
 | Failure | Response/invariant |
 |---|---|
-| Host crash | recover state and C12 continuity; reconcile providers |
-| Cognitive crash | B01 snapshot/reconcile; Core remains |
+| Host crash | recover state/C12 continuity and A05 desired runtime state; reattach or reconcile provider incarnations |
+| Cognitive crash | A05 marks the incarnation FAILED/UNKNOWN, blocks dispatch and drives B01 snapshot/reconciliation; Core remains |
 | provider state loss | STATE_LOST/RECONCILIATION_REQUIRED |
 | Presence crash | session expires; Core continues |
-| Harness crash | resume/new Attempt/block; no duplicate effect |
+| Harness crash | A05/C03 reconcile, then resume/new Attempt/block; no duplicate effect |
 | canonical store failure | block mutation; trusted recovery |
 | audit/history store/path unavailable | governed material operation blocks or records explicit integrity failure per future profile |
 | artifact unavailable | evidence closeout blocked |
@@ -756,9 +833,25 @@ E01/E02 split when credentials/material effects/privilege/containment demand. No
 
 # 14. Stage B evolution
 
-Persistent personal node hosts Sovereign Host, canonical data, C12 history/audit, evidence coordination, approved providers and risk gateways. Workstation/mobile become Presence clients.
+A persistent personal node hosts the Sovereign Host, canonical data, C12 history/audit, evidence coordination, approved providers and risk gateways. Workstation/mobile become Presence clients.
 
-G01 and canonical owners do not move. TA-04/05/06/08 decide service identity, Presence auth, transport, egress, offline behavior, supervision, minimization, history/evidence retention and backup.
+Stable Aurora domain identities and G01/C01–C12 ownership do not move. Environment-bound runtime identities do change:
+
+```text
+provider_id
+→ may remain stable for the same provider product/version lineage
+
+provider_instance_id
+→ MUST be newly registered for the new build/environment placement
+→ requires a fresh C05 compatibility/trust/approval snapshot
+
+runtime_incarnation_id
+→ MUST be new for every process start, including post-migration start
+```
+
+Provider-local thread/checkpoint/workflow state is reconciled through B01 and may be resumed only when compatible and authorized. It is never imported into C02/C03/C04/C06/C12 as canonical truth merely because files were copied.
+
+Stage B adds service identity, Presence authentication, transport, egress, offline behavior, supervision, minimization, history/evidence retention and backup questions to TA-04/05/06/08. A05 remains the Aurora-side lifecycle-policy owner while TA-08 supplies node-specific supervisor adapters.
 
 ---
 
@@ -767,7 +860,8 @@ G01 and canonical owners do not move. TA-04/05/06/08 decide service identity, Pr
 | Component | Stage A posture | Trigger |
 |---|---|---|
 | G01 | non-deployable | never service for ownership alone |
-| C01/C02/C04/C12 | Host | proven security/scale/topology/storage lifecycle reason |
+| C01/C02/C03/C04/C12 | Host | proven security/scale/topology/storage lifecycle reason |
+| A05 lifecycle coordination | Host | remains Aurora-side owner; TA-08 may replace only the supervisor/process adapter |
 | C03 | Host when implemented | durable/multi-node need |
 | C05 | Host when implemented | remote/independent trust lifecycle |
 | C06 governance | Host hypothesis | M1 runtime/resource/sovereignty evidence |
@@ -786,7 +880,7 @@ G01 and canonical owners do not move. TA-04/05/06/08 decide service identity, Pr
 
 ## Model-assisted Project continuation
 
-C08 → A02 → C02/C04 → C06 → C05/G01 → A03/B01/P01 → owner commit/reject → C12 exact history → C07 evidence when required. P01 never writes Project state.
+C08 captures interaction → A02 obtains C02/C04 inputs → C06 builds context → C05/G01 validate provider → A05 ensures READY runtime → A03/B01/P01 returns an Intent candidate/proposal → C03 validates and commits/rejects Intent, explicitly promoting to Mission only when warranted → other owners commit their state → C12 exact history → C07 evidence when required. P01 never writes Intent, Project or Mission state.
 
 ## Harness child request
 
@@ -810,7 +904,7 @@ B01 snapshot/reconcile; C12 last known events support reconstruction; sovereign 
 
 ## Stage migration
 
-Export/restore/migrate state/history under policy, start D01 on node, register workstation Presence, add transport/auth, preserve identities/owners.
+Export/restore/migrate canonical state/history under policy, start D01 on the new node, create new environment-bound provider_instance_id registrations and C05 approval snapshots, create new runtime_incarnation_id values through A05, register workstation Presence, reconcile rather than canonize provider-local state, and preserve stable Aurora domain identities/owners.
 
 ---
 
@@ -837,25 +931,27 @@ Export/restore/migrate state/history under policy, start D01 on node, register w
 | ID | Question | Hypothesis | Disposition |
 |---|---|---|---|
 | TA12-D01 | owner set | G01 + C01–C12 | DECIDE |
-| TA12-D02 | God module | prohibited | DECIDE |
-| TA12-D03 | Stage A topology | C | DECIDE |
-| TA12-D04 | provider seam | separate first consumer | DECIDE |
-| TA12-D05 | B01 lifecycle profile | as defined | DECIDE; TA-04 implements |
-| TA12-D06 | exact binding | open | RESEARCH TA-04/SPIKE if needed |
-| TA12-D07 | Go scope | M0 seed; M1+ open | RESEARCH/ADR |
-| TA12-D08 | Presence process | co-packaged | DEFER split |
-| TA12-D09 | Memory placement | owned/Host hypothesis | DECIDE ownership; M1 mechanisms |
-| TA12-D10 | Device owner | C11 | DECIDE ownership |
-| TA12-D11 | Audit/exact-history owner | C12 | DECIDE ownership; TA-05/08 mechanisms |
-| TA12-D12 | Effect Gateway | risk-specific | DEFER TA-06 |
-| TA12-D13 | Credential Broker | open | DEFER TA-06 |
-| TA12-D14 | durable engine | none | DEFER M4 |
-| TA12-D15 | Registry service | Host initially | DEFER M2 |
-| TA12-D16 | stores | open | DEFER TA-05 |
-| TA12-D17 | repository | blocked | DEFER TA-03 |
-| TA12-D18 | schema/codegen | open | RESEARCH TA-03/04 under G01 |
-| TA12-D19 | supervisor | open | DEFER TA-08 |
-| TA12-D20 | immediate Spike | none | DEFER until unprovable claim |
+| TA12-D02 | interpreted Intent owner | C03 before explicit Mission promotion | DECIDE |
+| TA12-D03 | God module | prohibited | DECIDE |
+| TA12-D04 | Stage A topology | Approach C | DECIDE |
+| TA12-D05 | provider seam | separate at first consumer | DECIDE |
+| TA12-D06 | B01 lifecycle profile | as defined | DECIDE; TA-04 implements |
+| TA12-D07 | runtime lifecycle owner | A05 in Sovereign Host | DECIDE; TA-08 supplies adapters/products |
+| TA12-D08 | exact binding | open | RESEARCH TA-04/SPIKE if needed |
+| TA12-D09 | Go scope | M0 seed; M1+ open | RESEARCH/ADR |
+| TA12-D10 | Presence process | co-packaged | DEFER split |
+| TA12-D11 | Memory placement | owned/Host hypothesis | DECIDE ownership; M1 mechanisms |
+| TA12-D12 | Device owner | C11 | DECIDE ownership |
+| TA12-D13 | Audit/exact-history owner | C12 | DECIDE ownership; TA-05/08 mechanisms |
+| TA12-D14 | Effect Gateway | risk-specific | DEFER TA-06 |
+| TA12-D15 | Credential Broker | open | DEFER TA-06 |
+| TA12-D16 | durable engine | none | DEFER M4 |
+| TA12-D17 | Registry service | Host initially | DEFER M2 |
+| TA12-D18 | stores | open | DEFER TA-05 |
+| TA12-D19 | repository | blocked | DEFER TA-03 |
+| TA12-D20 | schema/codegen | open | RESEARCH TA-03/04 under G01 |
+| TA12-D21 | supervisor/install product | open; cannot own lifecycle policy | DEFER TA-08 |
+| TA12-D22 | immediate Spike | none | DEFER until unprovable claim |
 
 ---
 
@@ -863,19 +959,19 @@ Export/restore/migrate state/history under policy, start D01 on node, register w
 
 ## TA-03
 
-Enforce owner dependencies; D01 contains multiple owners; P01/P02 separately versioned; Presence logically separate; G01 source separate from generated code; providers cannot import canonical internals; builds distinguish Core/contracts/providers/AHDK/Harness/adapters; compare repo strategies; Development Harness not runtime.
+Enforce G01/C01–C12 and A01–A05 dependency boundaries; D01 contains multiple owners; P01/P02 are separately versioned; Presence is logically separate; G01 source stays separate from generated code; providers cannot import canonical internals; builds distinguish Core/contracts/providers/AHDK/Harness/adapters; compare repository strategies; Development Harness remains non-runtime tooling.
 
 ## TA-04
 
-Implement B01 and G01 version separation; choose bindings per boundary; define channel auth/encoding/errors/streaming/backpressure/negotiation; preserve attenuation/reconciliation; define which B01/domain events become C12 exact history.
+Implement B01 including `runtime_incarnation_id`, G01 version separation and A05 readiness/cancellation/reconciliation integration; choose bindings per boundary; define channel auth, encoding, errors, streaming, backpressure and negotiation; preserve attenuation; define which provider/domain events become C12 history.
 
 ## TA-05
 
-Define physical roles/retention/export/recovery for canonical state, C12 audit/exact history, C07 evidence/artifacts, C06 memory and derived indexes without merging logical ownership.
+Define physical roles, retention, export and recovery for canonical state, C12 audit/history, C07 evidence/artifacts, C06 memory and derived indexes without merging logical ownership. Define physical atomicity/outbox/recovery between owner COMMIT and required C12 APPEND.
 
 ## TA-08
 
-Define C12 audit availability/integrity profile, telemetry separation, startup/recovery, operational retention and diagnostics.
+Provide supervisor/process adapters used by A05; define startup/shutdown hooks, OS integration, update/rollback, health probes, C12 availability/integrity profile, telemetry separation and diagnostics. TA-08 may choose mechanisms but cannot move runtime lifecycle-policy ownership out of A05.
 
 ---
 
@@ -887,13 +983,15 @@ External v0.2→v0.3 resolved named G01 governance and B01 lifecycle/reconciliat
 
 Codex v0.3→v0.4 resolved missing Audit Record and L4 exact-history ownership through C12, mutation/audit paths, failure behavior and later-tranche handoff.
 
+Final reviewer remediation v0.4→v0.5 assigned interpreted Intent to C03, runtime lifecycle policy to A05, separated G01 semantics from Git custody, restored E01-only receipt production, required provider re-registration across Stage B migration and corrected heading/wording findings.
+
 Worklog/final tracking continuity remains before operator-promotion readiness.
 
 ---
 
 # 21. Explicit non-decisions
 
-No choice of monorepo/polyrepo/package layout; universal Go; concrete Mastra; transport; schema generator; stores; auth/policy/secrets products; supervisor/containers/Kubernetes; model/Voice/sandbox/durable engine/observability backend; device protocol; AHDK language; implementation plan/code.
+No choice of monorepo/polyrepo/package layout; universal Go; concrete Mastra; transport; schema generator; stores; auth/policy/secrets products; supervisor implementation/containers/Kubernetes; model/Voice/sandbox/durable engine/observability backend; device protocol; AHDK language; implementation plan/code. A05 owns lifecycle policy, not the supervisor product.
 
 ---
 
@@ -902,23 +1000,25 @@ No choice of monorepo/polyrepo/package layout; universal Go; concrete Mastra; tr
 Confirm:
 
 1. representative concepts have one owner;
-2. G01 cannot be captured by C05/A03/AHDK/provider;
-3. C12 distinctly owns audit/L4 exact history;
-4. providers cannot write state/audit/evidence directly outside owner paths;
-5. B01 defines process lifecycle without transport selection;
-6. Sovereign Host is not God module;
-7. Stage A remains small;
-8. cognitive failure cannot erase truth/history;
-9. no service-per-module;
-10. Stage B preserves semantics/ownership;
-11. M0 choices not globalized;
-12. Mastra remains replaceable;
-13. unresolved mechanisms have owner/treatment;
-14. TA-03/04/05/08 receive constraints without preselection.
+2. G01 semantics are distinct from Git/document custody and cannot be captured by C05/A03/AHDK/provider;
+3. C03 owns validated interpreted Intent before explicit Mission promotion;
+4. C12 distinctly owns audit/L4 exact history;
+5. providers cannot write state/audit/evidence or produce Effect Receipts outside owner/gateway paths;
+6. B01 defines process lifecycle without transport selection;
+7. A05 owns start/attach/readiness/drain/stop/restart/reconciliation policy without selecting a supervisor product;
+8. Sovereign Host is not a God module;
+9. Stage A remains small;
+10. cognitive failure cannot erase truth/history;
+11. no service-per-module pattern;
+12. Stage B preserves stable domain identity while re-registering environment-bound provider instances/incarnations;
+13. M0 choices are not globalized;
+14. Mastra remains replaceable;
+15. unresolved mechanisms have owner/treatment;
+16. TA-03/04/05/08 receive constraints without preselection.
 
 ```text
 ACCEPT
-→ accept Approach C, G01/C01–C12 and B01
+→ accept Approach C, G01/C01–C12, A05 and B01
 → no implementation or later-tranche finalization automatically
 
 REVISE
@@ -927,6 +1027,8 @@ REVISE
 REJECT
 → replace proposal under accepted Technical Architecture Map
 ```
+
+Until acceptance:
 
 Until acceptance:
 
