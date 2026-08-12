@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.13.0
+version: 0.14.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -722,14 +722,48 @@ After PR #4 was marked ready, external review admitted two P1 documentation-cont
 1. the technical-architecture orientation in `STATUS.md` must preserve the mandatory `AGENTS.md` bootstrap order before adding scoped architecture documents;
 2. this material package must be appended to `WORKLOG.md` before canonical promotion.
 
-Both findings are being remediated before merge. No runtime code, production repository structure, framework, protocol, database, authentication product, policy engine, secrets product, model provider or observability backend was selected or implemented.
+Both findings were remediated before merge. A third minor review finding clarified `activation detection` versus speaker `recognition`. No runtime code, production repository structure, framework, protocol, database, authentication product, policy engine, secrets product, model provider or observability backend was selected or implemented.
+
+## 2026-08-12 — Technical Architecture Baseline canonical promotion
+
+The operator explicitly authorized PR #4 to leave draft review and be promoted after clean validation and review resolution.
+
+Final promotion evidence:
+
+```text
+PR: #4 — docs: establish Aurora Technical Architecture Baseline map
+final PR head: d49d093dbeea1d8eafa91294f9368b157e30123f
+final push run: 31620696722 — SUCCESS
+final PR run: 31620703690 — SUCCESS
+review threads: 3 / 3 RESOLVED
+merge commit: b6fb31c46aa709aa5a93eca57076bf7f4ab2b71d
+canonical merge run: 31620818155 — SUCCESS
+```
+
+The merge promoted the TA-01..TA-08 work map, materiality rule, Stage A downstream constraints and current TA-01/TA-02 discovery/design authorization. Canonical closeout is recorded at:
+
+```text
+docs/acceptance/2026-08-12-technical-architecture-baseline-merge-closeout.md
+```
+
+Current state:
+
+```text
+TA-01 + TA-02: DISCOVERY / DESIGN AUTHORIZED
+TA-03+: NOT AUTHORIZED BY IMPLICATION
+AURORA IMPLEMENTATION: PAUSED
+ARCHITECTURE SPIKE EXECUTION: NOT AUTHORIZED
+M0 R7 CANDIDATE: FROZEN / PRESERVED / NON-CANONICAL
+M0 R8: NOT AUTHORIZED
+```
 
 Exact next action:
 
 ```text
-repair admitted PR findings
-→ re-run documentation validation
-→ resolve review threads
-→ promote PR #4 under the operator's explicit authorization
-→ begin TA-01/TA-02 discovery/design
+begin TA-01/TA-02 discovery
+→ derive the minimum coherent technical component set
+→ define canonical ownership and dependency rules
+→ compare 2–3 complete module/runtime approaches
+→ recommend one with explicit trade-offs
+→ present the design for operator review
 ```
