@@ -1,0 +1,184 @@
+name: Append TA-01/TA-02 Worklog
+
+on:
+  push:
+    branches:
+      - docs/ta-01-02-module-runtime-topology-20260812
+    paths:
+      - .github/workflows/ta-worklog-append.yml
+
+permissions:
+  contents: write
+
+jobs:
+  append-worklog:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: docs/ta-01-02-module-runtime-topology-20260812
+          fetch-depth: 0
+
+      - name: Append exact worklog entry
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('docs/tracking/WORKLOG.md')
+          text = path.read_text(encoding='utf-8')
+          heading = '## 2026-08-12 — TA-01/TA-02 module ownership and runtime topology proposal'
+
+          if heading in text:
+              raise SystemExit(0)
+
+          old = 'version: 0.14.0'
+          if old not in text:
+              raise SystemExit('expected WORKLOG version 0.14.0 not found')
+          text = text.replace(old, 'version: 0.15.0', 1)
+
+          entry = r'''
+
+## 2026-08-12 — TA-01/TA-02 module ownership and runtime topology proposal
+
+TA-01/TA-02 began from canonical `main` revision:
+
+```text
+9cbce1efe4f742f90623b894c0c1ba2eaa3cebcc
+```
+
+Work was isolated on:
+
+```text
+branch: docs/ta-01-02-module-runtime-topology-20260812
+PR: #5 — docs: propose TA-01/TA-02 module and runtime topology
+```
+
+The tranche inspected the accepted Product Blueprint, System Architecture Rebaseline, Technical Architecture Baseline, ADR-0001/0002/0003/0004/0009, the accepted M0 Capability Spec/Microdesign and the frozen non-canonical R7 implementation as evidence.
+
+The resulting proposed design is:
+
+```text
+docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md
+version: 0.4.0
+status: proposed
+```
+
+It proposes one governed cross-system semantic owner and twelve canonical Aurora domain owners:
+
+```text
+G01 Contract Model Governance
+
+C01 Identity and Relationship
+C02 Project, World and Experiment State
+C03 Mission and Delegation Control
+C04 Authority and Policy
+C05 Capability and Provider Registry
+C06 Memory, Knowledge and Context
+C07 Artifact, Observation and Evidence
+C08 Presence and Interaction
+C09 Attention and Proactivity                [future/deferred]
+C10 Failure Intelligence and Evaluation      [future/deferred]
+C11 Environment and Device Registry          [future/deferred]
+C12 Audit and Exact History
+```
+
+The design also separates application coordination, deterministic Effect/Credential enforcement, provider runtimes and mechanism adapters from canonical ownership. Provider, model, Harness, Presence, memory index, telemetry and storage mechanisms cannot write canonical Aurora state directly.
+
+Three complete Stage A topologies were compared:
+
+```text
+A — Core-centric single application
+B — early service decomposition
+C — Evolutionary Sovereign Host with one early provider-runtime seam
+```
+
+Approach C is the recommendation:
+
+```text
+one small persistent Aurora Sovereign Host
+→ current Aurora-owned modules and application coordination
+→ canonical state/recovery and C12 audit/history append path
+→ thin local Presence adapter initially co-packaged
+
+one separate on-demand Cognitive Runtime Provider when first consumed
+→ Mastra/TypeScript remains preferred-first to evaluate
+→ provider-local state only
+
+specialized Harnesses remain independent providers
+
+all other physical splits require a named lifecycle, runtime,
+security, privilege, fault, resource, remote-node or consumer trigger
+```
+
+The proposal explicitly distinguishes the accepted M0 Go runtime from a future universal language decision: the current Go executable may seed the Stage A Sovereign Host, while placement/language of M1+ canonical modules requires consuming revalidation.
+
+The design adds `B01 — Transport-neutral Provider Runtime Boundary Profile`, defining before any protocol selection:
+
+- provider/build/capability/contract identity and compatibility;
+- request, attempt, correlation and idempotency identities;
+- attenuated authority and Context Pack boundaries;
+- lifecycle and terminal-state meanings;
+- deadlines, acknowledged cancellation and retry rules;
+- ambiguous-completion reconciliation;
+- provider restart/snapshot recovery;
+- required response/error categories;
+- handoff constraints for TA-04.
+
+Adversarial review did not auto-pass the first drafts. Admitted findings and remediations were:
+
+1. missing Environment/Device owner → C11 added;
+2. root Identity owner overlapped Provider/Presence/Device identity → C01 narrowed and entity-specific owners fixed;
+3. Hypothesis/Experiment/Observation/Measurement ownership incomplete → C02/C07 allocation fixed;
+4. Go wording could globalize ADR-0003 → M0 fact, Stage A seed hypothesis and M1+ decision separated;
+5. Contract Model authority was implicit → named G01 governance owner added;
+6. Cognitive process seam lacked transport-neutral lifecycle/reconciliation → B01 added;
+7. AuditRecord and L4 exact interaction/tool/event history lacked an owner → C12 added with a distinct append path from telemetry, memory and evidence;
+8. material-work continuity was missing → this Worklog entry records the full proposal, evidence, limitations and next action.
+
+Review owner:
+
+```text
+docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md
+```
+
+Observed validation through the v0.4 semantic revision included successful Documentation runs for the initial design and each remediation. Final fixed-revision validation and PR metadata are recorded in `STATUS.md` and the PR after this append.
+
+Explicit limitations and non-decisions remain:
+
+- no runtime implementation;
+- no monorepo/polyrepo or source layout choice;
+- no universal Go decision;
+- no concrete Mastra version/integration;
+- no HTTP/gRPC/Connect/MCP/A2A/event/IPC selection;
+- no new relational/vector/graph/object/telemetry store selection;
+- no authentication, authorization, policy or secrets product selection;
+- no supervisor, container, Kubernetes, model, Voice, sandbox, durable-engine, observability or device-protocol choice;
+- no Architecture Spike execution;
+- no M0 R7/R8 continuation.
+
+Exact next action:
+
+```text
+fix final review/STATUS/PR revision and validation
+→ present Approach C + G01/C01–C12 + B01 to the operator
+→ ACCEPT | REVISE | REJECT
+→ STOP before TA-03/TA-04/TA-05/TA-08 finalization,
+  Architecture Spike execution or Aurora implementation
+```
+'''
+          path.write_text(text.rstrip() + entry + '\n', encoding='utf-8')
+          PY
+
+      - name: Commit append
+        shell: bash
+        run: |
+          if git diff --quiet -- docs/tracking/WORKLOG.md; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/tracking/WORKLOG.md
+          git commit -m "docs: append TA-01 and TA-02 worklog"
+          git push origin HEAD:docs/ta-01-02-module-runtime-topology-20260812
