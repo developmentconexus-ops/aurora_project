@@ -5,12 +5,12 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.11.0
+version: 0.12.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - chronological material work history
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-12
 ---
 
 # Aurora Worklog
@@ -644,3 +644,42 @@ R6 then produced `M0-R6-SOVEREIGN-CORE-IMPLEMENTATION-PLAN.md` v0.1.0 with TASK-
 Adversarial review resolved two material planning findings before verdict: the governing HMAC was corrected to cover the complete current governing logical snapshot rather than only revision heads, and dependency pins were moved from foundation-only pre-staging to just-in-time first consumers.
 
 Final verdict is `M0 ACRM R6 PASS`. R7 Execution and Evidence, production Go source, deployment, Mastra/AHDK/MNFS implementation and later gates remain unauthorized.
+
+## 2026-08-12 — R7 pause and System Architecture Rebaseline
+
+After returning to Projeto Aurora following a pause, the operator identified a material program risk: the accepted product constitution and M0 design were strong, but further implementation could fragment APIs, identity, authority, storage, memory, models, Voice, observability, sandboxes and module ownership without a coherent cross-system technical architecture map.
+
+M0 R7 had been explicitly authorized and produced a non-canonical implementation candidate on:
+
+```text
+branch: feat/m0-r7-sovereign-core-20260810
+observed head: 7ec999b093205a9d82eef2802eca60330d96e14d
+```
+
+The candidate includes executable Sovereign Core behavior and a real-binary Golden Proof, but TASK-13 evidence packaging, independent R7 Verdict and R8 Product Milestone closeout were not completed. The operator directed that implementation expansion stop rather than allowing the candidate to become an accidental global architecture baseline.
+
+A complete `Aurora System Architecture Rebaseline Design` v0.1.0 was proposed at commit `cb6431883bf54cc5428e77e5202955aa9a0646e2`, proposal blob `6ec1b39c7899593d4d1cd3ac5df033d6d4ce8dc2`. The operator reviewed the design and responded `Aprovado`. The acceptance is recorded in `DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION`.
+
+Accepted direction:
+
+- preserve A0 and accepted ADRs within exact scope;
+- freeze/preserve the R7 candidate as non-canonical evidence;
+- do not authorize R8 or continue TASK-13;
+- add a program-level System Architecture Rebaseline inside the existing ACRM rather than a new gate/lifecycle;
+- create a global decision landscape using `DECIDE / RESEARCH / SPIKE / DEFER`;
+- record earliest consumers, evidence needs, decision owners and reconsideration triggers;
+- keep Blueprint 12 free of premature product selections;
+- allow the Development Harness to build/verify Aurora later without becoming a sovereign runtime dependency;
+- resume implementation only after architecture review and explicit authority.
+
+Current authorized work is documentary architecture mapping, current primary-source research, decision proposals, Architecture Spike specifications and separately authorized spike execution. New Aurora runtime implementation, R7 promotion, R8, M1+, AHDK/MNFS/Mastra adapter implementation and ungoverned stack selection remain prohibited.
+
+Exact next action:
+
+```text
+validate the rebaseline package
+→ adversarial review
+→ remediate admitted findings
+→ present one fixed revision for operator review
+→ STOP
+```

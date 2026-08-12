@@ -5,19 +5,23 @@ document_type: decision_index
 form: reference
 authority: tracking
 status: current
-version: 0.6.0
+version: 0.7.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - current decision discovery and status index
-last_reviewed: 2026-08-09
+related:
+  - DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
+  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
+  - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
+last_reviewed: 2026-08-12
 ---
 
 # Aurora Decision Index
 
 ## 1. Authority notice
 
-This file indexes decisions and open choices. It does not replace the Product Blueprint, accepted ADRs or operator decision evidence.
+This file indexes decisions and open choices. It does not replace the Product Blueprint, accepted ADRs, accepted System Architecture Rebaseline design or operator decision evidence.
 
 ```text
 Index entry
@@ -26,7 +30,7 @@ Index entry
 → never redefines the decision
 ```
 
-A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are operator-accepted; `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 is the approved first M0 Mission Contract. Later ACRM gates remain explicit and separately authorized through `STATUS.md`.
+A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are operator-accepted; `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 is the approved first M0 Mission Contract. M0 R7 produced a frozen non-canonical candidate, but no independent R7 Verdict or R8 closeout exists. Current implementation expansion is paused for the accepted program-level System Architecture Rebaseline recorded in `STATUS.md`.
 
 ## 2. Constitutional direction
 
@@ -117,25 +121,35 @@ A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are 
 | D-049 | Product Milestones close through end-to-end Golden Proofs, not task completion | Blueprint 14, ACRM | accepted |
 | D-050 | aggregate Product Blueprint and roadmap are generated from modular canonical sources | Blueprint 15, Product Index | accepted |
 | D-051 | `M0 — Sovereign Core Walking Skeleton` is the first Product Milestone after A0; R0 begins in a fresh session before any technical commitment | Blueprint 14 + M0 operator selection evidence | accepted |
+| D-061 | before further multi-subsystem Aurora implementation expansion, the program performs a System Architecture Rebaseline inside the existing ACRM rather than creating a parallel lifecycle | accepted Rebaseline design + operator direction + ACRM | accepted |
+| D-062 | global architecture questions are treated as `DECIDE`, `RESEARCH`, `SPIKE` or `DEFER`, with earliest consumer, evidence need, owner and reconsideration trigger | accepted Rebaseline design + ACRM | accepted |
+| D-063 | the software-development Harness may build, test, review and package evidence for Aurora but is not a sovereign Aurora runtime dependency | accepted Rebaseline design | accepted |
+| D-064 | the M0 R7 implementation candidate remains frozen, preserved and non-canonical pending architecture rebaseline review; code/CI existence is not acceptance | operator direction + STATUS | accepted current coordination |
 
 ## 8. Deliberately open decisions
 
-These are not yet decisions and must not be inferred from examples, research candidates or the selected M0 milestone:
+These are not yet decisions and must not be inferred from examples, research candidates, the selected M0 milestone or the frozen R7 candidate. The complete dependency and earliest-consumer map is `DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE`.
 
 | Open ID | Decision required | Expected owner/path |
 |---|---|---|
 | O-002 | first AHDK language and source-code generation stack | CAP-AHDK research/spike + ADR |
-| O-003 | schema representation per boundary | Contract Model Spec + SPK-001 |
+| O-003 | schema representation per boundary | Contract Model Spec + consuming R4 evidence |
 | O-004 | local RPC binding | interoperability research/spike + ADR |
-| O-005 | exact MCP/A2A adoption/mapping | SPK-002/SPK-003 + ADR/profile |
-| O-006 | durable execution engine | SPK-004 + ADR |
-| O-007 | policy decision implementation | SPK-005 + ADR |
-| O-008 | workload/device identity implementation | security Capability Spec + spike |
+| O-005 | exact MCP/A2A/ACP adoption/mapping | consuming capability spike + ADR/profile |
+| O-006 | durable execution engine | M4 Capability Spec + comparative spike + ADR |
+| O-007 | policy decision implementation | Effect/Authority Capability Spec + spike + ADR |
+| O-008 | workload/device identity implementation | security Capability Spec + actor-specific spike |
 | O-010 | Artifact/Evidence Store | evidence capability research/spike |
-| O-011 | event transport and telemetry backend | observability capability research/spike |
+| O-011 | event transport and telemetry backend | observability/event capability research/spike |
 | O-012 | memory storage/retrieval/consolidation mix | CAP-MEMORY-CONTEXT + eval spikes |
-| O-013 | first reference Harness runtime | M2/M3 contract after M0/M1 readiness |
+| O-013 | first reference Harness runtime | M2/M3 contract after current architecture review |
 | O-014 | first real engineering Harness | roadmap readiness; MNFS is one candidate |
+| O-015 | global logical module ownership and allowed dependency direction | System Architecture Rebaseline design/landscape, then owning Spec/ADR if material |
+| O-016 | Stage A/B human, service, provider, Presence and device authentication mechanisms by actor class | security/identity research + capability-specific ADRs |
+| O-017 | API profiles, error taxonomy, idempotency and streaming conventions per boundary | Contract/API research + first consuming capability R4 |
+| O-018 | configuration, environment and secret-reference precedence model | system architecture/configuration research + Standard/ADR |
+| O-019 | M1 model/inference and Brain/Core ownership boundary | M1 research, Capability Spec and first-consumer conformance proof |
+| O-020 | physical storage choices beyond M0 for memory, artifacts, telemetry and derived indexes | data-owner/access-pattern analysis + consumer-specific research/spike |
 
 ## 9. Status-change rule
 
@@ -145,8 +159,8 @@ An index entry changes only when its canonical owner/evidence changes lifecycle/
 conversation approval
 → permits faithful documentation or records an explicit operator decision when directly asked
 
-A0 operator acceptance
-→ promotes the approved constitutional package
+accepted Product Blueprint/design
+→ governs only its stated authority scope
 
 accepted ADR
 → promotes a specific technical decision
@@ -156,6 +170,9 @@ selected Product Milestone
 
 approved Contract
 → creates scoped implementation commitment
+
+implementation branch/green CI
+→ produces Claim/Evidence only; never acceptance by itself
 ```
 
 No entry is promoted merely because code exists, CI is green or a PR is merged.

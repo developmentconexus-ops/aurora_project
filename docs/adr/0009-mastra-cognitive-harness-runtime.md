@@ -7,13 +7,13 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-07
 acceptance_evidence: DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
-version: 0.1.0
+version: 0.1.2
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed default runtime posture for first-party agentic Harnesses
+  - preferred-first runtime posture for first-party agentic Harnesses
 related:
   - DOC-AURORA-BLUEPRINT-06
   - DOC-AURORA-BLUEPRINT-07
@@ -25,7 +25,7 @@ related:
   - ADR-AURORA-0004
 supersedes: []
 superseded_by: null
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-12
 ---
 
 # ADR-0009 — Mastra as Preferred First-Party Cognitive and Harness Runtime Substrate
@@ -36,7 +36,7 @@ Aurora needs rich agentic infrastructure across future Capabilities: long-sessio
 
 Building generic versions of all of these inside Aurora would consume substantial engineering effort while creating a second framework surface to maintain.
 
-Current Mastra research shows that the open-source framework now provides a broad, coherent implementation surface for these concerns while remaining deployable as a separate TypeScript/Node runtime with HTTP/OpenAPI exposure and replaceable storage/provider integrations.
+Current Mastra research shows that the open-source framework provides a broad, coherent implementation surface for these concerns while remaining deployable as a separate TypeScript/Node runtime with HTTP/OpenAPI exposure and replaceable storage/provider integrations.
 
 At the same time, accepted Aurora Blueprints require identity, Project/Mission state, authority, global budgets, provider trust, governed memory semantics and acceptance to remain Aurora-owned and framework-replaceable.
 
@@ -79,11 +79,11 @@ Cons: violates accepted ownership boundaries by allowing framework state/semanti
 
 ## Decision
 
-**Proposed:** choose **Option C**.
+**Accepted decision:** choose **Option C**.
 
-For first-party **agentic Harnesses and cognitive execution capabilities**, Mastra becomes the **preferred default substrate to evaluate first** before Aurora builds generic equivalent infrastructure.
+For first-party **agentic Harnesses and cognitive execution capabilities**, Mastra is the **preferred default substrate to evaluate first** before Aurora builds generic equivalent infrastructure.
 
-This means future Capability work should start with the question:
+Future Capability work should therefore start with the question:
 
 > Can the required local agent/runtime behavior be implemented safely using current OSS Mastra primitives behind Aurora contracts?
 
@@ -208,9 +208,9 @@ Provider-local historical/memory data may require migration or may be intentiona
 
 ## M0 materiality
 
-This proposal **does not add a new M0 blocker**.
+This accepted decision **does not add a new M0 blocker**.
 
-The current M0 storage/recovery proof remains the next executable architecture experiment if separately authorized. Mastra should not be introduced into the M0 Golden Proof merely to validate a future substrate.
+The M0 storage/recovery proof remains independent from Mastra. Mastra must not be introduced into the M0 Golden Proof merely to validate a future substrate.
 
 ## Reconsideration triggers
 

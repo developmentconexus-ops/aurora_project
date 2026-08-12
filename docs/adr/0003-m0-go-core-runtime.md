@@ -7,13 +7,13 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-07
 acceptance_evidence: DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
-version: 0.2.0
+version: 0.2.2
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed M0 Aurora Sovereign Core implementation language/runtime
+  - M0 Aurora Sovereign Core implementation language/runtime
 related:
   - DOC-AURORA-CAP-SOVEREIGN-CORE-SPEC
   - DESIGN-AURORA-M0-R4-DECISION-LANDSCAPE
@@ -23,7 +23,7 @@ related:
   - DOC-AURORA-M0-R4-OPERATOR-AUTHORIZATION
 supersedes: []
 superseded_by: null
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-12
 ---
 
 # ADR-0003 — Go as the Initial Aurora Sovereign Core Runtime
@@ -34,7 +34,7 @@ R3 intentionally left `R4-Q-CORE-001` open. The Sovereign Core needs a stable lo
 
 ADR-0001 already requires Aurora semantics to remain language/framework neutral across bindings.
 
-The focused Mastra assessment subsequently clarified an important scope boundary: choosing Go for the **Sovereign Core** must not be interpreted as choosing Go as the universal runtime for Aurora's future agentic Harnesses. Mastra is now a proposed preferred TypeScript/Node cognitive/Harness substrate under ADR-0009, behind Aurora-owned contracts.
+The focused Mastra assessment subsequently clarified an important scope boundary: choosing Go for the **Sovereign Core** must not be interpreted as choosing Go as the universal runtime for Aurora's future agentic Harnesses. Mastra is an accepted preferred-first TypeScript/Node cognitive/Harness substrate under ADR-0009, behind Aurora-owned contracts.
 
 ## Decision drivers
 
@@ -86,13 +86,13 @@ Would move a material M0 implementation decision into R5/R6 and violate R4's pur
 
 ## Decision
 
-**Proposed:** implement the initial Aurora **Sovereign Core** in **Go**.
+**Accepted decision:** implement the initial Aurora **Sovereign Core** in **Go**.
 
 Mission/implementation baselines MUST pin a current supported Go patch release rather than treating one patch version as permanent product meaning.
 
 Go does **not** become the language of all Aurora Capabilities. AHDK, Harnesses, agent runtimes, device controllers and future specialized components may use other languages behind accepted contracts.
 
-In particular, ADR-0009 proposes Mastra/TypeScript as the preferred default substrate to evaluate first for first-party agentic Harnesses. That is an intentional polyglot boundary, not architectural inconsistency.
+In particular, ADR-0009 establishes Mastra/TypeScript as the preferred default substrate to evaluate first for first-party agentic Harnesses. That is an intentional polyglot boundary, not architectural inconsistency.
 
 No agent framework is selected as Aurora Sovereign Core runtime ownership.
 
@@ -138,11 +138,11 @@ Mastra or another Harness runtime can be replaced independently because it is ou
 
 ## Validation
 
-Documentary R4 evidence is sufficient to review this Sovereign Core runtime choice; no standalone language spike is required. Storage bindings still require `SPK-AURORA-M0-SOVEREIGN-STORE-001`.
+Documentary R4 evidence was sufficient to review and accept this Sovereign Core runtime choice; no standalone language spike was required. Storage bindings were validated separately by `SPK-AURORA-M0-SOVEREIGN-STORE-001` before their own decision promotion.
 
-The Mastra assessment does not add a new M0 runtime spike because M0 must function with every Harness/runtime absent.
+The Mastra assessment did not add a new M0 runtime spike because M0 must function with every Harness/runtime absent.
 
-Acceptance still requires operator review. Acceptance does not authorize implementation.
+This decision is accepted for its stated M0 scope. Acceptance did not and does not authorize implementation beyond separately approved execution boundaries.
 
 ## Reconsideration triggers
 

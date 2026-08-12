@@ -7,13 +7,13 @@ authority: decision
 status: accepted
 accepted_at: 2026-08-07
 acceptance_evidence: DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
-version: 0.2.0
+version: 0.2.2
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed M0 process topology, canonical-state persistence pattern and durable-engine applicability
+  - M0 process topology, canonical-state persistence pattern and durable-engine applicability
 related:
   - DOC-AURORA-CAP-SOVEREIGN-CORE-SPEC
   - DESIGN-AURORA-M0-R4-DECISION-LANDSCAPE
@@ -22,7 +22,7 @@ related:
   - ADR-AURORA-0009
 supersedes: []
 superseded_by: null
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-12
 ---
 
 # ADR-0004 — M0 Local State and Execution Shape
@@ -54,7 +54,7 @@ Affected requirements include `REQ-010..020`, `024..031`, `046..055`, `077..088`
 
 ## Decision
 
-**Proposed:** M0 uses **one local modular Sovereign Core process** with:
+**Accepted decision:** M0 uses **one local modular Sovereign Core process** with:
 
 ```text
 explicit current governing state
@@ -101,15 +101,17 @@ Loss or corruption of provider-local Mastra state may degrade/fail a provider ru
 
 ## Validation
 
-Documentary evidence is sufficient for the M0 topology/state/engine non-selection. Exact store atomicity remains blocked by `SPK-AURORA-M0-SOVEREIGN-STORE-001`.
+Documentary evidence was sufficient to accept the M0 topology/state/engine non-selection. Exact store atomicity was validated separately by `SPK-AURORA-M0-SOVEREIGN-STORE-001` before the operational-store decision was promoted.
 
-No Mastra integration spike is required for M0 because M0 does not consume Mastra. The first Mastra-backed Capability must prove its provider boundary when it reaches its own implementation horizon.
+No Mastra integration spike was required for M0 because M0 does not consume Mastra. The first Mastra-backed Capability must prove its provider boundary when it reaches its own implementation horizon.
+
+This decision is accepted for its stated M0 scope. Acceptance did not and does not select a universal Aurora deployment topology or durable engine.
 
 ## Reconsideration triggers
 
 - multi-process concurrent Core writers become current scope;
 - long-running waits/timers/external effects enter an accepted milestone;
-- SQLite/store spike shows the co-located transactional boundary cannot satisfy M0 safely;
+- accepted storage evidence no longer supports the co-located transactional boundary safely;
 - M4 enters execution horizon;
 - first Mastra-backed Capability requires durable-run reconciliation semantics.
 

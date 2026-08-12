@@ -5,6 +5,14 @@ on:
     branches:
       - main
       - docs/architecture-baseline
+      - "docs/**"
+    paths:
+      - "**/*.md"
+      - "docs/research/*.json"
+      - "scripts/generate_docs.py"
+      - "scripts/validate_docs.py"
+      - ".github/workflows/docs.yml"
+  pull_request:
     paths:
       - "**/*.md"
       - "docs/research/*.json"
@@ -14,7 +22,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
@@ -33,19 +41,6 @@ jobs:
       - name: Generate documentation projections
         run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
 
-      - name: Publish generated projections on the architecture branch
-        if: github.event_name == 'push' && github.ref == 'refs/heads/docs/architecture-baseline'
-        run: |
-          cp "$RUNNER_TEMP/aurora-generated/docs/product/PRODUCT-BLUEPRINT.md" docs/product/PRODUCT-BLUEPRINT.md
-          cp "$RUNNER_TEMP/aurora-generated/docs/roadmap.md" docs/roadmap.md
-          if ! git diff --quiet -- docs/product/PRODUCT-BLUEPRINT.md docs/roadmap.md; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add docs/product/PRODUCT-BLUEPRINT.md docs/roadmap.md
-            git commit -m "docs: regenerate Aurora documentation projections"
-            git push origin HEAD:docs/architecture-baseline
-          fi
-
       - name: Validate documentation system
         id: validate
         continue-on-error: true
@@ -53,6 +48,15 @@ jobs:
           python scripts/validate_docs.py \
             --generated-root "$RUNNER_TEMP/aurora-generated" \
             --report "$RUNNER_TEMP/aurora-generated/docs-validation-report.json"
+
+      - name: Check committed whitespace
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF_NAME" == "main" ]]; then
+            git diff --check HEAD^...HEAD
+          else
+            git diff --check origin/main...HEAD
+          fi
 
       - name: Upload generated documentation and report
         if: always()
@@ -69,3 +73,35 @@ jobs:
       - name: Enforce validation result
         if: steps.validate.outcome != 'success'
         run: exit 1
+
+  publish-generated:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/docs/architecture-baseline'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate documentation projections
+        run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
+
+      - name: Publish generated projections
+        run: |
+          cp "$RUNNER_TEMP/aurora-generated/docs/product/PRODUCT-BLUEPRINT.md" docs/product/PRODUCT-BLUEPRINT.md
+          cp "$RUNNER_TEMP/aurora-generated/docs/roadmap.md" docs/roadmap.md
+          if ! git diff --quiet -- docs/product/PRODUCT-BLUEPRINT.md docs/roadmap.md; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add docs/product/PRODUCT-BLUEPRINT.md docs/roadmap.md
+            git commit -m "docs: regenerate Aurora documentation projections"
+            git push origin HEAD:docs/architecture-baseline
+          fi

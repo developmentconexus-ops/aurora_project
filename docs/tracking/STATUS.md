@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.25.0
+version: 0.28.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -17,66 +17,13 @@ related:
   - DOC-AURORA-PRODUCT-INDEX
   - DOC-AURORA-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
-  - DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-  - DOC-AURORA-GP-A0-FRESH-001-EVALUATION
-  - DOC-AURORA-M0-OPERATOR-SELECTION
-  - REVIEW-AURORA-M0-R0-CONSTITUTIONAL-BASELINE-2026-08-06
-  - DOC-AURORA-M0-R0-REMEDIATION-AUTHORIZATION
-  - DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
-  - DOC-AURORA-M0-R0-REMEDIATION-MERGE-CLOSEOUT
-  - DOC-AURORA-M0-R0-RERUN-TARGET-FINDING
-  - REVIEW-AURORA-M0-R0-CONSTITUTIONAL-BASELINE-RERUN-2026-08-07
-  - DOC-AURORA-M0-R1-OPERATOR-AUTHORIZATION
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-APPLICABILITY
-  - REVIEW-AURORA-M0-R1-APPLICABILITY-2026-08-07
-  - DOC-AURORA-M0-R2-OPERATOR-AUTHORIZATION
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-REQUIREMENTS
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-R2-COVERAGE
-  - REVIEW-AURORA-M0-R2-REQUIREMENTS-2026-08-07
-  - DOC-AURORA-M0-R3-OPERATOR-AUTHORIZATION
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-SPEC
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-THREAT-MODEL
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-TEST-PLAN
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-R3-COVERAGE
-  - REVIEW-AURORA-M0-R3-RESEARCH-FRESHNESS-2026-08-07
-  - REVIEW-AURORA-M0-R3-CAPABILITY-READINESS-2026-08-07
-  - DOC-AURORA-M0-R4-OPERATOR-AUTHORIZATION
-  - DOC-AURORA-M0-R4-ADR-ACCEPTANCE-SPK001-AUTHORIZATION
-  - DOC-AURORA-M0-R4-SPK001-EVIDENCE-RECEIPT
-  - DOC-AURORA-M0-R4-ADR0007-ACCEPTANCE-SPK002-AUTHORIZATION
-  - DOC-AURORA-M0-R4-SPK002-EVIDENCE-RECEIPT
-  - REVIEW-AURORA-M0-R4-SPK001-SOVEREIGN-STORE-2026-08-07
-  - REVIEW-AURORA-M0-R4-SPK002-OWNER-TRUST-2026-08-07
-  - DOC-AURORA-M0-R4-ADR0008-ACCEPTANCE
-  - REVIEW-AURORA-M0-R4-ARCHITECTURE-DECISION-READINESS-RERUN-2026-08-07
-  - DESIGN-AURORA-M0-R4-DECISION-LANDSCAPE
-  - DESIGN-AURORA-M0-R4-MASTRA-FIT-MATRIX
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-R4-DECISION-COVERAGE
-  - RESEARCH-AURORA-MASTRA-COGNITIVE-HARNESS-R4-V1
-  - ADR-AURORA-0003
-  - ADR-AURORA-0004
-  - ADR-AURORA-0005
-  - ADR-AURORA-0006
-  - ADR-AURORA-0007
-  - ADR-AURORA-0008
-  - ADR-AURORA-0009
-  - DESIGN-AURORA-M0-SOVEREIGN-STORE-SPIKE-001
-  - DESIGN-AURORA-M0-OWNER-TRUST-SPIKE-002
-  - REVIEW-AURORA-M0-R4-ARCHITECTURE-DECISION-READINESS-2026-08-07
-  - REVIEW-AURORA-M0-R4-MASTRA-MATERIALITY-2026-08-07
-  - DOC-AURORA-M0-R5-OPERATOR-AUTHORIZATION
-  - DOC-AURORA-MIS-M0-SOVEREIGN-CORE-001
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-R5-COVERAGE
-  - REVIEW-AURORA-M0-R5-CONTRACT-READINESS-2026-08-07
-  - DOC-AURORA-M0-R5-A2-CONTRACT-OPERATOR-ACCEPTANCE
-  - REVIEW-AURORA-M0-R5-CONTRACT-READINESS-RERUN-2026-08-09
-  - DOC-AURORA-M0-R6-OPERATOR-AUTHORIZATION
-  - DOC-AURORA-M0-R6-MICRODESIGN-OPERATOR-ACCEPTANCE
-  - DESIGN-AURORA-M0-R6-SOVEREIGN-CORE-MICRODESIGN
-  - DESIGN-AURORA-M0-R6-SOVEREIGN-CORE-IMPLEMENTATION-PLAN
-  - DOC-AURORA-CAP-SOVEREIGN-CORE-R6-IMPLEMENTATION-COVERAGE
-  - REVIEW-AURORA-M0-R6-IMPLEMENTATION-DESIGN-READINESS-2026-08-09
-last_reviewed: 2026-08-09
+  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
+  - DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
+  - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
+  - REVIEW-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-2026-08-12
+  - DOC-AURORA-DECISIONS
+  - DOC-AURORA-WORKLOG
+last_reviewed: 2026-08-12
 ---
 
 # Aurora Project Status
@@ -85,210 +32,216 @@ last_reviewed: 2026-08-09
 
 - **Project:** Projeto Aurora
 - **Canonical branch:** `main`
-- **Canonical baseline reviewed by initial M0 R0:** `1da990f368a1bc693c09191c41d30a3db454d11e`
-- **A0:** ACCEPTED and MERGED
-- **A0 merge commit:** `f22085d97e198d99e89d52221b7b26d59d49bc12`
-- **ADR-0001:** ACCEPTED
-- **ADR-0002:** ACCEPTED
-- **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED by operator
-- **Current readiness gate:** ACRM R6 — Implementation Design Readiness — PASS; R7 NOT AUTHORIZED
-- **Initial R0 verdict:** FAIL
-- **R0 re-run target:** `6054f84d007347c0aa9eef9e71317134b1047d3c`
-- **R0 re-run verdict:** PASS
-- **Canonical R0 remediation merge:** `d0ddfb794296e599ac96bb73bf3772937d371bf9`
-- **R0 remediation:** ACCEPTED AND MERGED — `d0ddfb794296e599ac96bb73bf3772937d371bf9`
-- **R1 source baseline:** `735f269025e2cc317424e4931f3a5cd414cd6f2a`
-- **R1 applicability artifact:** `7f10734ba6018154f196557de6c5735719046253` — 294/294 classified
-- **R1 review:** `fbbae69d529a53532e5858693394747081e11d0f` — PASS
-- **R1 active constitutional sources for R2:** 127 (`78 APPLIES + 49 PARTIALLY_APPLIES`)
-- **R2 source baseline:** `495b712142d7c3d722da2298f7a0b060707f9f5e`
-- **R2 reviewed requirements package:** `a8ffbbe22995b8e683d9d49ad06f487c745709f9`
-- **R2 derived requirements:** 122 accepted atomic requirements; coverage 127/127 active sources
-- **R2 canonical integration:** `9bfab2b30eaccb92ddb55852f97735653172f064`
-- **R2 verdict:** PASS
-- **R3 source baseline:** `9ea8adf5c115f54071d7e36e312695d19420d8b0`
-- **R3 reviewed clean package:** `4b8558b724f28310fd8fbc6884944f7f59f16ea6`
-- **R3 canonical integration:** `58a7946b62f27d8b8784169e7e3741eec24ecc95`
-- **R3 requirement allocation:** 122/122 R2 requirements allocated to Spec mechanisms and planned verification
-- **R3 test-plan baseline:** 84 planned test IDs; 80 referenced directly by requirement coverage
-- **R3 research freshness:** SUFFICIENT for boundary reasoning; R4 mechanism/version revalidation required
-- **R3 verdict:** PASS
-- **R4 source baseline:** `d00cc1abfc2a41ac7e81e1f3478e188b3c5e9e52`
-- **R4 initial documentary package/review integration:** `71f64bab2a82c2a7781d28274224f60abc277b2c`
-- **R4 architecture questions:** 15/15 mapped to research, proposed ADRs and/or exact spike evidence
-- **R4 focused research:** 5 current focused reports + 5 source manifests after Mastra materiality assessment
-- **R4 Mastra finding:** MATERIAL CROSS-HORIZON / NOT A NEW M0 BLOCKER
-- **Mastra posture:** ACCEPTED preferred-first substrate to evaluate for first-party agentic Harness infrastructure; NOT Sovereign Core owner
-- **ADR-0003:** ACCEPTED — Go is the initial Aurora Sovereign Core runtime
-- **ADR-0004:** ACCEPTED — M0 local Core/state shape; future Mastra workflow/durable mechanisms remain provider-local/port candidates
-- **ADR-0005 / ADR-0006:** ACCEPTED
-- **ADR-0007:** ACCEPTED — SQLite + `database/sql` + `modernc.org/sqlite` is the M0 operational-state baseline
-- **ADR-0008:** ACCEPTED — random ORK + authenticated external trust high-water + owner-only restore revalidation
-- **ADR-0009:** ACCEPTED / cross-horizon — Mastra preferred-first cognitive/Harness substrate; no M0 implementation authorization
-- **SPK-AURORA-M0-SOVEREIGN-STORE-001:** PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED — final run `31213792366`, execution revision `4242342486f512320f12e0b603f052166264c4ea`, 4/4 matrix PASS
-- **SPK-AURORA-M0-OWNER-TRUST-002:** PASS / EVIDENCE_COMPLETE / REVIEWED / DECISION_INFORMED / CLOSED — final run `31219882882`, execution revision `c76b96fee36878f15c54028b4ba1896f84ebdeca`, Linux/Windows PASS
-- **R4 verdict:** PASS — all 15 M0 architecture questions decided; all required spikes PASS/REVIEWED/CLOSED
-- **R5 — Contract Readiness:** PASS — exact A2 package accepted and MIS-M0-SOVEREIGN-CORE-001 v0.1.0 approved
-- **R6 — Implementation Design Readiness:** PASS — Microdesign v0.1.0 accepted; Implementation Plan v0.1.0 reviewed; 122/122 requirements allocated
-- **R7 and later gates:** NOT AUTHORIZED BY IMPLICATION
-- **Accepted technical decisions:** ADR-0003, ADR-0004, ADR-0005, ADR-0006, ADR-0007, ADR-0008 and ADR-0009
-- **R5 accepted A2 package:** Requirements v0.1.1 + Spec v0.2.0 + Threat Model v0.2.0 + Test Plan v0.2.0 — accepted from exact proposal blobs
-- **R5 approved Mission Contract:** `MIS-M0-SOVEREIGN-CORE-001` v0.1.0 — approved; 122/122 requirements allocated
-- **R5 verdict:** PASS — final rerun after exact operator acceptance; no unresolved Contract Readiness blocker
-- **R6 implementation allocation:** 122/122 accepted requirements → TASK-00..13; 12/12 Mission criteria covered
-- **Runtime implementation:** not started and not authorized
+- **Canonical `main` revision at rebaseline start:** `e7ca5ffb652fbbd68b35d4434506c58d26daf0e1`
+- **Current documentary branch:** `docs/system-architecture-rebaseline-20260812`
+- **Draft PR:** `#3 — docs: establish Aurora System Architecture Rebaseline`
+- **PR target:** `main`
+- **PR state:** OPEN / DRAFT / NOT MERGED
+- **A0 — Product, Discovery and Architecture Baseline:** ACCEPTED / MERGED
+- **ADR-0001 / ADR-0002:** ACCEPTED
+- **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED
+- **M0 ACRM R0–R6:** PASS
+- **M0 R7 authorization:** RECEIVED
+- **M0 R7 execution candidate:** EXISTS ON NON-CANONICAL BRANCH
+- **R7 independent Verdict:** NOT ISSUED
+- **M0 R8 closeout:** NOT AUTHORIZED / NOT PERFORMED
+- **Current program mode:** `SYSTEM ARCHITECTURE REBASELINE — AWAITING OPERATOR REVIEW`
+- **Rebaseline documentary review:** PASS for operator review
+- **Aurora implementation expansion:** PAUSED
 
-## 2. M0 selection
+## 2. Canonical versus candidate implementation state
 
-The operator explicitly selected `M0 — Sovereign Core Walking Skeleton` as the first Product Milestone on 2026-08-06 after comparing M0 against M1 and M2.
-
-Accepted M0 outcome:
-
-> A minimal Aurora Core persists identity, project state, authority snapshot and one interaction lifecycle across restart without depending on an external model or Harness as authority.
-
-Directional Golden Proof:
+Canonical `main` remains the R6 PASS documentation/design baseline:
 
 ```text
-initialize Aurora instance
-→ create project
-→ record accepted state and next action
-→ terminate all Aurora processes
-→ start fresh process
-→ recover same identities/state
-→ reject an invalid transition
-→ export and restore state
+e7ca5ffb652fbbd68b35d4434506c58d26daf0e1
 ```
 
-Evidence: `docs/acceptance/2026-08-06-m0-operator-selection.md`.
-
-## 3. Initial M0 R0 result
-
-A fresh repository-only R0 review was executed against:
+A separately authorized R7 execution produced a candidate implementation on:
 
 ```text
-1da990f368a1bc693c09191c41d30a3db454d11e
+branch: feat/m0-r7-sovereign-core-20260810
+observed head: 7ec999b093205a9d82eef2802eca60330d96e14d
+classification: FROZEN / PRESERVED / NON-CANONICAL
 ```
 
-Verdict:
+The candidate includes executable Sovereign Core work and a real-binary Golden Proof, but it has not completed the required independent evidence packaging/acceptance path and has not been promoted to `main`.
+
+The candidate is therefore:
+
+- valid implementation/evidence input for architecture review;
+- not rejected or discarded;
+- not an R7 Verdict;
+- not an R8 Product Milestone closeout;
+- not authority to continue TASK-13;
+- not a universal Aurora architecture or stack baseline.
+
+## 3. Why implementation remains paused
+
+The operator identified that Aurora is a system of systems and that further implementation expansion would be premature without a coherent cross-system technical architecture map covering, at the required level of maturity:
+
+- modules and canonical ownership;
+- contracts and communication boundaries;
+- identity, authentication and authorization;
+- data categories and storage roles;
+- memory, knowledge and Context Builder;
+- model/Brain runtime boundaries;
+- Harness/AHDK integration;
+- sandboxes and durable execution;
+- artifacts, evidence, observability and evaluation;
+- APIs, events and local/cloud topology;
+- Voice, Presence and physical-device deferral boundaries.
+
+The operator accepted `DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE` v0.1.0 and directed the program to perform this rebaseline before resuming Aurora implementation.
+
+The initial documentary package now exists and has passed adversarial review, but its global Architecture Decision Landscape remains `proposed`. Operator review and canonical promotion are still required before the next architecture program is selected.
+
+## 4. Current documentary evidence
+
+Reviewed package target:
 
 ```text
-R0 FAIL
+dab298a4b4f72ad98973534dc136122f2dd25fe3
 ```
 
-Gate-failing findings:
-
-- **R0-F01 — Product Milestone anatomy divergence:** Blueprint 14 required a complete executable-horizon milestone anatomy, while selected M0 lacked Architecture Spikes, Exit Criteria, Telemetry Baseline, Dependencies and Promotion/Authority Boundary; §14.5 also failed to distinguish selected executable milestones from intentionally directional future milestones.
-- **R0-F02 — ADR status divergence:** `docs/adr/README.md`, despite owning ADR status discovery, still reported ADR-0001/0002 as proposed while their accepted ADR files and operator evidence reported ACCEPTED.
-- **R0-F03 — mutable-state duplication/drift:** bootstrap/index/constitutional documents retained pre-A0/pre-M0 coordination snapshots even though `STATUS.md` and operator evidence had advanced.
-
-Review record: `docs/reviews/2026-08-06-m0-r0-constitutional-baseline-review.md`.
-
-## 4. Remediation boundary
-
-The operator authorized remediation after the R0 FAIL. The authorized work is documentary/constitutional only:
-
-- repair M0 roadmap anatomy without choosing technical mechanisms;
-- make §14.5 consistent with the constitutional/executable two-horizon model;
-- align ADR status discovery with accepted ADR owners/evidence;
-- remove mutable-current-state ownership from durable constitutional/index documents and point it to `STATUS.md`;
-- regenerate generated projections;
-- run documentation validation;
-- present the corrected revision for explicit operator acceptance;
-- re-run M0 R0 only after the corrected constitutional revision is accepted/canonical.
-
-This remediation does **not** authorize R1, Architecture Spike execution, Capability implementation, Aurora Core implementation, AHDK, MNFS integration, stack selection, Mission Contract or Microdesign.
-
-## 5. Current M0 decisions and cross-horizon Mastra direction
-
-R4 has researched concrete dispositions for all M0 mechanism questions. ADR-0003 through ADR-0008 are accepted for their M0 scopes, ADR-0009 is accepted cross-horizon, and SPK-001/SPK-002 have both completed with reviewed PASS evidence:
-
-- Sovereign Core implementation language/runtime;
-- operational-state storage mechanism;
-- state-versus-event persistence pattern;
-- schema/serialization representation;
-- crash-consistent commit/atomicity mechanism;
-- integrity mechanism;
-- time/rollback semantics used for authority expiry;
-- local owner authentication/bootstrap mechanism;
-- export/backup format and topology;
-- migration mechanism/tooling;
-- audit/event physical mechanism;
-- telemetry backend/transport;
-- initial M0 Core process/deployment topology;
-- M0 durable execution engine applicability;
-- authority freshness/revalidation mechanism after restore.
-
-The focused Mastra assessment adds a **cross-horizon direction**, not another M0 question:
+Adversarial review record:
 
 ```text
-Aurora Sovereign Core
-→ accepted Go runtime
-→ owns truth, identity, authority and governance
-
-Mastra
-→ accepted preferred-first substrate to evaluate for first-party agentic Harnesses
-→ may own provider-local cognition/execution state where fit is proven
-→ must not own Aurora canonical identity/state/authority/global verdict
+docs/reviews/2026-08-12-system-architecture-rebaseline-review.md
+review commit: d7d501f48b7f01cb4de42fab2f9ca177e76c4a0f
+verdict: PASS for operator review
 ```
 
-Current Mastra mapping is recorded as `USE / ADAPT / WRAP / DO_NOT_USE_AS_OWNER / FUTURE` in `M0-R4-MASTRA-FIT-MATRIX.md`.
-
-No Go↔Mastra integration spike is required during M0. The first Mastra-backed Capability must pin the then-current Mastra version and prove the provider boundary when it actually reaches implementation horizon.
-
-This is an explicit product-velocity decision: do not rebuild generic Mastra-like infrastructure casually, but also do not delay M0 to prove a runtime that M0 does not consume.
-
-## 6. Current authorization boundary
+Final pre-PR branch validation:
 
 ```text
-A0 baseline:                    ACCEPTED / MERGED
-ADR-0001 / ADR-0002:           ACCEPTED
-First Product Milestone:        M0 SELECTED
-Initial M0 R0:                 FAIL — historical
-R0 documentary remediation:    ACCEPTED / MERGED
-M0 ACRM R0 re-run:             PASS — target 6054f84d007347c0aa9eef9e71317134b1047d3c
-M0 ACRM R1 — Applicability:    PASS — source baseline 735f269025e2cc317424e4931f3a5cd414cd6f2a
-R1 applicability coverage:     294/294 classified; 127 active sources
-M0 ACRM R2 — Requirements:     PASS — source baseline 495b712142d7c3d722da2298f7a0b060707f9f5e
-R2 requirements baseline:       122 accepted atomic requirements; coverage 127/127
-M0 ACRM R3 — Capability Readiness: PASS — source baseline 9ea8adf5c115f54071d7e36e312695d19420d8b0
-R3 Capability package:          ACCEPTED — R4-aligned Requirements/Spec/Threat/Test + 122/122 allocation
-M0 ACRM R4 — Architecture/Decision Readiness: PASS — final rerun after ADR-0008 v0.2.0 acceptance
-R4 M0 decision coverage:         15/15 decided; all required spikes closed; no unresolved material M0 architecture choice
-R5 Mission Contract:             APPROVED — MIS-M0-SOVEREIGN-CORE-001 v0.1.0; 122/122 requirement allocation
-Cross-horizon ADR-0009:          ACCEPTED — Mastra preferred-first agentic Harness substrate; not an M0 blocker
-Mastra integration spike:       NOT REQUIRED FOR M0 / DEFERRED TO FIRST CONSUMING CAPABILITY
-ACRM R5 — Contract Readiness:    PASS — exact A2 package + Mission Contract accepted/approved
-ACRM R6 — Implementation Design Readiness: PASS — accepted Microdesign + reviewed exact Implementation Plan
-ACRM R7+:                       NOT AUTHORIZED
-Architecture Spike execution:   SPK-001 CLOSED; SPK-002 CLOSED; all other spikes NOT AUTHORIZED
-Capability implementation:      PROHIBITED
-Aurora Core implementation:     PROHIBITED
-AHDK implementation:            PROHIBITED
-MNFS integration:               PROHIBITED
-Accepted technical decisions:   ADR-0003 / ADR-0004 / ADR-0005 / ADR-0006 / ADR-0007 / ADR-0008 / ADR-0009
-Mission Contract:               APPROVED — MIS-M0-SOVEREIGN-CORE-001 v0.1.0
-Microdesign:                    ACCEPTED — M0 R6 Sovereign Core v0.1.0
-Implementation Plan:            REVIEWED — M0 R6 Sovereign Core v0.1.0; TASK-00..13
+branch head: a4842ed1aa011d6e14c1bcfb79a5aee63793826b
+Documentation workflow run: 31609306040
+result: SUCCESS
+canonical documents / IDs: 122 / 122
 ```
 
-## 7. Current blocker/gate
-
-M0 ACRM R6 is complete. The operator accepted `DESIGN-AURORA-M0-R6-SOVEREIGN-CORE-MICRODESIGN` v0.1.0 bound to proposal blob `d76cf237211b7fe35c33d1a32f14905e769702a7`. The derived Implementation Plan v0.1.0 was self-reviewed and adversarially reviewed with 122/122 requirement-to-task allocation and 12/12 Mission criterion coverage.
-
-Final verdict:
+Draft PR validation:
 
 ```text
-M0 ACRM R6 — PASS
+PR: #3
+Documentation workflow run: 31609511871
+result: SUCCESS
+PR remains draft and unmerged
 ```
 
-There is no current R6 blocker. No production Go source was created or executed during R6. R7 remains a separate explicit authorization boundary.
+The review resolved all blocking/material findings and preserves one explicit material non-blocking limitation: the authoring session is not an independent acceptance authority. Operator/PR review remains mandatory.
 
-## 8. Immediate next action
+## 5. Current authorized work
+
+The current authorization permits only:
+
+- operator review of draft PR #3;
+- corrections explicitly requested by the operator/reviewer within the approved design scope;
+- documentation validation after any requested correction;
+- System Architecture mapping and dependency analysis only after separate confirmation of the next architecture work package;
+- current primary-source research for questions that change a near architecture decision;
+- Architecture Spike specifications;
+- Architecture Spike execution only after separate explicit operator authorization;
+- ADR/Specification/Standard proposals for decisions that become material;
+- inspection of the frozen R7 branch as evidence;
+- fresh-session/reviewer checks when requested.
+
+The software-development Harness may be improved in its own project and may later build/verify Aurora. It is not an Aurora sovereign runtime dependency and no integration is authorized here.
+
+## 6. Explicitly prohibited
+
+The current direction does **not** authorize:
+
+- automatic or assistant-initiated merge of PR #3;
+- marking PR #3 ready for review without operator direction;
+- new Aurora runtime implementation;
+- continuation of M0 R7 TASK-13;
+- modification or expansion of `feat/m0-r7-sovereign-core-20260810`;
+- merge/promotion of the R7 candidate to `main`;
+- an R7 acceptance Verdict;
+- M0 R8 closeout;
+- M1+ implementation;
+- AHDK, MNFS or Mastra adapter implementation;
+- Voice, Vision, Presence, memory, model router, device or laboratory implementation;
+- unapproved Architecture Spike execution;
+- choosing authentication, policy, database, API, broker, observability, Voice or model products outside the accepted decision path;
+- creation of another readiness gate, lifecycle, score or authority hierarchy;
+- treating M0-scoped Go/SQLite/JSON-JCS/OTel decisions as universal Aurora mandates;
+- interpreting the documentary PASS as completed System Architecture or implementation authority.
+
+## 7. Current governing architecture artifacts
 
 ```text
-R6 PASS
-→ STOP
-→ await explicit operator authorization for M0 ACRM R7 — Execution and Evidence
+Product meaning and logical architecture
+→ accepted Product Blueprint
+
+Blueprint-to-build lifecycle
+→ DOC-AURORA-CAPABILITY-REALIZATION-METHOD v0.2.0
+
+Accepted program rebaseline design
+→ DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
+
+Proposed global question/dependency map
+→ DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
+
+Specific accepted technical decisions
+→ ADR-AURORA-0001..0009 within exact scope
+
+Review evidence
+→ REVIEW-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-2026-08-12
+
+Current review container
+→ GitHub draft PR #3
+
+Current authorization/next action
+→ this STATUS
 ```
 
-Aurora Core implementation, production source creation/execution, Mastra/AHDK/MNFS implementation and all later gates remain NOT AUTHORIZED.
+A detailed landscape entry is not an accepted technical decision. Material choices still require their proper ADR/Specification/Contract authority.
+
+## 8. Current blocker
+
+The package has not yet received operator review/canonical promotion, and the proposed Landscape does not yet contain accepted answers for system context, module ownership, data ownership or Stage A/B topology.
+
+Therefore:
+
+```text
+AURORA IMPLEMENTATION RESUMPTION: BLOCKED
+NEXT ARCHITECTURE PROGRAM: NOT YET AUTHORIZED
+PR #3 MERGE: NOT AUTHORIZED
+```
+
+This is a deliberate architecture-readiness block, not a rejection of the product or the M0 candidate.
+
+## 9. Immediate next action
+
+```text
+operator reviews draft PR #3
+→ ACCEPT | REVISE | REJECT
+→ STOP without merge unless the operator separately directs promotion
+```
+
+Decision meanings:
+
+```text
+ACCEPT
+→ approve the documentary rebaseline package for canonical promotion only
+
+REVISE
+→ return exact requested changes; implementation remains paused
+
+REJECT
+→ preserve current main and frozen R7 candidate; supersede the proposal explicitly
+```
+
+After operator acceptance/canonical promotion, the recommended next architecture work is to reduce near-horizon uncertainty in this order, subject to separate authorization:
+
+1. system context and trust boundaries;
+2. logical modules and canonical state/data ownership;
+3. identity classes and actor chain;
+4. data categories, portability and deletion ownership;
+5. Stage A/B topology and failure domains;
+6. selection of the first executable-horizon architecture program, likely M1 memory/context readiness.
+
+No implementation follows automatically from accepting or merging this documentary package.
