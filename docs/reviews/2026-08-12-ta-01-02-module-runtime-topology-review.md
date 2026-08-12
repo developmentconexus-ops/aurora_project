@@ -5,18 +5,19 @@ document_type: architecture_review
 form: reference
 authority: evidence
 status: current
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - adversarial review of the proposed TA-01 and TA-02 module/runtime topology
-  - admitted TA-01 and TA-02 findings and current review verdict
+  - admitted TA-01 and TA-02 findings and final review verdict
 related:
   - DESIGN-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY
   - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
   - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
   - DOC-AURORA-STATUS
-review_target: 2192f182c24eed0c8406062957e035a0db6e88a5
+initial_review_target: 2192f182c24eed0c8406062957e035a0db6e88a5
+fixed_review_target: 8e59551b539d54a288e11bee6002e2d33f040302
 last_reviewed: 2026-08-12
 ---
 
@@ -24,10 +25,16 @@ last_reviewed: 2026-08-12
 
 ## 1. Review boundary
 
-Target:
+Initial target:
 
 ```text
 2192f182c24eed0c8406062957e035a0db6e88a5
+```
+
+Fixed semantic target:
+
+```text
+8e59551b539d54a288e11bee6002e2d33f040302
 ```
 
 Review questions:
@@ -36,171 +43,179 @@ Review questions:
 2. Are any owners duplicated or overly broad?
 3. Does the topology globalize an M0-scoped mechanism silently?
 4. Can a provider/framework become sovereign through convenience?
-5. Does the proposed Sovereign Host become a God process?
+5. Does the Sovereign Host become a God process?
 6. Does Stage A remain operationally small?
 7. Does Stage B preserve identities and ownership?
-8. Are process boundaries based on real runtime/security/fault evidence?
+8. Does every required process crossing have binding-independent lifecycle/failure semantics?
 9. Are deferred mechanisms and later consumers explicit?
-10. Is TA-03 blocked from inventing ownership?
+10. Is TA-03/TA-04 prevented from inventing ownership or weakening semantics?
 
-## 2. Initial strengths
+## 2. Reviewed strengths
 
-The target correctly:
+The fixed target:
 
-- separates domain owners, application coordinators, deployables, enforcement boundaries, provider runtimes and adapters;
-- prohibits direct provider/Harness/model/Presence writes to canonical state;
-- distinguishes Project, Mission, Authority, Memory, Registry and Evidence ownership;
-- keeps Effect Gateway and Credential Broker outside probabilistic model control;
-- compares three complete topologies rather than isolated service choices;
+- separates governed semantics, domain owners, application coordinators, deployables, enforcement boundaries, provider runtimes and adapters;
+- defines G01 Contract Model Governance as a non-deployable canonical semantic owner;
+- assigns Provider, Presence, Device/Environment and root human/Aurora identities to distinct owners;
+- assigns Hypothesis/Experiment, Observation/Measurement and evaluation-specific relationships without overlap;
+- prohibits provider/Harness/model/Presence direct canonical writes;
+- distinguishes Project, Mission, Authority, Memory, Registry, Evidence, Presence, Device and Failure ownership;
+- keeps Effect Gateway and Credential Broker outside model control;
+- compares three complete topologies;
 - rejects early service decomposition;
-- proposes one small sovereign deployable plus an independently replaceable cognitive/provider seam;
+- proposes one small sovereign deployable plus one independently replaceable cognitive/provider seam;
+- defines B01 transport-neutral process-crossing semantics before TA-04 selects a binding;
 - preserves Stage A to Stage B identity continuity;
-- avoids choosing repository, protocol, database, authentication and deployment products;
-- provides explicit process split triggers and TA-03 inputs.
+- avoids selecting repository, protocol, database, authentication, deployment or provider products;
+- explicitly prevents M0 Go from becoming a universal language decision.
 
-The Approach C direction remains credible, but the owner catalog is not yet complete enough for operator acceptance.
+## 3. Finding disposition
 
-## 3. Admitted findings
+### TA12-F01 — Missing Device/Environment owner
 
-### TA12-F01 — Missing canonical owner for Device and Environment inventory
+**Disposition:** RESOLVED
 
-**Severity:** MATERIAL / BLOCKING
+C11 Environment and Device Registry now owns identity/inventory/registration/calibration/controller references while live telemetry, actuation and target truth remain external/source-owned.
 
-The design lets Project reference devices, Presence own Presence context and a future provider control devices, but it does not name the canonical Aurora owner for:
+### TA12-F02 — Identity owner overlap
 
-- Device identity/inventory;
-- Environment identity/topology;
-- calibration/firmware/controller references;
-- device registration/revocation relationships.
+**Disposition:** RESOLVED
 
-Live telemetry and target-system truth must remain external/source-owned, but the Aurora inventory/relationship owner must be explicit.
+C01 now owns root Aurora/Person/relationship identity and actor-reference vocabulary only. C05 owns Provider/Harness/ProviderInstance identity, C08 owns Presence/InteractionSession identity and C11 owns Device/Environment identity.
 
-**Required remediation:** add a future/deferred `Environment and Device Registry` domain owner. It owns identity/inventory/metadata relationships, not live telemetry or actuation.
+### TA12-F03 — Hypothesis/Experiment/Observation ownership incomplete
 
----
+**Disposition:** RESOLVED
 
-### TA12-F02 — Identity owner wording overlaps Provider and Presence identity lifecycle
+C02 owns general Project Hypothesis/Experiment lifecycle and global run references. C07 owns immutable Observation/Measurement/Artifact/Evidence records. Provider execution steps remain local; C10 owns evaluation/failure correlation only.
 
-**Severity:** MATERIAL / BLOCKING
+### TA12-F04 — Cross-horizon Go scope ambiguity
 
-C01 currently says it owns broad “stable actor identity references and identity lifecycle semantics,” while C05 owns Provider/Harness identity and C08 owns Presence identity/status. That wording can create duplicate ownership.
+**Disposition:** RESOLVED
 
-**Required remediation:** narrow C01 to root Aurora/Person/relationship identity plus cross-domain actor-reference vocabulary. Entity-specific identity lifecycle stays with the owning module:
+The fixed design distinguishes:
 
 ```text
-Provider/Harness/ProviderInstance → C05
-Presence/InteractionSession       → C08
-Device/Environment                → new Device/Environment owner
-Mission/Delegation actor linkage  → C03 references the actor chain
+M0 Go runtime fact
+Stage A Go Host seed hypothesis
+M1+ module language/placement decision requiring consuming revalidation
 ```
 
-Authentication proof mechanisms remain TA-06 adapters/decisions.
+Approach C fixes the sovereign/provider seam, not universal Go.
 
----
+### TA12-F05 — Contract Model owner implicit
 
-### TA12-F03 — Hypothesis, Experiment, Observation and Measurement ownership incomplete
+**Disposition:** RESOLVED
 
-**Severity:** MATERIAL / BLOCKING
+G01 now owns semantic contract identity/version, compatibility/deprecation policy, canonical meaning, schema/binding-generation authority, conformance-profile criteria and provider-manifest mapping rules. C05 remains provider compatibility/approval owner.
 
-The accepted world model includes Hypothesis, Experiment, Experiment Run, Observation and Measurement. The proposed matrix does not assign them completely.
+### TA12-F06 — Worklog/fixed review continuity
 
-**Required remediation:** establish:
+**Disposition:** PARTIALLY RESOLVED / TRACKING CLOSEOUT
 
-- Project-owned Hypothesis/Experiment identity, lifecycle and relationship in C02 for general engineering work;
-- provider-local execution steps/runs remain provider-local, with global references in C03/C02 as needed;
-- immutable Observation/Measurement/Artifact/Evidence records and provenance in C07;
-- evaluation-specific correlation and improvement lifecycle in C10.
+A fixed semantic revision and review now exist. `WORKLOG.md`, final STATUS/PR metadata and final validation references must still be completed before the package is marked ready for operator promotion.
 
-This keeps raw provider execution separate from globally meaningful experimental state.
+### EXT-TA12-F01 — Provider seam lacked binding-independent lifecycle profile
 
----
+**Source:** external CodeRabbit adversarial review
 
-### TA12-F04 — Go wording can be read as silently extending ADR-0003 beyond M0
+**Disposition:** RESOLVED
 
-**Severity:** MATERIAL / BLOCKING
+B01 now defines:
 
-The topology reasonably uses the existing Go M0 Core as the Stage A sovereign seed, but the design says the Sovereign Host runtime is Go while also claiming not to globalize M0 decisions. Without clarification, acceptance could be misread as deciding every future Core module will use Go.
+- provider/build/capability/G01 version identity;
+- request, attempt, correlation and idempotency identities;
+- authority/context attenuation;
+- CREATED/SUBMITTED/ACCEPTED/RUNNING/terminal lifecycle;
+- deadlines and acknowledged cancellation;
+- retry and ambiguous-completion rules;
+- provider restart/snapshot reconciliation;
+- required response/error categories;
+- TA-04 binding handoff.
 
-**Required remediation:** separate:
+No transport or schema product was selected.
+
+## 4. Duplicate-owner audit
+
+Representative conflicts tested:
+
+| Concept pair | Result |
+|---|---|
+| G01 contract semantics vs C05 provider compatibility | distinct and explicit |
+| C01 root identity vs C05/C08/C11 entity identity | distinct and explicit |
+| C02 Experiment vs C07 Observation/Evidence | distinct and explicit |
+| C03 Outcome vs C07 Verdict | distinct and explicit |
+| C04 Effect Request/Decision vs E01 execution vs C07 Receipt | distinct and explicit |
+| C06 governed memory/context vs provider-local thread/index | distinct and explicit |
+| C08 Presence context vs Person/Authority | distinct and explicit |
+| C11 inventory vs live telemetry/device truth | distinct and explicit |
+| C10 evaluation correlation vs C02 experiment lifecycle/C07 evidence | distinct and explicit |
+
+No duplicate canonical owner remains in the representative catalog.
+
+## 5. Topology audit
+
+### Approach A
+
+Rejected beyond deterministic M0-like scope because it couples provider/framework/resource/privilege failure to the sovereign process.
+
+### Approach B
+
+Rejected for Stage A because it creates distributed-system and service-management burden before current consumers justify it.
+
+### Approach C
+
+Retained as recommendation because it fixes only the process seam already justified by polyglot runtime, provider lifecycle, resource variability, fault containment and accepted provider-local ownership. Other modules remain logically separate and physically co-located until a named split trigger exists.
+
+The design does not require one service per module and gives TA-03 enforceable dependency inputs to control God-process risk.
+
+## 6. Stage B audit
+
+The migration changes:
+
+- host/node placement;
+- Presence transport/authentication;
+- network policy and supervision;
+- data minimization and recovery mechanisms.
+
+It does not change G01 semantics or canonical owners for identity, Project/Mission, authority, memory, provider trust, artifacts/evidence, devices or Outcome.
+
+## 7. Validation evidence
 
 ```text
-current deployable fact/hypothesis
-→ the M0 sovereign executable is Go and can seed the Stage A Host
-
-cross-horizon language decision
-→ placing new M1+ canonical modules in that Go process requires
-   explicit consuming architecture/ADR revalidation
-
-fixed topology decision
-→ cognitive/provider execution remains behind a separate
-   replaceable process/contract boundary when first consumed
+initial design run: 31623255539 — SUCCESS
+v0.2 remediation PR run: 31624034248 — SUCCESS
+v0.3 fixed semantic PR run: 31624510891 — SUCCESS
 ```
 
-Add a decision-register row for cross-horizon Go scope.
+The documentation validator proves structural consistency, not operator acceptance or runtime correctness.
 
----
+## 8. Limitations
 
-### TA12-F05 — Canonical Contract Model is visible but lacks an explicit non-runtime owner entry
+- this is an architecture/document review, not an executable proof of a future binding;
+- first M1/M2 consumers must prove their exact B01 binding, restart and compatibility behavior;
+- placement/language of M1+ canonical modules remains consumer-specific;
+- physical stores, repository strategy, authentication, policy engines, supervisors and providers remain open;
+- authoring-session review is not independent operator acceptance;
+- Worklog/STATUS/PR closeout remains before ready-for-promotion state.
 
-**Severity:** MATERIAL / NON-BLOCKING
-
-ADR-0001 owns the semantic policy, but the component model should explicitly classify the Contract Model as a governed architecture/specification asset rather than a runtime service.
-
-**Required remediation:** add a non-runtime architecture asset entry:
+## 9. Verdict
 
 ```text
-Canonical Contract Model
-→ owned by Aurora Specs/accepted decisions
-→ projected into schemas/types/bindings
-→ not hosted/owned by Cognitive Runtime, AHDK or Capability Fabric
+SEMANTIC VERDICT: PASS FOR OPERATOR REVIEW
+
+blocking material findings open: 0
+material findings open: 0
+tracking closeout items open: 1
 ```
 
----
-
-### TA12-F06 — Worklog and fixed review continuity not yet complete
-
-**Severity:** TRACKING / BLOCKING FOR REVIEW CLOSEOUT
-
-The proposal and STATUS exist, but `WORKLOG.md` has not yet been appended and no fixed remediated review target exists.
-
-**Required remediation:** after semantic fixes:
-
-- append the material work entry;
-- update STATUS and PR metadata;
-- run validation;
-- re-review one fixed revision;
-- record all findings as resolved or open.
-
-## 4. Non-findings / rejected concerns
-
-### One process per domain owner is not required
-
-The design correctly distinguishes logical ownership from physical services. No change required.
-
-### Separate Cognitive Runtime is not premature service fashion
-
-The proposed seam has existing drivers: language/runtime diversity, framework cadence, resource variability, provider replaceability, fault containment and accepted provider-local ownership. Exact transport remains deferred. No runtime Spike is required merely to accept the conceptual seam; the first consuming capability still needs contract/recovery proof.
-
-### Presence may remain co-packaged in Stage A
-
-The accepted Stage A design permits logical separation with combined packaging. A second Presence, Stage B or OS/device lifecycle need is the correct split trigger.
-
-### Artifact/Evidence versus Mission Outcome is coherent
-
-C07 owns artifact/claim/receipt/evidence/verdict records. C03 owns final Mission/Delegation Outcome after consuming authorized verdicts. No duplicate owner found.
-
-### Effect Request and execution are coherently separated
-
-C04 owns Authority/Policy and canonical Effect Request/Policy Decision state. E01 executes and emits a receipt; C07 records the canonical receipt. C03 carries purpose/budget/delegation relationships. No change required beyond preserving these links.
-
-## 5. Initial verdict
+Exact next action:
 
 ```text
-VERDICT: BLOCKED PENDING REMEDIATION
-
-blocking material findings: 4
-material non-blocking findings: 1
-tracking closeout findings: 1
+append WORKLOG
+→ update STATUS and PR metadata to fixed target
+→ run final validation
+→ present Approach C + G01/C01–C11 + B01 to operator
+→ ACCEPT | REVISE | REJECT
+→ STOP before TA-03/TA-04 finalization or implementation
 ```
-
-The proposed Approach C remains the leading alternative, but the design must not be presented as acceptance-ready until TA12-F01 through TA12-F06 are resolved and a fixed revision passes validation/review.
