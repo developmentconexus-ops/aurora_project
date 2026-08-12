@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.28.0
+version: 0.29.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -18,6 +18,8 @@ related:
   - DOC-AURORA-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
+  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-PACKAGE-ACCEPTANCE
+  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-MERGE-CLOSEOUT
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
   - REVIEW-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-2026-08-12
@@ -32,216 +34,132 @@ last_reviewed: 2026-08-12
 
 - **Project:** Projeto Aurora
 - **Canonical branch:** `main`
-- **Canonical `main` revision at rebaseline start:** `e7ca5ffb652fbbd68b35d4434506c58d26daf0e1`
-- **Current documentary branch:** `docs/system-architecture-rebaseline-20260812`
-- **Draft PR:** `#3 — docs: establish Aurora System Architecture Rebaseline`
-- **PR target:** `main`
-- **PR state:** OPEN / DRAFT / NOT MERGED
+- **Canonical System Architecture Rebaseline merge:** `59f5819de97208bea88fdd3c2b30e13f417c2963`
+- **Promotion closeout commit:** `ac0d83ff373d9d04f0c149e21fd9f18b67e8608d`
 - **A0 — Product, Discovery and Architecture Baseline:** ACCEPTED / MERGED
-- **ADR-0001 / ADR-0002:** ACCEPTED
+- **ADR-0001..0009:** ACCEPTED within their exact scopes
 - **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED
 - **M0 ACRM R0–R6:** PASS
-- **M0 R7 authorization:** RECEIVED
-- **M0 R7 execution candidate:** EXISTS ON NON-CANONICAL BRANCH
-- **R7 independent Verdict:** NOT ISSUED
+- **M0 R7 execution candidate:** FROZEN / PRESERVED / NON-CANONICAL
+- **M0 R7 independent Verdict:** NOT ISSUED
 - **M0 R8 closeout:** NOT AUTHORIZED / NOT PERFORMED
-- **Current program mode:** `SYSTEM ARCHITECTURE REBASELINE — AWAITING OPERATOR REVIEW`
-- **Rebaseline documentary review:** PASS for operator review
-- **Aurora implementation expansion:** PAUSED
+- **System Architecture Rebaseline documentary package:** ACCEPTED / MERGED
+- **Current architecture work package:** `SAR-A1 — System Context and Trust Boundaries`
+- **SAR-A1 state:** AUTHORIZED FOR DISCOVERY AND DESIGN
+- **Aurora implementation:** PAUSED
 
-## 2. Canonical versus candidate implementation state
+## 2. Canonical architecture baseline
 
-Canonical `main` remains the R6 PASS documentation/design baseline:
+The canonical program now distinguishes four layers:
 
 ```text
-e7ca5ffb652fbbd68b35d4434506c58d26daf0e1
+accepted Product Blueprint
+→ owns product meaning and logical architecture
+
+accepted scoped ADRs
+→ own exact decisions only within their stated scope
+
+accepted System Architecture Rebaseline
+→ owns the program-level question/dependency map and treatment method
+
+future SAR/Capability artifacts
+→ progressively decide and specify bounded technical architecture
 ```
 
-A separately authorized R7 execution produced a candidate implementation on:
+The global Architecture Decision Landscape is an accepted working map. A Landscape row is not an accepted technical answer until the proper ADR, Specification, Contract or Standard is promoted.
+
+## 3. Frozen M0 R7 candidate
+
+The previously authorized M0 R7 execution produced a candidate on:
 
 ```text
 branch: feat/m0-r7-sovereign-core-20260810
-observed head: 7ec999b093205a9d82eef2802eca60330d96e14d
+head: 7ec999b093205a9d82eef2802eca60330d96e14d
 classification: FROZEN / PRESERVED / NON-CANONICAL
 ```
 
-The candidate includes executable Sovereign Core work and a real-binary Golden Proof, but it has not completed the required independent evidence packaging/acceptance path and has not been promoted to `main`.
+The candidate may be inspected as implementation/evidence input during architecture work. It is not:
 
-The candidate is therefore:
+- canonical product architecture;
+- an R7 acceptance Verdict;
+- an R8 closeout;
+- authority to continue TASK-13;
+- authority to expand M0 implementation;
+- a universal Go/SQLite/OTel/Aurora stack baseline.
 
-- valid implementation/evidence input for architecture review;
-- not rejected or discarded;
-- not an R7 Verdict;
-- not an R8 Product Milestone closeout;
-- not authority to continue TASK-13;
-- not a universal Aurora architecture or stack baseline.
+## 4. Current authorized work — SAR-A1
 
-## 3. Why implementation remains paused
-
-The operator identified that Aurora is a system of systems and that further implementation expansion would be premature without a coherent cross-system technical architecture map covering, at the required level of maturity:
-
-- modules and canonical ownership;
-- contracts and communication boundaries;
-- identity, authentication and authorization;
-- data categories and storage roles;
-- memory, knowledge and Context Builder;
-- model/Brain runtime boundaries;
-- Harness/AHDK integration;
-- sandboxes and durable execution;
-- artifacts, evidence, observability and evaluation;
-- APIs, events and local/cloud topology;
-- Voice, Presence and physical-device deferral boundaries.
-
-The operator accepted `DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE` v0.1.0 and directed the program to perform this rebaseline before resuming Aurora implementation.
-
-The initial documentary package now exists and has passed adversarial review, but its global Architecture Decision Landscape remains `proposed`. Operator review and canonical promotion are still required before the next architecture program is selected.
-
-## 4. Current documentary evidence
-
-Reviewed package target:
+The operator authorized only:
 
 ```text
-dab298a4b4f72ad98973534dc136122f2dd25fe3
+SAR-A1 — System Context and Trust Boundaries
 ```
 
-Adversarial review record:
+SAR-A1 may:
 
-```text
-docs/reviews/2026-08-12-system-architecture-rebaseline-review.md
-review commit: d7d501f48b7f01cb4de42fab2f9ca177e76c4a0f
-verdict: PASS for operator review
-```
+- inspect accepted Blueprint, ADR, research and frozen R7 evidence relevant to boundaries;
+- define the Stage A and Stage B system of interest;
+- identify human, system, provider, Presence, device and environment actors;
+- map external systems and trust zones;
+- map control, data, effect, Presence, evidence and supply-chain crossings;
+- identify boundary invariants and forbidden ownership transfers;
+- identify near decisions and classify them as `DECIDE`, `RESEARCH`, `SPIKE` or `DEFER`;
+- use current primary sources only where they materially change a near decision;
+- propose a bounded SAR-A1 design for operator review.
 
-Final pre-PR branch validation:
+SAR-A1 is architecture discovery/design, not implementation.
 
-```text
-branch head: a4842ed1aa011d6e14c1bcfb79a5aee63793826b
-Documentation workflow run: 31609306040
-result: SUCCESS
-canonical documents / IDs: 122 / 122
-```
+## 5. Explicitly prohibited
 
-Draft PR validation:
+The current authorization does **not** permit:
 
-```text
-PR: #3
-Documentation workflow run: 31609511871
-result: SUCCESS
-PR remains draft and unmerged
-```
-
-The review resolved all blocking/material findings and preserves one explicit material non-blocking limitation: the authoring session is not an independent acceptance authority. Operator/PR review remains mandatory.
-
-## 5. Current authorized work
-
-The current authorization permits only:
-
-- operator review of draft PR #3;
-- corrections explicitly requested by the operator/reviewer within the approved design scope;
-- documentation validation after any requested correction;
-- System Architecture mapping and dependency analysis only after separate confirmation of the next architecture work package;
-- current primary-source research for questions that change a near architecture decision;
-- Architecture Spike specifications;
-- Architecture Spike execution only after separate explicit operator authorization;
-- ADR/Specification/Standard proposals for decisions that become material;
-- inspection of the frozen R7 branch as evidence;
-- fresh-session/reviewer checks when requested.
-
-The software-development Harness may be improved in its own project and may later build/verify Aurora. It is not an Aurora sovereign runtime dependency and no integration is authorized here.
-
-## 6. Explicitly prohibited
-
-The current direction does **not** authorize:
-
-- automatic or assistant-initiated merge of PR #3;
-- marking PR #3 ready for review without operator direction;
 - new Aurora runtime implementation;
 - continuation of M0 R7 TASK-13;
-- modification or expansion of `feat/m0-r7-sovereign-core-20260810`;
-- merge/promotion of the R7 candidate to `main`;
-- an R7 acceptance Verdict;
+- modification, merge or promotion of the frozen R7 candidate;
+- an M0 R7 acceptance Verdict;
 - M0 R8 closeout;
 - M1+ implementation;
 - AHDK, MNFS or Mastra adapter implementation;
-- Voice, Vision, Presence, memory, model router, device or laboratory implementation;
-- unapproved Architecture Spike execution;
-- choosing authentication, policy, database, API, broker, observability, Voice or model products outside the accepted decision path;
-- creation of another readiness gate, lifecycle, score or authority hierarchy;
-- treating M0-scoped Go/SQLite/JSON-JCS/OTel decisions as universal Aurora mandates;
-- interpreting the documentary PASS as completed System Architecture or implementation authority.
+- Voice, Vision, Presence, memory engine, model router, device or laboratory implementation;
+- Architecture Spike execution without separate exact authorization;
+- selecting authentication, authorization, policy, secrets, database, API, event broker, durable engine, sandbox, observability backend, model or Voice products merely from popularity or convenience;
+- creating another ACRM gate, lifecycle, score or authority hierarchy;
+- treating the Development Harness as an Aurora runtime dependency;
+- treating M0-scoped decisions as universal Aurora decisions.
 
-## 7. Current governing architecture artifacts
+## 6. SAR-A1 success condition
+
+SAR-A1 is ready for operator review only when it produces a coherent, bounded proposal that answers:
 
 ```text
-Product meaning and logical architecture
-→ accepted Product Blueprint
-
-Blueprint-to-build lifecycle
-→ DOC-AURORA-CAPABILITY-REALIZATION-METHOD v0.2.0
-
-Accepted program rebaseline design
-→ DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
-
-Proposed global question/dependency map
-→ DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
-
-Specific accepted technical decisions
-→ ADR-AURORA-0001..0009 within exact scope
-
-Review evidence
-→ REVIEW-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-2026-08-12
-
-Current review container
-→ GitHub draft PR #3
-
-Current authorization/next action
-→ this STATUS
+What is inside Aurora for Stage A and Stage B?
+What remains external?
+Which actor/system crosses which boundary?
+Which trust zone owns which responsibility?
+Where are identity, authority, data, effects and evidence enforced?
+Which crossings are forbidden or require future research/spikes?
+What is deliberately deferred?
 ```
 
-A detailed landscape entry is not an accepted technical decision. Material choices still require their proper ADR/Specification/Contract authority.
+The proposal must preserve local-first sovereignty, Aurora-owned semantics, Harness-local specialization, non-transitive authority, data minimization and deterministic material-effect enforcement.
 
-## 8. Current blocker
-
-The package has not yet received operator review/canonical promotion, and the proposed Landscape does not yet contain accepted answers for system context, module ownership, data ownership or Stage A/B topology.
-
-Therefore:
+## 7. Current blocker
 
 ```text
+SAR-A1 DESIGN: NOT YET PRODUCED OR APPROVED
 AURORA IMPLEMENTATION RESUMPTION: BLOCKED
-NEXT ARCHITECTURE PROGRAM: NOT YET AUTHORIZED
-PR #3 MERGE: NOT AUTHORIZED
+NEXT SAR WORK PACKAGE AFTER A1: NOT AUTHORIZED
 ```
 
-This is a deliberate architecture-readiness block, not a rejection of the product or the M0 candidate.
-
-## 9. Immediate next action
+## 8. Immediate next action
 
 ```text
-operator reviews draft PR #3
-→ ACCEPT | REVISE | REJECT
-→ STOP without merge unless the operator separately directs promotion
+begin SAR-A1 discovery dialogue
+→ establish Stage A/B system-boundary interpretation
+→ compare 2–3 boundary modeling approaches
+→ present SAR-A1 design sections for operator review
+→ write and self-review the accepted design
+→ STOP before technical implementation or Architecture Spike execution
 ```
 
-Decision meanings:
-
-```text
-ACCEPT
-→ approve the documentary rebaseline package for canonical promotion only
-
-REVISE
-→ return exact requested changes; implementation remains paused
-
-REJECT
-→ preserve current main and frozen R7 candidate; supersede the proposal explicitly
-```
-
-After operator acceptance/canonical promotion, the recommended next architecture work is to reduce near-horizon uncertainty in this order, subject to separate authorization:
-
-1. system context and trust boundaries;
-2. logical modules and canonical state/data ownership;
-3. identity classes and actor chain;
-4. data categories, portability and deletion ownership;
-5. Stage A/B topology and failure domains;
-6. selection of the first executable-horizon architecture program, likely M1 memory/context readiness.
-
-No implementation follows automatically from accepting or merging this documentary package.
+No technical product or stack selection follows automatically from SAR-A1.
