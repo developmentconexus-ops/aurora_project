@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.30.0
+version: 0.31.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -22,6 +22,7 @@ related:
   - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
   - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
   - DOC-AURORA-TECHNICAL-ARCHITECTURE-MAP-OPERATOR-ACCEPTANCE
+  - REVIEW-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP-2026-08-12
   - DESIGN-AURORA-SAR-A1-STAGE-A-AVAILABILITY-ACTIVATION
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-WORKLOG
@@ -36,6 +37,9 @@ last_reviewed: 2026-08-12
 - **Canonical branch:** `main`
 - **Canonical System Architecture Rebaseline merge:** `59f5819de97208bea88fdd3c2b30e13f417c2963`
 - **Current documentary branch:** `docs/technical-architecture-baseline-20260812`
+- **Draft PR:** `#4 — docs: establish Aurora Technical Architecture Baseline map`
+- **PR target:** `main`
+- **PR state:** OPEN / DRAFT / NOT MERGED
 - **A0 Product/Discovery/Architecture baseline:** ACCEPTED / MERGED
 - **ADR-0001..0009:** ACCEPTED within exact scope
 - **M0 ACRM R0–R6:** PASS
@@ -47,6 +51,7 @@ last_reviewed: 2026-08-12
 - **Accepted work map:** `TA-01` through `TA-08`
 - **Current active tranche:** `TA-01 + TA-02`
 - **Current tranche state:** DISCOVERY / DESIGN AUTHORIZED
+- **Map package review:** PASS FOR OPERATOR / PR REVIEW
 - **Aurora implementation:** PAUSED
 
 ## 2. Current direction
@@ -126,10 +131,37 @@ The tranche must produce:
 
 TA-01 and TA-02 are coupled because process placement must follow coherent ownership, while proposed modules must be tested against real runtime/failure/security boundaries.
 
-## 5. Current authorized work
+## 5. Review and validation evidence
+
+Fixed adversarial-review target:
+
+```text
+5f22d83ba4bf7e893c4857bf887eabbe4aef1feb
+```
+
+Review record:
+
+```text
+docs/reviews/2026-08-12-technical-architecture-baseline-map-review.md
+review commit: ec8e5582cd374b80102305f360af5fb4304c4ddf
+verdict: PASS FOR OPERATOR / PR REVIEW
+```
+
+Validation:
+
+```text
+Documentation run 31618020814 — SUCCESS
+review-commit run 31618361364 — SUCCESS
+canonical documents / IDs at reviewed target: 130 / 130
+```
+
+The review resolved the priority-drift, framework-first and fresh-session-continuity risks. It is an adversarial authoring-session review, not an independent technical-architecture acceptance verdict.
+
+## 6. Current authorized work
 
 The current authorization permits:
 
+- operator/PR review and requested documentary corrections;
 - inspection of accepted Blueprint, ADR, research and M0 artifacts relevant to TA-01/TA-02;
 - inspection of the frozen R7 candidate as evidence only;
 - deriving and challenging candidate technical components;
@@ -142,10 +174,11 @@ The current authorization permits:
 - preparing a fixed, reviewable TA-01/TA-02 design package;
 - documentation validation and adversarial review.
 
-## 6. Explicitly prohibited
+## 7. Explicitly prohibited
 
 The current authorization does **not** permit:
 
+- automatic merge of PR #4 without explicit operator direction;
 - new Aurora runtime implementation;
 - continuation, modification, merge or promotion of the frozen M0 R7 candidate;
 - an M0 R7 acceptance Verdict;
@@ -163,7 +196,7 @@ The current authorization does **not** permit:
 - returning to detailed Presence/session policy unless it materially changes TA-01/TA-02;
 - creating another readiness lifecycle, score or authority hierarchy.
 
-## 7. Preserved Stage A constraints
+## 8. Preserved Stage A constraints
 
 The following are accepted but not the current discussion priority:
 
@@ -178,9 +211,10 @@ The following are accepted but not the current discussion priority:
 
 These are consumed as TA-02 inputs and future Presence/Voice constraints. Further user/session-policy decomposition is `DEFER`.
 
-## 8. Current blocker
+## 9. Current blocker
 
 ```text
+PR #4 CANONICAL PROMOTION: AWAITING OPERATOR DIRECTION
 TA-01/TA-02 DESIGN: NOT YET PRODUCED OR REVIEWED
 TA-03 FINALIZATION: BLOCKED ON TA-01/TA-02
 AURORA IMPLEMENTATION RESUMPTION: BLOCKED
@@ -189,31 +223,35 @@ ARCHITECTURE SPIKE EXECUTION: NOT AUTHORIZED
 
 This is an intentional architecture-readiness block, not a rejection of Aurora or of the frozen M0 candidate.
 
-## 9. Immediate next action
+## 10. Immediate next action
+
+Two activities may proceed without implying implementation:
 
 ```text
-read the accepted Technical Architecture Baseline Map
-→ derive the minimum coherent technical component set
-→ compare 2–3 complete module/runtime topology approaches
-→ recommend one with explicit trade-offs
-→ present TA-01/TA-02 design sections to the operator
-→ write and self-review the accepted design
-→ validate and stop before implementation or TA-03 finalization
+A. operator reviews draft PR #4 for canonical promotion
+
+B. TA-01/TA-02 discovery dialogue begins
+   → derive minimum coherent technical component set
+   → compare 2–3 complete module/runtime approaches
+   → recommend one with explicit trade-offs
 ```
 
-Exact next question:
+Exact TA-01/TA-02 question:
 
 > What is the minimum set of technical components required to preserve Aurora's accepted ownership boundaries, and which of those components should share or cross a process boundary in Stage A?
 
-## 10. Fresh-session mandatory orientation
+No repository, stack or runtime implementation decision follows automatically.
+
+## 11. Fresh-session mandatory orientation
 
 After `AGENTS.md`, a new technical-architecture session must read:
 
 1. this STATUS;
 2. `docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md`;
 3. `docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md`;
-4. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
-5. relevant Blueprint sections and scoped ADRs;
-6. current TA-01/TA-02 artifacts.
+4. `docs/reviews/2026-08-12-technical-architecture-baseline-map-review.md`;
+5. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
+6. relevant Blueprint sections and scoped ADRs;
+7. current TA-01/TA-02 artifacts.
 
 The session must not restart product discovery, continue Presence micro-policy by default, choose frameworks first or implement code.
