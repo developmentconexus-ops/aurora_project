@@ -4,15 +4,17 @@ title: Aurora System Architecture Rebaseline Design
 document_type: system_design
 form: explanation
 authority: design
-status: proposed
+status: accepted
+accepted_at: 2026-08-12
+acceptance_evidence: DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
 version: 0.1.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
-  - proposed program-level System Architecture Rebaseline
-  - proposed treatment of the frozen M0 R7 implementation candidate during rebaseline
+  - program-level System Architecture Rebaseline design
+  - treatment of the frozen M0 R7 implementation candidate during rebaseline
 related:
   - DOC-AURORA-STATUS
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
@@ -21,6 +23,7 @@ related:
   - DOC-AURORA-BLUEPRINT-15
   - DOC-AURORA-DECISIONS
   - DESIGN-AURORA-M0-R4-DECISION-LANDSCAPE
+  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
 source_revision: e7ca5ffb652fbbd68b35d4434506c58d26daf0e1
 last_reviewed: 2026-08-12
 ---
