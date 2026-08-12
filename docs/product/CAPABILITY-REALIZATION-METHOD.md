@@ -8,13 +8,14 @@ authority: standard
 status: accepted
 accepted_at: 2026-08-06
 acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 approvers:
   - operator
 source_of_truth_for:
   - blueprint-to-build realization process
+  - program-level System Architecture Rebaseline integration
   - readiness gates
   - requirements traceability
   - implementation and evidence promotion
@@ -24,11 +25,15 @@ related:
   - DOC-AURORA-BLUEPRINT-14
   - DOC-AURORA-BLUEPRINT-15
   - DOC-AURORA-REQUIREMENTS-TRACEABILITY
+  - DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
+  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
+  - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
 review_triggers:
   - readiness gate changes
+  - System Architecture Rebaseline method changes
   - implementation methodology changes
   - evidence or closeout model changes
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-12
 ---
 
 # Aurora Capability Realization Method
@@ -278,6 +283,158 @@ Applicability prevents both missing cross-cutting requirements and blindly impor
 
 ---
 
+## 6A. Program-level System Architecture Rebaseline
+
+### Purpose
+
+Aurora is a system of systems. Capability-specific readiness alone can produce locally valid implementations that still conflict across identity, authority, data ownership, contracts, memory, execution, observability, Presence or deployment.
+
+A **System Architecture Rebaseline** establishes the current cross-system map before further multi-subsystem implementation expansion. It supplies coherent constraints to later capability gates without freezing every distant mechanism.
+
+It is a program-level architecture activity inside this method. It is **not**:
+
+- a new readiness gate;
+- a second lifecycle or FSM;
+- a numerical maturity score;
+- a substitute for Capability Specs, ADRs or Mission Contracts;
+- implementation authority.
+
+### Triggers
+
+A rebaseline is required when one or more of the following becomes material:
+
+- an upcoming executable horizon spans multiple major subsystems;
+- different capabilities could create overlapping sources of truth or incompatible contracts;
+- a fixed implementation/spike exposes a cross-system architecture assumption not owned by its local scope;
+- accepted technology decisions risk being generalized beyond their stated scope;
+- a new trust, data, execution, Presence, model or physical boundary is entering the executable horizon;
+- material architecture drift or documentation divergence is found;
+- current research contradicts a global architecture assumption;
+- the operator explicitly pauses implementation for architecture alignment.
+
+### Inputs
+
+- accepted Product Blueprint and roadmap;
+- Documentation Map and ownership hierarchy;
+- accepted ADRs with exact scope;
+- current Capability Specs and Mission Contracts where relevant;
+- current Research Map and source freshness;
+- fixed implementation, Architecture Spike and operational evidence;
+- current decision/open-question index;
+- current authorization and blockers from `STATUS.md`.
+
+### Required outputs
+
+A material rebaseline produces or refreshes:
+
+1. system context and external boundaries;
+2. logical modules and canonical state/data ownership;
+3. trust, authority, execution and deployment boundaries;
+4. cross-system contracts and material data flows;
+5. a global Architecture Decision Landscape;
+6. earliest consumer for each open decision;
+7. evidence needed to promote each decision;
+8. explicit Findings and replan obligations;
+9. implementation pause/authorization boundary;
+10. reconsideration triggers for every deliberate deferral.
+
+### Decision treatment vocabulary
+
+#### `DECIDE`
+
+Current evidence is sufficient and the choice is required before the next architecture or implementation commitment.
+
+The result must be promoted to the correct owner—normally an ADR, accepted Specification or Standard—and include scope, alternatives, consequences, compatibility and reconsideration triggers.
+
+#### `RESEARCH`
+
+The question is material to an upcoming decision, but current evidence is insufficient or temporally stale.
+
+Research must name the exact decision it can inform, use current primary sources and state limitations. Research does not decide.
+
+#### `SPIKE`
+
+The required property depends on observed runtime, operational, security, compatibility, latency or recovery behavior that documentary analysis cannot establish.
+
+The spike must be minimal, disposable by default, evidence-producing and separately authorized before execution.
+
+#### `DEFER`
+
+The answer does not change the next evidence-supported architecture/build decision.
+
+A valid deferral records:
+
+- the earliest known consumer;
+- constraints that must be preserved now;
+- the exact reconsideration trigger;
+- prohibition against speculative implementation.
+
+`DEFER` is a governed non-selection, not an undocumented omission.
+
+### Landscape record
+
+Each material entry should identify:
+
+```text
+architecture area
+accepted product constraint
+existing accepted decision or explicit non-decision
+current non-governing hypothesis
+concrete open question
+dependencies and lock-in/risk
+earliest consumer
+DECIDE | RESEARCH | SPIKE | DEFER
+evidence needed
+decision owner
+reconsideration trigger
+```
+
+### Relationship to R0–R8
+
+The rebaseline feeds the existing gates:
+
+```text
+Product Constitution
+        ↓
+System Architecture Rebaseline
+        ↓
+Product Milestone / Capability
+        ↓
+R0 → R1 → R2 → R3 → R4 → R5 → R6
+        ↓
+R7 Execution and Evidence
+        ↓
+R8 Product Milestone Closeout
+```
+
+- R0 checks whether applicable global architecture constraints are current and discoverable.
+- R1 classifies those cross-system constraints for the Capability.
+- R2 derives verifiable requirements rather than importing a technology hypothesis.
+- R3 allocates the requirements to complete reusable behavior and boundaries.
+- R4 consumes and revalidates the landscape, performs required research/spikes and promotes material choices to accepted owners.
+- R5 binds the exact accepted versions and scope into one Mission commitment.
+- R6 prevents implementers from inventing remaining material architecture.
+- R7 follows the accepted Contract/design; a deviation opens a Finding and replan.
+- R8 evaluates the Product Milestone outcome, not the existence of the rebaseline.
+
+A landscape entry is not an accepted decision merely because it is detailed. A capability R4 still requires accepted ADR/Specification authority where material.
+
+### Guardrails
+
+The rebaseline must not:
+
+- choose a universal stack by popularity;
+- research distant mechanisms without a named consumer;
+- create code, schemas, services or adapters as hidden implementation;
+- turn a milestone-scoped ADR into a global mandate;
+- allow a framework/protocol/runtime to own Aurora canonical semantics;
+- rewrite accepted historical decisions to match current preference;
+- authorize the next gate by implication.
+
+Completion of a rebaseline only establishes architecture readiness for further scoped decision work. It does not authorize implementation, R7 continuation, merge/promotion or Product Milestone closeout.
+
+---
+
 ## 7. Readiness gates R0–R8
 
 ```text
@@ -463,6 +620,7 @@ Have material technical uncertainties and choices been researched, proven and de
 
 ## Inputs
 
+- current System Architecture Decision Landscape entries applicable to the scope;
 - focused research;
 - architecture spikes;
 - ADRs;
@@ -498,6 +656,7 @@ Spike code is not production by default.
 
 ## Gate condition
 
+- applicable landscape entries were revalidated against current evidence;
 - current scope has no unresolved material architecture choice;
 - accepted ADRs exist where needed;
 - decisions compatible with Blueprint;
@@ -916,15 +1075,9 @@ Examples:
 
 ---
 
-## 24. Current A0 application
+## 24. Historical A0 application
 
-Current phase:
-
-```text
-A0 — Product, Discovery and Architecture Baseline
-```
-
-A0 uses the method at the product level:
+A0 was the first product-level application of this method:
 
 ```text
 Discovery conversations
@@ -936,7 +1089,7 @@ Discovery conversations
 → operator acceptance
 ```
 
-No implementation Capability has reached R0–R6 authorization yet.
+This section is historical. It does not own the current Product Milestone, readiness gate, implementation state or next action; those values belong to `docs/tracking/STATUS.md`.
 
 ---
 
