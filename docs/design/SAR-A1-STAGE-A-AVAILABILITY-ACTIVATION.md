@@ -6,8 +6,8 @@ form: explanation
 authority: design
 status: accepted
 accepted_at: 2026-08-12
-acceptance_evidence: DOC-AURORA-SAR-A1-STAGE-A-ACTIVATION-OPERATOR-ACCEPTANCE
-version: 0.1.0
+acceptance_evidence: DOC-AURORA-SAR-A1-LOCKED-WORKSTATION-OPERATOR-ACCEPTANCE
+version: 0.2.0
 owners:
   - developmentconexus-ops
 approvers:
@@ -17,6 +17,7 @@ source_of_truth_for:
   - Stage A persistent-minimum and on-demand-cognition availability boundary
   - Presence-owned activation trigger semantics
   - baseline relationship between button, hotkey and optional local wake-word activation
+  - Stage A locked-workstation activation and disclosure boundary
 related:
   - DOC-AURORA-BLUEPRINT-08
   - DOC-AURORA-BLUEPRINT-10
@@ -26,10 +27,12 @@ related:
   - DOC-AURORA-STATUS
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-SAR-A1-STAGE-A-ACTIVATION-OPERATOR-ACCEPTANCE
-source_revision: 564d677daee4f7b27ec7203d75317976076e7205
+  - DOC-AURORA-SAR-A1-LOCKED-WORKSTATION-OPERATOR-ACCEPTANCE
+source_revision: a71faba740fd9ba69a654c407daf5f21fb1bf26c
 review_triggers:
   - Stage A moves from one workstation to a persistent home or laboratory node
-  - activation is required while the workstation is locked or no owner session is active
+  - public-mode disclosure or general question answering is requested while the workstation is locked
+  - activation is required when no owner operating-system session exists
   - wake-word processing requires cloud transfer or continuous retained audio
   - Presence and Sovereign Core must become separate operating-system services
   - a second Presence or remote device enters the executable horizon
@@ -40,14 +43,15 @@ last_reviewed: 2026-08-12
 
 ## 1. Purpose
 
-This design fixes the first bounded Stage A interpretation for Aurora availability and activation without selecting a Voice provider, wake-word engine, authentication product, operating-system service manager or process topology.
+This design fixes the first bounded Stage A interpretation for Aurora availability, activation and locked-workstation behavior without selecting a Voice provider, wake-word engine, authentication product, operating-system service manager or process topology.
 
-It answers four questions:
+It answers five questions:
 
 1. Where does the first sovereign Aurora installation live?
 2. What remains active when no conversation is occurring?
 3. Which component detects that Leandro wants to interact?
 4. What does an activation trigger prove—and what does it not prove?
+5. What may happen when the workstation is locked?
 
 This document is architecture only. It does not authorize implementation.
 
@@ -271,7 +275,61 @@ Speaker recognition, if later adopted, is an authentication signal with uncertai
 
 ---
 
-## 8. Privacy and sensor boundary
+## 8. Locked-workstation boundary
+
+Stage A accepts **recognition with mandatory workstation unlock before continuing**.
+
+When the workstation is locked, the local Presence may continue to detect an enabled explicit trigger or optional local wake word. Detection does not open a normal Aurora interaction session.
+
+Allowed flow:
+
+```text
+trigger detected while workstation is locked
+→ Presence emits restricted Activation Request
+→ Core confirms only locked-state availability
+→ deterministic local acknowledgement or indicator
+→ request to unlock/authenticate
+→ no normal session until the operating-system session is unlocked
+```
+
+An allowed acknowledgement is intentionally narrow, for example:
+
+> “Estou disponível. Desbloqueie o computador para continuar.”
+
+The acknowledgement should not require a general cognitive runtime or model call.
+
+### 8.1 Forbidden while locked
+
+Until the workstation is unlocked or a future separately accepted authentication mechanism succeeds, Aurora must not:
+
+- load or disclose private Project, Mission, memory or conversation context;
+- send personal context to an external or local model for general reasoning;
+- answer general personal questions;
+- execute digital or physical effects;
+- start a Harness or tool workflow;
+- reveal the content of notifications, timers or alerts;
+- treat wake word, button, hotkey or speaker similarity as owner authentication;
+- promote the activation into durable memory as a meaningful owner interaction.
+
+### 8.2 Critical-alert signaling
+
+A previously authorized critical alert may signal that attention is required without revealing its sensitive content.
+
+Example:
+
+> “Existe um alerta importante. Desbloqueie para consultar.”
+
+Whether an alert qualifies for locked-state signaling belongs to the future alert/attention policy. The activation layer cannot self-classify an ordinary notification as critical.
+
+### 8.3 No Stage A public assistant mode
+
+Stage A does not provide a general “public mode” while locked. Time, weather, general knowledge and other apparently non-sensitive queries remain unavailable through the locked Presence until a later design proves a safe disclosure/model boundary.
+
+This is a deliberate simplicity and privacy choice, not a permanent rejection of a future bounded public mode.
+
+---
+
+## 9. Privacy and sensor boundary
 
 Core availability does not imply continuous sensing.
 
@@ -285,11 +343,13 @@ Outside an explicit policy:
 - activation must produce an understandable indicator before broader capture begins;
 - retained audio and derived data require a separately defined lifecycle.
 
+While locked, no broader capture begins merely because the trigger was recognized. The restricted acknowledgement path remains local and minimal.
+
 The wake-word adapter must fail closed or degrade visibly when its privacy/indicator requirements cannot be met.
 
 ---
 
-## 9. Failure behavior
+## 10. Failure behavior
 
 ### Core unavailable
 
@@ -303,9 +363,13 @@ Button/hotkey/UI activation may remain available. The system reports wake-word d
 
 The session can be canceled by timeout, explicit dismissal or no-follow-up detection. False activation does not create authority or durable memory automatically.
 
+### Trigger while locked
+
+Aurora stays within the restricted acknowledgement path. Failure to determine lock state fails closed: no private disclosure, model-context transfer or effect execution occurs.
+
 ### Ambiguous speaker or environment
 
-Aurora restricts disclosure or requests authentication according to the future session-opening policy.
+Aurora restricts disclosure or requests authentication according to the session-opening policy. On a locked workstation, ambiguity cannot widen the restricted boundary.
 
 ### Heavy runtime fails to start
 
@@ -313,7 +377,7 @@ The Core preserves the activation/session receipt and reports capability unavail
 
 ---
 
-## 10. Stage A to Stage B invariants
+## 11. Stage A to Stage B invariants
 
 When the sovereign node later moves to a persistent server:
 
@@ -322,11 +386,12 @@ When the sovereign node later moves to a persistent server:
 - the Core remains the session/policy/state authority;
 - remote transport and Presence authentication become new mechanisms, not new product semantics;
 - Presence-local audio may remain local until minimized/authorized data crosses to the sovereign node;
-- a lost or revoked Presence cannot become a second Aurora identity.
+- a lost or revoked Presence cannot become a second Aurora identity;
+- locked Presence state continues to constrain disclosure even when the sovereign Core is remotely available.
 
 ---
 
-## 11. Explicit non-decisions
+## 12. Explicit non-decisions
 
 This accepted design does not choose:
 
@@ -338,27 +403,28 @@ This accepted design does not choose:
 - STT/TTS provider;
 - Voice streaming protocol;
 - speaker-recognition mechanism;
-- behavior while the workstation is locked;
-- response policy for non-owner speakers;
+- authentication policy for an unlocked workstation session;
+- response policy for non-owner speakers after unlock;
 - audio retention duration;
 - Voice latency/SLO;
 - microphone hardware;
-- a permanent background model runtime.
+- a permanent background model runtime;
+- a future public mode while locked.
 
 These choices remain governed by SAR-A1 or later consuming capability work.
 
 ---
 
-## 12. Next SAR-A1 question
+## 13. Next SAR-A1 question
 
-The next boundary to decide is the **session-opening policy for actor and workstation state**, especially:
+The next boundary to decide is the **authentication baseline for an unlocked Stage A workstation**.
+
+Before choosing the policy, SAR-A1 must determine the real workstation-use assumption:
 
 ```text
-What happens when a trigger occurs while:
-- Leandro’s workstation session is unlocked;
-- the workstation is locked;
-- another person says the wake word;
-- actor identity is uncertain?
+Is Leandro the exclusive user of the active operating-system account?
+Do other people have separate accounts on the workstation?
+Can another person use Leandro’s already-unlocked session?
 ```
 
-That decision must separate availability, disclosure, authentication and authority without requiring speaker recognition to become the sole security boundary.
+That answer determines whether an unlocked operating-system session can be treated as a useful authentication signal for low-risk interaction, while preserving step-up requirements for sensitive disclosure and material effects.
