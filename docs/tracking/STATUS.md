@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.31.0
+version: 0.31.1
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -37,9 +37,10 @@ last_reviewed: 2026-08-12
 - **Canonical branch:** `main`
 - **Canonical System Architecture Rebaseline merge:** `59f5819de97208bea88fdd3c2b30e13f417c2963`
 - **Current documentary branch:** `docs/technical-architecture-baseline-20260812`
-- **Draft PR:** `#4 — docs: establish Aurora Technical Architecture Baseline map`
+- **Pull request:** `#4 — docs: establish Aurora Technical Architecture Baseline map`
 - **PR target:** `main`
-- **PR state:** OPEN / DRAFT / NOT MERGED
+- **PR state:** OPEN / READY FOR REVIEW / NOT MERGED
+- **PR promotion:** EXPLICITLY AUTHORIZED BY OPERATOR
 - **A0 Product/Discovery/Architecture baseline:** ACCEPTED / MERGED
 - **ADR-0001..0009:** ACCEPTED within exact scope
 - **M0 ACRM R0–R6:** PASS
@@ -51,7 +52,8 @@ last_reviewed: 2026-08-12
 - **Accepted work map:** `TA-01` through `TA-08`
 - **Current active tranche:** `TA-01 + TA-02`
 - **Current tranche state:** DISCOVERY / DESIGN AUTHORIZED
-- **Map package review:** PASS FOR OPERATOR / PR REVIEW
+- **Authoring-session map review:** PASS FOR OPERATOR / PR REVIEW
+- **External PR review:** TWO P1 CONTINUITY FINDINGS ADMITTED AND REMEDIATED; FINAL VALIDATION PENDING
 - **Aurora implementation:** PAUSED
 
 ## 2. Current direction
@@ -139,7 +141,7 @@ Fixed adversarial-review target:
 5f22d83ba4bf7e893c4857bf887eabbe4aef1feb
 ```
 
-Review record:
+Authoring-session review record:
 
 ```text
 docs/reviews/2026-08-12-technical-architecture-baseline-map-review.md
@@ -147,21 +149,30 @@ review commit: ec8e5582cd374b80102305f360af5fb4304c4ddf
 verdict: PASS FOR OPERATOR / PR REVIEW
 ```
 
-Validation:
+Pre-external-review validation:
 
 ```text
 Documentation run 31618020814 — SUCCESS
 review-commit run 31618361364 — SUCCESS
+final pre-review branch run 31618519097 — SUCCESS
+final pre-review PR run 31618522756 — SUCCESS
 canonical documents / IDs at reviewed target: 130 / 130
 ```
 
-The review resolved the priority-drift, framework-first and fresh-session-continuity risks. It is an adversarial authoring-session review, not an independent technical-architecture acceptance verdict.
+After PR #4 was marked ready, external review admitted two P1 continuity findings:
+
+1. the scoped technical-architecture orientation omitted mandatory bootstrap documents required by `AGENTS.md`;
+2. the material Technical Architecture Baseline package had not been appended to `docs/tracking/WORKLOG.md`.
+
+Both findings were technically verified and remediated on the branch before promotion. Fresh validation of the remediated head remains mandatory before merge.
+
+The authoring-session review is not an independent technical-architecture acceptance verdict. The external review findings strengthen documentation continuity but do not authorize implementation.
 
 ## 6. Current authorized work
 
 The current authorization permits:
 
-- operator/PR review and requested documentary corrections;
+- final PR finding remediation, validation, thread resolution and canonical promotion of PR #4;
 - inspection of accepted Blueprint, ADR, research and M0 artifacts relevant to TA-01/TA-02;
 - inspection of the frozen R7 candidate as evidence only;
 - deriving and challenging candidate technical components;
@@ -178,7 +189,7 @@ The current authorization permits:
 
 The current authorization does **not** permit:
 
-- automatic merge of PR #4 without explicit operator direction;
+- merging PR #4 while an admitted review finding remains unresolved or final validation is not green;
 - new Aurora runtime implementation;
 - continuation, modification, merge or promotion of the frozen M0 R7 candidate;
 - an M0 R7 acceptance Verdict;
@@ -214,7 +225,7 @@ These are consumed as TA-02 inputs and future Presence/Voice constraints. Furthe
 ## 9. Current blocker
 
 ```text
-PR #4 CANONICAL PROMOTION: AWAITING OPERATOR DIRECTION
+PR #4 CANONICAL PROMOTION: AUTHORIZED, BLOCKED UNTIL REMEDIATED HEAD IS GREEN AND REVIEW THREADS ARE RESOLVED
 TA-01/TA-02 DESIGN: NOT YET PRODUCED OR REVIEWED
 TA-03 FINALIZATION: BLOCKED ON TA-01/TA-02
 AURORA IMPLEMENTATION RESUMPTION: BLOCKED
@@ -225,18 +236,16 @@ This is an intentional architecture-readiness block, not a rejection of Aurora o
 
 ## 10. Immediate next action
 
-Two activities may proceed without implying implementation:
-
 ```text
-A. operator reviews draft PR #4 for canonical promotion
-
-B. TA-01/TA-02 discovery dialogue begins
-   → derive minimum coherent technical component set
-   → compare 2–3 complete module/runtime approaches
-   → recommend one with explicit trade-offs
+validate the P1-remediated PR #4 head
+→ reply to and resolve both admitted review threads
+→ verify PR mergeability and clean checks
+→ merge PR #4 under the operator's explicit authorization
+→ verify canonical main
+→ begin TA-01/TA-02 discovery dialogue
 ```
 
-Exact TA-01/TA-02 question:
+Exact TA-01/TA-02 question after canonical promotion:
 
 > What is the minimum set of technical components required to preserve Aurora's accepted ownership boundaries, and which of those components should share or cross a process boundary in Stage A?
 
@@ -244,14 +253,19 @@ No repository, stack or runtime implementation decision follows automatically.
 
 ## 11. Fresh-session mandatory orientation
 
+Every new session must follow the repository bootstrap order in `AGENTS.md` before adding scoped technical-architecture material.
+
 After `AGENTS.md`, a new technical-architecture session must read:
 
-1. this STATUS;
-2. `docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md`;
-3. `docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md`;
-4. `docs/reviews/2026-08-12-technical-architecture-baseline-map-review.md`;
-5. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
-6. relevant Blueprint sections and scoped ADRs;
-7. current TA-01/TA-02 artifacts.
+1. `docs/tracking/STATUS.md`;
+2. `docs/DOCUMENTATION-MAP.md`;
+3. `docs/product/README.md`;
+4. `docs/roadmap.md`;
+5. `docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md`;
+6. `docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md`;
+7. `docs/reviews/2026-08-12-technical-architecture-baseline-map-review.md`;
+8. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
+9. relevant Product Blueprint sections and scoped ADRs;
+10. current TA-01/TA-02 artifacts.
 
 The session must not restart product discovery, continue Presence micro-policy by default, choose frameworks first or implement code.
