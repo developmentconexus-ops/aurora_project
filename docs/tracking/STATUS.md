@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.31.1
+version: 0.31.2
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -53,7 +53,8 @@ last_reviewed: 2026-08-12
 - **Current active tranche:** `TA-01 + TA-02`
 - **Current tranche state:** DISCOVERY / DESIGN AUTHORIZED
 - **Authoring-session map review:** PASS FOR OPERATOR / PR REVIEW
-- **External PR review:** TWO P1 CONTINUITY FINDINGS ADMITTED AND REMEDIATED; FINAL VALIDATION PENDING
+- **External PR review:** ALL ADMITTED FINDINGS REMEDIATED / THREADS RESOLVED
+- **Final branch and PR validation:** SUCCESS
 - **Aurora implementation:** PAUSED
 
 ## 2. Current direction
@@ -149,30 +150,41 @@ review commit: ec8e5582cd374b80102305f360af5fb4304c4ddf
 verdict: PASS FOR OPERATOR / PR REVIEW
 ```
 
-Pre-external-review validation:
+External PR review admitted and resolved:
+
+1. mandatory fresh-session bootstrap order omitted canonical ownership/product/roadmap inputs;
+2. the material package was missing from `docs/tracking/WORKLOG.md`;
+3. one activation sentence used ambiguous `recognition` terminology instead of `activation detection`.
+
+Final reviewed branch head before this tracking closeout:
+
+```text
+5bbcd76aa9618315379baa2eb3a29b2378e81b93
+```
+
+Final validation of that semantic head:
+
+```text
+push Documentation run 31620488476 — SUCCESS
+PR Documentation run 31620493087 — SUCCESS
+all three review threads — RESOLVED / OUTDATED
+```
+
+Earlier package validation remained green:
 
 ```text
 Documentation run 31618020814 — SUCCESS
 review-commit run 31618361364 — SUCCESS
-final pre-review branch run 31618519097 — SUCCESS
-final pre-review PR run 31618522756 — SUCCESS
 canonical documents / IDs at reviewed target: 130 / 130
 ```
 
-After PR #4 was marked ready, external review admitted two P1 continuity findings:
-
-1. the scoped technical-architecture orientation omitted mandatory bootstrap documents required by `AGENTS.md`;
-2. the material Technical Architecture Baseline package had not been appended to `docs/tracking/WORKLOG.md`.
-
-Both findings were technically verified and remediated on the branch before promotion. Fresh validation of the remediated head remains mandatory before merge.
-
-The authoring-session review is not an independent technical-architecture acceptance verdict. The external review findings strengthen documentation continuity but do not authorize implementation.
+The authoring-session review is not an independent technical-architecture acceptance verdict. External review strengthened documentation continuity and terminology but does not authorize implementation.
 
 ## 6. Current authorized work
 
 The current authorization permits:
 
-- final PR finding remediation, validation, thread resolution and canonical promotion of PR #4;
+- canonical promotion of PR #4 after this final tracking-only closeout validates;
 - inspection of accepted Blueprint, ADR, research and M0 artifacts relevant to TA-01/TA-02;
 - inspection of the frozen R7 candidate as evidence only;
 - deriving and challenging candidate technical components;
@@ -189,7 +201,7 @@ The current authorization permits:
 
 The current authorization does **not** permit:
 
-- merging PR #4 while an admitted review finding remains unresolved or final validation is not green;
+- merging PR #4 if this final tracking closeout fails validation or a new material finding opens;
 - new Aurora runtime implementation;
 - continuation, modification, merge or promotion of the frozen M0 R7 candidate;
 - an M0 R7 acceptance Verdict;
@@ -225,7 +237,7 @@ These are consumed as TA-02 inputs and future Presence/Voice constraints. Furthe
 ## 9. Current blocker
 
 ```text
-PR #4 CANONICAL PROMOTION: AUTHORIZED, BLOCKED UNTIL REMEDIATED HEAD IS GREEN AND REVIEW THREADS ARE RESOLVED
+PR #4 CANONICAL PROMOTION: AUTHORIZED / FINAL TRACKING CLOSEOUT VALIDATION PENDING
 TA-01/TA-02 DESIGN: NOT YET PRODUCED OR REVIEWED
 TA-03 FINALIZATION: BLOCKED ON TA-01/TA-02
 AURORA IMPLEMENTATION RESUMPTION: BLOCKED
@@ -237,11 +249,11 @@ This is an intentional architecture-readiness block, not a rejection of Aurora o
 ## 10. Immediate next action
 
 ```text
-validate the P1-remediated PR #4 head
-→ reply to and resolve both admitted review threads
-→ verify PR mergeability and clean checks
+validate this final tracking-only closeout
+→ verify PR mergeability and no unresolved review threads
 → merge PR #4 under the operator's explicit authorization
 → verify canonical main
+→ record canonical promotion closeout
 → begin TA-01/TA-02 discovery dialogue
 ```
 
