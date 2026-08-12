@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.12.0
+version: 0.13.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -57,7 +57,7 @@ Approved discovery direction included:
 - Aurora-mediated child Delegations;
 - governed Capability Registry;
 - discovery/compatibility/trust/authority/execution separation;
-- trust tied to exact version/build/environment;
+- trust tied to exact version/build/environment/scope;
 - first-party AHDK mandatory by policy unless waived;
 - universal black-box conformance independent of AHDK.
 
@@ -311,7 +311,6 @@ The remediation:
 
 R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized. The revised normative documents remain `PROPOSED` on the non-canonical branch until explicit operator acceptance; the last accepted versions remain canonical on `main`.
 
-
 ## 2026-08-07 — M0 R0 remediation revision accepted
 
 The operator reviewed the corrected R0 remediation candidate at exact semantic revision:
@@ -328,7 +327,6 @@ The decision accepts the corrected documentary/constitutional meaning and author
 
 This acceptance does **not** authorize R1 or any later ACRM gate, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract or Microdesign. After canonical integration, the next allowed action is a fresh repository-only re-run of M0 ACRM R0 only.
 
-
 ## 2026-08-07 — M0 R0 remediation canonically integrated
 
 The operator-accepted R0 remediation was merged through PR #2 into canonical `main`:
@@ -340,7 +338,6 @@ Merge commit: d0ddfb794296e599ac96bb73bf3772937d371bf9
 Pre-merge evidence included semantic-drift verification from approved revision `b32cfe134f84eed3797d866e607c92c227514186`, accepted-lifecycle promotion, generated projection refresh, promotion validation run `31144371490` and normal Documentation workflow run `31144424887`, both successful.
 
 The remediation merge does not authorize R1, Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract or Microdesign. The next authorized action is a fresh repository-only M0 ACRM R0 re-run.
-
 
 ## 2026-08-07 — M0 ACRM R0 re-run PASS
 
@@ -376,7 +373,6 @@ docs/reviews/2026-08-07-m0-r0-constitutional-baseline-rerun.md
 ```
 
 R1 is **not authorized** by the PASS verdict. Architecture Spike execution, stack selection, Aurora Core/AHDK/MNFS implementation, Mission Contract and Microdesign remain unauthorized. The exact next action is to stop and await explicit operator authorization for `M0 ACRM R1 — Applicability`.
-
 
 ## 2026-08-07 — M0 R1 Applicability
 
@@ -418,7 +414,6 @@ R1 PASS
 ```
 
 No language, framework, database, storage, runtime, topology, schema, protocol, telemetry backend, Architecture Spike winner, Mission Contract or implementation was selected. R2 remains separately gated and unauthorized until an explicit operator decision.
-
 
 ## 2026-08-07 — M0 R2 Requirements
 
@@ -682,4 +677,59 @@ validate the rebaseline package
 → remediate admitted findings
 → present one fixed revision for operator review
 → STOP
+```
+
+## 2026-08-12 — Technical Architecture Baseline map and direction correction
+
+After SAR-A1 began, the operator identified that the discussion had drifted from the intended cross-system technical map into overly specific Presence/session policy. The Stage A decisions already made remain useful downstream constraints, but further micro-policy work is deferred unless it changes a current structural decision.
+
+The operator approved a new ordered Technical Architecture Baseline program:
+
+```text
+TA-01 Logical modules and canonical ownership
+TA-02 Process, runtime and evolutionary topology
+TA-03 Repository, source and build architecture
+TA-04 Contracts, APIs, events and communication
+TA-05 Data, storage, portability and lifecycle architecture
+TA-06 Identity, authentication, authorization, policy and secrets
+TA-07 Brain, models, memory and Harness integration
+TA-08 Configuration, observability, deployment and operation
+```
+
+The current authorized tranche is `TA-01 + TA-02` discovery/design only. It must establish the minimum coherent component set, canonical ownership, dependency directions, Stage A process/runtime topology, failure domains, runtime scope and Stage B evolution inputs before TA-03 can finalize repository architecture.
+
+The package added:
+
+- `docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md`;
+- `docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md`;
+- operator acceptance evidence;
+- updated `STATUS.md` and `DECISIONS.md`;
+- an adversarial fixed-revision review.
+
+The materiality rule is now explicit: a question is current only when it changes module/data ownership, dependency direction, process/runtime/deployment boundary, contract compatibility, security/effect boundary, storage/recovery ownership or the next implementation decision. Otherwise it is recorded with a consumer/reconsideration trigger and deferred.
+
+Review evidence before external PR review:
+
+```text
+fixed review target: 5f22d83ba4bf7e893c4857bf887eabbe4aef1feb
+review commit: ec8e5582cd374b80102305f360af5fb4304c4ddf
+review verdict: PASS FOR OPERATOR / PR REVIEW
+branch and PR documentation validation: SUCCESS
+```
+
+After PR #4 was marked ready, external review admitted two P1 documentation-continuity findings:
+
+1. the technical-architecture orientation in `STATUS.md` must preserve the mandatory `AGENTS.md` bootstrap order before adding scoped architecture documents;
+2. this material package must be appended to `WORKLOG.md` before canonical promotion.
+
+Both findings are being remediated before merge. No runtime code, production repository structure, framework, protocol, database, authentication product, policy engine, secrets product, model provider or observability backend was selected or implemented.
+
+Exact next action:
+
+```text
+repair admitted PR findings
+→ re-run documentation validation
+→ resolve review threads
+→ promote PR #4 under the operator's explicit authorization
+→ begin TA-01/TA-02 discovery/design
 ```
