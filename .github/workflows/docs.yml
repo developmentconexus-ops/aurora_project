@@ -5,6 +5,14 @@ on:
     branches:
       - main
       - docs/architecture-baseline
+      - "docs/**"
+    paths:
+      - "**/*.md"
+      - "docs/research/*.json"
+      - "scripts/generate_docs.py"
+      - "scripts/validate_docs.py"
+      - ".github/workflows/docs.yml"
+  pull_request:
     paths:
       - "**/*.md"
       - "docs/research/*.json"
@@ -30,6 +38,101 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Apply approved rebaseline tracking repairs
+        if: github.event_name == 'push' && github.ref == 'refs/heads/docs/system-architecture-rebaseline-20260812'
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          worklog = Path("docs/tracking/WORKLOG.md")
+          text = worklog.read_text(encoding="utf-8")
+          text = text.replace("version: 0.11.0", "version: 0.12.0", 1)
+          text = text.replace("last_reviewed: 2026-08-07", "last_reviewed: 2026-08-12", 1)
+          marker = "## 2026-08-12 — R7 pause and System Architecture Rebaseline"
+          entry = r'''
+          ## 2026-08-12 — R7 pause and System Architecture Rebaseline
+
+          After returning to Projeto Aurora following a pause, the operator identified a material program risk: the accepted product constitution and M0 design were strong, but further implementation could fragment APIs, identity, authority, storage, memory, models, Voice, observability, sandboxes and module ownership without a coherent cross-system technical architecture map.
+
+          M0 R7 had been explicitly authorized and produced a non-canonical implementation candidate on:
+
+          ```text
+          branch: feat/m0-r7-sovereign-core-20260810
+          observed head: 7ec999b093205a9d82eef2802eca60330d96e14d
+          ```
+
+          The candidate includes executable Sovereign Core behavior and a real-binary Golden Proof, but TASK-13 evidence packaging, independent R7 Verdict and R8 Product Milestone closeout were not completed. The operator directed that implementation expansion stop rather than allowing the candidate to become an accidental global architecture baseline.
+
+          A complete `Aurora System Architecture Rebaseline Design` v0.1.0 was proposed at commit `cb6431883bf54cc5428e77e5202955aa9a0646e2`, proposal blob `6ec1b39c7899593d4d1cd3ac5df033d6d4ce8dc2`. The operator reviewed the design and responded `Aprovado`. The acceptance is recorded in `DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION`.
+
+          Accepted direction:
+
+          - preserve A0 and accepted ADRs within exact scope;
+          - freeze/preserve the R7 candidate as non-canonical evidence;
+          - do not authorize R8 or continue TASK-13;
+          - add a program-level System Architecture Rebaseline inside the existing ACRM rather than a new gate/lifecycle;
+          - create a global decision landscape using `DECIDE / RESEARCH / SPIKE / DEFER`;
+          - record earliest consumers, evidence needs, decision owners and reconsideration triggers;
+          - keep Blueprint 12 free of premature product selections;
+          - allow the Development Harness to build/verify Aurora later without becoming a sovereign runtime dependency;
+          - resume implementation only after architecture review and explicit authority.
+
+          Current authorized work is documentary architecture mapping, current primary-source research, decision proposals, Architecture Spike specifications and separately authorized spike execution. New Aurora runtime implementation, R7 promotion, R8, M1+, AHDK/MNFS/Mastra adapter implementation and ungoverned stack selection remain prohibited.
+
+          Exact next action:
+
+          ```text
+          validate the rebaseline package
+          → adversarial review
+          → remediate admitted findings
+          → present one fixed revision for operator review
+          → STOP
+          ```
+          '''.strip()
+          if marker not in text:
+              text = text.rstrip() + "\n\n" + entry + "\n"
+          worklog.write_text(text, encoding="utf-8")
+
+          repairs = {
+              "docs/adr/0003-m0-go-core-runtime.md": (
+                  "version: 0.2.0",
+                  "version: 0.2.1",
+                  "**Proposed:** implement the initial Aurora **Sovereign Core** in **Go**.",
+                  "**Accepted decision:** implement the initial Aurora **Sovereign Core** in **Go**.",
+              ),
+              "docs/adr/0004-m0-local-state-execution-shape.md": (
+                  "version: 0.2.0",
+                  "version: 0.2.1",
+                  "**Proposed:** M0 uses **one local modular Sovereign Core process** with:",
+                  "**Accepted decision:** M0 uses **one local modular Sovereign Core process** with:",
+              ),
+              "docs/adr/0009-mastra-cognitive-harness-runtime.md": (
+                  "version: 0.1.0",
+                  "version: 0.1.1",
+                  "**Proposed:** choose **Option C**.",
+                  "**Accepted decision:** choose **Option C**.",
+              ),
+          }
+          for name, (old_version, new_version, old_decision, new_decision) in repairs.items():
+              path = Path(name)
+              body = path.read_text(encoding="utf-8")
+              body = body.replace(old_version, new_version, 1)
+              body = body.replace("last_reviewed: 2026-08-07", "last_reviewed: 2026-08-12", 1)
+              if old_decision not in body and new_decision not in body:
+                  raise SystemExit(f"expected decision wording not found in {name}")
+              body = body.replace(old_decision, new_decision, 1)
+              path.write_text(body, encoding="utf-8")
+          PY
+
+          if ! git diff --quiet -- docs/tracking/WORKLOG.md docs/adr/0003-m0-go-core-runtime.md docs/adr/0004-m0-local-state-execution-shape.md docs/adr/0009-mastra-cognitive-harness-runtime.md; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add docs/tracking/WORKLOG.md docs/adr/0003-m0-go-core-runtime.md docs/adr/0004-m0-local-state-execution-shape.md docs/adr/0009-mastra-cognitive-harness-runtime.md
+            git commit -m "docs: record Aurora architecture rebaseline pause"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
       - name: Generate documentation projections
         run: python scripts/generate_docs.py --output-root "$RUNNER_TEMP/aurora-generated"
 
@@ -53,6 +156,9 @@ jobs:
           python scripts/validate_docs.py \
             --generated-root "$RUNNER_TEMP/aurora-generated" \
             --report "$RUNNER_TEMP/aurora-generated/docs-validation-report.json"
+
+      - name: Check whitespace
+        run: git diff --check
 
       - name: Upload generated documentation and report
         if: always()
