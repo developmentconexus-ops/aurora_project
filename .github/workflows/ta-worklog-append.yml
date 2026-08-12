@@ -24,12 +24,12 @@ jobs:
         shell: bash
         run: |
           python - <<'PY'
+          import base64
           from pathlib import Path
 
           path = Path('docs/tracking/WORKLOG.md')
           text = path.read_text(encoding='utf-8')
           heading = '## 2026-08-12 — TA-01/TA-02 module ownership and runtime topology proposal'
-
           if heading in text:
               raise SystemExit(0)
 
@@ -38,137 +38,8 @@ jobs:
               raise SystemExit('expected WORKLOG version 0.14.0 not found')
           text = text.replace(old, 'version: 0.15.0', 1)
 
-          entry = r'''
-
-## 2026-08-12 — TA-01/TA-02 module ownership and runtime topology proposal
-
-TA-01/TA-02 began from canonical `main` revision:
-
-```text
-9cbce1efe4f742f90623b894c0c1ba2eaa3cebcc
-```
-
-Work was isolated on:
-
-```text
-branch: docs/ta-01-02-module-runtime-topology-20260812
-PR: #5 — docs: propose TA-01/TA-02 module and runtime topology
-```
-
-The tranche inspected the accepted Product Blueprint, System Architecture Rebaseline, Technical Architecture Baseline, ADR-0001/0002/0003/0004/0009, the accepted M0 Capability Spec/Microdesign and the frozen non-canonical R7 implementation as evidence.
-
-The resulting proposed design is:
-
-```text
-docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md
-version: 0.4.0
-status: proposed
-```
-
-It proposes one governed cross-system semantic owner and twelve canonical Aurora domain owners:
-
-```text
-G01 Contract Model Governance
-
-C01 Identity and Relationship
-C02 Project, World and Experiment State
-C03 Mission and Delegation Control
-C04 Authority and Policy
-C05 Capability and Provider Registry
-C06 Memory, Knowledge and Context
-C07 Artifact, Observation and Evidence
-C08 Presence and Interaction
-C09 Attention and Proactivity                [future/deferred]
-C10 Failure Intelligence and Evaluation      [future/deferred]
-C11 Environment and Device Registry          [future/deferred]
-C12 Audit and Exact History
-```
-
-The design also separates application coordination, deterministic Effect/Credential enforcement, provider runtimes and mechanism adapters from canonical ownership. Provider, model, Harness, Presence, memory index, telemetry and storage mechanisms cannot write canonical Aurora state directly.
-
-Three complete Stage A topologies were compared:
-
-```text
-A — Core-centric single application
-B — early service decomposition
-C — Evolutionary Sovereign Host with one early provider-runtime seam
-```
-
-Approach C is the recommendation:
-
-```text
-one small persistent Aurora Sovereign Host
-→ current Aurora-owned modules and application coordination
-→ canonical state/recovery and C12 audit/history append path
-→ thin local Presence adapter initially co-packaged
-
-one separate on-demand Cognitive Runtime Provider when first consumed
-→ Mastra/TypeScript remains preferred-first to evaluate
-→ provider-local state only
-
-specialized Harnesses remain independent providers
-
-all other physical splits require a named lifecycle, runtime,
-security, privilege, fault, resource, remote-node or consumer trigger
-```
-
-The proposal explicitly distinguishes the accepted M0 Go runtime from a future universal language decision: the current Go executable may seed the Stage A Sovereign Host, while placement/language of M1+ canonical modules requires consuming revalidation.
-
-The design adds `B01 — Transport-neutral Provider Runtime Boundary Profile`, defining before any protocol selection:
-
-- provider/build/capability/contract identity and compatibility;
-- request, attempt, correlation and idempotency identities;
-- attenuated authority and Context Pack boundaries;
-- lifecycle and terminal-state meanings;
-- deadlines, acknowledged cancellation and retry rules;
-- ambiguous-completion reconciliation;
-- provider restart/snapshot recovery;
-- required response/error categories;
-- handoff constraints for TA-04.
-
-Adversarial review did not auto-pass the first drafts. Admitted findings and remediations were:
-
-1. missing Environment/Device owner → C11 added;
-2. root Identity owner overlapped Provider/Presence/Device identity → C01 narrowed and entity-specific owners fixed;
-3. Hypothesis/Experiment/Observation/Measurement ownership incomplete → C02/C07 allocation fixed;
-4. Go wording could globalize ADR-0003 → M0 fact, Stage A seed hypothesis and M1+ decision separated;
-5. Contract Model authority was implicit → named G01 governance owner added;
-6. Cognitive process seam lacked transport-neutral lifecycle/reconciliation → B01 added;
-7. AuditRecord and L4 exact interaction/tool/event history lacked an owner → C12 added with a distinct append path from telemetry, memory and evidence;
-8. material-work continuity was missing → this Worklog entry records the full proposal, evidence, limitations and next action.
-
-Review owner:
-
-```text
-docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md
-```
-
-Observed validation through the v0.4 semantic revision included successful Documentation runs for the initial design and each remediation. Final fixed-revision validation and PR metadata are recorded in `STATUS.md` and the PR after this append.
-
-Explicit limitations and non-decisions remain:
-
-- no runtime implementation;
-- no monorepo/polyrepo or source layout choice;
-- no universal Go decision;
-- no concrete Mastra version/integration;
-- no HTTP/gRPC/Connect/MCP/A2A/event/IPC selection;
-- no new relational/vector/graph/object/telemetry store selection;
-- no authentication, authorization, policy or secrets product selection;
-- no supervisor, container, Kubernetes, model, Voice, sandbox, durable-engine, observability or device-protocol choice;
-- no Architecture Spike execution;
-- no M0 R7/R8 continuation.
-
-Exact next action:
-
-```text
-fix final review/STATUS/PR revision and validation
-→ present Approach C + G01/C01–C12 + B01 to the operator
-→ ACCEPT | REVISE | REJECT
-→ STOP before TA-03/TA-04/TA-05/TA-08 finalization,
-  Architecture Spike execution or Aurora implementation
-```
-'''
-          path.write_text(text.rstrip() + entry + '\n', encoding='utf-8')
+          entry = base64.b64decode('IyMgMjAyNi0wOC0xMiDigJQgVEEtMDEvVEEtMDIgbW9kdWxlIG93bmVyc2hpcCBhbmQgcnVudGltZSB0b3BvbG9neSBwcm9wb3NhbAoKVEEtMDEvVEEtMDIgYmVnYW4gZnJvbSBjYW5vbmljYWwgYG1haW5gIHJldmlzaW9uOgoKYGBgdGV4dAo5Y2JjZTFlZmU0Zjc0MmY5MDYyM2I4OTRjMGMxYmEyZWFhM2NlYmNjCmBgYAoKV29yayB3YXMgaXNvbGF0ZWQgb246CgpgYGB0ZXh0CmJyYW5jaDogZG9jcy90YS0wMS0wMi1tb2R1bGUtcnVudGltZS10b3BvbG9neS0yMDI2MDgxMgpQUjogIzUg4oCUIGRvY3M6IHByb3Bvc2UgVEEtMDEvVEEtMDIgbW9kdWxlIGFuZCBydW50aW1lIHRvcG9sb2d5CmBgYAoKVGhlIHRyYW5jaGUgaW5zcGVjdGVkIHRoZSBhY2NlcHRlZCBQcm9kdWN0IEJsdWVwcmludCwgU3lzdGVtIEFyY2hpdGVjdHVyZSBSZWJhc2VsaW5lLCBUZWNobmljYWwgQXJjaGl0ZWN0dXJlIEJhc2VsaW5lLCBBRFItMDAwMS8wMDAyLzAwMDMvMDAwNC8wMDA5LCB0aGUgYWNjZXB0ZWQgTTAgQ2FwYWJpbGl0eSBTcGVjL01pY3JvZGVzaWduIGFuZCB0aGUgZnJvemVuIG5vbi1jYW5vbmljYWwgUjcgaW1wbGVtZW50YXRpb24gYXMgZXZpZGVuY2UuCgpUaGUgcmVzdWx0aW5nIHByb3Bvc2VkIGRlc2lnbiBpczoKCmBgYHRleHQKZG9jcy9kZXNpZ24vQVVST1JBLVRBLTAxLTAyLU1PRFVMRS1SVU5USU1FLVRPUE9MT0dZLm1kCnZlcnNpb246IDAuNC4wCnN0YXR1czogcHJvcG9zZWQKYGBgCgpJdCBwcm9wb3NlcyBvbmUgZ292ZXJuZWQgY3Jvc3Mtc3lzdGVtIHNlbWFudGljIG93bmVyIGFuZCB0d2VsdmUgY2Fub25pY2FsIEF1cm9yYSBkb21haW4gb3duZXJzOgoKYGBgdGV4dApHMDEgQ29udHJhY3QgTW9kZWwgR292ZXJuYW5jZQoKQzAxIElkZW50aXR5IGFuZCBSZWxhdGlvbnNoaXAKQzAyIFByb2plY3QsIFdvcmxkIGFuZCBFeHBlcmltZW50IFN0YXRlCkMwMyBNaXNzaW9uIGFuZCBEZWxlZ2F0aW9uIENvbnRyb2wKQzA0IEF1dGhvcml0eSBhbmQgUG9saWN5CkMwNSBDYXBhYmlsaXR5IGFuZCBQcm92aWRlciBSZWdpc3RyeQpDMDYgTWVtb3J5LCBLbm93bGVkZ2UgYW5kIENvbnRleHQKQzA3IEFydGlmYWN0LCBPYnNlcnZhdGlvbiBhbmQgRXZpZGVuY2UKQzA4IFByZXNlbmNlIGFuZCBJbnRlcmFjdGlvbgpDMDkgQXR0ZW50aW9uIGFuZCBQcm9hY3Rpdml0eSAgICAgICAgICAgICAgICBbZnV0dXJlL2RlZmVycmVkXQpDMTAgRmFpbHVyZSBJbnRlbGxpZ2VuY2UgYW5kIEV2YWx1YXRpb24gICAgICBbZnV0dXJlL2RlZmVycmVkXQpDMTEgRW52aXJvbm1lbnQgYW5kIERldmljZSBSZWdpc3RyeSAgICAgICAgICBbZnV0dXJlL2RlZmVycmVkXQpDMTIgQXVkaXQgYW5kIEV4YWN0IEhpc3RvcnkKYGBgCgpUaGUgZGVzaWduIGFsc28gc2VwYXJhdGVzIGFwcGxpY2F0aW9uIGNvb3JkaW5hdGlvbiwgZGV0ZXJtaW5pc3RpYyBFZmZlY3QvQ3JlZGVudGlhbCBlbmZvcmNlbWVudCwgcHJvdmlkZXIgcnVudGltZXMgYW5kIG1lY2hhbmlzbSBhZGFwdGVycyBmcm9tIGNhbm9uaWNhbCBvd25lcnNoaXAuIFByb3ZpZGVyLCBtb2RlbCwgSGFybmVzcywgUHJlc2VuY2UsIG1lbW9yeSBpbmRleCwgdGVsZW1ldHJ5IGFuZCBzdG9yYWdlIG1lY2hhbmlzbXMgY2Fubm90IHdyaXRlIGNhbm9uaWNhbCBBdXJvcmEgc3RhdGUgZGlyZWN0bHkuCgpUaHJlZSBjb21wbGV0ZSBTdGFnZSBBIHRvcG9sb2dpZXMgd2VyZSBjb21wYXJlZDoKCmBgYHRleHQKQSDigJQgQ29yZS1jZW50cmljIHNpbmdsZSBhcHBsaWNhdGlvbgpCIOKAlCBlYXJseSBzZXJ2aWNlIGRlY29tcG9zaXRpb24KQyDigJQgRXZvbHV0aW9uYXJ5IFNvdmVyZWlnbiBIb3N0IHdpdGggb25lIGVhcmx5IHByb3ZpZGVyLXJ1bnRpbWUgc2VhbQpgYGAKCkFwcHJvYWNoIEMgaXMgdGhlIHJlY29tbWVuZGF0aW9uOgoKYGBgdGV4dApvbmUgc21hbGwgcGVyc2lzdGVudCBBdXJvcmEgU292ZXJlaWduIEhvc3QK4oaSIGN1cnJlbnQgQXVyb3JhLW93bmVkIG1vZHVsZXMgYW5kIGFwcGxpY2F0aW9uIGNvb3JkaW5hdGlvbgrihpIgY2Fub25pY2FsIHN0YXRlL3JlY292ZXJ5IGFuZCBDMTIgYXVkaXQvaGlzdG9yeSBhcHBlbmQgcGF0aArihpIgdGhpbiBsb2NhbCBQcmVzZW5jZSBhZGFwdGVyIGluaXRpYWxseSBjby1wYWNrYWdlZAoKb25lIHNlcGFyYXRlIG9uLWRlbWFuZCBDb2duaXRpdmUgUnVudGltZSBQcm92aWRlciB3aGVuIGZpcnN0IGNvbnN1bWVkCuKGkiBNYXN0cmEvVHlwZVNjcmlwdCByZW1haW5zIHByZWZlcnJlZC1maXJzdCB0byBldmFsdWF0ZQrihpIgcHJvdmlkZXItbG9jYWwgc3RhdGUgb25seQoKc3BlY2lhbGl6ZWQgSGFybmVzc2VzIHJlbWFpbiBpbmRlcGVuZGVudCBwcm92aWRlcnMKCmFsbCBvdGhlciBwaHlzaWNhbCBzcGxpdHMgcmVxdWlyZSBhIG5hbWVkIGxpZmVjeWNsZSwgcnVudGltZSwKc2VjdXJpdHksIHByaXZpbGVnZSwgZmF1bHQsIHJlc291cmNlLCByZW1vdGUtbm9kZSBvciBjb25zdW1lciB0cmlnZ2VyCmBgYAoKVGhlIHByb3Bvc2FsIGV4cGxpY2l0bHkgZGlzdGluZ3Vpc2hlcyB0aGUgYWNjZXB0ZWQgTTAgR28gcnVudGltZSBmcm9tIGEgZnV0dXJlIHVuaXZlcnNhbCBsYW5ndWFnZSBkZWNpc2lvbjogdGhlIGN1cnJlbnQgR28gZXhlY3V0YWJsZSBtYXkgc2VlZCB0aGUgU3RhZ2UgQSBTb3ZlcmVpZ24gSG9zdCwgd2hpbGUgcGxhY2VtZW50L2xhbmd1YWdlIG9mIE0xKyBjYW5vbmljYWwgbW9kdWxlcyByZXF1aXJlcyBjb25zdW1pbmcgcmV2YWxpZGF0aW9uLgoKVGhlIGRlc2lnbiBhZGRzIGBCMDEg4oCUIFRyYW5zcG9ydC1uZXV0cmFsIFByb3ZpZGVyIFJ1bnRpbWUgQm91bmRhcnkgUHJvZmlsZWAsIGRlZmluaW5nIGJlZm9yZSBhbnkgcHJvdG9jb2wgc2VsZWN0aW9uOgoKLSBwcm92aWRlci9idWlsZC9jYXBhYmlsaXR5L2NvbnRyYWN0IGlkZW50aXR5IGFuZCBjb21wYXRpYmlsaXR5OwotIHJlcXVlc3QsIGF0dGVtcHQsIGNvcnJlbGF0aW9uIGFuZCBpZGVtcG90ZW5jeSBpZGVudGl0aWVzOwotIGF0dGVudWF0ZWQgYXV0aG9yaXR5IGFuZCBDb250ZXh0IFBhY2sgYm91bmRhcmllczsKLSBsaWZlY3ljbGUgYW5kIHRlcm1pbmFsLXN0YXRlIG1lYW5pbmdzOwotIGRlYWRsaW5lcywgYWNrbm93bGVkZ2VkIGNhbmNlbGxhdGlvbiBhbmQgcmV0cnkgcnVsZXM7Ci0gYW1iaWd1b3VzLWNvbXBsZXRpb24gcmVjb25jaWxpYXRpb247Ci0gcHJvdmlkZXIgcmVzdGFydC9zbmFwc2hvdCByZWNvdmVyeTsKLSByZXF1aXJlZCByZXNwb25zZS9lcnJvciBjYXRlZ29yaWVzOwotIGhhbmRvZmYgY29uc3RyYWludHMgZm9yIFRBLTA0LgoKQWR2ZXJzYXJpYWwgcmV2aWV3IGRpZCBub3QgYXV0by1wYXNzIHRoZSBmaXJzdCBkcmFmdHMuIEFkbWl0dGVkIGZpbmRpbmdzIGFuZCByZW1lZGlhdGlvbnMgd2VyZToKCjEuIG1pc3NpbmcgRW52aXJvbm1lbnQvRGV2aWNlIG93bmVyIOKGkiBDMTEgYWRkZWQ7CjIuIHJvb3QgSWRlbnRpdHkgb3duZXIgb3ZlcmxhcHBlZCBQcm92aWRlci9QcmVzZW5jZS9EZXZpY2UgaWRlbnRpdHkg4oaSIEMwMSBuYXJyb3dlZCBhbmQgZW50aXR5LXNwZWNpZmljIG93bmVycyBmaXhlZDsKMy4gSHlwb3RoZXNpcy9FeHBlcmltZW50L09ic2VydmF0aW9uL01lYXN1cmVtZW50IG93bmVyc2hpcCBpbmNvbXBsZXRlIOKGkiBDMDIvQzA3IGFsbG9jYXRpb24gZml4ZWQ7CjQuIEdvIHdvcmRpbmcgY291bGQgZ2xvYmFsaXplIEFEUi0wMDAzIOKGkiBNMCBmYWN0LCBTdGFnZSBBIHNlZWQgaHlwb3RoZXNpcyBhbmQgTTErIGRlY2lzaW9uIHNlcGFyYXRlZDsKNS4gQ29udHJhY3QgTW9kZWwgYXV0aG9yaXR5IHdhcyBpbXBsaWNpdCDihpIgbmFtZWQgRzAxIGdvdmVybmFuY2Ugb3duZXIgYWRkZWQ7CjYuIENvZ25pdGl2ZSBwcm9jZXNzIHNlYW0gbGFja2VkIHRyYW5zcG9ydC1uZXV0cmFsIGxpZmVjeWNsZS9yZWNvbmNpbGlhdGlvbiDihpIgQjAxIGFkZGVkOwo3LiBBdWRpdFJlY29yZCBhbmQgTDQgZXhhY3QgaW50ZXJhY3Rpb24vdG9vbC9ldmVudCBoaXN0b3J5IGxhY2tlZCBhbiBvd25lciDihpIgQzEyIGFkZGVkIHdpdGggYSBkaXN0aW5jdCBhcHBlbmQgcGF0aCBmcm9tIHRlbGVtZXRyeSwgbWVtb3J5IGFuZCBldmlkZW5jZTsKOC4gbWF0ZXJpYWwtd29yayBjb250aW51aXR5IHdhcyBtaXNzaW5nIOKGkiB0aGlzIFdvcmtsb2cgZW50cnkgcmVjb3JkcyB0aGUgZnVsbCBwcm9wb3NhbCwgZXZpZGVuY2UsIGxpbWl0YXRpb25zIGFuZCBuZXh0IGFjdGlvbi4KClJldmlldyBvd25lcjoKCmBgYHRleHQKZG9jcy9yZXZpZXdzLzIwMjYtMDgtMTItdGEtMDEtMDItbW9kdWxlLXJ1bnRpbWUtdG9wb2xvZ3ktcmV2aWV3Lm1kCmBgYAoKT2JzZXJ2ZWQgdmFsaWRhdGlvbiB0aHJvdWdoIHRoZSB2MC40IHNlbWFudGljIHJldmlzaW9uIGluY2x1ZGVkIHN1Y2Nlc3NmdWwgRG9jdW1lbnRhdGlvbiBydW5zIGZvciB0aGUgaW5pdGlhbCBkZXNpZ24gYW5kIGVhY2ggcmVtZWRpYXRpb24uIEZpbmFsIGZpeGVkLXJldmlzaW9uIHZhbGlkYXRpb24gYW5kIFBSIG1ldGFkYXRhIGFyZSByZWNvcmRlZCBpbiBgU1RBVFVTLm1kYCBhbmQgdGhlIFBSIGFmdGVyIHRoaXMgYXBwZW5kLgoKRXhwbGljaXQgbGltaXRhdGlvbnMgYW5kIG5vbi1kZWNpc2lvbnMgcmVtYWluOgoKLSBubyBydW50aW1lIGltcGxlbWVudGF0aW9uOwotIG5vIG1vbm9yZXBvL3BvbHlyZXBvIG9yIHNvdXJjZSBsYXlvdXQgY2hvaWNlOwotIG5vIHVuaXZlcnNhbCBHbyBkZWNpc2lvbjsKLSBubyBjb25jcmV0ZSBNYXN0cmEgdmVyc2lvbi9pbnRlZ3JhdGlvbjsKLSBubyBIVFRQL2dSUEMvQ29ubmVjdC9NQ1AvQTJBL2V2ZW50L0lQQyBzZWxlY3Rpb247Ci0gbm8gbmV3IHJlbGF0aW9uYWwvdmVjdG9yL2dyYXBoL29iamVjdC90ZWxlbWV0cnkgc3RvcmUgc2VsZWN0aW9uOwotIG5vIGF1dGhlbnRpY2F0aW9uLCBhdXRob3JpemF0aW9uLCBwb2xpY3kgb3Igc2VjcmV0cyBwcm9kdWN0IHNlbGVjdGlvbjsKLSBubyBzdXBlcnZpc29yLCBjb250YWluZXIsIEt1YmVybmV0ZXMsIG1vZGVsLCBWb2ljZSwgc2FuZGJveCwgZHVyYWJsZS1lbmdpbmUsIG9ic2VydmFiaWxpdHkgb3IgZGV2aWNlLXByb3RvY29sIGNob2ljZTsKLSBubyBBcmNoaXRlY3R1cmUgU3Bpa2UgZXhlY3V0aW9uOwotIG5vIE0wIFI3L1I4IGNvbnRpbnVhdGlvbi4KCkV4YWN0IG5leHQgYWN0aW9uOgoKYGBgdGV4dApmaXggZmluYWwgcmV2aWV3L1NUQVRVUy9QUiByZXZpc2lvbiBhbmQgdmFsaWRhdGlvbgrihpIgcHJlc2VudCBBcHByb2FjaCBDICsgRzAxL0MwMeKAk0MxMiArIEIwMSB0byB0aGUgb3BlcmF0b3IK4oaSIEFDQ0VQVCB8IFJFVklTRSB8IFJFSkVDVArihpIgU1RPUCBiZWZvcmUgVEEtMDMvVEEtMDQvVEEtMDUvVEEtMDggZmluYWxpemF0aW9uLAogIEFyY2hpdGVjdHVyZSBTcGlrZSBleGVjdXRpb24gb3IgQXVyb3JhIGltcGxlbWVudGF0aW9uCmBgYAo=').decode('utf-8')
+          path.write_text(text.rstrip() + '\n\n' + entry.rstrip() + '\n', encoding='utf-8')
           PY
 
       - name: Commit append
