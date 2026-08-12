@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.29.0
+version: 0.30.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -17,12 +17,12 @@ related:
   - DOC-AURORA-PRODUCT-INDEX
   - DOC-AURORA-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
-  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
-  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-PACKAGE-ACCEPTANCE
-  - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-MERGE-CLOSEOUT
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
-  - REVIEW-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-2026-08-12
+  - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
+  - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
+  - DOC-AURORA-TECHNICAL-ARCHITECTURE-MAP-OPERATOR-ACCEPTANCE
+  - DESIGN-AURORA-SAR-A1-STAGE-A-AVAILABILITY-ACTIVATION
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-WORKLOG
 last_reviewed: 2026-08-12
@@ -35,131 +35,185 @@ last_reviewed: 2026-08-12
 - **Project:** Projeto Aurora
 - **Canonical branch:** `main`
 - **Canonical System Architecture Rebaseline merge:** `59f5819de97208bea88fdd3c2b30e13f417c2963`
-- **Promotion closeout commit:** `ac0d83ff373d9d04f0c149e21fd9f18b67e8608d`
-- **A0 — Product, Discovery and Architecture Baseline:** ACCEPTED / MERGED
-- **ADR-0001..0009:** ACCEPTED within their exact scopes
-- **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED
+- **Current documentary branch:** `docs/technical-architecture-baseline-20260812`
+- **A0 Product/Discovery/Architecture baseline:** ACCEPTED / MERGED
+- **ADR-0001..0009:** ACCEPTED within exact scope
 - **M0 ACRM R0–R6:** PASS
-- **M0 R7 execution candidate:** FROZEN / PRESERVED / NON-CANONICAL
+- **M0 R7 candidate:** FROZEN / PRESERVED / NON-CANONICAL
 - **M0 R7 independent Verdict:** NOT ISSUED
-- **M0 R8 closeout:** NOT AUTHORIZED / NOT PERFORMED
-- **System Architecture Rebaseline documentary package:** ACCEPTED / MERGED
-- **Current architecture work package:** `SAR-A1 — System Context and Trust Boundaries`
-- **SAR-A1 state:** AUTHORIZED FOR DISCOVERY AND DESIGN
+- **M0 R8:** NOT AUTHORIZED / NOT PERFORMED
+- **System Architecture Rebaseline:** ACCEPTED / MERGED
+- **Current program:** `AURORA TECHNICAL ARCHITECTURE BASELINE`
+- **Accepted work map:** `TA-01` through `TA-08`
+- **Current active tranche:** `TA-01 + TA-02`
+- **Current tranche state:** DISCOVERY / DESIGN AUTHORIZED
 - **Aurora implementation:** PAUSED
 
-## 2. Canonical architecture baseline
+## 2. Current direction
 
-The canonical program now distinguishes four layers:
+Aurora product meaning is already deeply defined. The current objective is not another broad product-discovery cycle and not further decomposition of narrow Presence behavior.
 
-```text
-accepted Product Blueprint
-→ owns product meaning and logical architecture
+The current objective is:
 
-accepted scoped ADRs
-→ own exact decisions only within their stated scope
+> Build the technical architecture map that will govern Aurora components, modules, runtime/process topology, repositories, contracts, data, security, cognition/Harness integration and operation before implementation resumes.
 
-accepted System Architecture Rebaseline
-→ owns the program-level question/dependency map and treatment method
-
-future SAR/Capability artifacts
-→ progressively decide and specify bounded technical architecture
-```
-
-The global Architecture Decision Landscape is an accepted working map. A Landscape row is not an accepted technical answer until the proper ADR, Specification, Contract or Standard is promoted.
-
-## 3. Frozen M0 R7 candidate
-
-The previously authorized M0 R7 execution produced a candidate on:
+The operator corrected a priority drift during SAR-A1:
 
 ```text
-branch: feat/m0-r7-sovereign-core-20260810
-head: 7ec999b093205a9d82eef2802eca60330d96e14d
-classification: FROZEN / PRESERVED / NON-CANONICAL
+useful Stage A Presence/session detail
+→ preserve as accepted downstream constraint
+→ DEFER further micro-policy exploration
+
+cross-system technical architecture
+→ current priority
 ```
 
-The candidate may be inspected as implementation/evidence input during architecture work. It is not:
+Questions are current only when they change a structural boundary, ownership, contract, process/runtime, security/effect boundary, data role or the next implementation decision.
 
-- canonical product architecture;
-- an R7 acceptance Verdict;
-- an R8 closeout;
-- authority to continue TASK-13;
-- authority to expand M0 implementation;
-- a universal Go/SQLite/OTel/Aurora stack baseline.
+## 3. Accepted Technical Architecture Baseline map
 
-## 4. Current authorized work — SAR-A1
-
-The operator authorized only:
+The accepted dependency order is:
 
 ```text
-SAR-A1 — System Context and Trust Boundaries
+TA-01 Logical modules and canonical ownership
+TA-02 Process, runtime and evolutionary topology
+TA-03 Repository, source and build architecture
+TA-04 Contracts, APIs, events and communication
+TA-05 Data, storage, portability and lifecycle architecture
+TA-06 Identity, authentication, authorization, policy and secrets
+TA-07 Brain, models, memory and Harness integration
+TA-08 Configuration, observability, deployment and operation
 ```
 
-SAR-A1 may:
+Governing map:
 
-- inspect accepted Blueprint, ADR, research and frozen R7 evidence relevant to boundaries;
-- define the Stage A and Stage B system of interest;
-- identify human, system, provider, Presence, device and environment actors;
-- map external systems and trust zones;
-- map control, data, effect, Presence, evidence and supply-chain crossings;
-- identify boundary invariants and forbidden ownership transfers;
-- identify near decisions and classify them as `DECIDE`, `RESEARCH`, `SPIKE` or `DEFER`;
-- use current primary sources only where they materially change a near decision;
-- propose a bounded SAR-A1 design for operator review.
+```text
+docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md
+```
 
-SAR-A1 is architecture discovery/design, not implementation.
+Documentary execution plan:
 
-## 5. Explicitly prohibited
+```text
+docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md
+```
+
+The map is not a new ACRM gate, lifecycle or score. It is the ordered program-level architecture work inside the accepted System Architecture Rebaseline.
+
+## 4. Current active tranche — TA-01 + TA-02
+
+The operator authorized discovery/design for:
+
+```text
+TA-01 — Logical modules and canonical ownership
++
+TA-02 — Process, runtime and evolutionary topology
+```
+
+The tranche must produce:
+
+1. technical component catalog;
+2. module responsibility matrix;
+3. canonical entity/data ownership matrix;
+4. allowed and forbidden dependency directions;
+5. 2–3 coherent module/runtime approaches;
+6. Stage A process/runtime topology;
+7. always-active versus on-demand responsibilities;
+8. Go, TypeScript/Mastra and future-runtime scope map;
+9. failure-domain and restart ownership;
+10. Stage B evolution path;
+11. `DECIDE / RESEARCH / SPIKE / DEFER` register;
+12. exact inputs required before TA-03 repository architecture.
+
+TA-01 and TA-02 are coupled because process placement must follow coherent ownership, while proposed modules must be tested against real runtime/failure/security boundaries.
+
+## 5. Current authorized work
+
+The current authorization permits:
+
+- inspection of accepted Blueprint, ADR, research and M0 artifacts relevant to TA-01/TA-02;
+- inspection of the frozen R7 candidate as evidence only;
+- deriving and challenging candidate technical components;
+- defining canonical responsibility and data ownership;
+- defining allowed/forbidden dependencies;
+- comparing 2–3 complete Stage A topology approaches;
+- mapping Stage B evolution without designing Stage B in full;
+- current primary-source research only where it changes a near decision;
+- Architecture Spike specifications where runtime evidence would be required;
+- preparing a fixed, reviewable TA-01/TA-02 design package;
+- documentation validation and adversarial review.
+
+## 6. Explicitly prohibited
 
 The current authorization does **not** permit:
 
 - new Aurora runtime implementation;
-- continuation of M0 R7 TASK-13;
-- modification, merge or promotion of the frozen R7 candidate;
+- continuation, modification, merge or promotion of the frozen M0 R7 candidate;
 - an M0 R7 acceptance Verdict;
 - M0 R8 closeout;
 - M1+ implementation;
-- AHDK, MNFS or Mastra adapter implementation;
-- Voice, Vision, Presence, memory engine, model router, device or laboratory implementation;
 - Architecture Spike execution without separate exact authorization;
-- selecting authentication, authorization, policy, secrets, database, API, event broker, durable engine, sandbox, observability backend, model or Voice products merely from popularity or convenience;
-- creating another ACRM gate, lifecycle, score or authority hierarchy;
-- treating the Development Harness as an Aurora runtime dependency;
-- treating M0-scoped decisions as universal Aurora decisions.
+- creating or restructuring production repositories;
+- selecting monorepo versus polyrepo before TA-01/TA-02 review;
+- selecting a universal API protocol;
+- selecting a new database/store before TA-05 requirements;
+- selecting Keycloak, Zitadel, Ory, Authentik, SPIFFE, OPA, Cedar, Vault or equivalents before TA-06 modeling;
+- implementing AHDK, MNFS or a Mastra adapter;
+- implementing Brain, memory, Voice, Presence, model routing or observability systems;
+- treating M0 Go/SQLite/JSON-JCS/OTel decisions as universal;
+- returning to detailed Presence/session policy unless it materially changes TA-01/TA-02;
+- creating another readiness lifecycle, score or authority hierarchy.
 
-## 6. SAR-A1 success condition
+## 7. Preserved Stage A constraints
 
-SAR-A1 is ready for operator review only when it produces a coherent, bounded proposal that answers:
+The following are accepted but not the current discussion priority:
+
+- one Leandro-controlled workstation is the Stage A sovereign host and first Presence;
+- minimum Core and activation responsibilities may remain available;
+- heavy cognition starts on demand;
+- activation belongs to Presence semantics;
+- button/UI/hotkey are baseline activation classes;
+- local wake word is optional;
+- activation is not authentication or authority;
+- while locked, Aurora may acknowledge availability but requires unlock before private interaction.
+
+These are consumed as TA-02 inputs and future Presence/Voice constraints. Further user/session-policy decomposition is `DEFER`.
+
+## 8. Current blocker
 
 ```text
-What is inside Aurora for Stage A and Stage B?
-What remains external?
-Which actor/system crosses which boundary?
-Which trust zone owns which responsibility?
-Where are identity, authority, data, effects and evidence enforced?
-Which crossings are forbidden or require future research/spikes?
-What is deliberately deferred?
-```
-
-The proposal must preserve local-first sovereignty, Aurora-owned semantics, Harness-local specialization, non-transitive authority, data minimization and deterministic material-effect enforcement.
-
-## 7. Current blocker
-
-```text
-SAR-A1 DESIGN: NOT YET PRODUCED OR APPROVED
+TA-01/TA-02 DESIGN: NOT YET PRODUCED OR REVIEWED
+TA-03 FINALIZATION: BLOCKED ON TA-01/TA-02
 AURORA IMPLEMENTATION RESUMPTION: BLOCKED
-NEXT SAR WORK PACKAGE AFTER A1: NOT AUTHORIZED
+ARCHITECTURE SPIKE EXECUTION: NOT AUTHORIZED
 ```
 
-## 8. Immediate next action
+This is an intentional architecture-readiness block, not a rejection of Aurora or of the frozen M0 candidate.
+
+## 9. Immediate next action
 
 ```text
-begin SAR-A1 discovery dialogue
-→ establish Stage A/B system-boundary interpretation
-→ compare 2–3 boundary modeling approaches
-→ present SAR-A1 design sections for operator review
+read the accepted Technical Architecture Baseline Map
+→ derive the minimum coherent technical component set
+→ compare 2–3 complete module/runtime topology approaches
+→ recommend one with explicit trade-offs
+→ present TA-01/TA-02 design sections to the operator
 → write and self-review the accepted design
-→ STOP before technical implementation or Architecture Spike execution
+→ validate and stop before implementation or TA-03 finalization
 ```
 
-No technical product or stack selection follows automatically from SAR-A1.
+Exact next question:
+
+> What is the minimum set of technical components required to preserve Aurora's accepted ownership boundaries, and which of those components should share or cross a process boundary in Stage A?
+
+## 10. Fresh-session mandatory orientation
+
+After `AGENTS.md`, a new technical-architecture session must read:
+
+1. this STATUS;
+2. `docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md`;
+3. `docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md`;
+4. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
+5. relevant Blueprint sections and scoped ADRs;
+6. current TA-01/TA-02 artifacts.
+
+The session must not restart product discovery, continue Presence micro-policy by default, choose frameworks first or implement code.
