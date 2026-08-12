@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.31.2
+version: 0.32.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -23,6 +23,7 @@ related:
   - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
   - DOC-AURORA-TECHNICAL-ARCHITECTURE-MAP-OPERATOR-ACCEPTANCE
   - REVIEW-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP-2026-08-12
+  - DOC-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MERGE-CLOSEOUT
   - DESIGN-AURORA-SAR-A1-STAGE-A-AVAILABILITY-ACTIVATION
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-WORKLOG
@@ -33,54 +34,28 @@ last_reviewed: 2026-08-12
 
 ## 1. Current summary
 
-- **Project:** Projeto Aurora
 - **Canonical branch:** `main`
-- **Canonical System Architecture Rebaseline merge:** `59f5819de97208bea88fdd3c2b30e13f417c2963`
-- **Current documentary branch:** `docs/technical-architecture-baseline-20260812`
-- **Pull request:** `#4 — docs: establish Aurora Technical Architecture Baseline map`
-- **PR target:** `main`
-- **PR state:** OPEN / READY FOR REVIEW / NOT MERGED
-- **PR promotion:** EXPLICITLY AUTHORIZED BY OPERATOR
-- **A0 Product/Discovery/Architecture baseline:** ACCEPTED / MERGED
+- **System Architecture Rebaseline merge:** `59f5819de97208bea88fdd3c2b30e13f417c2963`
+- **Technical Architecture Baseline merge:** `b6fb31c46aa709aa5a93eca57076bf7f4ab2b71d`
+- **Technical Architecture closeout commit:** `4061a03839357a857ea549e391658f88a4a04bba`
+- **A0:** ACCEPTED / MERGED
 - **ADR-0001..0009:** ACCEPTED within exact scope
-- **M0 ACRM R0–R6:** PASS
+- **M0 R0–R6:** PASS
 - **M0 R7 candidate:** FROZEN / PRESERVED / NON-CANONICAL
-- **M0 R7 independent Verdict:** NOT ISSUED
+- **M0 R7 Verdict:** NOT ISSUED
 - **M0 R8:** NOT AUTHORIZED / NOT PERFORMED
-- **System Architecture Rebaseline:** ACCEPTED / MERGED
+- **Technical Architecture Baseline map:** ACCEPTED / MERGED
 - **Current program:** `AURORA TECHNICAL ARCHITECTURE BASELINE`
-- **Accepted work map:** `TA-01` through `TA-08`
-- **Current active tranche:** `TA-01 + TA-02`
-- **Current tranche state:** DISCOVERY / DESIGN AUTHORIZED
-- **Authoring-session map review:** PASS FOR OPERATOR / PR REVIEW
-- **External PR review:** ALL ADMITTED FINDINGS REMEDIATED / THREADS RESOLVED
-- **Final branch and PR validation:** SUCCESS
+- **Current tranche:** `TA-01 + TA-02 — DISCOVERY / DESIGN AUTHORIZED`
 - **Aurora implementation:** PAUSED
 
 ## 2. Current direction
 
-Aurora product meaning is already deeply defined. The current objective is not another broad product-discovery cycle and not further decomposition of narrow Presence behavior.
+Aurora product meaning is already defined. Current work must establish the cross-system technical architecture before implementation resumes.
 
-The current objective is:
+A question is current only when it changes module/data ownership, dependency direction, process/runtime/deployment boundaries, contract compatibility, security/effect boundaries, storage/recovery ownership or the next implementation decision. Otherwise record a future consumer/reconsideration trigger and `DEFER` it.
 
-> Build the technical architecture map that will govern Aurora components, modules, runtime/process topology, repositories, contracts, data, security, cognition/Harness integration and operation before implementation resumes.
-
-The operator corrected a priority drift during SAR-A1:
-
-```text
-useful Stage A Presence/session detail
-→ preserve as accepted downstream constraint
-→ DEFER further micro-policy exploration
-
-cross-system technical architecture
-→ current priority
-```
-
-Questions are current only when they change a structural boundary, ownership, contract, process/runtime, security/effect boundary, data role or the next implementation decision.
-
-## 3. Accepted Technical Architecture Baseline map
-
-The accepted dependency order is:
+The accepted work order is:
 
 ```text
 TA-01 Logical modules and canonical ownership
@@ -93,29 +68,17 @@ TA-07 Brain, models, memory and Harness integration
 TA-08 Configuration, observability, deployment and operation
 ```
 
-Governing map:
+Owners:
 
 ```text
 docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md
-```
-
-Documentary execution plan:
-
-```text
 docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md
+docs/acceptance/2026-08-12-technical-architecture-baseline-merge-closeout.md
 ```
 
-The map is not a new ACRM gate, lifecycle or score. It is the ordered program-level architecture work inside the accepted System Architecture Rebaseline.
+This map is not a new ACRM gate, lifecycle or score.
 
-## 4. Current active tranche — TA-01 + TA-02
-
-The operator authorized discovery/design for:
-
-```text
-TA-01 — Logical modules and canonical ownership
-+
-TA-02 — Process, runtime and evolutionary topology
-```
+## 3. Current tranche — TA-01 + TA-02
 
 The tranche must produce:
 
@@ -132,140 +95,90 @@ The tranche must produce:
 11. `DECIDE / RESEARCH / SPIKE / DEFER` register;
 12. exact inputs required before TA-03 repository architecture.
 
-TA-01 and TA-02 are coupled because process placement must follow coherent ownership, while proposed modules must be tested against real runtime/failure/security boundaries.
+TA-01 and TA-02 are coupled: process placement follows ownership, while module boundaries must survive real runtime and failure analysis.
 
-## 5. Review and validation evidence
-
-Fixed adversarial-review target:
+## 4. Promotion evidence
 
 ```text
-5f22d83ba4bf7e893c4857bf887eabbe4aef1feb
+final PR head: d49d093dbeea1d8eafa91294f9368b157e30123f
+final push run: 31620696722 — SUCCESS
+final PR run: 31620703690 — SUCCESS
+merge commit: b6fb31c46aa709aa5a93eca57076bf7f4ab2b71d
+canonical merge run: 31620818155 — SUCCESS
+review threads: 3 / 3 RESOLVED
 ```
 
-Authoring-session review record:
+Review fixes restored the mandatory bootstrap order, added the material `WORKLOG` entry and clarified activation-detection terminology. Reviews and CI do not accept a future TA-01/TA-02 design or authorize implementation.
 
-```text
-docs/reviews/2026-08-12-technical-architecture-baseline-map-review.md
-review commit: ec8e5582cd374b80102305f360af5fb4304c4ddf
-verdict: PASS FOR OPERATOR / PR REVIEW
-```
+## 5. Authorized work
 
-External PR review admitted and resolved:
+Authorized:
 
-1. mandatory fresh-session bootstrap order omitted canonical ownership/product/roadmap inputs;
-2. the material package was missing from `docs/tracking/WORKLOG.md`;
-3. one activation sentence used ambiguous `recognition` terminology instead of `activation detection`.
+- inspect accepted Blueprint, ADR, research, M0 and frozen-R7 evidence relevant to TA-01/TA-02;
+- derive and challenge the minimum coherent component set;
+- map responsibility, entity/data ownership and dependency directions;
+- compare 2–3 complete Stage A module/runtime approaches;
+- define always-active/on-demand responsibilities, process boundaries, failure domains, restart ownership and runtime scope;
+- map bounded Stage B evolution;
+- research current primary sources where they change a near decision;
+- specify an Architecture Spike where documentary evidence is insufficient;
+- prepare and review the TA-01/TA-02 design package.
 
-Final reviewed branch head before this tracking closeout:
+Not authorized:
 
-```text
-5bbcd76aa9618315379baa2eb3a29b2378e81b93
-```
-
-Final validation of that semantic head:
-
-```text
-push Documentation run 31620488476 — SUCCESS
-PR Documentation run 31620493087 — SUCCESS
-all three review threads — RESOLVED / OUTDATED
-```
-
-Earlier package validation remained green:
-
-```text
-Documentation run 31618020814 — SUCCESS
-review-commit run 31618361364 — SUCCESS
-canonical documents / IDs at reviewed target: 130 / 130
-```
-
-The authoring-session review is not an independent technical-architecture acceptance verdict. External review strengthened documentation continuity and terminology but does not authorize implementation.
-
-## 6. Current authorized work
-
-The current authorization permits:
-
-- canonical promotion of PR #4 after this final tracking-only closeout validates;
-- inspection of accepted Blueprint, ADR, research and M0 artifacts relevant to TA-01/TA-02;
-- inspection of the frozen R7 candidate as evidence only;
-- deriving and challenging candidate technical components;
-- defining canonical responsibility and data ownership;
-- defining allowed/forbidden dependencies;
-- comparing 2–3 complete Stage A topology approaches;
-- mapping Stage B evolution without designing Stage B in full;
-- current primary-source research only where it changes a near decision;
-- Architecture Spike specifications where runtime evidence would be required;
-- preparing a fixed, reviewable TA-01/TA-02 design package;
-- documentation validation and adversarial review.
-
-## 7. Explicitly prohibited
-
-The current authorization does **not** permit:
-
-- merging PR #4 if this final tracking closeout fails validation or a new material finding opens;
-- new Aurora runtime implementation;
-- continuation, modification, merge or promotion of the frozen M0 R7 candidate;
-- an M0 R7 acceptance Verdict;
-- M0 R8 closeout;
+- Aurora runtime implementation;
+- modifying, merging or promoting the frozen M0 R7 candidate;
+- an M0 R7 Verdict or M0 R8 closeout;
 - M1+ implementation;
-- Architecture Spike execution without separate exact authorization;
-- creating or restructuring production repositories;
-- selecting monorepo versus polyrepo before TA-01/TA-02 review;
-- selecting a universal API protocol;
-- selecting a new database/store before TA-05 requirements;
-- selecting Keycloak, Zitadel, Ory, Authentik, SPIFFE, OPA, Cedar, Vault or equivalents before TA-06 modeling;
-- implementing AHDK, MNFS or a Mastra adapter;
-- implementing Brain, memory, Voice, Presence, model routing or observability systems;
-- treating M0 Go/SQLite/JSON-JCS/OTel decisions as universal;
-- returning to detailed Presence/session policy unless it materially changes TA-01/TA-02;
-- creating another readiness lifecycle, score or authority hierarchy.
+- Architecture Spike execution;
+- creating/restructuring production repositories;
+- selecting monorepo/polyrepo before TA-01/TA-02 review;
+- selecting universal APIs, new stores or identity/policy/secrets products before their owning technical tranche;
+- implementing AHDK, MNFS, Mastra adapter, Brain, memory, Voice, Presence, model routing or observability systems;
+- treating M0 Go/SQLite/JSON-JCS/OTel choices as universal;
+- returning to Presence/session micro-policy unless structurally material.
 
-## 8. Preserved Stage A constraints
+## 6. Preserved Stage A inputs
 
-The following are accepted but not the current discussion priority:
+Accepted downstream constraints:
 
 - one Leandro-controlled workstation is the Stage A sovereign host and first Presence;
 - minimum Core and activation responsibilities may remain available;
 - heavy cognition starts on demand;
-- activation belongs to Presence semantics;
-- button/UI/hotkey are baseline activation classes;
+- activation is Presence-owned;
+- button/UI/hotkey are baseline trigger classes;
 - local wake word is optional;
 - activation is not authentication or authority;
 - while locked, Aurora may acknowledge availability but requires unlock before private interaction.
 
-These are consumed as TA-02 inputs and future Presence/Voice constraints. Further user/session-policy decomposition is `DEFER`.
+Further Presence micro-policy is `DEFER` unless it changes TA-01/TA-02.
 
-## 9. Current blocker
+## 7. Blocker and next action
 
 ```text
-PR #4 CANONICAL PROMOTION: AUTHORIZED / FINAL TRACKING CLOSEOUT VALIDATION PENDING
 TA-01/TA-02 DESIGN: NOT YET PRODUCED OR REVIEWED
 TA-03 FINALIZATION: BLOCKED ON TA-01/TA-02
-AURORA IMPLEMENTATION RESUMPTION: BLOCKED
+AURORA IMPLEMENTATION: BLOCKED
 ARCHITECTURE SPIKE EXECUTION: NOT AUTHORIZED
 ```
 
-This is an intentional architecture-readiness block, not a rejection of Aurora or of the frozen M0 candidate.
-
-## 10. Immediate next action
+Next:
 
 ```text
-validate this final tracking-only closeout
-→ verify PR mergeability and no unresolved review threads
-→ merge PR #4 under the operator's explicit authorization
-→ verify canonical main
-→ record canonical promotion closeout
-→ begin TA-01/TA-02 discovery dialogue
+begin TA-01/TA-02 discovery
+→ derive minimum coherent components
+→ define canonical ownership and dependency rules
+→ compare 2–3 module/runtime approaches
+→ recommend one with explicit trade-offs
+→ present design for operator review
+→ STOP before TA-03 finalization, Spike execution or implementation
 ```
 
-Exact TA-01/TA-02 question after canonical promotion:
+First question:
 
-> What is the minimum set of technical components required to preserve Aurora's accepted ownership boundaries, and which of those components should share or cross a process boundary in Stage A?
+> What is the minimum set of technical components required to preserve Aurora's accepted ownership boundaries, and which should share or cross a process boundary in Stage A?
 
-No repository, stack or runtime implementation decision follows automatically.
-
-## 11. Fresh-session mandatory orientation
-
-Every new session must follow the repository bootstrap order in `AGENTS.md` before adding scoped technical-architecture material.
+## 8. Fresh-session read order
 
 After `AGENTS.md`, a new technical-architecture session must read:
 
@@ -280,4 +193,4 @@ After `AGENTS.md`, a new technical-architecture session must read:
 9. relevant Product Blueprint sections and scoped ADRs;
 10. current TA-01/TA-02 artifacts.
 
-The session must not restart product discovery, continue Presence micro-policy by default, choose frameworks first or implement code.
+Do not restart product discovery, continue Presence micro-policy by default, choose frameworks first or implement code.
