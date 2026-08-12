@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.26.0
+version: 0.27.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -20,6 +20,7 @@ related:
   - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
+  - REVIEW-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-2026-08-12
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-WORKLOG
 last_reviewed: 2026-08-12
@@ -41,7 +42,8 @@ last_reviewed: 2026-08-12
 - **M0 R7 execution candidate:** EXISTS ON NON-CANONICAL BRANCH
 - **R7 independent Verdict:** NOT ISSUED
 - **M0 R8 closeout:** NOT AUTHORIZED / NOT PERFORMED
-- **Current program mode:** `SYSTEM ARCHITECTURE REBASELINE`
+- **Current program mode:** `SYSTEM ARCHITECTURE REBASELINE — INITIAL LANDSCAPE READY FOR OPERATOR REVIEW`
+- **Rebaseline documentary review:** PASS for operator review
 - **Aurora implementation expansion:** PAUSED
 
 ## 2. Canonical versus candidate implementation state
@@ -71,7 +73,7 @@ The candidate is therefore:
 - not authority to continue TASK-13;
 - not a universal Aurora architecture or stack baseline.
 
-## 3. Why implementation is paused
+## 3. Why implementation remains paused
 
 The operator identified that Aurora is a system of systems and that further implementation expansion would be premature without a coherent cross-system technical architecture map covering, at the required level of maturity:
 
@@ -89,23 +91,51 @@ The operator identified that Aurora is a system of systems and that further impl
 
 The operator accepted `DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE` v0.1.0 and directed the program to perform this rebaseline before resuming Aurora implementation.
 
-## 4. Current authorized work
+The initial documentary package now exists and has passed adversarial review, but its global Architecture Decision Landscape remains `proposed`. Operator review and canonical promotion are still required before the next architecture program is selected.
+
+## 4. Current documentary evidence
+
+Reviewed package target:
+
+```text
+dab298a4b4f72ad98973534dc136122f2dd25fe3
+```
+
+Adversarial review record:
+
+```text
+docs/reviews/2026-08-12-system-architecture-rebaseline-review.md
+review commit: d7d501f48b7f01cb4de42fab2f9ca177e76c4a0f
+verdict: PASS for operator review
+```
+
+Mechanical validation of the review commit:
+
+```text
+Documentation workflow run: 31609180094
+result: SUCCESS
+canonical documents / IDs: 122 / 122
+```
+
+The review resolved all blocking/material findings and preserves one explicit material non-blocking limitation: the authoring session is not an independent acceptance authority. Operator/PR review remains mandatory.
+
+## 5. Current authorized work
 
 The current authorization permits only:
 
-- faithful documentary promotion of the accepted rebaseline design;
-- System Architecture mapping and dependency analysis;
-- classification of open questions as `DECIDE`, `RESEARCH`, `SPIKE` or `DEFER`;
+- draft PR creation and operator review of the rebaseline package;
+- corrections requested by operator/reviewer within the approved design scope;
+- System Architecture mapping and dependency analysis after separate confirmation of the next architecture work package;
 - current primary-source research for questions that change a near architecture decision;
 - Architecture Spike specifications;
 - Architecture Spike execution only after separate explicit operator authorization;
 - ADR/Specification/Standard proposals for decisions that become material;
 - inspection of the frozen R7 branch as evidence;
-- documentation validation, adversarial review and fixed-revision operator review.
+- documentation validation and fresh-session/reviewer checks when requested.
 
 The software-development Harness may be improved in its own project and may later build/verify Aurora. It is not an Aurora sovereign runtime dependency and no integration is authorized here.
 
-## 5. Explicitly prohibited
+## 6. Explicitly prohibited
 
 The current direction does **not** authorize:
 
@@ -121,16 +151,17 @@ The current direction does **not** authorize:
 - unapproved Architecture Spike execution;
 - choosing authentication, policy, database, API, broker, observability, Voice or model products outside the accepted decision path;
 - creation of another readiness gate, lifecycle, score or authority hierarchy;
-- treating M0-scoped Go/SQLite/JSON-JCS/OTel decisions as universal Aurora mandates.
+- treating M0-scoped Go/SQLite/JSON-JCS/OTel decisions as universal Aurora mandates;
+- interpreting the documentary PASS as completed System Architecture or implementation authority.
 
-## 6. Current governing architecture artifacts
+## 7. Current governing architecture artifacts
 
 ```text
 Product meaning and logical architecture
 → accepted Product Blueprint
 
 Blueprint-to-build lifecycle
-→ DOC-AURORA-CAPABILITY-REALIZATION-METHOD
+→ DOC-AURORA-CAPABILITY-REALIZATION-METHOD v0.2.0
 
 Accepted program rebaseline design
 → DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
@@ -141,42 +172,44 @@ Proposed global question/dependency map
 Specific accepted technical decisions
 → ADR-AURORA-0001..0009 within exact scope
 
+Review evidence
+→ REVIEW-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-2026-08-12
+
 Current authorization/next action
 → this STATUS
 ```
 
 A detailed landscape entry is not an accepted technical decision. Material choices still require their proper ADR/Specification/Contract authority.
 
-## 7. Current blocker
+## 8. Current blocker
 
-The global System Architecture Rebaseline package is not yet mechanically validated, adversarially reviewed and presented at a fixed revision for operator review.
+The package has not yet received operator review/canonical promotion, and the proposed Landscape does not yet contain accepted answers for system context, module ownership, data ownership or Stage A/B topology.
 
 Therefore:
 
 ```text
 AURORA IMPLEMENTATION RESUMPTION: BLOCKED
+NEXT ARCHITECTURE PROGRAM: NOT YET AUTHORIZED
 ```
 
 This is a deliberate architecture-readiness block, not a rejection of the product or the M0 candidate.
 
-## 8. Immediate next action
+## 9. Immediate next action
 
 ```text
-complete the initial global Architecture Decision Landscape
-→ validate documentation structure and generated projections
-→ run adversarial rebaseline review
-→ remediate admitted findings
-→ present one fixed documentary revision to the operator
-→ STOP
+open draft PR from docs/system-architecture-rebaseline-20260812 to main
+→ present final branch/PR and evidence to the operator
+→ operator reviews ACCEPT / REVISE / REJECT
+→ STOP without merge or architecture-program execution
 ```
 
-After operator review, the next architecture work should reduce the near-horizon questions in this order unless a material Finding changes it:
+After operator acceptance/canonical promotion, the recommended next architecture work is to reduce near-horizon uncertainty in this order, subject to separate authorization:
 
 1. system context and trust boundaries;
 2. logical modules and canonical state/data ownership;
 3. identity classes and actor chain;
 4. data categories, portability and deletion ownership;
 5. Stage A/B topology and failure domains;
-6. first executable-horizon program, likely M1 memory/context readiness, for separate authorization.
+6. selection of the first executable-horizon architecture program, likely M1 memory/context readiness.
 
-No implementation follows automatically from completing this documentary package.
+No implementation follows automatically from completing or merging this documentary package.
