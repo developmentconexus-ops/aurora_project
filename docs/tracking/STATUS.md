@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.27.0
+version: 0.28.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -33,7 +33,10 @@ last_reviewed: 2026-08-12
 - **Project:** Projeto Aurora
 - **Canonical branch:** `main`
 - **Canonical `main` revision at rebaseline start:** `e7ca5ffb652fbbd68b35d4434506c58d26daf0e1`
-- **Current documentary work branch:** `docs/system-architecture-rebaseline-20260812`
+- **Current documentary branch:** `docs/system-architecture-rebaseline-20260812`
+- **Draft PR:** `#3 — docs: establish Aurora System Architecture Rebaseline`
+- **PR target:** `main`
+- **PR state:** OPEN / DRAFT / NOT MERGED
 - **A0 — Product, Discovery and Architecture Baseline:** ACCEPTED / MERGED
 - **ADR-0001 / ADR-0002:** ACCEPTED
 - **First Product Milestone:** `M0 — Sovereign Core Walking Skeleton` — SELECTED
@@ -42,7 +45,7 @@ last_reviewed: 2026-08-12
 - **M0 R7 execution candidate:** EXISTS ON NON-CANONICAL BRANCH
 - **R7 independent Verdict:** NOT ISSUED
 - **M0 R8 closeout:** NOT AUTHORIZED / NOT PERFORMED
-- **Current program mode:** `SYSTEM ARCHITECTURE REBASELINE — INITIAL LANDSCAPE READY FOR OPERATOR REVIEW`
+- **Current program mode:** `SYSTEM ARCHITECTURE REBASELINE — AWAITING OPERATOR REVIEW`
 - **Rebaseline documentary review:** PASS for operator review
 - **Aurora implementation expansion:** PAUSED
 
@@ -109,12 +112,22 @@ review commit: d7d501f48b7f01cb4de42fab2f9ca177e76c4a0f
 verdict: PASS for operator review
 ```
 
-Mechanical validation of the review commit:
+Final pre-PR branch validation:
 
 ```text
-Documentation workflow run: 31609180094
+branch head: a4842ed1aa011d6e14c1bcfb79a5aee63793826b
+Documentation workflow run: 31609306040
 result: SUCCESS
 canonical documents / IDs: 122 / 122
+```
+
+Draft PR validation:
+
+```text
+PR: #3
+Documentation workflow run: 31609511871
+result: SUCCESS
+PR remains draft and unmerged
 ```
 
 The review resolved all blocking/material findings and preserves one explicit material non-blocking limitation: the authoring session is not an independent acceptance authority. Operator/PR review remains mandatory.
@@ -123,15 +136,16 @@ The review resolved all blocking/material findings and preserves one explicit ma
 
 The current authorization permits only:
 
-- draft PR creation and operator review of the rebaseline package;
-- corrections requested by operator/reviewer within the approved design scope;
-- System Architecture mapping and dependency analysis after separate confirmation of the next architecture work package;
+- operator review of draft PR #3;
+- corrections explicitly requested by the operator/reviewer within the approved design scope;
+- documentation validation after any requested correction;
+- System Architecture mapping and dependency analysis only after separate confirmation of the next architecture work package;
 - current primary-source research for questions that change a near architecture decision;
 - Architecture Spike specifications;
 - Architecture Spike execution only after separate explicit operator authorization;
 - ADR/Specification/Standard proposals for decisions that become material;
 - inspection of the frozen R7 branch as evidence;
-- documentation validation and fresh-session/reviewer checks when requested.
+- fresh-session/reviewer checks when requested.
 
 The software-development Harness may be improved in its own project and may later build/verify Aurora. It is not an Aurora sovereign runtime dependency and no integration is authorized here.
 
@@ -139,6 +153,8 @@ The software-development Harness may be improved in its own project and may late
 
 The current direction does **not** authorize:
 
+- automatic or assistant-initiated merge of PR #3;
+- marking PR #3 ready for review without operator direction;
 - new Aurora runtime implementation;
 - continuation of M0 R7 TASK-13;
 - modification or expansion of `feat/m0-r7-sovereign-core-20260810`;
@@ -175,6 +191,9 @@ Specific accepted technical decisions
 Review evidence
 → REVIEW-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-2026-08-12
 
+Current review container
+→ GitHub draft PR #3
+
 Current authorization/next action
 → this STATUS
 ```
@@ -190,6 +209,7 @@ Therefore:
 ```text
 AURORA IMPLEMENTATION RESUMPTION: BLOCKED
 NEXT ARCHITECTURE PROGRAM: NOT YET AUTHORIZED
+PR #3 MERGE: NOT AUTHORIZED
 ```
 
 This is a deliberate architecture-readiness block, not a rejection of the product or the M0 candidate.
@@ -197,10 +217,22 @@ This is a deliberate architecture-readiness block, not a rejection of the produc
 ## 9. Immediate next action
 
 ```text
-open draft PR from docs/system-architecture-rebaseline-20260812 to main
-→ present final branch/PR and evidence to the operator
-→ operator reviews ACCEPT / REVISE / REJECT
-→ STOP without merge or architecture-program execution
+operator reviews draft PR #3
+→ ACCEPT | REVISE | REJECT
+→ STOP without merge unless the operator separately directs promotion
+```
+
+Decision meanings:
+
+```text
+ACCEPT
+→ approve the documentary rebaseline package for canonical promotion only
+
+REVISE
+→ return exact requested changes; implementation remains paused
+
+REJECT
+→ preserve current main and frozen R7 candidate; supersede the proposal explicitly
 ```
 
 After operator acceptance/canonical promotion, the recommended next architecture work is to reduce near-horizon uncertainty in this order, subject to separate authorization:
@@ -212,4 +244,4 @@ After operator acceptance/canonical promotion, the recommended next architecture
 5. Stage A/B topology and failure domains;
 6. selection of the first executable-horizon architecture program, likely M1 memory/context readiness.
 
-No implementation follows automatically from completing or merging this documentary package.
+No implementation follows automatically from accepting or merging this documentary package.
