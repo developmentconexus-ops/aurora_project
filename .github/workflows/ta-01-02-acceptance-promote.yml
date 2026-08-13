@@ -1,0 +1,242 @@
+name: Record TA-01/TA-02 Operator Acceptance
+
+on:
+  push:
+    branches:
+      - docs/ta-01-02-module-runtime-topology-20260812
+    paths:
+      - .github/workflows/ta-01-02-acceptance-promote.yml
+
+permissions:
+  contents: write
+
+jobs:
+  record-acceptance:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: docs/ta-01-02-module-runtime-topology-20260812
+          fetch-depth: 0
+
+      - name: Record accepted lifecycle and continuity
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          accepted_date = '2026-08-13'
+          fixed_design = '965211ad421f13994285031bbcf04b7e943cf75e'
+          evidence_id = 'DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE'
+
+          # Acceptance evidence.
+          acceptance = Path('docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md')
+          if not acceptance.exists():
+              acceptance.write_text(f'''---
+id: {evidence_id}
+title: TA-01/TA-02 Module and Runtime Topology Operator Acceptance
+document_type: operator_acceptance
+form: reference
+authority: evidence
+status: current
+version: 1.0.0
+owners:
+  - developmentconexus-ops
+source_of_truth_for:
+  - operator acceptance of TA-01 logical module and canonical ownership baseline
+  - operator acceptance of TA-02 Stage A and Stage B runtime topology direction
+  - operator acceptance of Approach C, G01, C01-C12, A05 and B01 semantics
+related:
+  - DESIGN-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY
+  - REVIEW-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY-2026-08-12
+  - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
+  - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
+  - DOC-AURORA-STATUS
+  - DOC-AURORA-DECISIONS
+  - DOC-AURORA-WORKLOG
+accepted_design_version: 0.5.0
+accepted_design_commit: {fixed_design}
+operator_decision: ACCEPT
+recorded_at: {accepted_date}
+last_reviewed: {accepted_date}
+---
+
+# TA-01/TA-02 Module and Runtime Topology — Operator Acceptance
+
+## 1. Decision
+
+After the reviewed TA-01/TA-02 package was presented with the explicit gate `ACCEPT | REVISE | REJECT`, the operator responded:
+
+> `Accept`
+
+This is recorded as explicit operator **ACCEPT** of `DESIGN-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY` v0.5.0, semantically fixed at:
+
+```text
+{fixed_design}
+```
+
+## 2. Accepted architecture
+
+The acceptance covers the reviewed TA-01/TA-02 semantic design, including:
+
+```text
+G01 Contract Model Governance
+
+C01 Identity and Relationship
+C02 Project, World and Experiment State
+C03 Intent, Mission and Delegation Control
+C04 Authority and Policy
+C05 Capability and Provider Registry
+C06 Memory, Knowledge and Context
+C07 Artifact, Observation and Evidence
+C08 Presence and Interaction
+C09 Attention and Proactivity                [future/deferred]
+C10 Failure Intelligence and Evaluation      [future/deferred]
+C11 Environment and Device Registry          [future/deferred]
+C12 Audit and Exact History
+```
+
+and the application/runtime boundaries:
+
+```text
+A01 Core Application Coordination
+A02 Cognitive Coordination
+A03 Capability Fabric / Harness Integration
+A04 Durable Execution Port
+A05 Runtime Lifecycle Coordination
+B01 Transport-neutral Provider Runtime Boundary Profile
+E01 Effect Gateway family
+E02 Credential Broker boundary
+```
+
+The accepted Stage A topology direction is **Approach C — Evolutionary Sovereign Host with one early provider-runtime seam**.
+
+## 3. Acceptance meaning
+
+The decision accepts:
+
+- one small persistent Sovereign Host as the Stage A composition boundary;
+- canonical ownership remaining modular even when physically co-located;
+- a separate on-demand Cognitive Runtime at the first real consumer;
+- provider-local state remaining non-canonical;
+- G01 as the owner of cross-system contract semantics;
+- C03 as owner of validated interpreted Intent before explicit Mission promotion;
+- C12 as owner of Audit and L4 exact history;
+- A05 as Aurora-side runtime lifecycle-policy owner;
+- B01 lifecycle, identity, idempotency, cancellation, retry and reconciliation semantics before transport selection;
+- Stage B evolution without changing Aurora domain identity or canonical ownership;
+- environment-bound provider instances being re-registered/re-approved after migration.
+
+## 4. Explicit non-authorization
+
+This acceptance does **not** authorize:
+
+- merging PR #5 by implication;
+- Aurora runtime implementation;
+- continuation or promotion of the frozen M0 R7 candidate;
+- M0 R8;
+- M1+ implementation;
+- Architecture Spike execution;
+- TA-03 repository strategy finalization;
+- TA-04 protocol/binding finalization;
+- TA-05 storage finalization;
+- TA-06 authentication/policy/secrets product selection;
+- TA-07 Mastra/Cognitive Runtime implementation;
+- TA-08 supervisor/deployment/observability finalization;
+- monorepo/polyrepo, universal language, transport, store, authentication, policy, secrets, supervisor, model or Voice product selection.
+
+## 5. Promotion boundary
+
+The accepted semantic revision may now receive lifecycle metadata, tracking updates and promotion evidence without changing the accepted architecture meaning.
+
+```text
+operator ACCEPT
+→ lifecycle promotion on review branch
+→ documentation validation
+→ separate explicit merge/promotion authorization
+→ canonical merge only after that authorization
+```
+
+Until merge authorization is separately given, PR #5 remains open and `main` remains canonical without this accepted package.
+''', encoding='utf-8')
+
+          # Promote design lifecycle without changing accepted semantics.
+          design_path = Path('docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md')
+          design = design_path.read_text(encoding='utf-8')
+          design = design.replace(
+              'status: proposed\nversion: 0.5.0',
+              f'status: accepted\naccepted_at: {accepted_date}\nacceptance_evidence: {evidence_id}\naccepted_from_commit: {fixed_design}\nversion: 0.5.0',
+              1,
+          )
+          design = design.replace('  - proposed minimum coherent Aurora technical component set', '  - accepted minimum coherent Aurora technical component set', 1)
+          design = design.replace('  - proposed canonical module and entity ownership for TA-01', '  - accepted canonical module and entity ownership for TA-01', 1)
+          design = design.replace('  - proposed Stage A process and runtime topology for TA-02', '  - accepted Stage A process and runtime topology for TA-02', 1)
+          design = design.replace('  - proposed Stage B evolutionary topology and process split triggers', '  - accepted Stage B evolutionary topology and process split triggers', 1)
+          design = design.replace('  - proposed transport-neutral provider runtime boundary profile', '  - accepted transport-neutral provider runtime boundary profile', 1)
+          design = design.replace('  - proposed TA-01 and TA-02 decision disposition register', '  - accepted TA-01 and TA-02 decision disposition register', 1)
+          design = design.replace(
+              'The design remains **proposed** until operator acceptance. It does not authorize implementation, TA-03 finalization, Architecture Spike execution, M0 R7 continuation or M0 R8.',
+              'The design is **operator accepted for canonical promotion** through `DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE`. Acceptance does not authorize implementation, TA-03 finalization, Architecture Spike execution, M0 R7 continuation, M0 R8 or merge by implication.',
+              1,
+          )
+          design = design.replace(
+              'Until acceptance:\n\n```text\nproposal NON-CANONICAL\nTA-03/04/05/08 finalization BLOCKED\nSpikes NOT AUTHORIZED\nimplementation PAUSED\n```',
+              'After operator acceptance and before canonical merge:\n\n```text\ndesign ACCEPTED / PROMOTION PENDING\nPR #5 MERGE REQUIRES SEPARATE AUTHORIZATION\nTA-03/04/05/08 finalization BLOCKED\nSpikes NOT AUTHORIZED\nimplementation PAUSED\n```',
+              1,
+          )
+          design_path.write_text(design, encoding='utf-8')
+
+          # Tracking: STATUS.
+          status_path = Path('docs/tracking/STATUS.md')
+          status = status_path.read_text(encoding='utf-8')
+          status = status.replace('version: 0.35.0', 'version: 0.36.0', 1)
+          status = status.replace('last_reviewed: 2026-08-12', 'last_reviewed: 2026-08-13', 1)
+          status = status.replace('  - REVIEW-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY-2026-08-12\n', '  - REVIEW-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY-2026-08-12\n  - DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE\n', 1)
+          status = status.replace('- **TA-01/TA-02 design:** PROPOSED v0.5.0', '- **TA-01/TA-02 design:** OPERATOR ACCEPTED v0.5.0 / PROMOTION PENDING', 1)
+          status = status.replace('- **Adversarial semantic review:** PASS FOR OPERATOR REVIEW', '- **Adversarial semantic review:** PASS / OPERATOR ACCEPTED', 1)
+          status = status.replace('status: proposed\n\nreview:', f'status: accepted\nacceptance evidence: docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md\naccepted from semantic commit: {fixed_design}\n\nreview:', 1)
+          status = status.replace('The package remains non-canonical until explicit operator acceptance and a separate merge/promotion authorization.', 'The package is operator accepted but remains non-canonical until a separate explicit merge/promotion authorization.', 1)
+          status = status.replace('- operator review of the fixed TA-01/TA-02 package and PR #5;\n- exact documentary corrections requested by the operator;\n- final normal documentation validation;\n- acceptance/promotion evidence preparation only after an explicit operator decision.', '- lifecycle promotion and validation of the operator-accepted TA-01/TA-02 package;\n- preparation of canonical merge/promotion evidence;\n- exact documentary corrections needed to preserve the accepted semantics;\n- requesting a separate explicit merge/promotion decision.', 1)
+          status = status.replace('TA-01/TA-02 OPERATOR DECISION: PENDING', 'TA-01/TA-02 OPERATOR DECISION: ACCEPTED', 1)
+          status = status.replace('final normal Documentation validation\n→ present Approach C + G01/C01–C12 + A05 + B01 to operator\n→ operator: ACCEPT | REVISE | REJECT\n→ STOP before merge, later-tranche finalization,\n  Architecture Spike execution or implementation', 'validate accepted-lifecycle promotion\n→ prepare fixed merge/promotion evidence\n→ request separate explicit merge authorization\n→ STOP before merge, later-tranche finalization,\n  Architecture Spike execution or implementation', 1)
+          status = status.replace('ACCEPT\n→ accept the TA-01/TA-02 semantic design for canonical promotion only\n→ merge still requires separate explicit promotion authorization\n\nREVISE\n→ return exact ownership/topology/lifecycle changes\n→ implementation remains paused\n\nREJECT\n→ preserve the accepted Technical Architecture Map\n→ replace this proposal through another reviewed TA-01/TA-02 design', 'OPERATOR ACCEPTED\n→ TA-01/TA-02 v0.5.0 is accepted for canonical promotion\n→ merge still requires separate explicit promotion authorization\n\nNEXT DECISION\n→ AUTHORIZE MERGE | HOLD PROMOTION\n→ implementation remains paused either way', 1)
+          status_path.write_text(status, encoding='utf-8')
+
+          # Tracking: DECISIONS.
+          decisions_path = Path('docs/tracking/DECISIONS.md')
+          decisions = decisions_path.read_text(encoding='utf-8')
+          decisions = decisions.replace('version: 0.8.0', 'version: 0.9.0', 1)
+          decisions = decisions.replace('last_reviewed: 2026-08-12', 'last_reviewed: 2026-08-13', 1)
+          decisions = decisions.replace('  - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE\n', '  - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE\n  - DESIGN-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY\n  - DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE\n', 1)
+          decisions = decisions.replace('| D-069 | the current active architecture tranche is TA-01 + TA-02, producing module ownership and Stage A/B process/runtime topology before repository or stack finalization | Technical Architecture Map + operator acceptance + STATUS | active/authorized |', '| D-069 | TA-01 + TA-02 is the accepted first Technical Architecture tranche, fixing module ownership and Stage A/B runtime-topology direction before repository or stack finalization | TA-01/TA-02 design + operator acceptance | accepted |\n| D-070 | canonical ownership is G01 Contract Model Governance plus C01–C12 domain owners, including C03 Intent ownership and C12 Audit/Exact History | TA-01/TA-02 design v0.5.0 + operator acceptance | accepted |\n| D-071 | Stage A uses Approach C: one small persistent Evolutionary Sovereign Host plus a separate on-demand provider-runtime seam at the first consumer; other process splits require evidence | TA-01/TA-02 design v0.5.0 + operator acceptance | accepted |\n| D-072 | A05 owns Aurora-side runtime lifecycle policy and B01 owns transport-neutral provider identity/lifecycle/idempotency/cancellation/reconciliation semantics before TA-04 selects a binding | TA-01/TA-02 design v0.5.0 + operator acceptance | accepted |', 1)
+          for row in [
+              '| O-015 | global logical module ownership and allowed dependency direction | TA-01 design and owning Specs/ADRs if material |\n',
+              '| O-021 | minimum coherent technical component set and canonical owner for each global concept | TA-01 current tranche |\n',
+              '| O-022 | Stage A same-process/separate-process boundaries and Stage B evolution | TA-02 current tranche |\n',
+          ]:
+              decisions = decisions.replace(row, '', 1)
+          decisions_path.write_text(decisions, encoding='utf-8')
+
+          # Append-only WORKLOG.
+          worklog_path = Path('docs/tracking/WORKLOG.md')
+          worklog = worklog_path.read_text(encoding='utf-8')
+          worklog = worklog.replace('version: 0.16.0', 'version: 0.17.0', 1)
+          worklog = worklog.replace('last_reviewed: 2026-08-12', 'last_reviewed: 2026-08-13', 1)
+          heading = '## 2026-08-13 — TA-01/TA-02 operator acceptance'
+          if heading not in worklog:
+              worklog = worklog.rstrip() + f'''\n\n{heading}\n\nThe reviewed TA-01/TA-02 v0.5.0 package was presented at the explicit operator gate `ACCEPT | REVISE | REJECT`. The operator responded `Accept`.\n\nAcceptance is bound to fixed semantic design commit:\n\n```text\n{fixed_design}\n```\n\nAccepted direction:\n\n- `G01 Contract Model Governance` plus canonical owners `C01–C12`;\n- C03 owns validated interpreted Intent before explicit Mission promotion;\n- C12 owns Audit Records and L4 exact history;\n- A05 owns Aurora-side runtime lifecycle policy;\n- B01 owns transport-neutral provider identity/lifecycle/idempotency/cancellation/reconciliation semantics;\n- Stage A adopts Approach C — one small persistent Evolutionary Sovereign Host plus one separate on-demand provider-runtime seam at first consumer;\n- Stage B preserves Aurora domain identity/ownership while environment-bound provider instances are re-registered and re-approved.\n\nOperator acceptance evidence:\n\n```text\ndocs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md\n```\n\nThis acceptance authorizes lifecycle promotion and canonical-promotion preparation only. It does not authorize PR #5 merge by implication, implementation, M0 R7/R8 continuation, Architecture Spike execution or TA-03+ finalization.\n\nExact next action:\n\n```text\nvalidate accepted-lifecycle promotion\n→ prepare fixed merge/promotion evidence\n→ request separate explicit merge authorization\n→ STOP before merge or later-tranche implementation\n```\n'''
+          worklog_path.write_text(worklog, encoding='utf-8')
+
+          # Remove this temporary workflow from the resulting branch state.
+          Path('.github/workflows/ta-01-02-acceptance-promote.yml').unlink()
+          PY
+
+      - name: Commit acceptance record
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "docs(architecture): record TA-01 and TA-02 operator acceptance"
+          git push origin HEAD:docs/ta-01-02-module-runtime-topology-20260812
