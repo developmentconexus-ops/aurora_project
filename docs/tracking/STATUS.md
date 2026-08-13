@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.36.0
+version: 0.37.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -51,7 +51,7 @@ last_reviewed: 2026-08-13
 - **Review threads:** ALL RESOLVED / OUTDATED
 - **Aurora implementation:** PAUSED
 
-## 2. Fixed operator-review package
+## 2. Fixed accepted package
 
 ```text
 design:
@@ -70,14 +70,14 @@ verdict: PASS FOR OPERATOR REVIEW
 
 continuity:
 docs/tracking/WORKLOG.md
-version: 0.16.0
-final append commit: ba12f9b3f9793173b45a40d5f1f231a2e3985363
-temporary-workflow removal: 3f720eb1785579ba3cc7c5df3c76e1cfcff8f3c9
+version: 0.17.0
+operator acceptance recorded: 2026-08-13
+acceptance-promotion revision before final tracking alignment: d575ce64f82029212b8f9ca65d18883a5a03d776
 ```
 
 The package is operator accepted but remains non-canonical until a separate explicit merge/promotion authorization.
 
-## 3. Proposed TA-01 ownership baseline
+## 3. Accepted TA-01 ownership baseline
 
 ### 3.1 Governed semantic owner
 
@@ -129,7 +129,7 @@ E02 Credential Broker boundary
 
 A05 owns Aurora-side start, attach, readiness, drain, stop, restart and reconciliation policy for separately running providers. TA-08 may select Windows Service, systemd or another supervisor adapter, but cannot take lifecycle-policy ownership from A05.
 
-## 4. Proposed TA-02 Stage A topology
+## 4. Accepted TA-02 Stage A topology
 
 Three approaches were compared:
 
@@ -139,7 +139,7 @@ B — early service decomposition
 C — Evolutionary Sovereign Host with one early provider-runtime seam
 ```
 
-Recommendation:
+Accepted direction:
 
 ```text
 Approach C
@@ -236,11 +236,12 @@ Worklog append automation:      31625671777 — SUCCESS
 v0.5 Intent/A05 remediation:    31626534727 — SUCCESS
 final continuity automation:    31626750628 — SUCCESS
 review package PR validation:   31626893219 — SUCCESS
+pre-acceptance final push:      31627101712 — SUCCESS
+pre-acceptance final PR:        31627106535 — SUCCESS
+operator acceptance promotion:  31726177126 — SUCCESS
 ```
 
-The temporary branch-only workflows used for exact append/remediation were deleted and are absent from the intended final PR diff.
-
-A final normal Documentation run for this STATUS commit must be green before any promotion action.
+The temporary acceptance-promotion workflow removed itself from the resulting branch state. Final normal Documentation validation on the post-acceptance tracking revision is required before merge authorization can be requested.
 
 ## 9. Authorized work
 
@@ -300,8 +301,8 @@ AURORA IMPLEMENTATION: BLOCKED
 Exact next action:
 
 ```text
-validate accepted-lifecycle promotion
-→ prepare fixed merge/promotion evidence
+run final normal Documentation validation on accepted package
+→ update PR #5 promotion evidence
 → request separate explicit merge authorization
 → STOP before merge, later-tranche finalization,
   Architecture Spike execution or implementation
@@ -330,9 +331,10 @@ After `AGENTS.md`:
 5. `docs/design/AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP.md`;
 6. `docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md`;
 7. `docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md`;
-8. `docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md`;
-9. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
-10. relevant Product Blueprint sections and accepted ADRs;
-11. frozen R7 only as evidence when needed.
+8. `docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md`;
+9. `docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md`;
+10. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
+11. relevant Product Blueprint sections and accepted ADRs;
+12. frozen R7 only as evidence when needed.
 
 Do not restart broad product discovery, choose products before boundaries or implement code.
