@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.37.0
+version: 0.38.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -24,6 +24,7 @@ related:
   - DESIGN-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY
   - REVIEW-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY-2026-08-12
   - DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE
+  - DOC-AURORA-TA-01-02-MERGE-CLOSEOUT
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-WORKLOG
 last_reviewed: 2026-08-13
@@ -34,62 +35,56 @@ last_reviewed: 2026-08-13
 ## 1. Current summary
 
 - **Canonical branch:** `main`
-- **Canonical revision at TA-01/TA-02 start:** `9cbce1efe4f742f90623b894c0c1ba2eaa3cebcc`
-- **Current branch:** `docs/ta-01-02-module-runtime-topology-20260812`
-- **Current PR:** `#5 — docs: propose TA-01/TA-02 module and runtime topology`
-- **PR state:** OPEN / READY / NOT MERGED
 - **A0:** ACCEPTED / MERGED
 - **ADR-0001..0009:** ACCEPTED within exact scope
 - **M0 R0–R6:** PASS
 - **M0 R7 candidate:** FROZEN / PRESERVED / NON-CANONICAL
 - **M0 R7 Verdict:** NOT ISSUED
 - **M0 R8:** NOT AUTHORIZED / NOT PERFORMED
+- **System Architecture Rebaseline:** ACCEPTED / MERGED
 - **Technical Architecture Baseline map:** ACCEPTED / MERGED
-- **Current tranche:** `TA-01 + TA-02`
-- **TA-01/TA-02 design:** OPERATOR ACCEPTED v0.5.0 / PROMOTION PENDING
-- **Adversarial semantic review:** PASS / OPERATOR ACCEPTED
-- **Review threads:** ALL RESOLVED / OUTDATED
+- **TA-01:** ACCEPTED / MERGED / CANONICAL
+- **TA-02:** ACCEPTED / MERGED / CANONICAL
+- **PR #5:** MERGED
+- **TA-01/TA-02 canonical merge:** `c1311cd3df142316a4582ef1397258fe022eacbd`
+- **TA-01/TA-02 merge validation:** `31733481063 — SUCCESS`
+- **Next dependency-ordered tranche:** `TA-03 — Repository, source and build architecture`
+- **TA-03 authorization:** NOT YET AUTHORIZED
+- **Architecture Spike execution:** NOT AUTHORIZED
 - **Aurora implementation:** PAUSED
 
-## 2. Fixed accepted package
+## 2. Canonical TA-01/TA-02 package
 
 ```text
 design:
 docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md
 version: 0.5.0
-fixed semantic commit: 965211ad421f13994285031bbcf04b7e943cf75e
 status: accepted
-acceptance evidence: docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md
-accepted from semantic commit: 965211ad421f13994285031bbcf04b7e943cf75e
+fixed semantic commit: 965211ad421f13994285031bbcf04b7e943cf75e
 
-review:
-docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md
-version: 0.4.0
-review commit: e165b86998434b9840d0fd62bbe1dbffeef3b64b
-verdict: PASS FOR OPERATOR REVIEW
+operator acceptance:
+docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md
+operator decision: ACCEPT
 
-continuity:
-docs/tracking/WORKLOG.md
-version: 0.17.0
-operator acceptance recorded: 2026-08-13
-acceptance-promotion revision before final tracking alignment: d575ce64f82029212b8f9ca65d18883a5a03d776
+canonical promotion closeout:
+docs/acceptance/2026-08-13-ta-01-02-merge-closeout.md
+
+PR #5 final head:
+582438ab087108134815418a0a49de6337f11b23
+
+canonical merge:
+c1311cd3df142316a4582ef1397258fe022eacbd
 ```
 
-The package is operator accepted but remains non-canonical until a separate explicit merge/promotion authorization.
+## 3. Canonical ownership baseline
 
-## 3. Accepted TA-01 ownership baseline
-
-### 3.1 Governed semantic owner
+### Governed semantic owner
 
 ```text
-G01 — Contract Model Governance
+G01 Contract Model Governance
 ```
 
-G01 owns Aurora cross-system semantic contract families/versions, canonical meaning, compatibility, deprecation/removal, projection/generation authority and conformance criteria. It is a governed non-deployable owner, not a network service.
-
-Git/document repositories retain accepted artifact custody and commit history; they do not own G01 semantic meaning.
-
-### 3.2 Canonical domain owners
+### Aurora domain owners
 
 ```text
 C01 Identity and Relationship
@@ -106,15 +101,7 @@ C11 Environment and Device Registry          [future/deferred]
 C12 Audit and Exact History
 ```
 
-Important boundaries:
-
-- C03 owns validated interpreted Intent before explicit Mission promotion;
-- C07 owns Artifact/Observation/Measurement/Receipt/Evidence/Verdict records;
-- C12 separately owns attributable Audit Records and L4 exact interaction/tool/provider/domain-event history;
-- C06 memory/synthesis cannot replace C12 exact history or authoritative source state;
-- providers, models, Harnesses, Presences, indexes, telemetry systems and stores cannot directly commit canonical Aurora state.
-
-### 3.3 Application and enforcement components
+### Application, provider and enforcement boundaries
 
 ```text
 A01 Core Application Coordination
@@ -123,37 +110,36 @@ A03 Capability Fabric / Harness Integration
 A04 Durable Execution Port
 A05 Runtime Lifecycle Coordination
 
+B01 Transport-neutral Provider Runtime Boundary Profile
+
 E01 Effect Gateway family
 E02 Credential Broker boundary
 ```
 
-A05 owns Aurora-side start, attach, readiness, drain, stop, restart and reconciliation policy for separately running providers. TA-08 may select Windows Service, systemd or another supervisor adapter, but cannot take lifecycle-policy ownership from A05.
+Critical accepted boundaries:
 
-## 4. Accepted TA-02 Stage A topology
+- C03 owns validated interpreted Intent before explicit Mission promotion;
+- C12 owns attributable Audit Records and L4 exact history separately from memory, evidence and telemetry;
+- A05 owns Aurora-side runtime lifecycle policy;
+- B01 owns transport-neutral provider identity, lifecycle, idempotency, cancellation, retry and reconciliation semantics before TA-04 selects a binding;
+- providers, models, Harnesses, Presences, indexes, telemetry systems and storage mechanisms cannot directly commit canonical Aurora state;
+- only E01 produces Effect Receipts; providers may carry references only.
 
-Three approaches were compared:
-
-```text
-A — Core-centric single application
-B — early service decomposition
-C — Evolutionary Sovereign Host with one early provider-runtime seam
-```
-
-Accepted direction:
+## 4. Canonical Stage A topology
 
 ```text
-Approach C
+Approach C — Evolutionary Sovereign Host
 
 one small persistent Aurora Sovereign Host
-→ current Aurora-owned domain modules
+→ current Aurora-owned modules
 → A01 application coordination
 → A05 runtime lifecycle coordination
 → canonical state/recovery
 → C12 audit/exact-history append path
 → thin local Presence adapter initially co-packaged
 
-one separate on-demand Cognitive Runtime Provider at first consumer
-→ B01 transport-neutral lifecycle/reconciliation profile
+one separate on-demand Cognitive Runtime Provider at first real consumer
+→ B01 lifecycle/reconciliation boundary
 → Mastra/TypeScript remains preferred-first to evaluate
 → provider-local state only
 
@@ -163,164 +149,70 @@ all other process splits require a named lifecycle, runtime,
 security, privilege, fault, resource, remote-node or current-consumer trigger
 ```
 
-The existing M0 Go process may seed the Stage A Sovereign Host. This does **not** select Go for every future Aurora module; M1+ placement/language remains a consuming architecture/ADR decision.
+The accepted M0 Go runtime may seed the Stage A Sovereign Host. This is not a universal Go decision for every future Aurora module.
 
-## 5. B01 provider-runtime boundary
-
-Before TA-04 chooses any transport, B01 fixes:
-
-- `provider_id`, environment-bound `provider_instance_id` and per-start `runtime_incarnation_id`;
-- capability, semantic contract, schema and binding compatibility identity;
-- request, attempt, correlation and idempotency identity;
-- attenuated authority and Context Pack boundaries;
-- lifecycle and terminal-state meaning;
-- deadlines, acknowledged cancellation and retry rules;
-- ambiguous-completion reconciliation;
-- restart/snapshot recovery;
-- required response/error categories.
-
-Provider `SUCCEEDED` means provider execution completed. It does not commit global state, prove an external effect or close a Mission.
-
-After Stage B migration, exact provider environments receive new `provider_instance_id` registrations, fresh C05 approval snapshots and new `runtime_incarnation_id` values. Provider-local state is reconciled rather than imported as canonical truth.
-
-## 6. Canonical mutation, history and evidence path
+## 5. Validation and continuity
 
 ```text
-request/proposal
-→ A01 coordination
-→ canonical owner validation
-→ C04 authority/policy when required
-→ owner COMMIT
-→ C12 APPEND when audit/exact-history policy requires
-→ C07 evidence/receipt record when proof is required
-→ notification/projection
-```
-
-Only E01 produces an Effect Receipt. A provider may return a reference to that receipt, not manufacture it.
-
-## 7. Findings and review result
-
-Resolved findings include:
-
-1. missing Environment/Device owner;
-2. overlapping root and entity-specific identity ownership;
-3. incomplete Experiment/Observation allocation;
-4. accidental cross-horizon Go globalization;
-5. implicit Contract Model owner;
-6. missing provider lifecycle/reconciliation profile;
-7. missing Audit/L4 exact-history owner;
-8. missing interpreted Intent owner;
-9. missing multi-process lifecycle-policy owner;
-10. ambiguous provider Effect Receipt authority;
-11. missing Stage B provider re-registration semantics;
-12. Contract semantic authority versus Git custody ambiguity;
-13. missing Worklog/material continuity;
-14. minor heading and wording defects.
-
-Current verdict:
-
-```text
-blocking material findings open: 0
-material findings open: 0
-tracking findings open: 0
-```
-
-## 8. Validation evidence
-
-```text
-initial design:                 31623255539 — SUCCESS
-v0.2 ownership remediation:     31624034248 — SUCCESS
-v0.3 G01/B01 remediation:       31624510891 — SUCCESS
-v0.4 C12 remediation:           31624906154 — SUCCESS
-Worklog append automation:      31625671777 — SUCCESS
-v0.5 Intent/A05 remediation:    31626534727 — SUCCESS
-final continuity automation:    31626750628 — SUCCESS
-review package PR validation:   31626893219 — SUCCESS
 pre-acceptance final push:      31627101712 — SUCCESS
 pre-acceptance final PR:        31627106535 — SUCCESS
-operator acceptance promotion:  31726177126 — SUCCESS
+operator acceptance promotion: 31726177126 — SUCCESS
+post-acceptance final push:     31727095606 — SUCCESS
+post-acceptance final PR:       31727100155 — SUCCESS
+canonical merge validation:    31733481063 — SUCCESS
+closeout Worklog append:        31733899894 — SUCCESS
 ```
 
-The temporary acceptance-promotion workflow removed itself from the resulting branch state. Final normal Documentation validation on the post-acceptance tracking revision is required before merge authorization can be requested.
+The one-shot Worklog workflow removed itself from the resulting tree. Material history is recorded in `docs/tracking/WORKLOG.md` v0.18.0.
 
-## 9. Authorized work
+## 6. Explicit non-decisions
 
-Authorized now:
+No selection yet of:
 
-- lifecycle promotion and validation of the operator-accepted TA-01/TA-02 package;
-- preparation of canonical merge/promotion evidence;
-- exact documentary corrections needed to preserve the accepted semantics;
-- requesting a separate explicit merge/promotion decision.
-
-Not authorized:
-
-- merging PR #5 without separate explicit operator authorization;
-- Aurora runtime implementation;
-- modifying, merging or promoting the frozen M0 R7 candidate;
-- an M0 R7 Verdict or M0 R8 closeout;
-- M1+ implementation;
-- Architecture Spike execution;
-- TA-03 repository strategy finalization;
-- TA-04 binding/protocol finalization;
-- TA-05 storage finalization;
-- TA-06 authentication/policy/secrets product selection;
-- TA-07 Cognitive Runtime/Mastra implementation;
-- TA-08 supervisor/deployment/observability finalization;
-- creating or restructuring production repositories;
-- selecting monorepo/polyrepo, transport, stores, authentication or supervisor products by implication;
-- treating M0 Go/SQLite/JSON-JCS/OTel choices as universal;
-- returning to Presence/session micro-policy unless structurally material.
-
-## 10. Explicit non-decisions
-
-No selection of:
-
-- monorepo, polyrepo or package layout;
-- universal language;
+- monorepo, polyrepo or staged repository strategy;
+- package/source layout;
+- universal implementation language;
 - concrete Mastra version/integration;
-- HTTP, REST, gRPC, Connect, MCP, A2A, event transport or IPC;
-- schema language/code generator;
-- PostgreSQL, vector, graph, object or telemetry stores;
-- Keycloak, Zitadel, Authentik, Ory, SPIFFE, OPA, Cedar, Vault or equivalent;
+- HTTP, REST, gRPC, Connect, MCP, A2A, event transport or local IPC;
+- schema/code-generation technology;
+- PostgreSQL, vector, graph, object or telemetry stores beyond existing M0-scoped decisions;
+- authentication, authorization, policy or secrets products;
 - Windows Service, systemd, containers or Kubernetes;
 - model, Voice, sandbox, durable-engine or observability products;
 - device/laboratory protocol;
-- first AHDK language;
-- implementation plan or production code.
+- first AHDK language.
 
-## 11. Current blockers and exact next action
+## 7. Current authorization boundary
 
-```text
-TA-01/TA-02 OPERATOR DECISION: ACCEPTED
-PR #5 MERGE: NOT AUTHORIZED
-TA-03/TA-04/TA-05/TA-08 FINALIZATION: BLOCKED
-ARCHITECTURE SPIKE EXECUTION: NOT AUTHORIZED
-AURORA IMPLEMENTATION: BLOCKED
-```
+Authorized now:
 
-Exact next action:
+- canonical documentary closeout of TA-01/TA-02;
+- operator decision on whether to begin TA-03 discovery/design.
 
-```text
-run final normal Documentation validation on accepted package
-→ update PR #5 promotion evidence
-→ request separate explicit merge authorization
-→ STOP before merge, later-tranche finalization,
-  Architecture Spike execution or implementation
-```
+Not authorized:
 
-Decision meanings:
+- TA-03 discovery/design until explicitly approved by the operator;
+- production repository creation or restructuring;
+- Aurora runtime implementation;
+- M0 R7 continuation, Verdict or promotion;
+- M0 R8;
+- M1+ implementation;
+- Architecture Spike execution;
+- TA-04/TA-05/TA-06/TA-07/TA-08 finalization;
+- stack/product selection by implication.
+
+## 8. Exact next action
 
 ```text
-OPERATOR ACCEPTED
-→ TA-01/TA-02 v0.5.0 is accepted for canonical promotion
-→ merge still requires separate explicit promotion authorization
-
-NEXT DECISION
-→ AUTHORIZE MERGE | HOLD PROMOTION
-→ implementation remains paused either way
+operator decision:
+AUTHORIZE TA-03 DISCOVERY / DESIGN
+or
+HOLD TECHNICAL ARCHITECTURE PROGRAM
 ```
 
-## 12. Fresh-session read order
+If authorized, TA-03 must consume canonical TA-01/TA-02 boundaries and compare repository/source/build strategies before choosing monorepo/polyrepo, package layout, language placement, shared-contract source ownership or code-generation mechanics.
+
+## 9. Fresh-session read order
 
 After `AGENTS.md`:
 
@@ -332,9 +224,10 @@ After `AGENTS.md`:
 6. `docs/superpowers/plans/2026-08-12-aurora-technical-architecture-baseline.md`;
 7. `docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md`;
 8. `docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md`;
-9. `docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md`;
-10. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
-11. relevant Product Blueprint sections and accepted ADRs;
-12. frozen R7 only as evidence when needed.
+9. `docs/acceptance/2026-08-13-ta-01-02-merge-closeout.md`;
+10. `docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md`;
+11. `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md`;
+12. relevant Product Blueprint sections and accepted ADRs;
+13. frozen R7 only as evidence when needed.
 
-Do not restart broad product discovery, choose products before boundaries or implement code.
+Do not restart broad product discovery, choose products before boundaries, infer TA-03 authorization or implement Aurora.
