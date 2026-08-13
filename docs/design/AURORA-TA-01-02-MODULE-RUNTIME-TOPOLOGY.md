@@ -4,17 +4,20 @@ title: Aurora TA-01/TA-02 Module Ownership and Runtime Topology
 document_type: system_architecture_design
 form: reference
 authority: design
-status: proposed
+status: accepted
+accepted_at: 2026-08-13
+acceptance_evidence: DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE
+accepted_from_commit: 965211ad421f13994285031bbcf04b7e943cf75e
 version: 0.5.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
-  - proposed minimum coherent Aurora technical component set
-  - proposed canonical module and entity ownership for TA-01
-  - proposed Stage A process and runtime topology for TA-02
-  - proposed Stage B evolutionary topology and process split triggers
-  - proposed transport-neutral provider runtime boundary profile
-  - proposed TA-01 and TA-02 decision disposition register
+  - accepted minimum coherent Aurora technical component set
+  - accepted canonical module and entity ownership for TA-01
+  - accepted Stage A process and runtime topology for TA-02
+  - accepted Stage B evolutionary topology and process split triggers
+  - accepted transport-neutral provider runtime boundary profile
+  - accepted TA-01 and TA-02 decision disposition register
 related:
   - DOC-AURORA-STATUS
   - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
@@ -67,7 +70,7 @@ and how does the topology evolve to Stage B?
 
 It does not select repository strategy, wire protocol, universal database, authentication product, policy engine, service supervisor, model provider, Voice provider or observability backend.
 
-The design remains **proposed** until operator acceptance. It does not authorize implementation, TA-03 finalization, Architecture Spike execution, M0 R7 continuation or M0 R8.
+The design is **operator accepted for canonical promotion** through `DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE`. Acceptance does not authorize implementation, TA-03 finalization, Architecture Spike execution, M0 R7 continuation, M0 R8 or merge by implication.
 
 ---
 
@@ -1029,10 +1032,11 @@ REJECT
 
 Until acceptance:
 
-Until acceptance:
+After operator acceptance and before canonical merge:
 
 ```text
-proposal NON-CANONICAL
+design ACCEPTED / PROMOTION PENDING
+PR #5 MERGE REQUIRES SEPARATE AUTHORIZATION
 TA-03/04/05/08 finalization BLOCKED
 Spikes NOT AUTHORIZED
 implementation PAUSED

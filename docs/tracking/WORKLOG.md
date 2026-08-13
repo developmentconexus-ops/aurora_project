@@ -5,12 +5,12 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.16.0
+version: 0.17.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - chronological material work history
-last_reviewed: 2026-08-12
+last_reviewed: 2026-08-13
 ---
 
 # Aurora Worklog
@@ -944,4 +944,41 @@ fix the final review, STATUS and PR revision
 → ACCEPT | REVISE | REJECT
 → STOP before merge, later-tranche finalization,
   Architecture Spike execution or Aurora implementation
+```
+
+## 2026-08-13 — TA-01/TA-02 operator acceptance
+
+The reviewed TA-01/TA-02 v0.5.0 package was presented at the explicit operator gate `ACCEPT | REVISE | REJECT`. The operator responded `Accept`.
+
+Acceptance is bound to fixed semantic design commit:
+
+```text
+965211ad421f13994285031bbcf04b7e943cf75e
+```
+
+Accepted direction:
+
+- `G01 Contract Model Governance` plus canonical owners `C01–C12`;
+- C03 owns validated interpreted Intent before explicit Mission promotion;
+- C12 owns Audit Records and L4 exact history;
+- A05 owns Aurora-side runtime lifecycle policy;
+- B01 owns transport-neutral provider identity/lifecycle/idempotency/cancellation/reconciliation semantics;
+- Stage A adopts Approach C — one small persistent Evolutionary Sovereign Host plus one separate on-demand provider-runtime seam at first consumer;
+- Stage B preserves Aurora domain identity/ownership while environment-bound provider instances are re-registered and re-approved.
+
+Operator acceptance evidence:
+
+```text
+docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md
+```
+
+This acceptance authorizes lifecycle promotion and canonical-promotion preparation only. It does not authorize PR #5 merge by implication, implementation, M0 R7/R8 continuation, Architecture Spike execution or TA-03+ finalization.
+
+Exact next action:
+
+```text
+validate accepted-lifecycle promotion
+→ prepare fixed merge/promotion evidence
+→ request separate explicit merge authorization
+→ STOP before merge or later-tranche implementation
 ```

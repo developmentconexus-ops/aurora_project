@@ -5,7 +5,7 @@ document_type: project_status
 form: reference
 authority: tracking
 status: current
-version: 0.35.0
+version: 0.36.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -23,9 +23,10 @@ related:
   - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
   - DESIGN-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY
   - REVIEW-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY-2026-08-12
+  - DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-WORKLOG
-last_reviewed: 2026-08-12
+last_reviewed: 2026-08-13
 ---
 
 # Aurora Project Status
@@ -45,8 +46,8 @@ last_reviewed: 2026-08-12
 - **M0 R8:** NOT AUTHORIZED / NOT PERFORMED
 - **Technical Architecture Baseline map:** ACCEPTED / MERGED
 - **Current tranche:** `TA-01 + TA-02`
-- **TA-01/TA-02 design:** PROPOSED v0.5.0
-- **Adversarial semantic review:** PASS FOR OPERATOR REVIEW
+- **TA-01/TA-02 design:** OPERATOR ACCEPTED v0.5.0 / PROMOTION PENDING
+- **Adversarial semantic review:** PASS / OPERATOR ACCEPTED
 - **Review threads:** ALL RESOLVED / OUTDATED
 - **Aurora implementation:** PAUSED
 
@@ -57,7 +58,9 @@ design:
 docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md
 version: 0.5.0
 fixed semantic commit: 965211ad421f13994285031bbcf04b7e943cf75e
-status: proposed
+status: accepted
+acceptance evidence: docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md
+accepted from semantic commit: 965211ad421f13994285031bbcf04b7e943cf75e
 
 review:
 docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md
@@ -72,7 +75,7 @@ final append commit: ba12f9b3f9793173b45a40d5f1f231a2e3985363
 temporary-workflow removal: 3f720eb1785579ba3cc7c5df3c76e1cfcff8f3c9
 ```
 
-The package remains non-canonical until explicit operator acceptance and a separate merge/promotion authorization.
+The package is operator accepted but remains non-canonical until a separate explicit merge/promotion authorization.
 
 ## 3. Proposed TA-01 ownership baseline
 
@@ -243,10 +246,10 @@ A final normal Documentation run for this STATUS commit must be green before any
 
 Authorized now:
 
-- operator review of the fixed TA-01/TA-02 package and PR #5;
-- exact documentary corrections requested by the operator;
-- final normal documentation validation;
-- acceptance/promotion evidence preparation only after an explicit operator decision.
+- lifecycle promotion and validation of the operator-accepted TA-01/TA-02 package;
+- preparation of canonical merge/promotion evidence;
+- exact documentary corrections needed to preserve the accepted semantics;
+- requesting a separate explicit merge/promotion decision.
 
 Not authorized:
 
@@ -287,7 +290,7 @@ No selection of:
 ## 11. Current blockers and exact next action
 
 ```text
-TA-01/TA-02 OPERATOR DECISION: PENDING
+TA-01/TA-02 OPERATOR DECISION: ACCEPTED
 PR #5 MERGE: NOT AUTHORIZED
 TA-03/TA-04/TA-05/TA-08 FINALIZATION: BLOCKED
 ARCHITECTURE SPIKE EXECUTION: NOT AUTHORIZED
@@ -297,9 +300,9 @@ AURORA IMPLEMENTATION: BLOCKED
 Exact next action:
 
 ```text
-final normal Documentation validation
-→ present Approach C + G01/C01–C12 + A05 + B01 to operator
-→ operator: ACCEPT | REVISE | REJECT
+validate accepted-lifecycle promotion
+→ prepare fixed merge/promotion evidence
+→ request separate explicit merge authorization
 → STOP before merge, later-tranche finalization,
   Architecture Spike execution or implementation
 ```
@@ -307,17 +310,13 @@ final normal Documentation validation
 Decision meanings:
 
 ```text
-ACCEPT
-→ accept the TA-01/TA-02 semantic design for canonical promotion only
+OPERATOR ACCEPTED
+→ TA-01/TA-02 v0.5.0 is accepted for canonical promotion
 → merge still requires separate explicit promotion authorization
 
-REVISE
-→ return exact ownership/topology/lifecycle changes
-→ implementation remains paused
-
-REJECT
-→ preserve the accepted Technical Architecture Map
-→ replace this proposal through another reviewed TA-01/TA-02 design
+NEXT DECISION
+→ AUTHORIZE MERGE | HOLD PROMOTION
+→ implementation remains paused either way
 ```
 
 ## 12. Fresh-session read order

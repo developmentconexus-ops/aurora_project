@@ -5,7 +5,7 @@ document_type: decision_index
 form: reference
 authority: tracking
 status: current
-version: 0.8.0
+version: 0.9.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -17,7 +17,9 @@ related:
   - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
   - DOC-AURORA-TECHNICAL-ARCHITECTURE-MAP-OPERATOR-ACCEPTANCE
   - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
-last_reviewed: 2026-08-12
+  - DESIGN-AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY
+  - DOC-AURORA-TA-01-02-OPERATOR-ACCEPTANCE
+last_reviewed: 2026-08-13
 ---
 
 # Aurora Decision Index
@@ -132,7 +134,10 @@ A0, the current M0 ADR set and the R4-aligned CAP-SOVEREIGN-CORE A2 package are 
 | D-066 | a technical question is current only when it changes ownership, structural/runtime/contract/security/data boundaries or the next implementation decision; otherwise it is deferred | Technical Architecture Map | accepted |
 | D-067 | technical architecture proceeds in dependency order TA-01 modules, TA-02 runtimes, TA-03 repositories, TA-04 contracts, TA-05 data, TA-06 identity/security, TA-07 cognition/Harnesses and TA-08 operations | Technical Architecture Map | accepted |
 | D-068 | accepted Stage A Presence/activation/locked-workstation rules remain downstream constraints, while further session-policy detail is deferred until a consuming Capability | Stage A design + Technical Architecture Map | accepted |
-| D-069 | the current active architecture tranche is TA-01 + TA-02, producing module ownership and Stage A/B process/runtime topology before repository or stack finalization | Technical Architecture Map + operator acceptance + STATUS | active/authorized |
+| D-069 | TA-01 + TA-02 is the accepted first Technical Architecture tranche, fixing module ownership and Stage A/B runtime-topology direction before repository or stack finalization | TA-01/TA-02 design + operator acceptance | accepted |
+| D-070 | canonical ownership is G01 Contract Model Governance plus C01–C12 domain owners, including C03 Intent ownership and C12 Audit/Exact History | TA-01/TA-02 design v0.5.0 + operator acceptance | accepted |
+| D-071 | Stage A uses Approach C: one small persistent Evolutionary Sovereign Host plus a separate on-demand provider-runtime seam at the first consumer; other process splits require evidence | TA-01/TA-02 design v0.5.0 + operator acceptance | accepted |
+| D-072 | A05 owns Aurora-side runtime lifecycle policy and B01 owns transport-neutral provider identity/lifecycle/idempotency/cancellation/reconciliation semantics before TA-04 selects a binding | TA-01/TA-02 design v0.5.0 + operator acceptance | accepted |
 
 ## 8. Deliberately open decisions
 
@@ -152,14 +157,11 @@ These are not yet decisions and must not be inferred from examples, research can
 | O-012 | memory storage/retrieval/consolidation mix | TA-05/TA-07 + CAP-MEMORY-CONTEXT eval spikes |
 | O-013 | first reference Harness runtime | TA-07/M2 after current architecture review |
 | O-014 | first real engineering Harness | roadmap readiness; MNFS remains one candidate |
-| O-015 | global logical module ownership and allowed dependency direction | TA-01 design and owning Specs/ADRs if material |
 | O-016 | Stage A/B actor authentication mechanisms by class | TA-06 research + capability-specific ADRs |
 | O-017 | API profiles, error taxonomy, idempotency and streaming conventions per boundary | TA-04 + first consuming capability R4 |
 | O-018 | configuration, environment and secret-reference precedence model | TA-08 Standard/ADR |
 | O-019 | model/inference and Brain/Core ownership boundary | TA-07 + M1 research/Capability Spec |
 | O-020 | physical storage beyond M0 for memory, artifacts, telemetry and derived indexes | TA-05 consumer-specific research/spike |
-| O-021 | minimum coherent technical component set and canonical owner for each global concept | TA-01 current tranche |
-| O-022 | Stage A same-process/separate-process boundaries and Stage B evolution | TA-02 current tranche |
 | O-023 | monorepo, polyrepo or staged source strategy | TA-03 after TA-01/TA-02 acceptance |
 | O-024 | exact Go ↔ TypeScript/Mastra process and contract boundary | TA-02/TA-04/TA-07, first consumer evidence |
 
