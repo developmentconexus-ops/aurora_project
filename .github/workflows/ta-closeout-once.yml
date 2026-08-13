@@ -1,0 +1,33 @@
+name: Append TA Closeout
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/ta-closeout-once.yml]
+permissions:
+  contents: write
+jobs:
+  append:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('docs/tracking/WORKLOG.md')
+          s=p.read_text()
+          s=s.replace('version: 0.17.0','version: 0.18.0',1)
+          h='## 2026-08-13 — TA-01/TA-02 canonical merge closeout'
+          if h not in s:
+              s=s.rstrip()+'''\n\n## 2026-08-13 — TA-01/TA-02 canonical merge closeout\n\nPR #5 was merged to `main` after separate operator authorization.\n\n```text\nfinal PR head: 582438ab087108134815418a0a49de6337f11b23\nmerge commit: c1311cd3df142316a4582ef1397258fe022eacbd\ncanonical Documentation run: 31733481063 — SUCCESS\n```\n\nTA-01 and TA-02 are accepted, merged and canonical. TA-03 is next in dependency order but is not authorized by implication. Aurora implementation and Architecture Spike execution remain paused.\n\nCloseout evidence: `docs/acceptance/2026-08-13-ta-01-02-merge-closeout.md`.\n\nExact next action: operator decision to authorize TA-03 discovery/design or hold.\n'''
+          p.write_text(s)
+          Path('.github/workflows/ta-closeout-once.yml').unlink()
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/tracking/WORKLOG.md .github/workflows/ta-closeout-once.yml
+          git commit -m 'docs: append TA-01 and TA-02 merge closeout'
+          git push origin HEAD:main
