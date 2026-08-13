@@ -5,12 +5,12 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.14.0
+version: 0.17.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - chronological material work history
-last_reviewed: 2026-08-12
+last_reviewed: 2026-08-13
 ---
 
 # Aurora Worklog
@@ -766,4 +766,219 @@ begin TA-01/TA-02 discovery
 → compare 2–3 complete module/runtime approaches
 → recommend one with explicit trade-offs
 → present the design for operator review
+```
+
+## 2026-08-12 — TA-01/TA-02 module ownership and runtime topology proposal
+
+TA-01/TA-02 began from canonical `main` revision:
+
+```text
+9cbce1efe4f742f90623b894c0c1ba2eaa3cebcc
+```
+
+Work was isolated on:
+
+```text
+branch: docs/ta-01-02-module-runtime-topology-20260812
+PR: #5 — docs: propose TA-01/TA-02 module and runtime topology
+```
+
+The tranche inspected the accepted Product Blueprint, System Architecture Rebaseline, Technical Architecture Baseline, ADR-0001/0002/0003/0004/0009, the accepted M0 Capability Spec/Microdesign and the frozen non-canonical R7 implementation as evidence.
+
+The resulting proposed design is:
+
+```text
+docs/design/AURORA-TA-01-02-MODULE-RUNTIME-TOPOLOGY.md
+version: 0.4.0
+status: proposed
+```
+
+It proposes one governed cross-system semantic owner and twelve canonical Aurora domain owners:
+
+```text
+G01 Contract Model Governance
+
+C01 Identity and Relationship
+C02 Project, World and Experiment State
+C03 Mission and Delegation Control
+C04 Authority and Policy
+C05 Capability and Provider Registry
+C06 Memory, Knowledge and Context
+C07 Artifact, Observation and Evidence
+C08 Presence and Interaction
+C09 Attention and Proactivity                [future/deferred]
+C10 Failure Intelligence and Evaluation      [future/deferred]
+C11 Environment and Device Registry          [future/deferred]
+C12 Audit and Exact History
+```
+
+The design also separates application coordination, deterministic Effect/Credential enforcement, provider runtimes and mechanism adapters from canonical ownership. Provider, model, Harness, Presence, memory index, telemetry and storage mechanisms cannot write canonical Aurora state directly.
+
+Three complete Stage A topologies were compared:
+
+```text
+A — Core-centric single application
+B — early service decomposition
+C — Evolutionary Sovereign Host with one early provider-runtime seam
+```
+
+Approach C is the recommendation:
+
+```text
+one small persistent Aurora Sovereign Host
+→ current Aurora-owned modules and application coordination
+→ canonical state/recovery and C12 audit/history append path
+→ thin local Presence adapter initially co-packaged
+
+one separate on-demand Cognitive Runtime Provider when first consumed
+→ Mastra/TypeScript remains preferred-first to evaluate
+→ provider-local state only
+
+specialized Harnesses remain independent providers
+
+all other physical splits require a named lifecycle, runtime,
+security, privilege, fault, resource, remote-node or consumer trigger
+```
+
+The proposal explicitly distinguishes the accepted M0 Go runtime from a future universal language decision: the current Go executable may seed the Stage A Sovereign Host, while placement/language of M1+ canonical modules requires consuming revalidation.
+
+The design adds `B01 — Transport-neutral Provider Runtime Boundary Profile`, defining before any protocol selection:
+
+- provider/build/capability/contract identity and compatibility;
+- request, attempt, correlation and idempotency identities;
+- attenuated authority and Context Pack boundaries;
+- lifecycle and terminal-state meanings;
+- deadlines, acknowledged cancellation and retry rules;
+- ambiguous-completion reconciliation;
+- provider restart/snapshot recovery;
+- required response/error categories;
+- handoff constraints for TA-04.
+
+Adversarial review did not auto-pass the first drafts. Admitted findings and remediations were:
+
+1. missing Environment/Device owner → C11 added;
+2. root Identity owner overlapped Provider/Presence/Device identity → C01 narrowed and entity-specific owners fixed;
+3. Hypothesis/Experiment/Observation/Measurement ownership incomplete → C02/C07 allocation fixed;
+4. Go wording could globalize ADR-0003 → M0 fact, Stage A seed hypothesis and M1+ decision separated;
+5. Contract Model authority was implicit → named G01 governance owner added;
+6. Cognitive process seam lacked transport-neutral lifecycle/reconciliation → B01 added;
+7. AuditRecord and L4 exact interaction/tool/event history lacked an owner → C12 added with a distinct append path from telemetry, memory and evidence;
+8. material-work continuity was missing → this Worklog entry records the full proposal, evidence, limitations and next action.
+
+Review owner:
+
+```text
+docs/reviews/2026-08-12-ta-01-02-module-runtime-topology-review.md
+```
+
+Observed validation through the v0.4 semantic revision included successful Documentation runs for the initial design and each remediation. Final fixed-revision validation and PR metadata are recorded in `STATUS.md` and the PR after this append.
+
+Explicit limitations and non-decisions remain:
+
+- no runtime implementation;
+- no monorepo/polyrepo or source layout choice;
+- no universal Go decision;
+- no concrete Mastra version/integration;
+- no HTTP/gRPC/Connect/MCP/A2A/event/IPC selection;
+- no new relational/vector/graph/object/telemetry store selection;
+- no authentication, authorization, policy or secrets product selection;
+- no supervisor, container, Kubernetes, model, Voice, sandbox, durable-engine, observability or device-protocol choice;
+- no Architecture Spike execution;
+- no M0 R7/R8 continuation.
+
+Exact next action:
+
+```text
+fix final review/STATUS/PR revision and validation
+→ present Approach C + G01/C01–C12 + B01 to the operator
+→ ACCEPT | REVISE | REJECT
+→ STOP before TA-03/TA-04/TA-05/TA-08 finalization,
+  Architecture Spike execution or Aurora implementation
+```
+
+## 2026-08-12 — TA-01/TA-02 final reviewer remediation
+
+The TA-01/TA-02 proposal advanced from v0.4.0 to v0.5.0 after final review of the ownership and multi-process lifecycle boundaries.
+
+The final semantic remediation added:
+
+- interpreted `Intent` as a canonical C03 responsibility before explicit promotion to Mission;
+- `A05 — Runtime Lifecycle Coordination` as the Aurora-side owner of start, attach, readiness, drain, stop, restart and reconciliation policy;
+- `runtime_incarnation_id` as a new identity for every concrete provider-process start;
+- a clear separation between G01 Contract semantics and Git/document artifact custody;
+- E01-only production of Effect Receipts, with providers carrying references only;
+- Stage B re-registration of environment-bound `provider_instance_id` values plus fresh C05 approval snapshots;
+- reconciliation rather than canonical import of provider-local state after migration;
+- wording, heading and UI-policy cleanup requested by review.
+
+The design keeps the supervisor implementation undecided. TA-08 may choose Windows Service, systemd, another process supervisor or packaging mechanism, but those adapters cannot take lifecycle-policy ownership away from A05.
+
+The recommended topology remains:
+
+```text
+Approach C — Evolutionary Sovereign Host
+
+one small persistent Aurora Sovereign Host
+→ G01/C01–C12 ownership boundaries
+→ A01 application coordination
+→ A05 runtime lifecycle coordination
+→ C12 audit/exact-history append path
+→ thin local Presence adapter initially co-packaged
+
+one separate on-demand Cognitive Runtime Provider at first consumer
+→ B01 transport-neutral lifecycle/reconciliation profile
+→ Mastra/TypeScript remains preferred-first to evaluate
+→ provider-local state only
+
+specialized Harnesses remain independent providers
+```
+
+No repository, transport, storage, authentication, policy, supervisor, provider or implementation product was selected by this remediation.
+
+Exact next action:
+
+```text
+fix the final review, STATUS and PR revision
+→ run final branch and PR validation
+→ present the TA-01/TA-02 semantic package to the operator
+→ ACCEPT | REVISE | REJECT
+→ STOP before merge, later-tranche finalization,
+  Architecture Spike execution or Aurora implementation
+```
+
+## 2026-08-13 — TA-01/TA-02 operator acceptance
+
+The reviewed TA-01/TA-02 v0.5.0 package was presented at the explicit operator gate `ACCEPT | REVISE | REJECT`. The operator responded `Accept`.
+
+Acceptance is bound to fixed semantic design commit:
+
+```text
+965211ad421f13994285031bbcf04b7e943cf75e
+```
+
+Accepted direction:
+
+- `G01 Contract Model Governance` plus canonical owners `C01–C12`;
+- C03 owns validated interpreted Intent before explicit Mission promotion;
+- C12 owns Audit Records and L4 exact history;
+- A05 owns Aurora-side runtime lifecycle policy;
+- B01 owns transport-neutral provider identity/lifecycle/idempotency/cancellation/reconciliation semantics;
+- Stage A adopts Approach C — one small persistent Evolutionary Sovereign Host plus one separate on-demand provider-runtime seam at first consumer;
+- Stage B preserves Aurora domain identity/ownership while environment-bound provider instances are re-registered and re-approved.
+
+Operator acceptance evidence:
+
+```text
+docs/acceptance/2026-08-13-ta-01-02-operator-acceptance.md
+```
+
+This acceptance authorizes lifecycle promotion and canonical-promotion preparation only. It does not authorize PR #5 merge by implication, implementation, M0 R7/R8 continuation, Architecture Spike execution or TA-03+ finalization.
+
+Exact next action:
+
+```text
+validate accepted-lifecycle promotion
+→ prepare fixed merge/promotion evidence
+→ request separate explicit merge authorization
+→ STOP before merge or later-tranche implementation
 ```
