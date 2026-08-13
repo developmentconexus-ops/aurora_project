@@ -5,7 +5,7 @@ document_type: worklog
 form: reference
 authority: tracking
 status: current
-version: 0.17.0
+version: 0.18.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -982,3 +982,19 @@ validate accepted-lifecycle promotion
 → request separate explicit merge authorization
 → STOP before merge or later-tranche implementation
 ```
+
+## 2026-08-13 — TA-01/TA-02 canonical merge closeout
+
+PR #5 was merged to `main` after separate operator authorization.
+
+```text
+final PR head: 582438ab087108134815418a0a49de6337f11b23
+merge commit: c1311cd3df142316a4582ef1397258fe022eacbd
+canonical Documentation run: 31733481063 — SUCCESS
+```
+
+TA-01 and TA-02 are accepted, merged and canonical. TA-03 is next in dependency order but is not authorized by implication. Aurora implementation and Architecture Spike execution remain paused.
+
+Closeout evidence: `docs/acceptance/2026-08-13-ta-01-02-merge-closeout.md`.
+
+Exact next action: operator decision to authorize TA-03 discovery/design or hold.
