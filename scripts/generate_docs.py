@@ -40,7 +40,15 @@ def generate_blueprint(root: Path) -> str:
     for path in canonical_sources(root):
         raw = path.read_text(encoding="utf-8")
         fm, body = split_frontmatter(raw, path)
-        sections.append((path, scalar(fm, "id"), hashlib.sha256(raw.encode()).hexdigest(), body.rstrip()))
+        relative_path = path.relative_to(root)
+        sections.append(
+            (
+                relative_path,
+                scalar(fm, "id"),
+                hashlib.sha256(raw.encode()).hexdigest(),
+                body.rstrip(),
+            )
+        )
     ids = [x[1] for x in sections]
     out = [
         "---",
@@ -76,7 +84,7 @@ def generate_blueprint(root: Path) -> str:
     out += ["", "---", ""]
     for i, (path, _, _, body) in enumerate(sections):
         out += [f"<!-- BEGIN SOURCE: {path.as_posix()} -->", body, f"<!-- END SOURCE: {path.as_posix()} -->"]
-        if i != len(sections)-1:
+        if i != len(sections) - 1:
             out += ["", "---", ""]
     return "\n".join(out).rstrip() + "\n"
 
