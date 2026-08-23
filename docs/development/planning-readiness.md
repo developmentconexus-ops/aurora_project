@@ -5,7 +5,7 @@ document_type: planning_readiness_standard
 form: reference
 authority: standard
 status: proposed
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -185,6 +185,8 @@ production claim               → production-stage Evidence only
 
 A control counts only when it can be demonstrated capable of firing.
 
+Before TA-09 closes, any executable spike, qualification probe, generated-contract prototype or compatibility harness required by TA-04/TA-06/TA-08 MUST live in a bounded non-production proof surface permitted by the Repository Standard, such as `qualification/`, or an equivalent disposable isolated surface. That surface carries **no production repository/source/build/custody authority**. It must declare its proof subject and disposal/promotion rule, and TA-09 later decides whether any part is absorbed into the production Paved Road or retired.
+
 ## 10. Cross-system operation admission
 
 TA-03 admits an operation only when it crosses a material boundary such as:
@@ -248,7 +250,7 @@ interaction/control
 
 Presence/UI does not gain business/system authority from visibility or convenience.
 
-When a real visual Product surface enters scope, the project may deliberately adopt the current reusable Frontend Product Experience Planning Method as a specialized method. It is not automatically imported as Aurora authority before that consumer exists.
+When a real visual Product surface enters scope, the project may deliberately adopt the reusable Frontend Product Experience Planning Method as a specialized method. The adoption gate must bind the **exact canonical identifier/version/location current at that time**; an unpinned name is not authority. The method is not automatically imported as Aurora authority before that consumer exists.
 
 ## 13. Data/store selection law
 
