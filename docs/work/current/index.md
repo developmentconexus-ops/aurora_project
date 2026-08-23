@@ -5,7 +5,7 @@ document_type: temporary_work_index
 form: reference
 authority: tracking
 status: current
-version: 0.4.1
+version: 0.5.0
 owners:
   - developmentconexus-ops
 related:
@@ -26,7 +26,7 @@ MR-01 — Methodology, Planning-Readiness & Repository Rebaseline
 operator design-direction decision: APPROVED — 2026-08-23
 durable candidate: COMPILED / PROPOSED
 Lead adversarial challenge: COMPLETE
-independent challenge: NEXT / REQUIRED BEFORE FINAL RATIFICATION
+independent challenge: READY TO START / REQUIRED BEFORE FINAL RATIFICATION
 repository migration execution: NOT AUTHORIZED
 TA-03+: HOLD
 Aurora implementation: BLOCKED
@@ -45,7 +45,7 @@ Lead semantic review target: eb412408edc420d69c38e22ba4070773b0c26284
 Lead review commit: 2956be55308f17634d53e24e42458f26c62f8166
 ```
 
-The exact independent-review base is the candidate branch head after this status-pin commit and successful documentation validation. Once the review branch is cut, the candidate must remain frozen until reviewer Evidence is returned or the review is explicitly abandoned/restarted.
+This commit freezes only the **review routing state**. The exact independent-review base is this branch head after its Documentation checks succeed. Once `review/mr-01-fable` is cut, the candidate branch remains frozen until reviewer Evidence is returned or the review is explicitly restarted.
 
 ## Durable candidate owners
 
