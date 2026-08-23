@@ -13,21 +13,20 @@ on:
       - .github/workflows/rm08-platform-enforcement.yml
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: write-all
 
 jobs:
   enforce:
     if: github.head_ref == '' || github.head_ref == 'docs/mr-01-repository-migration-20260823'
     runs-on: ubuntu-latest
     steps:
-      - name: Protect main
+      - name: Attempt branch protection and merge policy
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         shell: bash
         run: |
-          set -euo pipefail
+          set -u
           cat > /tmp/protection.json <<'JSON'
           {
             "required_status_checks": {
@@ -51,25 +50,27 @@ jobs:
             "allow_fork_syncing": false
           }
           JSON
-          curl --fail-with-body -sS -L \
+
+          protection_code=$(curl -sS -L -o /tmp/protection.out -w '%{http_code}' \
             -X PUT \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${GH_TOKEN}" \
             -H "X-GitHub-Api-Version: 2026-03-10" \
             "https://api.github.com/repos/${REPO}/branches/main/protection" \
-            --data-binary @/tmp/protection.json
+            --data-binary @/tmp/protection.json)
+          echo "BRANCH_PROTECTION_HTTP=${protection_code}"
+          cat /tmp/protection.out
 
-      - name: Set repository merge policy
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl --fail-with-body -sS -L \
+          merge_code=$(curl -sS -L -o /tmp/merge.out -w '%{http_code}' \
             -X PATCH \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${GH_TOKEN}" \
             -H "X-GitHub-Api-Version: 2026-03-10" \
             "https://api.github.com/repos/${REPO}" \
-            -d '{"allow_squash_merge":true,"allow_merge_commit":false,"allow_rebase_merge":false,"delete_branch_on_merge":true}'
+            -d '{"allow_squash_merge":true,"allow_merge_commit":false,"allow_rebase_merge":false,"delete_branch_on_merge":true}')
+          echo "REPOSITORY_SETTINGS_HTTP=${merge_code}"
+          cat /tmp/merge.out
+
+          if [[ "$protection_code" != 2* || "$merge_code" != 2* ]]; then
+            exit 1
+          fi
