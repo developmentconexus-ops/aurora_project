@@ -1,0 +1,51 @@
+name: RM-09 Coherence Audit
+
+on:
+  push:
+    branches:
+      - docs/mr-01-repository-migration-20260823
+    paths:
+      - .github/workflows/rm09-coherence-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan current-authority surfaces for legacy routing and terminology
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+          roots = [Path('README.md'), Path('AGENTS.md'), Path('CONTRIBUTING.md')]
+          for rel in ['docs/index.md','docs/roadmap.md','docs/product','docs/architecture','docs/decisions','docs/development','docs/capabilities','docs/reference']:
+              p = Path(rel)
+              if p.is_file(): roots.append(p)
+              elif p.is_dir(): roots.extend(sorted(p.rglob('*.md')))
+
+          patterns = {
+              'legacy_path': re.compile(r'(?:docs/|\.\./)(?:tracking|superpowers|design|acceptance|reviews)/'),
+              'status_token': re.compile(r'\bSTATUS(?:\.md)?\b'),
+              'mnfs': re.compile(r'\bMNFS\b'),
+              'old_ta_order': re.compile(r'TA-03\s+(?:Repository|repositories)|TA-08\s+(?:Configuration|operations)', re.I),
+              'roadmap_generated': re.compile(r'(?:roadmap.{0,30}generated|generated.{0,30}roadmap)', re.I),
+          }
+
+          results=[]
+          for path in sorted(set(roots)):
+              if not path.exists(): continue
+              for n,line in enumerate(path.read_text(encoding='utf-8').splitlines(),1):
+                  for kind,pat in patterns.items():
+                      if pat.search(line):
+                          results.append((kind,path.as_posix(),n,line.strip()))
+          print(f'RM09_MATCH_COUNT={len(results)}')
+          for kind,path,n,line in results:
+              print(f'{kind}\t{path}:{n}\t{line}')
+          PY
