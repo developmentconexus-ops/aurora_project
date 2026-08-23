@@ -5,7 +5,7 @@ document_type: temporary_execution_plan
 form: reference
 authority: design
 status: proposed
-version: 0.2.0
+version: 0.3.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -20,36 +20,46 @@ last_reviewed: 2026-08-23
 
 # Aurora Methodology and Repository Rebaseline Migration Plan
 
-> **For agentic workers:** execute this plan only after MR-01 final ratification and an explicit migration/execution authorization. This file is branch-only temporary work and MUST be deleted before a merge candidate or `main` promotion.
+> **Execution boundary:** this plan becomes executable only after MR-01 final ratification and a separate explicit repository-migration authorization. It does not authorize Aurora Product/runtime implementation, TA-03+, M0 R7/R8, Architecture Spikes or merge.
 
-**Goal:** Migrate Projeto Aurora from its pre-Repository-Standard documentation/status model to the ratified DevelopmentConexus repository operating envelope while preserving current Product/architecture authority and installing the new cross-system planning/readiness graph.
+## 1. Goal
 
-**Architecture:** Treat migration as an authority-preserving compiler, not cleanup. First census every current semantic/provenance obligation; prepare target owners as non-current candidates; then perform one atomic repository-control-plane cutover in which `AGENTS`, `docs/index`, hand-maintained `docs/roadmap`, generator, validator and CI change together. Retire old live surfaces only after replacement coverage and reachability are proven.
+Migrate Projeto Aurora from the pre-Repository-Standard documentation/status model to the DevelopmentConexus repository operating envelope while preserving all current Product/architecture authority, installing the new Planning/Implementation-Readiness program, and proving that no current semantic obligation or required provenance is lost.
 
-**Tech Stack:** Markdown, existing Python documentation generator/validator, GitHub Actions, Git/PR controls. No Aurora Product runtime/library dependency is introduced.
+This is an **authority-preserving compiler**, not a cleanup project.
 
-**Spec:** `docs/decisions/methodology-repository-rebaseline.md` + `docs/development/planning-readiness.md` + `docs/work/current/blueprint-15-amendment.md`.
+## 2. Integration topology — binding correction from independent review
 
-## Global constraints
+The migration MUST use **one migration branch and one final merge candidate**.
 
-- Revalidate exact `main`, branch, PR and CI before every migration gate.
-- No Aurora Product/runtime code, schema, dependency or deployment implementation.
-- No M0 R7 continuation/Verdict/R8.
-- No TA-03+ execution by implication.
-- TA-01 and TA-02 remain canonical unless a concrete contradiction is proven.
-- One current semantic meaning has one owner at every transition point.
-- No current live file is deleted before surviving semantics and required provenance have a proven destination.
-- `docs/work/**` and all temporary review artifacts are removed before final merge candidate.
-- Permanent `docs/superpowers/**` is eliminated only after current semantics are absorbed or proven historical.
-- The target fresh-actor pack is `AGENTS.md → docs/index.md → docs/roadmap.md → 1–2 owners`, normally five files or fewer total.
-- `docs/roadmap.md` does not become mutable authority until the same atomic candidate also removes its generated-projection ownership from generator/validator/CI.
-- Historical closed-stage wording may retain `MNFS`; current authoritative terminology is `Conexus OS`.
-- Final migration requires independent challenge and explicit operator merge authorization.
-- A temporary CI-red intermediate commit is not target Evidence; final candidate must prove all new guards on one exact revision.
+```text
+revalidated main
+→ one migration branch / Draft PR
+→ RM-01 … RM-09 checkpoints on that same branch
+→ no partial RM merge to main
+→ final independent review of exact consolidated candidate
+→ final operator ratification
+→ separate merge authorization
+→ one squash merge
+```
 
----
+RM numbers are review/checkpoint boundaries, **not independent merge gates**. This prevents a main-branch window where Blueprint 15 names `docs/roadmap.md` as current authority while the old generator/validator/status model still controls the repository.
 
-## Corrected gate decomposition
+RM-08 is GitHub platform enforcement performed after the migrated aggregate check is stable on the open candidate and before final merge authorization. If a GitHub limitation makes one protection setting impossible before merge, MR-01 closeout remains open until that setting is applied and revalidated immediately after merge; it never authorizes TA-03 in the interim.
+
+## 3. Global constraints
+
+- Revalidate exact `main`, candidate branch, PR and CI before each RM checkpoint.
+- TA-01 and TA-02 remain canonical unless concrete contradictory Evidence appears.
+- No Product/runtime code, Product schema/dependency or production deployment change is part of this migration.
+- No live surface is retired until surviving semantics and required provenance have one proven destination.
+- `docs/work/**` remains branch-only and is removed before final merge candidate.
+- Permanent `docs/superpowers/**` is retired only after current semantic/provenance coverage is proven.
+- Current authoritative name is `Conexus OS`; historical snapshots may retain `MNFS` when that is the historically correct name.
+- `docs/roadmap.md` becomes sole mutable repository-program authority only in RM-05, atomically with router/generator/validator/CI changes.
+- The final exact candidate must be green; temporary intermediate CI failures are not completion Evidence.
+
+## 4. Program
 
 ```text
 RM-01 Current Semantic + Provenance Census
@@ -64,15 +74,13 @@ RM-09 Fresh-Actor + Global Coherence Proof
 RM-10 Independent Review + Final Promotion
 ```
 
-Adjacent gates may share a PR only when their owner/proof boundaries remain explicit and the operator authorizes that combined scope. RM-05 is intentionally atomic because splitting it would temporarily create either two status authorities or a roadmap that the old generator still overwrites.
-
 ---
 
-### RM-01 — Current Semantic + Provenance Census
+## RM-01 — Current Semantic + Provenance Census
 
-**Outcome:** Classify every current live Aurora documentation surface before any destructive move.
+**Outcome:** zero current live file/class remains unclassified; this checkpoint authorizes no deletion by itself.
 
-**Inputs:**
+**Census inputs:**
 
 ```text
 README.md
@@ -96,7 +104,7 @@ scripts/validate_docs.py
 frozen M0 R7 branch/ref and any named unmerged provenance
 ```
 
-For every file/class classify:
+Classify every item as exactly one primary disposition:
 
 ```text
 CURRENT AUTHORITY
@@ -108,150 +116,108 @@ UNMERGED UNIQUE PROVENANCE STILL REQUIRED
 TEMPORARY / DUPLICATE
 ```
 
-Each non-historical item receives exactly one target owner/path.
+**Mandatory specific proofs:**
 
-**Required special proofs:**
-
-- `docs/tracking/STATUS.md` current facts map completely into target roadmap/decision owners;
-- `WORKLOG.md` contains no unique current obligation that would disappear into Git history;
-- acceptance/review files still referenced by accepted frontmatter are identified before deletion;
+- every fact in `docs/tracking/STATUS.md` maps to future roadmap/decision/owner homes;
+- every current disposition and forward obligation in `docs/tracking/DECISIONS.md` maps to `docs/decisions/index.md` or an exact decision owner;
+- `docs/tracking/WORKLOG.md` contains no unique current obligation that would disappear into chronology-only Git history;
+- A0 operator-acceptance/fresh-session acceptance records and any other acceptance record still cited by current accepted authority are classified explicitly as `DURABLE EVIDENCE WITH CURRENT CONSUMER` until their target `docs/phases/**` or `docs/evidence/**` home is proven;
 - `docs/superpowers/**` current semantics are mapped before retirement;
-- frozen M0 R7 exact ref remains reachable while named as Evidence.
-
-**Exit:** zero current live file/class remains unclassified; no deletion is authorized by this census itself.
+- frozen M0 R7 exact ref remains reachable while named as Evidence;
+- every unique unmerged branch/PR provenance consumer gets a durable ref if Repository Standard §10 requires one.
 
 ---
 
-### RM-02 — Constitutional / Method Reconciliation
+## RM-02 — Constitutional / Method Reconciliation
 
-**Outcome:** Apply the bounded Blueprint 15 amendment and refine ACRM scope while keeping the repository control plane on the old model until RM-05.
+**Outcome:** canonical target constitution no longer requires the superseded repository/status model, while `main` remains on the old model until the eventual single migration merge.
 
-**Files:**
-- Modify: `docs/product/blueprint/15-documentation-research-governance.md`
-- Modify: `docs/product/CAPABILITY-REALIZATION-METHOD.md` as source before rehome
-- Modify: `docs/product/blueprint/07-harness-orchestration.md` for current `Conexus OS (historically MNFS)` terminology
-- Modify only where forward-looking semantics require it: `docs/product/blueprint/14-capability-roadmap.md`
-- Regenerate under the still-current generator: `docs/product/PRODUCT-BLUEPRINT.md`
-- Keep the current generated `docs/roadmap.md` until RM-05 atomic cutover
-
-**Constitutional deltas:** exactly those enumerated in `docs/work/current/blueprint-15-amendment.md`.
-
-**ACRM scope delta:**
+**Modify on the migration branch:**
 
 ```text
-ACRM = selected milestone/capability/mission realization lifecycle
-repository operating envelope = external Repository Standard + Aurora engineering rules
-global cross-system readiness = Aurora Planning and Implementation-Readiness Standard
+docs/product/blueprint/15-documentation-research-governance.md
+docs/product/CAPABILITY-REALIZATION-METHOD.md
+docs/product/blueprint/07-harness-orchestration.md
+forward-looking references in docs/product/blueprint/14-capability-roadmap.md only when required
 ```
 
-R0–R8 names and already-recorded M0 Evidence remain historically valid.
+Apply exactly the bounded deltas in `docs/work/current/blueprint-15-amendment.md`, including sections 15.26, 15.29 and 15.31 and the explicit retirement/rehome of `docs/tracking/DECISIONS.md`.
 
-**Current-path note:** Blueprint/ACRM may describe the *target* roadmap owner before cutover, but the branch work index must explicitly state that `main` authority remains the old model until RM-05 lands atomically.
+Preserve R0–R8 identities and historical M0 Evidence. Refine ACRM scope only:
 
-**Exit:** accepted constitutional target no longer requires permanent STATUS/WORKLOG/docs-superpowers or generated repository-roadmap semantics.
+```text
+ACRM → milestone/capability/mission realization
+Planning Readiness → cross-system implementation-readiness
+Repository Standard + local engineering rules → repository operation
+```
+
+Regenerate the Product Blueprint aggregate while the current generator still owns it. Do not treat the branch target wording as `main` current-state authority before final migration merge.
 
 ---
 
-### RM-03 — Target Authority Preparation
+## RM-03 — Target Authority Preparation
 
-**Outcome:** Prepare durable target owners without yet making them the repository's current program/status route.
+**Outcome:** target durable owners exist and are reviewable without becoming a second current program/status authority.
 
-**Files to create/finalize as `PROPOSED` until final promotion:**
+Create/finalize as `PROPOSED`:
 
 ```text
 docs/development/planning-readiness.md
 docs/development/engineering-rules.md
-docs/development/capability-realization.md   # rehome of current ACRM, preserving stable doc identity
+docs/development/capability-realization.md
 docs/decisions/methodology-repository-rebaseline.md
 docs/decisions/index.md
 docs/architecture/index.md
 ```
 
-**ACRM rehome law:**
+**ACRM rehome law:** preserve stable document identity `DOC-AURORA-CAPABILITY-REALIZATION-METHOD`; remove the old current copy only in the same consolidated candidate that updates all current links/routers.
 
-- preserve `DOC-AURORA-CAPABILITY-REALIZATION-METHOD` stable identity;
-- move current semantic ownership from `docs/product/CAPABILITY-REALIZATION-METHOD.md` to `docs/development/capability-realization.md` only after all current links/routers are updated in the same candidate;
-- do not keep two current copies after cutover.
-
-**Planning graph mapping required:**
-
-```text
-old TA-01 → PRESERVE / new TA-01
-old TA-02 → PRESERVE / new TA-02
-old TA-03 repository/source/build → SUPERSEDED by new TA-09
-old TA-04 contracts → REFINED/SPLIT into new TA-03/TA-04
-old TA-05 data → new TA-06
-old TA-06 identity/security → new TA-07
-old TA-07 cognition/Harnesses → new TA-08
-old TA-08 operations → new TA-10
-new TA-05, TA-11, TA-12, TA-13 → new readiness owners justified by cross-project Evidence
-TA-TX → conditional only
-```
-
-**Exit:** target owners exist and can be reviewed without yet creating parallel current program authority.
+Planning-stage reconciliation must explicitly map old TA-03…TA-08 to new TA-03…TA-13 dispositions while preserving TA-01/TA-02 unchanged.
 
 ---
 
-### RM-04 — Decision / Architecture / Capability Reconciliation
+## RM-04 — Decision / Architecture / Capability Reconciliation
 
-**Outcome:** Prepare semantic routing from current legacy paths to target decision/architecture/capability homes before the repository-control-plane cutover.
+**Outcome:** every current decision/architecture/capability meaning has one target route before the control-plane cutover.
 
-#### Decisions / ADRs
+### Decisions
 
 Prepare:
 
 ```text
 docs/decisions/index.md
-docs/decisions/adr/0001-*.md ... 0009-*.md
+docs/decisions/adr/0001-*.md … 0009-*.md
 ```
 
-Preserve exact ADR IDs/status/scope; M0-local decisions remain M0-local.
-
-Decision dispositions use a compact current vocabulary:
+Preserve exact ADR IDs/status/scope. Carry all forward obligations from `docs/tracking/DECISIONS.md` using controlled dispositions:
 
 ```text
-CURRENT
-PRESERVE
-REFINED
-REOPEN
-DEFERRED
-SUPERSEDED
-REJECTED
+CURRENT | PRESERVE | REFINED | REOPEN | DEFERRED | SUPERSEDED | REJECTED
 ```
 
-Current software-Harness entries use Conexus OS; historical provenance may retain MNFS.
+### Architecture
 
-#### Architecture
-
-Prepare `docs/architecture/index.md` and route current structural authorities.
-
-Classify current `docs/design/**` individually:
+Prepare `docs/architecture/index.md`. Classify current `docs/design/**` individually:
 
 ```text
 current structural architecture → docs/architecture/**
-current material decision → docs/decisions/**
-closed-stage implementation design / M0 microdesign → docs/phases/** or Evidence/history disposition
-spike specification/result → phase/evidence owner
-historical-only design → Git/history when no current live consumer
+current decision → docs/decisions/**
+closed-stage design/microdesign → docs/phases/** or Evidence/history disposition
+spike result/spec → phase/evidence owner
+historical-only design → Git when no current live consumer remains
 ```
 
-Do not move files merely for aesthetics when a stable path has a real consumer and a justified local deviation is smaller.
+### Capabilities
 
-#### Capabilities
-
-Preserve `docs/capabilities/CAP-*/` as Aurora-specific specialization. Global TA documents must not duplicate internal Capability Spec behavior.
-
-**Exit:** every current decision/architecture/capability meaning has one target route ready for `docs/index.md`.
+Keep `docs/capabilities/CAP-*/` as an Aurora-specific durable surface. Global TA documents must not duplicate internal Capability Spec behavior.
 
 ---
 
-### RM-05 — Atomic Repository Control-Plane Cutover
+## RM-05 — Atomic Repository Control-Plane Cutover
 
-**Outcome:** Switch the repository from the old bootstrap/status/generated-roadmap model to the Repository Standard target on one coherent exact revision.
+**Outcome:** on one exact candidate revision, switch repository routing/status ownership and its mechanical guards together.
 
-This gate MUST change the following together; do not split the status switch from generator/validator ownership.
-
-**Files:**
+Change together:
 
 ```text
 README.md
@@ -266,302 +232,197 @@ docs/architecture/index.md
 scripts/generate_docs.py
 scripts/validate_docs.py
 .github/workflows/docs.yml
-all current inbound links needed for the new router/roadmap owner
+all inbound links required by the new current route
 ```
 
-#### `README.md`
-
-Landing-only:
+Target route:
 
 ```text
-Aurora one-paragraph orientation
-links to AGENTS.md + docs/index.md
-stable verification/setup entrypoint when useful
-no mutable stage/status/architecture authority
+AGENTS.md
+→ docs/index.md
+→ docs/roadmap.md
+→ 1–2 exact owners
 ```
 
-#### `AGENTS.md`
-
-Compact bootstrap only:
+Target roles:
 
 ```text
-AGENTS → docs/index → docs/roadmap → 1–2 owners
-Method/Repository Standard refs
-Aurora-specific hard stops
-verification command/gate
-Git/review rules
+README.md       landing only
+docs/index.md   task/intention routing only
+docs/roadmap.md sole mutable stage/status/allowed-work/next-action authority
+Blueprint 14    Product capability-roadmap authority
 ```
 
-#### `docs/index.md`
+**Generator rule:** `scripts/generate_docs.py` continues to generate `docs/product/PRODUCT-BLUEPRINT.md` but MUST NOT generate or overwrite `docs/roadmap.md`.
 
-Task/intention router, no mutable status. Minimum routes:
+**Current-authority rule:** `docs/tracking/STATUS.md` is removed if RM-01 proves safe, otherwise unmistakably marked superseded/non-current and unreachable from the current router until RM-06 retirement. Never two current status authorities.
 
-```text
-current stage/permission → docs/roadmap.md
-Product/North Star → docs/product/README.md / exact Blueprint owner
-module/runtime ownership → docs/architecture/index.md → exact owner
-planning/readiness → docs/development/planning-readiness.md
-current decisions → docs/decisions/index.md
-capability work → exact CAP owner
-research → exact question-specific research
-frozen M0 Evidence → exact phase/evidence route, never default
-```
-
-#### `docs/roadmap.md`
-
-Hand-maintained and sole mutable repository-program authority:
-
-```text
-MR-01 / repository migration exact state
-TA-01/TA-02 canonical
-next TA stage blocked until migration closeout and authorization
-M0 R7 frozen/non-canonical
-implementation blocked
-Architecture Spike execution blocked unless separately authorized
-exact next action
-```
-
-Blueprint 14 remains Product/capability roadmap authority; repository roadmap does not duplicate long-horizon Product content.
-
-#### Generator separation
-
-Modify `scripts/generate_docs.py` so it generates only the Product aggregate(s) with real consumers.
-
-Required result:
-
-```text
-GENERATE:
-docs/product/PRODUCT-BLUEPRINT.md
-
-NEVER GENERATE/OVERWRITE:
-docs/roadmap.md
-```
-
-Do not create a new generated Product-roadmap projection without a real consumer; Blueprint 14 is already reachable through Product routing.
-
-#### Validator / CI switch
-
-In the same cutover, remove checks that assume roadmap is generated and add target repository-control properties. The exact final validator still retains useful Aurora-specific controls for Product Blueprint, requirements and research manifests.
-
-**Atomic negative controls:**
+Initial cutover negative controls must prove at least:
 
 1. generator cannot modify `docs/roadmap.md`;
 2. stale Product Blueprint projection fails;
 3. missing `docs/index.md` fails;
-4. bootstrap size >20 KiB fails;
-5. duplicate mutable status authority fixture fails;
+4. bootstrap budget >20 KiB fails;
+5. duplicate mutable status owner fixture fails;
 6. durable authority depending on `docs/work/**` fails;
-7. base→candidate whitespace/diff control operates on intended range.
-
-**Transition status law:** On this revision, old `docs/tracking/STATUS.md` is either removed (if RM-01 census proves safe) or unmistakably marked superseded/non-current with no router pointing to it. There must never be two current status authorities.
-
-**Exit:** new fresh-actor route is mechanically current; generator cannot overwrite roadmap; validation recognizes only the new program/status owner.
+7. base→candidate diff/whitespace guard uses the intended range.
 
 ---
 
-### RM-06 — Legacy Live-Surface Retirement
+## RM-06 — Legacy Live-Surface Retirement
 
-**Outcome:** Remove old live surfaces whose semantics/provenance were covered by RM-01–RM-05.
+**Outcome:** no superseded duplicate authority or permanent temporary-work surface remains in the merge candidate.
 
-Candidate retirements, subject to census proof:
+Candidate retirements after RM-01 coverage proof:
 
 ```text
 docs/DOCUMENTATION-MAP.md
 docs/tracking/STATUS.md
 docs/tracking/WORKLOG.md
+docs/tracking/DECISIONS.md
 docs/tracking/BACKLOG.md
 docs/tracking/DOCUMENTATION-COVERAGE.md
 docs/superpowers/**
 old docs/adr/** after decision rehome
-old docs/design/** items after architecture/phase/evidence disposition
-obsolete permanent review/acceptance chronology whose current semantics are consolidated
+old docs/design/** after individual disposition
+obsolete permanent review/acceptance chronology after current Evidence is rehomed
 ```
 
-`docs/history/**` stays live only when a current historical consumer justifies it; otherwise Git history may be sufficient.
-
-**Before each retirement class:**
+For every retirement class prove:
 
 ```text
-surviving semantic obligation = mapped
-current inbound refs = updated
-required acceptance/provenance ref = reachable
-unique unmerged provenance consumer = protected by durable ref when needed
-replacement route = tested
+surviving semantic obligation mapped
+current inbound refs updated
+required acceptance/provenance reachable
+unique unmerged provenance protected when required
+replacement route tested
 ```
 
-**Exit:** no parallel mutable current-state surface, permanent temporary-work tree or superseded duplicate authority remains.
+`docs/history/**` stays live only for a named current historical consumer; otherwise reachable Git history is sufficient.
 
 ---
 
-### RM-07 — Verification / Negative-Control Closure
+## RM-07 — Verification / Negative-Control Closure
 
-**Outcome:** Prove the migrated documentation/repository guard actually enforces claimed properties.
+**Outcome:** the repository guard proves the target properties and each material behavioral guard is shown capable of firing.
 
-**Retain when current consumers remain:**
-
-```text
-Product Blueprint 01..15 source/order/freshness
-stable material document IDs where useful
-research source-manifest integrity
-constitutional requirement identity/coverage
-current local links/router reachability
-```
-
-**Required repository-standard controls:**
+Required controls:
 
 ```text
 AGENTS + docs/index + docs/roadmap <= 20 KiB
-docs/roadmap sole mutable stage/status/allowed-work/next-action authority
+docs/roadmap sole mutable stage/status/allowed-work/next-action owner
 README landing-only
 default routed task pack <= 5 files unless named reason
+durable current docs reachable from router
 no durable current authority depends on docs/work
 no docs/work in merge candidate/main
 no docs/superpowers in merge candidate/main
 no permanent session/handoff/review-round trees
 no duplicate mutable roadmap/status surface
 current decision dispositions valid/discoverable
-required unique unmerged provenance not deleted
+required unique unmerged provenance preserved
 PR diff checks compare intended base→candidate
+review branch - exact candidate branch = docs/work/current/ai-dialog.md only
+implementation-blocked repository surfaces satisfy an explicit top-level/source allowlist
 ```
 
-**Guard falsification:** every material guard must have a deterministic negative control or equivalent test demonstrating it fires. Presence-only checks are insufficient for behavioral properties.
+The review-isolation guard and the blocked-implementation allowlist each require a deterministic negative fixture/equivalent falsifier. Presence-only checks do not count.
 
-**Verification entrypoint:** expose one stable local command/script used by CI. Keep Python if it remains the smallest mechanism; do not add npm/package-management infrastructure solely for uniformity.
+Retain useful Aurora-specific controls for Product Blueprint generation, stable requirement identities, research source manifests and current link/routing integrity.
 
-**Exit:** positive candidate is green and each material repository guard has demonstrated failure on its negative fixture/control.
+Use one stable local verification entrypoint consumed by CI. Keep Python if it remains the smallest mechanism; do not add npm/tooling only for uniformity.
 
 ---
 
-### RM-08 — Git / Branch Protection
+## RM-08 — Git / Branch Protection
 
-**Outcome:** Align GitHub enforcement to Repository Standard after the aggregate migrated gate is stable.
+**Outcome:** GitHub enforcement prevents bypass of the migrated repository contract.
 
-Target settings:
+After RM-07 makes the aggregate candidate check stable, configure and verify on `main` protection before merge authorization:
 
 ```text
-main deletion forbidden
-main force-push forbidden
-PR-based change integration
+force-push forbidden
+deletion forbidden
+PR-based integration
 at least one required aggregate status check
 normal merge method = squash
 automatic head deletion when appropriate
 ```
 
-Do not rename a functioning required check solely for aesthetics. Choose/retain the exact aggregate check only after RM-07 proves it stable.
-
-**Proof:** query GitHub repository/branch-protection settings and record exact current Evidence.
-
-**Exit:** unchecked direct integration can no longer bypass the intended `main` contract.
+Do not rename a functioning check solely for aesthetics. Query GitHub settings and record exact Evidence.
 
 ---
 
-### RM-09 — Fresh-Actor + Global Coherence Proof
+## RM-09 — Fresh-Actor + Global Coherence Proof
 
-**Outcome:** Prove session resilience and absence of duplicate/missing authority after migration.
+**Outcome:** a repository-only fresh actor can recover current authority without archaeology and no duplicate/missing owner remains.
 
-A fresh reviewer, using repository only, must correctly state:
+The actor must correctly state:
 
 ```text
 what Aurora is
 current gate / blocked work / exact next action
 TA-01/TA-02 accepted state
-where Product roadmap lives vs repository roadmap
-where current decisions live
-where architecture and Capability owners live
-where temporary work may exist
-what Conexus OS is relative to Aurora
-where M0 frozen Evidence/provenance is routed
-that TA-03 and Product implementation are not authorized by migration completion
+Product roadmap vs repository roadmap ownership
+current decision route
+architecture/capability routes
+temporary-work rule
+Conexus OS relationship to Aurora
+frozen M0 Evidence route
+TA-03 and Product implementation remain unauthorized
 ```
 
-The answer must be reachable through the default task pack rather than recursive repository archaeology.
-
-**Global Coherence Review attacks:**
+Global Coherence Review attacks at least:
 
 ```text
 duplicate/missing authority
 circular routing
 Planning Readiness vs ACRM duplication
-stale STATUS/old-roadmap references
+stale STATUS/Documentation-Map/old-roadmap references
 current-name MNFS leakage
-lost semantic obligation from cleanup
+lost semantic obligation
 generated projection becoming authority
-old TA ordering surviving as current
+old TA order surviving as current
 permanent temporary-work surface
 organizational standards copied locally as second authority
-one current path requiring >5 files without a named reason
+unjustified task path requiring >5 files
 ```
 
-**Exit:** zero unresolved material coherence finding.
+Exit only with zero unresolved material coherence finding.
 
 ---
 
-### RM-10 — Independent Review + Final Promotion
+## RM-10 — Independent Review + Final Promotion
 
-**Outcome:** Independent challenger reviews the exact merge candidate, Lead adjudicates findings, operator ratifies final repository/methodology target, and merge remains separately authorized.
+**Outcome:** independent challenger reviews the exact consolidated migration candidate; Lead adjudicates; operator ratifies; merge stays separately authorized.
 
-Use canonical isolated review:
+Canonical isolation:
 
 ```text
-exact candidate branch/head
+exact candidate
 → review/<gate>-fable
-→ only docs/work/current/ai-dialog.md differs from candidate
-→ reviewer reconstructs authority first
+→ review branch adds only docs/work/current/ai-dialog.md
 → reviewer output = Evidence
-→ Lead adjudicates
-→ accepted corrections land on candidate
-→ review branch never merges
+→ Lead adjudicates on candidate
+→ review branch closes unmerged
 ```
 
-A second round occurs only if material corrections invalidate prior review coverage.
+A second round occurs only if material corrections change the reviewed property enough that first-round coverage no longer applies.
 
-Before promotion:
+Before asking for merge authorization, prove on the exact candidate:
 
 ```text
-docs/work/** absent from candidate
-docs/superpowers/** absent if ratified retirement applies
-all current routes valid
-all required aggregate CI green on exact candidate
-negative controls green as tests (i.e. each expected failure demonstrated)
+docs/work/** absent
+docs/superpowers/** absent when ratified retirement applies
+current routes valid
+required aggregate CI green
+all material negative controls demonstrated
 independent material findings = 0 unresolved
 operator final ratification = explicit
-merge authorization = explicit and separate
 ```
 
-**Exit:** migrated MR-01 is integrated; `docs/roadmap.md` names the next allowed action. TA-03 remains `NOT STARTED / NOT AUTHORIZED` unless the operator separately opens it.
+Merge authorization is separate. After integration, revalidate `main`; `docs/roadmap.md` must still state `TA-03 NOT STARTED / NOT AUTHORIZED` unless separately opened.
 
----
+## 5. Completion definition
 
-## Plan self-review
-
-### Dependency correction
-
-The plan intentionally does **not** switch roadmap authority before generator/validator ownership. RM-05 is the atomic control-plane cutover that changes all of those surfaces together.
-
-### Coverage
-
-The plan covers:
-
-- Method/Repository Standard adoption boundary;
-- Blueprint 15 bounded amendment;
-- ACRM scope refinement and target rehome;
-- new TA planning graph;
-- repository bootstrap/status/router model;
-- decisions/ADR routing;
-- architecture/Capability routing;
-- semantic/provenance census before cleanup;
-- Product aggregate vs repository roadmap separation;
-- validator/CI negative controls;
-- Git platform enforcement;
-- fresh-session/global coherence proof;
-- independent review/operator/merge gates;
-- Conexus OS current terminology;
-- frozen M0 Evidence preservation.
-
-### Explicitly deferred
-
-This migration does not select or execute any Aurora Product stack, TA-03 operation semantics, API binding, data store, IAM product, Mastra integration, model/provider or runtime deployment.
-
-### Completion definition
-
-Repository rebaseline is complete only when the target operating model is integrated on `main`, all temporary work is absent, repository-standard guards are proven to fire, a fresh actor routes correctly, required provenance remains reachable and `docs/roadmap.md` still blocks Product implementation until later readiness gates close.
+MR-01 migration is complete only when the target operating model is integrated, all temporary surfaces are absent from `main`, repository-standard guards are proved to fire, required provenance remains reachable, fresh-actor/global-coherence proof passes, GitHub protection is verified and no downstream Product/TA authorization has been inferred from the migration.
