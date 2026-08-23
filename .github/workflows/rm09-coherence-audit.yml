@@ -6,17 +6,41 @@ on:
       - docs/mr-01-repository-migration-20260823
     paths:
       - .github/workflows/rm09-coherence-audit.yml
+      - scripts/rm09_cleanup.py
   pull_request:
     branches:
       - main
     paths:
       - .github/workflows/rm09-coherence-audit.yml
+      - scripts/rm09_cleanup.py
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
+  cleanup:
+    if: github.head_ref == '' || github.head_ref == 'docs/mr-01-repository-migration-20260823'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/mr-01-repository-migration-20260823
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply bounded current-authority cleanup
+        run: python scripts/rm09_cleanup.py
+      - name: Commit cleanup without workflow mutation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && { echo "No cleanup changes" >&2; exit 1; }
+          git commit -m "docs(mr-01): close RM-09 current-authority coherence gaps"
+          git push origin HEAD:docs/mr-01-repository-migration-20260823
+
   audit:
     runs-on: ubuntu-latest
     steps:
