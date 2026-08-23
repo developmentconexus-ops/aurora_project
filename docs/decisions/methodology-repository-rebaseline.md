@@ -5,7 +5,7 @@ document_type: architecture_methodology_decision
 form: reference
 authority: decision
 status: proposed
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -249,6 +249,8 @@ The exact migration of current Aurora paths is a separate ratification prerequis
 ## 10. Conexus OS terminology boundary
 
 Current authoritative references to the software-development Harness use **Conexus OS**. Historical evidence may retain **MNFS** when that was the name at the time.
+
+The Conexus OS repository and the delegated software-development Harness are the same system seen in two roles: as a sibling repository it is non-authoritative comparison Evidence for Aurora; when explicitly delegated it is an external Harness provider operating under Aurora-owned contracts and authority. Its repository architecture never becomes Aurora authority by existence.
 
 The architectural boundary is unchanged:
 
