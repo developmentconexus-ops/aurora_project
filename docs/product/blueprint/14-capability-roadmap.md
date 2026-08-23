@@ -24,7 +24,7 @@ related:
   - DOC-AURORA-BLUEPRINT-12
   - DOC-AURORA-BLUEPRINT-13
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
-  - DOC-AURORA-ROADMAP
+  - DOC-AURORA-BLUEPRINT-14
 review_triggers:
   - milestone sequence changes
   - Golden Proof or product risk changes
@@ -424,7 +424,7 @@ M0 does **not** depend on M1 conversational memory, M2 Capability Registry/AHDK,
 
 ## Promotion/authority boundary
 
-M0 selection authorizes readiness analysis only to the extent recorded in `docs/tracking/STATUS.md`.
+M0 selection authorizes readiness analysis only to the extent recorded in `docs/roadmap.md`.
 
 - R0–R6 may refine applicability, verifiable requirements, Capability design, technical decisions and the exact implementation contract, but MUST NOT silently change this outcome, named risk, Golden Proof direction or non-goals;
 - completing one ACRM gate does not authorize the next;
@@ -756,7 +756,7 @@ Provider A receives delegation
 
 - peer-to-peer autonomous federation;
 - arbitrary swarm;
-- real MNFS/lab integration;
+- real Conexus OS/lab integration;
 - unlimited concurrency.
 
 ---
@@ -773,11 +773,11 @@ Candidate is chosen by readiness and risk, not prestige:
 
 - Research Harness;
 - Evaluation Harness;
-- MNFS;
+- Conexus OS;
 - Firmware Harness;
 - Hardware analysis provider.
 
-MNFS is a strong future candidate but is not architecturally mandatory or assumed ready.
+Conexus OS is a strong future candidate but is not architecturally mandatory or assumed ready.
 
 ## Operator-visible value
 
@@ -1203,7 +1203,7 @@ The roadmap does not:
 
 - choose implementation dates;
 - authorize all milestones;
-- require MNFS as M6 provider;
+- require Conexus OS as M6 provider;
 - require physical autonomy;
 - require cloud deployment;
 - require multi-tenancy;

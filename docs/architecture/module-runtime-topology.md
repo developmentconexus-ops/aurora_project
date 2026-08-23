@@ -19,7 +19,7 @@ source_of_truth_for:
   - accepted transport-neutral provider runtime boundary profile
   - accepted TA-01 and TA-02 decision disposition register
 related:
-  - DOC-AURORA-STATUS
+  - DOC-AURORA-REPOSITORY-ROADMAP
   - DESIGN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE-MAP
   - PLAN-AURORA-TECHNICAL-ARCHITECTURE-BASELINE
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE
@@ -492,7 +492,7 @@ Mastra/TypeScript remains preferred-first to evaluate.
 
 ### P02 — Specialized Harness Provider
 
-Owns domain methodology, plans, workers, attempts, tools and internal recovery within Delegation. MNFS is one future provider, not Core.
+Owns domain methodology, plans, workers, attempts, tools and internal recovery within Delegation. Conexus OS is one future provider, not Core.
 
 ### P03 — Model / External Service Adapter
 

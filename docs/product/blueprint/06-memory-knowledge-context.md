@@ -439,7 +439,7 @@ Preserves relationships:
 
 ```text
 Leandro CREATES Aurora
-Aurora USES MNFS as a future provider
+Aurora USES Conexus OS as a future provider
 Project PowerSupply HAS Device PCB-REV-B
 PCB-REV-B RUNS Firmware FW-014
 Hypothesis HYP-017 TESTED_BY Experiment EXP-024

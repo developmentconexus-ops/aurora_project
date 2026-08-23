@@ -17,7 +17,7 @@ source_of_truth_for:
   - reusable behavior and logical design of CAP-SOVEREIGN-CORE
   - M0 sovereign Core domain and lifecycle semantics
 related:
-  - DOC-AURORA-STATUS
+  - DOC-AURORA-REPOSITORY-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-CAP-SOVEREIGN-CORE-APPLICABILITY
   - DOC-AURORA-CAP-SOVEREIGN-CORE-REQUIREMENTS
@@ -1081,7 +1081,7 @@ R3 gate verdict is evidence that the proposed package satisfies readiness condit
 
 This Spec is the accepted R4-aligned A2 reusable-behavior authority for CAP-SOVEREIGN-CORE.
 
-It does not itself authorize any gate or implementation. Current progression is governed by `STATUS.md` and the Capability Realization Method:
+It does not itself authorize any gate or implementation. Current progression is governed by `docs/roadmap.md` and the Capability Realization Method:
 
 ```text
 R4 PASS

@@ -197,7 +197,7 @@ No requirement may be silently deferred from this M0 Mission. If an accepted req
 - LLM/model dependency or model routing;
 - Mastra runtime usage in M0;
 - conversational/project memory or Context Builder;
-- Capability Registry, provider trust, AHDK or MNFS integration;
+- Capability Registry, provider trust, AHDK or Conexus OS integration;
 - Mission/Delegation runtime beyond this development Contract artifact;
 - external Effect Gateway/PDP/Credential Broker;
 - cloud service dependency;
@@ -287,7 +287,7 @@ Required inputs:
 - reviewed SPK-001/SPK-002 evidence and limitations;
 - documentation validator/generator.
 
-No runtime dependency on Mastra, MNFS, model providers, cloud services, message brokers or durable workflow engines is permitted.
+No runtime dependency on Mastra, Conexus OS, model providers, cloud services, message brokers or durable workflow engines is permitted.
 
 ## 11. Authority and prospective implementation envelope
 

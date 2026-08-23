@@ -75,7 +75,7 @@ Verification categories are intended proof classes, not implementation authoriza
 | AUR-REQ-VIS-009 | Aurora MUST support increasingly capable levels from context awareness to a continuous engineering companion without requiring all future features in the initial implementation. | §1.15 | roadmap sequencing review |
 | AUR-REQ-VIS-010 | Product success MUST be measured by real journey outcomes, context quality, authority, evidence, safety, recovery and efficiency—not activity volume. | §1.17 | milestone closeout rubric |
 | AUR-REQ-VIS-011 | Aurora MUST NOT become a chatbot wrapper, single universal agent, unrestricted swarm, surveillance system or framework-locked application. | §1.12, §1.18 | adversarial architecture review |
-| AUR-REQ-VIS-012 | Implementation MUST remain blocked during A0 until explicit baseline acceptance and subsequent gate authorization. | §1.19 | STATUS/readiness check |
+| AUR-REQ-VIS-012 | Implementation MUST remain blocked during A0 until explicit baseline acceptance and subsequent gate authorization. | §1.19 | docs/roadmap.md/readiness check |
 
 ---
 
@@ -230,7 +230,7 @@ Verification categories are intended proof classes, not implementation authoriza
 | AUR-REQ-ORCH-019 | Generic retries MUST be prohibited for material errors unless classified and safe. | §7.24 | retry policy tests |
 | AUR-REQ-ORCH-020 | Protocol bindings MUST transport Aurora semantics rather than redefine them. | §7.26–7.27 | adapter conformance |
 | AUR-REQ-ORCH-021 | Harness internal frameworks MUST remain replaceable and MUST NOT become Aurora Mission/authority state. | §7.28 | SPK-008 |
-| AUR-REQ-ORCH-022 | MNFS MUST be integrated as a future provider only through a stable mapped boundary and MUST NOT define Aurora Core architecture. | §7.30 | integration readiness review |
+| AUR-REQ-ORCH-022 | Conexus OS MUST be integrated as a future provider only through a stable mapped boundary and MUST NOT define Aurora Core architecture. | §7.30 | integration readiness review |
 
 ---
 
@@ -419,7 +419,7 @@ Verification categories are intended proof classes, not implementation authoriza
 | AUR-REQ-RDM-010 | M3 MUST prove bounded Delegation, Context, Authority, Artifact and Evidence. | §14.11 | M3 Golden Proof |
 | AUR-REQ-RDM-011 | M4 MUST prove durable restart, wait, budget and duplicate-effect prevention. | §14.12 | M4 Golden Proof |
 | AUR-REQ-RDM-012 | M5 MUST prove hierarchical multi-Harness composition and non-transitive authority. | §14.13 | M5 Golden Proof |
-| AUR-REQ-RDM-013 | M6 MUST integrate one real engineering Harness selected by readiness and risk, not assume MNFS automatically. | §14.14 | M6 readiness/Golden Proof |
+| AUR-REQ-RDM-013 | M6 MUST integrate one real engineering Harness selected by readiness and risk, not assume Conexus OS automatically. | §14.14 | M6 readiness/Golden Proof |
 | AUR-REQ-RDM-014 | M7 MUST prove adaptive campaign under immutable evaluation, budget and no automatic production promotion. | §14.15 | M7 Golden Proof |
 | AUR-REQ-RDM-015 | M8 MUST prove contextual multi-Presence handoff, privacy, offline operation and revocation. | §14.16 | M8 Golden Proof |
 | AUR-REQ-RDM-016 | M9 MUST prove read-only laboratory observation with identity, telemetry, calibration and evidence. | §14.17 | M9 Golden Proof |
@@ -445,7 +445,7 @@ Verification categories are intended proof classes, not implementation authoriza
 | AUR-REQ-DOC-009 | Focused research reports MUST be independently refreshable and an aggregate MUST NOT replace them. | §15.13 | research map review |
 | AUR-REQ-DOC-010 | ADRs MUST preserve context, alternatives, decision, rationale, consequences and supersession. | §15.16 | ADR template/check |
 | AUR-REQ-DOC-011 | Capability Specs MUST own reusable behavior and Mission Contracts MUST own scoped commitments. | §15.17–15.18 | realization gate checks |
-| AUR-REQ-DOC-012 | STATUS MUST state current gate, authorizations/prohibitions, blockers, verification and exact next action. | §15.19–15.20 | fresh-session test |
+| AUR-REQ-DOC-012 | `docs/roadmap.md` MUST state current gate, authorizations/prohibitions, blockers, verification and exact next action. | §15.19–15.20 | fresh-session test |
 | AUR-REQ-DOC-013 | Superseded/rejected documents MUST remain discoverable and current indexes/projections MUST update. | §15.21 | supersession checks |
 | AUR-REQ-DOC-014 | Generated projections MUST declare sources and MUST NOT be edited directly. | §15.22 | CI freshness check |
 | AUR-REQ-DOC-015 | Every material change MUST declare documentation impact. | §15.23 | PR/mission check |
@@ -455,7 +455,7 @@ Verification categories are intended proof classes, not implementation authoriza
 | AUR-REQ-DOC-019 | A0 MUST include a fresh-session Golden Proof using repository only. | §15.28 | A0 acceptance evidence |
 | AUR-REQ-DOC-020 | Git write permission or generated proposal MUST NOT constitute operator approval. | §15.29 | branch/approval governance |
 | AUR-REQ-DOC-021 | Documentation defects that affect authority/security/implementation MUST be treated as product incidents/findings. | §15.30 | incident workflow test |
-| AUR-REQ-DOC-022 | Implementation MUST remain prohibited until A0 criteria and explicit operator acceptance pass. | §15.31 | STATUS/gate enforcement |
+| AUR-REQ-DOC-022 | Implementation MUST remain prohibited until A0 criteria and explicit operator acceptance pass. | §15.31 | docs/roadmap.md/gate enforcement |
 
 ---
 
@@ -493,7 +493,7 @@ Implementation: NOT AUTHORIZED BY A0
 Evidence: accepted A0 documentation/research + independent fresh-session Golden Proof
 ```
 
-The large number does not mean every Capability implements all 294 requirements. R1 applicability selects relevant requirements and records rationale. Current milestone/gate authorization is intentionally not owned by this specification; consult `docs/tracking/STATUS.md`.
+The large number does not mean every Capability implements all 294 requirements. R1 applicability selects relevant requirements and records rationale. Current milestone/gate authorization is intentionally not owned by this specification; consult `docs/roadmap.md`.
 
 ---
 

@@ -5,7 +5,7 @@ document_type: product_blueprint_aggregate
 form: explanation
 authority: generated_projection
 status: generated
-version: 0.2.0
+version: 0.3.0
 owners:
   - developmentconexus-ops
 generated_from:
@@ -33,32 +33,31 @@ Generator: scripts/generate_docs.py
 
 # Aurora Product Blueprint
 
-> This publication concatenates the fifteen modular constitutional sources. 
-> Edit the source section, regenerate, and validate; never edit this aggregate directly.
+> Generated publication of the fifteen modular constitutional sources. Edit sources, regenerate, validate.
 
 ## Source manifest
 
 | Section | Canonical source | SHA-256 |
 |---:|---|---|
-| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `460e597dfe93881b30cf45e3670772a8b09ab259337bc8f5dfb51961daac9bcb` |
-| 02 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md` | `9f8e65c84870ec92f48f7bf0820fd5ad01dc244bbc824b6f0d108c77c9e64f37` |
-| 03 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md` | `2aac158f6ff6a7dae3aeb58cacac2706eed5068fc23d6be3c61d6f9dcaf1d622` |
-| 04 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `c448cf0c680cd0a2468790537cc7a094e14dc4c7a7e2f23062a233bdf8f3d411` |
-| 05 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md` | `fa7e174d1b0f749659005bdcf9a0658445e4c5998d14f8c5a943571e66a33317` |
-| 06 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md` | `7665c132a3932bd57395d891313d3d01b3b799759b38de5243e09b2906e1e210` |
-| 07 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md` | `511558ba8dde4a41e86fe4b5486d22e679dad7dbe680c76a5af9037848149ce9` |
-| 08 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md` | `3214042c3aa16cd46223bb190c3ee527522e4388c149f08ea2e2aa6471e7a4c1` |
-| 09 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md` | `ab6ef2352424339134baaadb972009f3f63475f6fa8bc429b5c90b6fbec835d2` |
-| 10 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md` | `65c5caaa487815bcf9acace2b027c8beffa9e8b2ddd67f9e38aeb67d9b9ab9fd` |
-| 11 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md` | `45abdfa563250f50d40e1a3063992af72fe883d62ab47cd6eadc677684d20518` |
-| 12 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md` | `48037455d51c38b447fb43067af51d430dd66a9a377f003c9282244c065896d1` |
-| 13 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md` | `f3b637d88822a4d16081e9306d7f51e0c65a04e21ff2eace388e93a341c2bba8` |
-| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `8f46e188db2fffe953fe5aee8c9f4646573715b05e7890ae058bbb5251e060fb` |
-| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `277e40ce1035f92ed438a544dcb5d2603be5802c66513f76fbf92c89006e5037` |
+| 01 | `docs/product/blueprint/01-product-vision.md` | `b80f328ad28135641f2cb3d740c04d322db6aa926fa661cbe02440a15632ea7f` |
+| 02 | `docs/product/blueprint/02-human-aurora-relationship.md` | `9f8e65c84870ec92f48f7bf0820fd5ad01dc244bbc824b6f0d108c77c9e64f37` |
+| 03 | `docs/product/blueprint/03-domain-world-model.md` | `8bf54373de2221347a53e587c9cf64b419a99b62a0a4fef46cdfc133ad167bdb` |
+| 04 | `docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `c448cf0c680cd0a2468790537cc7a094e14dc4c7a7e2f23062a233bdf8f3d411` |
+| 05 | `docs/product/blueprint/05-capability-system.md` | `40a0da76e6be4b4ff61461de8951b781f1b4fcf4987a1779594b49367f905462` |
+| 06 | `docs/product/blueprint/06-memory-knowledge-context.md` | `3959b23c994dc051790f793058abc46a10ecd147dcc486228501ff7369fa6bb1` |
+| 07 | `docs/product/blueprint/07-harness-orchestration.md` | `3aa3ae560c5ce2d366ec0cb9e700fada5e79bd70207bebb8107b05e9dd70dd9e` |
+| 08 | `docs/product/blueprint/08-interaction-multimodality-presence.md` | `3214042c3aa16cd46223bb190c3ee527522e4388c149f08ea2e2aa6471e7a4c1` |
+| 09 | `docs/product/blueprint/09-tools-devices-laboratory.md` | `ab6ef2352424339134baaadb972009f3f63475f6fa8bc429b5c90b6fbec835d2` |
+| 10 | `docs/product/blueprint/10-autonomy-authority-safety.md` | `65c5caaa487815bcf9acace2b027c8beffa9e8b2ddd67f9e38aeb67d9b9ab9fd` |
+| 11 | `docs/product/blueprint/11-security-privacy-sovereignty.md` | `45abdfa563250f50d40e1a3063992af72fe883d62ab47cd6eadc677684d20518` |
+| 12 | `docs/product/blueprint/12-system-architecture.md` | `3cad09524db14d7f742fc3cbbdb2bfaa3a438150e4ee190ab21c6b8bbfb53359` |
+| 13 | `docs/product/blueprint/13-reliability-observability-evaluation.md` | `f3b637d88822a4d16081e9306d7f51e0c65a04e21ff2eace388e93a341c2bba8` |
+| 14 | `docs/product/blueprint/14-capability-roadmap.md` | `412813096e138ab68496809d09a37dc4e51a3c94f857cec8b9c8c07f6a7ba20c` |
+| 15 | `docs/product/blueprint/15-documentation-research-governance.md` | `c4f6e0076d7bf9e4f4ce73247fedb3e75e6ae848149b1dc40eea407e93fada52` |
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/01-product-vision.md -->
 # 1. Visão do Produto
 
 ## 1.1 Definição
@@ -387,7 +386,7 @@ LLM
 Memory system
 → continuity and context capability
 
-MNFS
+Conexus OS (historically MNFS)
 → future software-engineering harness
 
 Voice
@@ -727,7 +726,7 @@ Aurora fails the vision if she becomes:
 
 A0 was explicitly accepted and merged on 2026-08-06. That acceptance establishes Aurora's constitutional product direction; it does not create runtime authority or select implementation mechanisms.
 
-Mutable coordination state after A0 belongs to `docs/tracking/STATUS.md`, including:
+Mutable coordination state after A0 belongs to `docs/roadmap.md`, including:
 
 - selected Product Milestone;
 - current ACRM gate;
@@ -751,11 +750,11 @@ Material implementation can advance only through the applicable Capability Reali
 - implement self-improvement;
 - create multi-tenant SaaS;
 - promise dates.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md -->
+<!-- END SOURCE: docs/product/blueprint/01-product-vision.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/02-human-aurora-relationship.md -->
 # 2. Relação Humano–Aurora
 
 ## 2.1 Propósito
@@ -1519,11 +1518,11 @@ This section does not define:
 - constant proactivity;
 - always-on ambient sensing;
 - a model-specific personality prompt as the sole implementation.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md -->
+<!-- END SOURCE: docs/product/blueprint/02-human-aurora-relationship.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/03-domain-world-model.md -->
 # 3. Modelo de Domínio e de Mundo
 
 ## 3.1 Propósito
@@ -1870,7 +1869,7 @@ Exemplos:
 
 ```text
 PRJ-AURORA
-PRJ-MNFS
+PRJ-CONEXUS-OS
 PRJ-PROGRAMMABLE-POWER-SUPPLY
 PRJ-METAL-NOBRE-DATA-BRAIN
 ```
@@ -2717,11 +2716,11 @@ This section does not choose:
 - exact IDs or schema version syntax.
 
 Those choices require specs, research and spikes after the domain has been reviewed.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md -->
+<!-- END SOURCE: docs/product/blueprint/03-domain-world-model.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/04-cognitive-lifecycle-journeys.md -->
 # 4. Ciclo Cognitivo e Jornadas Globais
 
 ## 4.1 Propósito
@@ -3683,11 +3682,11 @@ This section does not define:
 - peer-to-peer federation without Aurora;
 - automatic promotion of all records to memory;
 - exact voice or multimodal stack.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md -->
+<!-- END SOURCE: docs/product/blueprint/04-cognitive-lifecycle-journeys.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/05-capability-system.md -->
 # 5. Sistema de Capabilities, Registry e Development Kit
 
 ## 5.1 Propósito
@@ -5005,12 +5004,12 @@ These require focused research and spikes.
 - manifest interpreted as permission;
 - AHDK replacing domain specs;
 - bespoke protocol before standards gaps are demonstrated;
-- integrating MNFS before its boundary and readiness are suitable.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md -->
+- integrating Conexus OS before its boundary and readiness are suitable.
+<!-- END SOURCE: docs/product/blueprint/05-capability-system.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/06-memory-knowledge-context.md -->
 # 6. Memória, Conhecimento e Construção de Contexto
 
 ## 6.1 Propósito
@@ -5418,7 +5417,7 @@ Preserves relationships:
 
 ```text
 Leandro CREATES Aurora
-Aurora USES MNFS as a future provider
+Aurora USES Conexus OS as a future provider
 Project PowerSupply HAS Device PCB-REV-B
 PCB-REV-B RUNS Firmware FW-014
 Hypothesis HYP-017 TESTED_BY Experiment EXP-024
@@ -6296,11 +6295,11 @@ This section does not:
 - guarantee perfect recall;
 - make embeddings or summaries the only history;
 - permit provider-specific memory to become Aurora canonical memory automatically.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md -->
+<!-- END SOURCE: docs/product/blueprint/06-memory-knowledge-context.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/07-harness-orchestration.md -->
 # 7. Orquestração de Harnesses e Delegações
 
 ## 7.1 Purpose
@@ -6353,7 +6352,7 @@ A Harness is a specialized system that can contain:
 
 Examples:
 
-### MNFS
+### Conexus OS (historically MNFS)
 
 Software-engineering harness that may plan, implement, review, test, integrate and produce evidence.
 
@@ -7450,21 +7449,21 @@ Temporal, DBOS, Restate and alternatives require spike; no engine is accepted he
 
 ---
 
-## 7.30 MNFS integration boundary
+## 7.30 Conexus OS integration boundary
 
-MNFS is expected to become a provider of software-engineering capabilities.
+Conexus OS is expected to become a provider of software-engineering capabilities.
 
 Aurora should not:
 
-- depend on MNFS internal SQLite/entities;
-- assume MNFS workers are Aurora workers;
-- treat MNFS plan as Aurora Mission automatically;
-- reuse MNFS authority without mapping;
-- block Core development on MNFS readiness.
+- depend on Conexus OS internal SQLite/entities;
+- assume Conexus OS workers are Aurora workers;
+- treat Conexus OS plan as Aurora Mission automatically;
+- reuse Conexus OS authority without mapping;
+- block Core development on Conexus OS readiness.
 
 Integration prerequisites:
 
-- MNFS offers stable external boundary;
+- Conexus OS offers stable external boundary;
 - capabilities defined;
 - Delegation mapping;
 - Context Pack mapping;
@@ -7474,7 +7473,7 @@ Integration prerequisites:
 - conformance;
 - readiness and risk review.
 
-MNFS remains one provider among future research, firmware, hardware and laboratory harnesses.
+Conexus OS remains one provider among future research, firmware, hardware and laboratory harnesses.
 
 ---
 
@@ -7540,7 +7539,7 @@ Future implementation must prove:
 12. artifact/claim/evidence/verdict remain distinct;
 13. same Capability works in two runtimes;
 14. A2A/MCP adapters preserve Aurora semantics where mapped;
-15. MNFS integration can be added without changing global domain;
+15. Conexus OS integration can be added without changing global domain;
 16. Leandro receives a consolidated decision/status rather than raw multi-agent noise.
 
 ---
@@ -7574,14 +7573,14 @@ Future implementation must prove:
 - automatic authority inheritance;
 - state derived only from chat/events;
 - a universal workflow language;
-- immediate MNFS integration;
+- immediate Conexus OS integration;
 - public agent marketplace;
 - maximum number of workers/providers as a success metric.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md -->
+<!-- END SOURCE: docs/product/blueprint/07-harness-orchestration.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/08-interaction-multimodality-presence.md -->
 # 8. Interação, Multimodalidade e Presença
 
 ## 8.1 Propósito
@@ -8238,11 +8237,11 @@ This section does not select:
 - cloud streaming architecture;
 - exact device protocol;
 - public multi-user presence system.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md -->
+<!-- END SOURCE: docs/product/blueprint/08-interaction-multimodality-presence.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/09-tools-devices-laboratory.md -->
 # 9. Tools, Dispositivos e Laboratório
 
 ## 9.1 Propósito
@@ -9126,11 +9125,11 @@ This section does not choose:
 - autonomous high-voltage operation;
 - unattended physical campaigns before independent safety validation;
 - a universal device abstraction that hides all domain-specific behavior.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md -->
+<!-- END SOURCE: docs/product/blueprint/09-tools-devices-laboratory.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/10-autonomy-authority-safety.md -->
 # 10. Autonomia, Autoridade e Segurança Operacional
 
 ## 10.1 Propósito
@@ -10112,11 +10111,11 @@ Future implementation must prove:
 - silent budget extension;
 - changing evaluation criteria during campaign;
 - treating access to a tool as consent.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md -->
+<!-- END SOURCE: docs/product/blueprint/10-autonomy-authority-safety.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/11-security-privacy-sovereignty.md -->
 # 11. Segurança, Privacidade e Soberania
 
 ## 11.1 Propósito
@@ -10970,11 +10969,11 @@ This section does not claim:
 - all external providers are unsafe;
 - all laboratory control can become autonomous;
 - current implementation complies with a named regulatory standard.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md -->
+<!-- END SOURCE: docs/product/blueprint/11-security-privacy-sovereignty.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/12-system-architecture.md -->
 # 12. Arquitetura do Sistema e Fronteiras dos Componentes
 
 ## 12.1 Propósito
@@ -11051,7 +11050,7 @@ The target architecture must not require a microservice deployment from the begi
                │               │               │
        ┌───────▼───────┐ ┌─────▼──────┐ ┌──────▼─────────┐
        │ Research      │ │ Software   │ │ Hardware/FW/Lab│
-       │ Harness       │ │ MNFS       │ │ Harnesses      │
+       │ Harness       │ │ Conexus OS  │ │ Harnesses      │
        └───────────────┘ └────────────┘ └────────────────┘
                                │
 ┌──────────────────────────────▼────────────────────────────────┐
@@ -12004,11 +12003,11 @@ This section does not:
 - make event history the only state store;
 - make a vector store the world model;
 - authorize implementation before A0 acceptance.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md -->
+<!-- END SOURCE: docs/product/blueprint/12-system-architecture.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/13-reliability-observability-evaluation.md -->
 # 13. Confiabilidade, Observabilidade, Avaliação e Autoaperfeiçoamento
 
 ## 13.1 Propósito
@@ -13030,11 +13029,11 @@ This section does not define:
 - retrying until success without causal progress.
 
 > Aurora learns continuously, but changes deliberately.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md -->
+<!-- END SOURCE: docs/product/blueprint/13-reliability-observability-evaluation.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/14-capability-roadmap.md -->
 # 14. Roadmap de Capacidades e Ordem de Realização
 
 ## 14.1 Propósito
@@ -13427,7 +13426,7 @@ M0 does **not** depend on M1 conversational memory, M2 Capability Registry/AHDK,
 
 ## Promotion/authority boundary
 
-M0 selection authorizes readiness analysis only to the extent recorded in `docs/tracking/STATUS.md`.
+M0 selection authorizes readiness analysis only to the extent recorded in `docs/roadmap.md`.
 
 - R0–R6 may refine applicability, verifiable requirements, Capability design, technical decisions and the exact implementation contract, but MUST NOT silently change this outcome, named risk, Golden Proof direction or non-goals;
 - completing one ACRM gate does not authorize the next;
@@ -13759,7 +13758,7 @@ Provider A receives delegation
 
 - peer-to-peer autonomous federation;
 - arbitrary swarm;
-- real MNFS/lab integration;
+- real Conexus OS/lab integration;
 - unlimited concurrency.
 
 ---
@@ -13776,11 +13775,11 @@ Candidate is chosen by readiness and risk, not prestige:
 
 - Research Harness;
 - Evaluation Harness;
-- MNFS;
+- Conexus OS;
 - Firmware Harness;
 - Hardware analysis provider.
 
-MNFS is a strong future candidate but is not architecturally mandatory or assumed ready.
+Conexus OS is a strong future candidate but is not architecturally mandatory or assumed ready.
 
 ## Operator-visible value
 
@@ -14206,18 +14205,18 @@ The roadmap does not:
 
 - choose implementation dates;
 - authorize all milestones;
-- require MNFS as M6 provider;
+- require Conexus OS as M6 provider;
 - require physical autonomy;
 - require cloud deployment;
 - require multi-tenancy;
 - guarantee M12 exactly as imagined;
 - prevent evidence-based reordering;
 - allow skipping foundational safety and context capabilities for a more impressive demo.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md -->
+<!-- END SOURCE: docs/product/blueprint/14-capability-roadmap.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/15-documentation-research-governance.md -->
 # 15. Governança Documental, Pesquisa e Evolução
 
 ## 15.1 Propósito
@@ -14249,44 +14248,34 @@ The first A0 proposal failed this standard by preserving conclusions while compr
 ## 15.2 Governing principles
 
 ### P1 — One durable concept, one canonical owner
-
 Other documents may summarize, explain or apply; they do not silently redefine.
 
 ### P2 — Conversation is discovery, repository is canonical project memory
-
-A chat approval or insight must be promoted to the correct document when it is meant to endure.
+Durable intent is promoted to the correct repository owner.
 
 ### P3 — Research is evidence, not authority
+Research can support a decision without becoming the decision.
 
-A primary source can support a decision without becoming the decision.
-
-### P4 — Tracking coordinates current work, not product doctrine
-
-`STATUS.md` can say which ADR is current; it cannot create the architecture itself.
+### P4 — One mutable repository-program owner
+`docs/roadmap.md` is the sole mutable repository-program authority for current stage/gate, implementation permission, blockers and exact next action. It does not own Product or architecture meaning.
 
 ### P5 — Historical information remains discoverable
+Rejected, superseded and failed approaches remain reachable through current Evidence when consumed or through Git/closed PR history when live retention is unnecessary.
 
-Rejected, superseded and failed approaches are preserved with status.
-
-### P6 — Accepted normative content cannot contain hidden placeholders
-
-Open questions are explicit and owned by research/spike, not vague `TBD` text.
+### P6 — Accepted normative content cannot hide placeholders
+Open questions are explicit and owned by research/spike/decision, not vague TODOs.
 
 ### P7 — Generated projections derive authority from sources
-
-They are never edited directly.
+They are never independent edit targets.
 
 ### P8 — Documentation depth is mechanism-driven
+Length is not a goal; material boundaries, failures, proof and non-goals are.
 
-Length is not a goal. Purpose, boundaries, flows, examples, failures, evaluation and non-goals are required where material.
+### P9 — Fresh actors load the smallest correct authority set
+The target route is `AGENTS.md → docs/index.md → docs/roadmap.md → 1–2 task-specific owners` and normal work fits five files or fewer unless a named material reason exists.
 
-### P9 — New sessions load the smallest correct authority set
-
-`AGENTS.md` is an index and hard-rule bootstrap, not the complete doctrine.
-
-### P10 — Implementation is gated by accepted intent and evidence
-
-A repository containing detailed architecture does not authorize code.
+### P10 — Implementation is separately gated
+Detailed architecture, migration completion or green CI does not authorize Product implementation by implication.
 
 ---
 
@@ -14324,7 +14313,7 @@ Examples:
 | Runbook | Guidance | How-to |
 | Research Report | Research | Explanation |
 | Acceptance Report | Evidence | Reference/Explanation |
-| STATUS | Tracking | Reference |
+| `docs/roadmap.md` | Program coordination | Reference |
 
 Form never elevates authority. A clear tutorial does not override an ADR.
 
@@ -14347,7 +14336,7 @@ Owns:
 Examples:
 
 - Product Blueprint sections;
-- Documentation Map for authority/read paths.
+- `docs/index.md` for task/intention routing and authority entrypoints.
 
 ### A1 — Decision
 
@@ -14426,16 +14415,9 @@ Records observation:
 
 Evidence owns what was observed under which conditions, not the general product rule.
 
-### A8 — Tracking
+### A8 — Program Coordination / Tracking
 
-Coordinates current work:
-
-- issue;
-- project board;
-- status;
-- worklog;
-- checklist;
-- coverage matrix.
+Owns current repository-program stage/status/next-action only through `docs/roadmap.md`. Issues/boards may coordinate work but do not become parallel Product, architecture or status authority.
 
 ### A9 — Research / Historical
 
@@ -14453,7 +14435,7 @@ Owns:
 Examples:
 
 - complete Blueprint aggregate;
-- generated roadmap;
+- generated Product Blueprint publication;
 - static site;
 - rendered diagram;
 - API docs.
@@ -14521,12 +14503,12 @@ Research report recommends A2A as remote binding. An accepted ADR later selects 
 | Security/privacy/sovereignty | Blueprint 11 |
 | Logical system architecture | Blueprint 12 |
 | Reliability/evaluation/self-improvement | Blueprint 13 |
-| Product sequence | Blueprint 14 / generated roadmap |
+| Product sequence | Blueprint 14 |
 | Documentation/research governance | Blueprint 15 |
-| Specific technical choice | ADR |
+| Specific technical choice | ADR under `docs/decisions/adr/` |
 | Reusable capability behavior | Capability Spec |
 | Scoped implementation commitment | Approved Contract |
-| Current project coordination | STATUS/tracking |
+| Current repository program/gate/implementation permission/next action | `docs/roadmap.md` |
 | Observed proof | Evidence/Acceptance |
 | Research finding | Research Report |
 | Exact code behavior | Code + generated/current Reference |
@@ -14535,6 +14517,8 @@ Research report recommends A2A as remote binding. An accepted ADR later selects 
 ---
 
 ## 15.7 Document identity and metadata
+
+Metadata is required when it materially improves authority, machine routing, traceability or generation. Repository routers/guidance MAY use path/index routing without a uniform metadata envelope when that is sufficient; existing rich metadata may remain when useful.
 
 Canonical Markdown uses structured frontmatter where applicable.
 
@@ -14707,47 +14691,30 @@ A manual aggregate may be created during documentation-only A0 only if clearly g
 
 ## 15.10 Documentation layout
 
-Target layout grows when a real document exists:
+The live tree follows the DevelopmentConexus Repository Standard and creates only paths with real consumers:
 
 ```text
 README.md
 AGENTS.md
-CONTRIBUTING.md
-
-.github/
-├── CODEOWNERS
-├── pull_request_template.md
-└── workflows/
-    └── docs.yml
+CONTRIBUTING.md when useful
 
 docs/
-├── DOCUMENTATION-MAP.md
+├── index.md
 ├── roadmap.md
-│
 ├── product/
-│   ├── README.md
-│   ├── PRODUCT-BLUEPRINT.md
-│   ├── CAPABILITY-REALIZATION-METHOD.md
-│   ├── REQUIREMENTS-TRACEABILITY.md
-│   └── blueprint/01..15
-│
-├── adr/
-├── capabilities/
-├── standards/
-├── golden-paths/
+├── architecture/
+├── decisions/
+├── phases/
+├── development/
+├── capabilities/    # Aurora-specific active ACRM consumer
 ├── reference/
-├── how-to/
-├── tutorials/
 ├── research/
-├── design/
-├── reviews/
-├── acceptance/
 ├── evidence/
-├── history/
-└── tracking/
+├── diagrams/        # only when a real diagram consumer exists
+└── work/            # branch-only temporary; forbidden in final candidate/main
 ```
 
-Do not create empty directories solely to match the diagram.
+Final merge candidates and `main` contain no `docs/work/**`, `docs/superpowers/**`, permanent session-handoff/dialogue/review-round trees, parallel mutable status/roadmap surfaces or active archive/old trees used as current authority. Do not create empty directories for aesthetics.
 
 ---
 
@@ -15037,96 +15004,66 @@ Create a Capability Spec when its Product Milestone approaches readiness, not fo
 
 ## 15.18 Capability Realization Method
 
-The canonical method connects:
+ACRM owns realization of a selected Product Milestone / Capability / Mission:
 
 ```text
-Blueprint intent
-→ applicability
+applicability
 → requirements
-→ research/ADR/spikes
-→ Capability Spec
-→ Mission Contract
-→ implementation plan
-→ code/config
-→ evidence
+→ capability readiness
+→ decisions/research/spikes
+→ scoped contract
+→ implementation-design readiness
+→ execution Evidence
 → Product Milestone closeout
 ```
 
-It defines readiness gates and orphan detection:
+Cross-system planning/readiness is owned separately by `docs/development/planning-readiness.md` and is consumed by ACRM as current authority. Repository navigation/Git/review/context rules are owned by the DevelopmentConexus Repository Standard plus `docs/development/engineering-rules.md`.
 
-- requirement without implementation/evidence;
-- code without requirement;
-- decision without research/impact;
-- milestone without Golden Proof;
-- evidence without criterion.
-
-The separate method document owns details.
+R0–R8 identities and already-recorded M0 Evidence remain valid; this is a scope refinement, not a rewrite of their historical outcome.
 
 ---
 
-## 15.19 Tracking documents
+## 15.19 Repository-program coordination and history
 
-### STATUS.md
+Permanent `STATUS`, `WORKLOG`, `BACKLOG` and documentation-coverage dashboards are not required live surfaces after MR-01.
 
-Required fields:
+```text
+docs/roadmap.md
+→ sole mutable repository-program stage/status/implementation permission/next action
 
-- program/product phase;
-- current branch/PR/issue;
-- accepted/proposed artifacts;
-- current gate/readiness;
-- authorizations and prohibitions;
-- blockers;
-- verification evidence;
-- exact next action.
+docs/decisions/index.md
+→ current decision disposition and forward obligation discovery
 
-### WORKLOG.md
+Git + merged/closed PR history
+→ chronological change record/provenance
 
-Chronological material work:
+docs/evidence/** / docs/phases/**
+→ durable proof/closure/snapshots only when a current consumer exists
 
-- what changed;
-- why;
-- files/commits/PR;
-- validation;
-- unresolved items.
+docs/work/**
+→ temporary branch-only planning/review; never main authority
+```
 
-It does not own architecture.
-
-### DECISIONS.md
-
-Concise index linking to canonical decisions/Blueprint approvals.
-
-### BACKLOG.md
-
-Ideas, research questions and future capabilities without commitment.
-
-### DOCUMENTATION-COVERAGE.md
-
-Maps discovery/requirements to canonical owners and current coverage.
-
-Tracking is updated at every material handoff.
+Old tracking content retires only after semantic census/rehome and reachability proof.
 
 ---
 
 ## 15.20 Status and authorization vocabulary
 
-A document can exist while implementation remains prohibited.
-
-Status should explicitly separate:
+Keep authorization distinctions explicit:
 
 ```text
-DISCOVERY AUTHORIZED
-RESEARCH AUTHORIZED
-DESIGN AUTHORIZED
-SPIKE AUTHORIZED
-PLAN AUTHORIZED
-IMPLEMENTATION AUTHORIZED
-EXTERNAL EFFECT AUTHORIZED
-MERGE AUTHORIZED
+DISCOVERY
+RESEARCH
+DESIGN
+SPIKE
+PLAN
+IMPLEMENTATION
+EXTERNAL EFFECT
+MERGE
 ```
 
-Absence of prohibition is not authorization.
-
-A fresh session reads current authorization before taking action.
+After repository migration, current permission and exact next action are read only from `docs/roadmap.md`. Absence of a prohibition is not authorization.
 
 ---
 
@@ -15145,7 +15082,7 @@ Steps:
 7. preserve Git history;
 8. re-evaluate contracts/implementations where required.
 
-Do not rewrite rejected rationale out of history.
+Do not rewrite rejected rationale out of history. Git is archive only when required provenance remains reachable; unique unmerged provenance with a current consumer receives a durable ref before the last branch/reference is deleted.
 
 For machine-readable contracts, accepted revisions should be immutable/content-addressed where appropriate.
 
@@ -15153,26 +15090,16 @@ For machine-readable contracts, accepted revisions should be immutable/content-a
 
 ## 15.22 Generated projections
 
-Possible projections:
+Keep the Product aggregate:
 
-| Projection | Source |
-|---|---|
-| `PRODUCT-BLUEPRINT.md` | 15 modular Blueprint sections |
-| `roadmap.md` | Blueprint 14 |
-| static documentation site | canonical Markdown |
-| API/reference | schemas/code |
-| diagrams | structured source/Mermaid |
-| review UI | plan/contract revisions |
+```text
+docs/product/PRODUCT-BLUEPRINT.md
+← generated from Blueprint 01–15
+```
 
-Generated file includes:
+`docs/roadmap.md` is **not** generated from Blueprint 14 after MR-01. It is a hand-maintained repository-program authority. Blueprint 14 remains the Product capability-roadmap authority; the two intentionally answer different questions.
 
-- warning;
-- source list/order;
-- generation time/tool version;
-- source hashes when possible;
-- no independent edits.
-
-CI verifies freshness.
+Generated files declare provenance and are validated for freshness. No generated projection becomes an independent semantic owner.
 
 ---
 
@@ -15206,61 +15133,31 @@ A PR cannot claim no impact merely because documentation is inconvenient.
 
 ---
 
-## 15.24 Documentation checks
+## 15.24 Documentation and repository checks
 
-Required checks evolve from A0 to implementation.
+The migrated repository verification covers at least:
 
-### Structure
+```text
+AGENTS + docs/index + docs/roadmap <= 20 KiB
+docs/roadmap is the sole mutable program-status/next-action authority
+README is landing-only
+default routed task pack <= 5 files unless a named reason exists
+durable current owners are reachable from docs/index or a routed child index
+current router links resolve
+no durable authority depends on docs/work
+no docs/work in final candidate/main
+no docs/superpowers in final candidate/main
+no permanent handoff/dialogue/review-round tree
+no duplicate mutable roadmap/status surface
+current decision dispositions valid/discoverable
+unique required unmerged provenance remains reachable
+review branch isolation can be proved mechanically
+blocked-implementation top-level/source allowlist is enforced
+material guards have deterministic negative controls
+at least one required aggregate CI gate protects main
+```
 
-- Markdown/frontmatter parse;
-- unique IDs;
-- valid statuses/classes;
-- owners;
-- related links;
-- file naming;
-- section coverage.
-
-### Authority
-
-- one canonical owner;
-- no accepted conflict;
-- supersession consistency;
-- generated source declaration;
-- tracking/research not treated as normative.
-
-### Research
-
-- source manifest parse;
-- cited/defined source matching;
-- access dates;
-- freshness triggers;
-- limitation section;
-- claim-source coverage.
-
-### Quality
-
-- no unresolved `TBD/TODO/FIXME` in accepted normative docs;
-- no empty sections;
-- no list-as-design for material concept;
-- examples and failure modes where needed;
-- open decisions explicit;
-- non-goals;
-- review triggers.
-
-### Traceability
-
-- requirements mapped;
-- ADR/Spec/Contract links;
-- evidence-to-criteria;
-- code/documentation impact;
-- roadmap milestone coverage.
-
-### Projection
-
-- Blueprint aggregate freshness;
-- roadmap freshness;
-- generated warning;
-- source hashes/order.
+Aurora-specific checks may continue validating Product Blueprint generation, requirement identities, research manifests and other real consumers. A green structural check proves only the properties it actually tests.
 
 ---
 
@@ -15280,61 +15177,56 @@ Before accepting a baseline or major capability, reviewer asks:
 - Does the roadmap have executable proof?
 - Is implementation accidentally authorized?
 
-The A0 adversarial review is preserved under `docs/reviews/`.
+The A0 adversarial review is preserved under `docs/evidence/reviews/`.
 
 ---
 
-## 15.26 Human read paths
+## 15.26 Human and agent read paths
 
-### First-time product reader
+### Default fresh actor
 
 ```text
-README
-→ Blueprint 01
-→ Blueprint 02
-→ Blueprint 14
+AGENTS.md
+→ docs/index.md
+→ docs/roadmap.md
+→ 1–2 task-specific owners
 ```
 
-### Architecture reader
+### Product reader
 
 ```text
-Documentation Map
-→ Product index
-→ Blueprint 03–13
-→ ADR index
-→ research map
+README.md
+→ docs/product/README.md
+→ relevant Blueprint owner(s)
+→ Blueprint 14 when Product capability sequence is needed
 ```
 
-### Current contributor/session
+### Architecture / decision work
 
 ```text
-AGENTS
-→ STATUS
-→ Documentation Map
-→ current milestone/capability documents
-→ relevant ADR/research/design
+docs/index.md
+→ docs/architecture/index.md or docs/decisions/index.md
+→ exact current owner
+```
+
+### Capability work
+
+```text
+docs/roadmap.md
+→ docs/development/capability-realization.md
+→ exact Capability owner / relevant cross-system authority
 ```
 
 ### Research reviewer
 
 ```text
-Research Map
-→ focused report
+docs/index.md
+→ exact question-specific research
 → source manifest
-→ decision/spike it informs
+→ decision/spike/capability it informs
 ```
 
-### Implementation worker
-
-```text
-AGENTS
-→ STATUS and authorization
-→ accepted Capability Spec/Contract
-→ implementation plan
-→ exact interfaces/tests
-```
-
-Do not load full Blueprint into every worker by default.
+Do not load the full Product Blueprint, phase history, Evidence, Git history or raw research by default.
 
 ---
 
@@ -15399,12 +15291,11 @@ Future CODEOWNERS may protect:
 
 ```text
 /docs/product/
-/docs/adr/
+/docs/decisions/adr/
 /docs/capabilities/
-/docs/standards/
-/docs/golden-paths/
+/docs/development/
 /docs/research/
-/docs/acceptance/
+/docs/evidence/
 AGENTS.md
 contract/schema directories
 security/policy paths
@@ -15443,23 +15334,13 @@ Documentation defects can be product/security defects.
 
 ---
 
-## 15.31 A0 acceptance rule and post-A0 current-state ownership
+## 15.31 A0 acceptance and post-A0 current-state ownership
 
-A0 acceptance required:
+A0 acceptance remains historical fact: the fifteen-section Product constitution, discovery coverage, research, ADR baseline, ACRM, traceability and fresh-session/adversarial proof were explicitly accepted and merged.
 
-- all fifteen sections complete and reviewed;
-- full discovery coverage;
-- focused research sufficient to support the A0 decision set;
-- Capability Realization Method and traceability;
-- current aggregate/index/read paths;
-- adversarial and fresh-session review;
-- explicit Leandro acceptance of the baseline and ADR status.
+After MR-01 migration, mutable repository-program state is not owned by this constitutional section. `docs/roadmap.md` owns the current stage/gate, blockers, implementation permission and exact next action. `docs/index.md` owns task/intention routing. Product meaning remains with the Product Blueprint and accepted specific owners.
 
-Those conditions were satisfied and A0 was explicitly accepted on 2026-08-06, then merged to `main`.
-
-After A0, mutable coordination state is not owned by this constitutional section. `docs/tracking/STATUS.md` owns the selected Product Milestone, current ACRM gate, blockers, authorization boundary and exact next action.
-
-A0 acceptance never authorizes later gates, Architecture Spike execution or implementation by implication. Each transition still requires the authority defined by the Capability Realization Method and current `STATUS.md`.
+A0 acceptance, MR-01 ratification or repository migration never authorizes later TA stages, Architecture Spike execution or Product implementation by implication.
 
 ---
 
@@ -15476,4 +15357,4 @@ A0 acceptance never authorizes later gates, Architecture Spike execution or impl
 - let documentation delay every trivial implementation detail once proper authority exists;
 - accept generated content without source validation;
 - allow a writing agent to approve its own constitutional change.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md -->
+<!-- END SOURCE: docs/product/blueprint/15-documentation-research-governance.md -->

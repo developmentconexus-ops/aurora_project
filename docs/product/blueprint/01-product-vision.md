@@ -361,7 +361,7 @@ LLM
 Memory system
 → continuity and context capability
 
-MNFS
+Conexus OS (historically MNFS)
 → future software-engineering harness
 
 Voice
@@ -701,7 +701,7 @@ Aurora fails the vision if she becomes:
 
 A0 was explicitly accepted and merged on 2026-08-06. That acceptance establishes Aurora's constitutional product direction; it does not create runtime authority or select implementation mechanisms.
 
-Mutable coordination state after A0 belongs to `docs/tracking/STATUS.md`, including:
+Mutable coordination state after A0 belongs to `docs/roadmap.md`, including:
 
 - selected Product Milestone;
 - current ACRM gate;

@@ -12,7 +12,7 @@ source_of_truth_for:
   - proposed global Aurora architecture question and dependency map
   - proposed DECIDE RESEARCH SPIKE DEFER treatment and earliest-consumer map
 related:
-  - DOC-AURORA-STATUS
+  - DOC-AURORA-REPOSITORY-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DESIGN-AURORA-SYSTEM-ARCHITECTURE-REBASELINE
   - DOC-AURORA-SYSTEM-ARCHITECTURE-REBASELINE-OPERATOR-DIRECTION
@@ -331,6 +331,6 @@ This initial landscape is ready for operator review only when:
 3. current versus deferred work is explicit;
 4. every `DEFER` has a reconsideration trigger;
 5. no hidden stack selection or implementation appears;
-6. ACRM integration and current STATUS agree;
+6. ACRM integration and current docs/roadmap.md agree;
 7. mechanical documentation validation passes;
 8. an adversarial review records Findings and limitations.

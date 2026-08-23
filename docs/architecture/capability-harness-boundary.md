@@ -80,7 +80,7 @@ Sem boundary comum:
 - implementar Core;
 - criar marketplace;
 - definir hardware do laboratório;
-- integrar MNFS agora;
+- integrar Conexus OS agora;
 - protocol proprietário completo;
 - peer-to-peer authority federation;
 - multi-tenancy;
@@ -422,7 +422,7 @@ Reference harness A produces artifact. Reference harness B consumes authorized a
 8. collects evidence;
 9. completes outcome.
 
-No MNFS dependency.
+No Conexus OS dependency.
 
 ## 15. Rollout
 

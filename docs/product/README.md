@@ -5,9 +5,9 @@ document_type: product_index
 form: reference
 authority: constitutional
 status: accepted
-accepted_at: 2026-08-07
-acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
-version: 0.2.1
+accepted_at: 2026-08-23
+acceptance_evidence: DOC-AURORA-MR-01-OPERATOR-RATIFICATION
+version: 0.3.0
 owners:
   - developmentconexus-ops
 approvers:
@@ -19,119 +19,115 @@ source_of_truth_for:
 related:
   - DOC-AURORA-DOCUMENTATION-MAP
   - DOC-AURORA-PRODUCT-BLUEPRINT
-  - DOC-AURORA-ROADMAP
+  - DOC-AURORA-BLUEPRINT-14
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-REQUIREMENTS-TRACEABILITY
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-23
 ---
 
 # Aurora Product Documentation
 
-The Product Blueprint defines **what Aurora is**, which invariants must survive implementation and how the long-term vision is constrained by authority, safety, evidence and sovereignty.
+The Product Blueprint defines **what Aurora is**, which invariants survive implementation, and how the long-horizon Product vision remains distinct from current technical commitment.
 
-The Aurora Capability Realization Method defines **how one approved part of that intent becomes an implemented, verified and accepted capability**.
+The repository-program state is not owned here. For the current gate, implementation permission, blockers and exact next action use [`../roadmap.md`](../roadmap.md).
 
-## 1. Two approved horizons
+## 1. Two horizons
 
 ```text
-Long-term vision
+Long-term Product vision
 → complete, constitutional and evolutionary
 
 Current executable horizon
-→ narrow, researched, specified, contracted and proven
+→ progressively researched, specified, contracted and proven
 ```
 
-The vision is not reduced to an MVP. The implementation is not allowed to pretend that distant technical choices are already known.
+The vision is not reduced to an MVP. The implementation is not allowed to pretend distant technical choices are already known.
 
 ## 2. Canonical Product Blueprint sources
 
 | Section | Canonical source | Governs |
 |---:|---|---|
 | 01 | [Product Vision](blueprint/01-product-vision.md) | definition, North Star, scope, principles and success |
-| 02 | [Human–Aurora Relationship](blueprint/02-human-aurora-relationship.md) | copilot relationship, personality, proactivity and trust |
+| 02 | [Human–Aurora Relationship](blueprint/02-human-aurora-relationship.md) | relationship, personality, proactivity and trust |
 | 03 | [Domain and World Model](blueprint/03-domain-world-model.md) | entities, identities, relationships, epistemic and temporal model |
-| 04 | [Cognitive Lifecycle and Journeys](blueprint/04-cognitive-lifecycle-journeys.md) | perceive–understand–act–observe loop and end-to-end scenarios |
+| 04 | [Cognitive Lifecycle and Journeys](blueprint/04-cognitive-lifecycle-journeys.md) | cognitive loop and end-to-end scenarios |
 | 05 | [Capability System](blueprint/05-capability-system.md) | capabilities, providers, manifests, trust, AHDK and conformance |
-| 06 | [Memory, Knowledge and Context](blueprint/06-memory-knowledge-context.md) | memory strata, promotion, supersession, context construction and evaluation |
-| 07 | [Harness Orchestration](blueprint/07-harness-orchestration.md) | Aurora–Harness boundary, Delegations, events, artifacts and recovery |
-| 08 | [Interaction, Multimodality and Presence](blueprint/08-interaction-multimodality-presence.md) | voice/vision/surfaces, Presence Fabric, handoff and degraded operation |
-| 09 | [Tools, Devices and Laboratory](blueprint/09-tools-devices-laboratory.md) | devices, instruments, telemetry, protocols and physical safety progression |
-| 10 | [Autonomy, Authority and Safety](blueprint/10-autonomy-authority-safety.md) | grants, autonomy envelopes, effects, interlocks, revocation and emergency authority |
-| 11 | [Security, Privacy and Sovereignty](blueprint/11-security-privacy-sovereignty.md) | local-first control, data classes, workload identity, credentials and threat model |
-| 12 | [System Architecture](blueprint/12-system-architecture.md) | logical components, ports, state ownership, local/cloud topology and evolution |
-| 13 | [Reliability, Observability and Evaluation](blueprint/13-reliability-observability-evaluation.md) | evidence, evals, traces, incidents, Failure Intelligence and self-improvement |
-| 14 | [Capability Roadmap](blueprint/14-capability-roadmap.md) | cumulative Product Milestones, Golden Proofs and replan triggers |
-| 15 | [Documentation and Research Governance](blueprint/15-documentation-research-governance.md) | authority, lifecycle, promotion, validation, storage and session continuity |
+| 06 | [Memory, Knowledge and Context](blueprint/06-memory-knowledge-context.md) | memory strata, promotion, supersession, Context Builder and evaluation |
+| 07 | [Harness Orchestration](blueprint/07-harness-orchestration.md) | Aurora–Harness boundary, Delegations, artifacts and recovery |
+| 08 | [Interaction, Multimodality and Presence](blueprint/08-interaction-multimodality-presence.md) | Presence Fabric, surfaces, handoff and degraded operation |
+| 09 | [Tools, Devices and Laboratory](blueprint/09-tools-devices-laboratory.md) | devices, instruments, telemetry and physical progression |
+| 10 | [Autonomy, Authority and Safety](blueprint/10-autonomy-authority-safety.md) | authority, effects, interlocks, revocation and emergency boundaries |
+| 11 | [Security, Privacy and Sovereignty](blueprint/11-security-privacy-sovereignty.md) | local-first control, data classes, identity, credentials and threat model |
+| 12 | [System Architecture](blueprint/12-system-architecture.md) | logical architecture, state ownership, topology and evolution |
+| 13 | [Reliability, Observability and Evaluation](blueprint/13-reliability-observability-evaluation.md) | evidence, evals, traces, incidents and self-improvement |
+| 14 | [Product Capability Roadmap](blueprint/14-capability-roadmap.md) | Product Milestones, Golden Proofs and replan triggers |
+| 15 | [Documentation and Research Governance](blueprint/15-documentation-research-governance.md) | authority, lifecycle, promotion, repository memory and continuity |
 
-## 3. Generated publication
+## 3. Generated publication versus repository roadmap
 
-- [Complete Product Blueprint publication](PRODUCT-BLUEPRINT.md)
-- [Capability Roadmap projection](../roadmap.md)
+- [Complete Product Blueprint publication](PRODUCT-BLUEPRINT.md) is a generated read-only projection of Blueprint 01–15.
+- [Blueprint 14](blueprint/14-capability-roadmap.md) is the Product capability-roadmap authority.
+- [`docs/roadmap.md`](../roadmap.md) is deliberately different: it is the hand-maintained repository-program stage/status/permission/next-action authority.
 
-These files are generated projections. Edit modular sources and run the documentation generator; never edit projections directly.
+Generate/check only the Product aggregate:
 
 ```bash
 python scripts/generate_docs.py
 python scripts/generate_docs.py --check
 ```
 
-The source files remain canonical because they support focused ownership, review and context loading. The aggregate supports full reading, export and adversarial review.
+Never edit the Product aggregate directly and never generate `docs/roadmap.md` from Blueprint 14.
 
 ## 4. Blueprint-to-build method
 
-- [Aurora Capability Realization Method](CAPABILITY-REALIZATION-METHOD.md)
+- [Aurora Capability Realization Method](../development/capability-realization.md)
+- [Aurora Planning and Implementation-Readiness](../development/planning-readiness.md)
 - [Constitutional Requirements and Traceability](REQUIREMENTS-TRACEABILITY.md)
 
-The realization chain is:
+Global cross-system readiness closes foundational ambiguity; ACRM R0–R8 realizes one selected Product Milestone / Capability / Mission without replaying the whole global architecture program.
 
 ```text
-Blueprint
-→ applicable requirements
-→ focused research / Architecture Spikes
-→ ADRs
+Blueprint / accepted architecture
+→ cross-system readiness authority
+→ applicability / requirements
+→ research / spikes / decisions
 → Capability Spec
 → Mission Contract
-→ Microdesign / Implementation Plan
-→ implementation
-→ Receipts and Evidence
-→ Verdict and Product Milestone Closeout
+→ implementation-design readiness
+→ separately authorized execution
+→ Receipts / Evidence / Verdict
+→ Product Milestone closeout
 ```
 
-No artifact silently substitutes another:
-
-- research informs but does not decide;
-- an ADR decides but does not implement;
-- a Capability Spec defines reusable behavior but is not a scoped commitment;
-- a Mission Contract commits scope but does not authorize every external effect;
-- an implementation claim is not acceptance;
-- a local green component is not the Product Milestone Golden Proof.
+No artifact silently substitutes another. Research informs but does not decide; green implementation is not acceptance; a local component is not a Product Golden Proof.
 
 ## 5. Research and decisions
 
 - [Research Map](../research/RESEARCH-MAP.md)
-- [ADR Index](../adr/README.md)
-- [Architecture Spikes](../design/ARCHITECTURE-SPIKES.md)
+- [Decision Register](../decisions/index.md)
+- [ADR Index](../decisions/adr/README.md)
+- [Architecture Spike Portfolio](../reference/architecture-spikes.md)
 
-Technical mechanisms remain open until the relevant readiness gates are satisfied. Current research candidates must not be read as stack choices.
+Technical mechanisms remain open until their owning readiness stage or Capability R4 decision is satisfied. Research candidates and framework features are not stack choices by existence.
 
-## 6. Historical and traceability material
+## 6. Historical, Evidence and traceability material
 
 - [Origin and Discovery Record](../history/2026-08-05-aurora-origin-and-discovery-record.md)
-- [Discovery and Documentation Coverage](../tracking/DOCUMENTATION-COVERAGE.md)
-- [A0 Adversarial Documentation Review](../reviews/2026-08-05-a0-adversarial-documentation-review.md)
+- [A0 Discovery/Documentation Coverage Evidence](../evidence/a0-documentation-coverage.md)
+- [A0 Adversarial Documentation Review](../evidence/reviews/2026-08-05-a0-adversarial-documentation-review.md)
 
-The history preserves original motivation, examples and decision reasoning. It is not a competing product authority.
+History and Evidence preserve motivation, provenance and observed proof. Current Product meaning remains with its current owner.
 
-## 7. Recommended read paths
+## 7. Recommended Product read paths
 
-### Understand the product
+### Understand the Product
 
 ```text
 01 Product Vision
 → 02 Human–Aurora Relationship
 → 03 Domain and World Model
 → 04 Cognitive Lifecycle
-→ 14 Roadmap
+→ 14 Product Capability Roadmap
 ```
 
 ### Understand the cognitive core
@@ -150,47 +146,16 @@ The history preserves original motivation, examples and decision reasoning. It i
 → 07 Harness Orchestration
 → 10 Autonomy and Authority
 → 11 Security and Sovereignty
-→ harness research and ADRs
 ```
 
-### Understand physical-world evolution
+### Plan scoped realization
 
 ```text
-08 Interaction and Presence
-→ 09 Tools, Devices and Laboratory
-→ 10 Autonomy and Safety
-→ 11 Security
-→ M8–M10 in the Roadmap
+docs/roadmap.md
+→ Planning Readiness / ACRM as applicable
+→ exact Product / architecture / decision owners
+→ exact Capability / Contract
+→ proof obligations
 ```
 
-### Plan future implementation
-
-```text
-STATUS
-→ current Product Milestone
-→ ACRM R0–R8
-→ applicable Blueprint sections
-→ requirements
-→ research/spikes/ADRs
-→ Capability Spec
-→ Mission Contract
-→ Microdesign and plan
-```
-
-## 8. Accepted baseline and current-state handoff
-
-All A0 constitutional sources, ADR-0001 and ADR-0002 were explicitly accepted by the operator on 2026-08-06, and the accepted A0 package was subsequently merged to `main`.
-
-This product index does not own mutable readiness state. For the selected Product Milestone, current ACRM gate, blockers, authorizations, prohibitions and exact next action, read:
-
-```text
-docs/tracking/STATUS.md
-```
-
-Stable governance remains:
-
-- merge does not create acceptance by itself;
-- accepted A0 intent does not select a stack;
-- accepted ADRs govern only their stated decision scope;
-- a selected milestone does not authorize later gates by implication;
-- Architecture Spike execution and implementation require their own explicit authority.
+Do not use this Product index as a second mutable project-status surface.

@@ -16,7 +16,7 @@ source_of_truth_for:
   - program-level System Architecture Rebaseline design
   - treatment of the frozen M0 R7 implementation candidate during rebaseline
 related:
-  - DOC-AURORA-STATUS
+  - DOC-AURORA-REPOSITORY-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-BLUEPRINT-12
   - DOC-AURORA-BLUEPRINT-14
@@ -327,13 +327,13 @@ That threshold is program execution planning, not Aurora product architecture.
 
 The rebaseline uses existing owners:
 
-- `docs/product/CAPABILITY-REALIZATION-METHOD.md` owns the method integration;
-- `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md` owns the proposed architecture question/dependency map;
+- `docs/development/capability-realization.md` owns the method integration;
+- `docs/architecture/system-decision-landscape.md` owns the proposed architecture question/dependency map;
 - accepted ADRs own promoted specific decisions;
 - Capability Specs own reusable behavior;
-- `docs/tracking/STATUS.md` owns current pause/authorization/next action;
-- `docs/tracking/DECISIONS.md` indexes accepted and open decisions;
-- `docs/tracking/WORKLOG.md` preserves chronology;
+- `docs/roadmap.md` owns current pause/authorization/next action;
+- `docs/decisions/index.md` indexes accepted and open decisions;
+- `docs/evidence/project-worklog.md` preserves chronology;
 - an operator-direction record preserves the explicit rebaseline instruction.
 
 Blueprint 12 already owns logical architecture and should not receive implementation technology choices during this change. It is revised only if the rebaseline finds a material constitutional architecture defect.
@@ -350,7 +350,7 @@ This change does not:
 - select PostgreSQL, graph, vector, object, event or telemetry stores;
 - select REST, gRPC, A2A, MCP, CloudEvents, AsyncAPI or a broker;
 - select voice, vision or model providers;
-- implement AHDK, MNFS or a Mastra adapter;
+- implement AHDK, Conexus OS or a Mastra adapter;
 - create a new ACRM gate or parallel lifecycle;
 - redesign accepted product meaning;
 - generalize M0 implementation choices into global mandates.
@@ -413,7 +413,7 @@ This design is ready for promotion when the operator confirms:
 record operator direction
 → update ACRM method
 → create initial global Architecture Decision Landscape
-→ repair STATUS / DECISIONS / WORKLOG continuity
+→ repair docs/roadmap.md / decision-register / Git-Evidence continuity
 → repair accepted-ADR lifecycle wording drift
 → run documentation validation
 → perform adversarial review
