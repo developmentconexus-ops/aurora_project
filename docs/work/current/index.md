@@ -5,7 +5,7 @@ document_type: temporary_work_index
 form: reference
 authority: tracking
 status: current
-version: 0.2.0
+version: 0.3.0
 owners:
   - developmentconexus-ops
 related:
@@ -25,7 +25,7 @@ last_reviewed: 2026-08-23
 MR-01 — Methodology, Planning-Readiness & Repository Rebaseline
 operator design-direction decision: APPROVED — 2026-08-23
 durable candidate: PREPARED / PROPOSED
-Lead adversarial challenge: COMPLETE / MATERIAL DESIGN FINDINGS REMEDIATED
+Lead adversarial challenge: COMPLETE / FIXED DURABLE CANDIDATE REVIEWED
 independent challenge: NEXT / REQUIRED BEFORE FINAL RATIFICATION
 repository migration execution: NOT AUTHORIZED
 TA-03+: HOLD
@@ -34,14 +34,18 @@ M0 R7: FROZEN / NON-CANONICAL
 merge: NOT AUTHORIZED
 ```
 
-Base revalidated before opening this work:
+Base and candidate:
 
 ```text
 repository: developmentconexus-ops/aurora_project
 base main: 35614c581cea32e04305c1ad63522fee151eb283
 branch: docs/methodology-repository-rebaseline-20260823
 Draft PR: #6
+Lead semantic review target: eb412408edc420d69c38e22ba4070773b0c26284
+Lead review commit: 2956be55308f17634d53e24e42458f26c62f8166
 ```
+
+The independent-review branch MUST be cut from the then-current candidate head after this index/status pin and must differ only by `docs/work/current/ai-dialog.md`.
 
 ## Durable candidate owners
 
@@ -57,23 +61,23 @@ All three remain `PROPOSED`; design-direction approval is not final constitution
 
 ```text
 docs/work/current/proposal.md
-docs/work/current/adversarial-review.md
+docs/work/current/adversarial-review.md v0.3.0
 docs/work/current/blueprint-15-amendment.md
-docs/work/current/plan.md
+docs/work/current/plan.md v0.2.0
 ```
 
 They MUST NOT enter the final merge candidate or `main`.
 
 ## Independent-review authority pack
 
-The material reason for exceeding the normal five-file repository pack is that MR-01 simultaneously changes the repository operating envelope and the global implementation-readiness program. Review should still remain bounded to:
+MR-01 materially changes both the repository operating envelope and the global implementation-readiness program, so the independent reviewer has a named reason to exceed the ordinary five-file work pack. Keep review bounded to:
 
 1. `AGENTS.md` — current Aurora authority/stop model;
-2. this file — exact review target and state;
+2. this file — exact review target/state;
 3. `docs/decisions/methodology-repository-rebaseline.md` — durable decision candidate;
 4. `docs/development/planning-readiness.md` — proposed global readiness standard;
 5. `docs/work/current/blueprint-15-amendment.md` — exact bounded constitutional reopen;
-6. `docs/work/current/plan.md` — authority-preserving repository migration/proof plan.
+6. `docs/work/current/plan.md` — authority-preserving migration/proof plan.
 
 Add `docs/development/engineering-rules.md` only for repository-local enforcement questions and `docs/work/current/adversarial-review.md` only to inspect prior Lead findings/adjudication.
 
@@ -84,26 +88,23 @@ External organizational authorities are mandatory comparison inputs, not copied 
 
 MetalDocs, Marketplace Central and Conexus OS remain Evidence/reference only.
 
-## Gate target
-
-Reconcile Aurora with the current DevelopmentConexus engineering and repository standards and define a complete pre-implementation planning/readiness graph that makes future coding a constrained realization of accepted authority rather than a place where material architecture is invented.
-
 ## Independent challenge focus
 
 Attack at least:
 
 ```text
-duplicate or missing authority between Method / Repository Standard / Planning Readiness / ACRM
-whether TA-03→TA-13 ordering has a real dependency basis or ceremony
-whether TA-03 cross-system operations duplicates Capability Specs
-whether TA-09 moves repository/source/build too late
-whether the Blueprint 15 reopen is truly bounded
-whether retiring STATUS/WORKLOG/docs/superpowers can lose current semantics/provenance
-whether the target fresh-actor route is sufficient for Aurora complexity
+duplicate/missing authority between Method / Repository Standard / Planning Readiness / ACRM
+whether TA-03→TA-13 ordering reflects real dependencies or ceremony
+whether TA-03 duplicates Capability Specs
+whether TA-09 moves source/build/Paved Road too late
+whether Blueprint 15 reopen is genuinely bounded
+whether retirement of STATUS/WORKLOG/docs/superpowers can lose semantics/provenance
+whether RM-05 atomic control-plane cutover is sufficient
+whether target fresh-actor route is adequate for Aurora complexity
 whether GENERATED / AURORA-FOUNDATION / MODULE-OWNED creates hidden framework authority
-whether Conexus OS current terminology changes Product meaning
-whether migration negative controls actually cover the repository properties claimed
-whether any Product/runtime/stack decision is being smuggled into MR-01
+whether Conexus OS terminology refinement changes Product meaning
+whether proposed negative controls can falsify claimed repository guards
+whether any Product/runtime/stack decision is smuggled into MR-01
 ```
 
 Reviewer output is Evidence, never authority. Material corrections return to the candidate; a second round is justified only if corrections materially invalidate first-round coverage.
