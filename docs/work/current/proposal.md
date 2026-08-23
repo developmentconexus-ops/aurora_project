@@ -5,7 +5,7 @@ document_type: temporary_design_candidate
 form: explanation
 authority: tracking
 status: proposed
-version: 0.3.0
+version: 0.3.1
 owners:
   - developmentconexus-ops
 related:
@@ -20,7 +20,7 @@ last_reviewed: 2026-08-23
 
 # Aurora Methodology, Planning-Readiness & Repository Rebaseline — Compiled Design Record
 
-> **NON-AUTHORITATIVE / BRANCH-ONLY.** The operator approved the design direction represented by the earlier v0.2 candidate on 2026-08-23. Its current semantic result has now been compiled into the durable `PROPOSED` owners below. This temporary file is retained only as review provenance and MUST be deleted before merge.
+> **NON-AUTHORITATIVE / BRANCH-ONLY.** The operator approved the design direction represented by the earlier v0.2 candidate on 2026-08-23. Its semantic result has been compiled into the durable `PROPOSED` owners below. This temporary file is review provenance only and MUST be deleted before merge.
 
 ## Current durable candidate
 
@@ -34,7 +34,7 @@ docs/development/planning-readiness.md
 repository-local engineering specialization:
 docs/development/engineering-rules.md
 
-exact bounded constitutional amendment proposal:
+bounded constitutional amendment proposal:
 docs/work/current/blueprint-15-amendment.md
 
 repository migration/proof plan:
@@ -46,23 +46,31 @@ docs/work/current/adversarial-review.md v0.3.0
 
 ## Approved design direction
 
-The operator-approved direction is:
-
 ```text
 DevelopmentConexus Engineering Method v1
 + DevelopmentConexus Repository Standard v1
-+ preserved Aurora Product / TA-01 / TA-02
++ preserve Aurora Product meaning and canonical TA-01 / TA-02
 + bounded Blueprint 15 repository-governance reopen
-+ ACRM preserved and narrowed to capability/slice realization
++ preserve ACRM, narrow it to capability/slice realization
 + dependency-ordered Aurora implementation-readiness graph
-+ repository route: README → AGENTS → docs/index → docs/roadmap → task owners
-+ docs/roadmap as sole mutable repository-program owner after atomic migration
-+ safe semantic/provenance census before retiring old live surfaces
-+ current software-Harness name Conexus OS; historical MNFS provenance preserved
-+ implementation remains blocked
++ target repository route: README → AGENTS → docs/index → docs/roadmap → task owners
++ docs/roadmap sole mutable repository-program owner after atomic migration
++ semantic/provenance census before retiring old live surfaces
++ current software-Harness name Conexus OS; historical MNFS provenance retained
++ Aurora Product implementation remains blocked
 ```
 
-The detailed earlier exploratory reasoning is superseded by the durable candidate owners and Lead review. Do not use this file as a parallel authority.
+The earlier exploratory prose is superseded by the durable candidate owners and the fixed Lead review. Do not use this file as parallel authority.
+
+## Fixed Lead review provenance
+
+```text
+durable semantic target reviewed: eb412408edc420d69c38e22ba4070773b0c26284
+Lead review commit:                2956be55308f17634d53e24e42458f26c62f8166
+post-review edits:                 temporary status/provenance alignment only
+```
+
+No Product/stack/runtime semantic decision was added after the fixed Lead target.
 
 ## Hard boundary
 
@@ -77,4 +85,4 @@ Design-direction approval does not authorize:
 - Product implementation;
 - merge.
 
-The next required step is an independent challenge against the fixed durable candidate. Reviewer output is Evidence and must be Lead-adjudicated before final operator ratification.
+The next required step is independent challenge against the fixed compiled candidate. Reviewer output is Evidence and must be Lead-adjudicated before final operator ratification.
