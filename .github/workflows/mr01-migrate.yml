@@ -7,6 +7,12 @@ on:
     paths:
       - scripts/mr01_migrate.py
       - .github/workflows/mr01-migrate.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/mr01_migrate.py
+      - .github/workflows/mr01-migrate.yml
   workflow_dispatch:
 
 permissions:
@@ -14,11 +20,13 @@ permissions:
 
 jobs:
   migrate:
+    if: github.head_ref == '' || github.head_ref == 'docs/mr-01-repository-migration-20260823'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout migration branch
         uses: actions/checkout@v4
         with:
+          ref: docs/mr-01-repository-migration-20260823
           fetch-depth: 0
 
       - name: Set up Python
