@@ -5,7 +5,7 @@ document_type: temporary_work_index
 form: reference
 authority: tracking
 status: current
-version: 0.4.0
+version: 0.4.1
 owners:
   - developmentconexus-ops
 related:
@@ -43,10 +43,9 @@ candidate branch: docs/methodology-repository-rebaseline-20260823
 Draft PR: #6
 Lead semantic review target: eb412408edc420d69c38e22ba4070773b0c26284
 Lead review commit: 2956be55308f17634d53e24e42458f26c62f8166
-compiled-candidate status/provenance commits follow that review only; no Product semantics changed after the fixed review target
 ```
 
-Before cutting an independent review branch, revalidate the then-current candidate head and its documentation CI. The review branch MUST differ from that exact head only by `docs/work/current/ai-dialog.md`.
+The exact independent-review base is the candidate branch head after this status-pin commit and successful documentation validation. Once the review branch is cut, the candidate must remain frozen until reviewer Evidence is returned or the review is explicitly abandoned/restarted.
 
 ## Durable candidate owners
 
@@ -61,8 +60,8 @@ All remain `PROPOSED`; design-direction approval is not final constitutional rat
 ## Temporary review / migration artifacts
 
 ```text
-docs/work/current/proposal.md v0.3.0 — compiled provenance only
-docs/work/current/adversarial-review.md v0.3.0
+docs/work/current/proposal.md v0.3.1 — compiled provenance only
+docs/work/current/adversarial-review.md v0.3.1
 docs/work/current/blueprint-15-amendment.md
 docs/work/current/plan.md v0.2.0
 ```
