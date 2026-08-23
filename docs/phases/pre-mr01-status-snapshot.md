@@ -9,9 +9,9 @@ version: 1.0.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
-  - current Aurora project phase
-  - current authorization boundary
-  - current blockers and immediate next action
+  - pre-MR-01 repository-program phase snapshot
+  - pre-MR-01 authorization boundary snapshot
+  - pre-MR-01 blocker and next-action snapshot
 related:
   - DOC-AURORA-DOCUMENTATION-MAP
   - DOC-AURORA-PRODUCT-INDEX

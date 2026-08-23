@@ -9,7 +9,7 @@ version: 1.0.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
-  - chronological material work history
+  - pre-MR-01 chronological material work history through the repository-model cutover
 last_reviewed: 2026-08-23
 ---
 

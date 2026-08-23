@@ -137,6 +137,8 @@ def validate_links(root: Path, errors: list[str]) -> None:
         "README.md",
         "AGENTS.md",
         "CONTRIBUTING.md",
+        "docs/index.md",
+        "docs/roadmap.md",
         "docs/product",
         "docs/architecture",
         "docs/decisions",

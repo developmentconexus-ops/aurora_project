@@ -1111,7 +1111,6 @@ Future CODEOWNERS may protect:
 /docs/decisions/adr/
 /docs/capabilities/
 /docs/development/
-/docs/development/
 /docs/research/
 /docs/evidence/
 AGENTS.md

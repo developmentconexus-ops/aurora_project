@@ -39,25 +39,25 @@ Generator: scripts/generate_docs.py
 
 | Section | Canonical source | SHA-256 |
 |---:|---|---|
-| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `b80f328ad28135641f2cb3d740c04d322db6aa926fa661cbe02440a15632ea7f` |
-| 02 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md` | `9f8e65c84870ec92f48f7bf0820fd5ad01dc244bbc824b6f0d108c77c9e64f37` |
-| 03 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md` | `8bf54373de2221347a53e587c9cf64b419a99b62a0a4fef46cdfc133ad167bdb` |
-| 04 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `c448cf0c680cd0a2468790537cc7a094e14dc4c7a7e2f23062a233bdf8f3d411` |
-| 05 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md` | `40a0da76e6be4b4ff61461de8951b781f1b4fcf4987a1779594b49367f905462` |
-| 06 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md` | `3959b23c994dc051790f793058abc46a10ecd147dcc486228501ff7369fa6bb1` |
-| 07 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md` | `3aa3ae560c5ce2d366ec0cb9e700fada5e79bd70207bebb8107b05e9dd70dd9e` |
-| 08 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md` | `3214042c3aa16cd46223bb190c3ee527522e4388c149f08ea2e2aa6471e7a4c1` |
-| 09 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md` | `ab6ef2352424339134baaadb972009f3f63475f6fa8bc429b5c90b6fbec835d2` |
-| 10 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md` | `65c5caaa487815bcf9acace2b027c8beffa9e8b2ddd67f9e38aeb67d9b9ab9fd` |
-| 11 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md` | `45abdfa563250f50d40e1a3063992af72fe883d62ab47cd6eadc677684d20518` |
-| 12 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md` | `3cad09524db14d7f742fc3cbbdb2bfaa3a438150e4ee190ab21c6b8bbfb53359` |
-| 13 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md` | `f3b637d88822a4d16081e9306d7f51e0c65a04e21ff2eace388e93a341c2bba8` |
-| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `412813096e138ab68496809d09a37dc4e51a3c94f857cec8b9c8c07f6a7ba20c` |
-| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `5a1b3d4bcfac8212e6690da07ded787622047eefc91757ffc808b51c9db07f19` |
+| 01 | `docs/product/blueprint/01-product-vision.md` | `b80f328ad28135641f2cb3d740c04d322db6aa926fa661cbe02440a15632ea7f` |
+| 02 | `docs/product/blueprint/02-human-aurora-relationship.md` | `9f8e65c84870ec92f48f7bf0820fd5ad01dc244bbc824b6f0d108c77c9e64f37` |
+| 03 | `docs/product/blueprint/03-domain-world-model.md` | `8bf54373de2221347a53e587c9cf64b419a99b62a0a4fef46cdfc133ad167bdb` |
+| 04 | `docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `c448cf0c680cd0a2468790537cc7a094e14dc4c7a7e2f23062a233bdf8f3d411` |
+| 05 | `docs/product/blueprint/05-capability-system.md` | `40a0da76e6be4b4ff61461de8951b781f1b4fcf4987a1779594b49367f905462` |
+| 06 | `docs/product/blueprint/06-memory-knowledge-context.md` | `3959b23c994dc051790f793058abc46a10ecd147dcc486228501ff7369fa6bb1` |
+| 07 | `docs/product/blueprint/07-harness-orchestration.md` | `3aa3ae560c5ce2d366ec0cb9e700fada5e79bd70207bebb8107b05e9dd70dd9e` |
+| 08 | `docs/product/blueprint/08-interaction-multimodality-presence.md` | `3214042c3aa16cd46223bb190c3ee527522e4388c149f08ea2e2aa6471e7a4c1` |
+| 09 | `docs/product/blueprint/09-tools-devices-laboratory.md` | `ab6ef2352424339134baaadb972009f3f63475f6fa8bc429b5c90b6fbec835d2` |
+| 10 | `docs/product/blueprint/10-autonomy-authority-safety.md` | `65c5caaa487815bcf9acace2b027c8beffa9e8b2ddd67f9e38aeb67d9b9ab9fd` |
+| 11 | `docs/product/blueprint/11-security-privacy-sovereignty.md` | `45abdfa563250f50d40e1a3063992af72fe883d62ab47cd6eadc677684d20518` |
+| 12 | `docs/product/blueprint/12-system-architecture.md` | `3cad09524db14d7f742fc3cbbdb2bfaa3a438150e4ee190ab21c6b8bbfb53359` |
+| 13 | `docs/product/blueprint/13-reliability-observability-evaluation.md` | `f3b637d88822a4d16081e9306d7f51e0c65a04e21ff2eace388e93a341c2bba8` |
+| 14 | `docs/product/blueprint/14-capability-roadmap.md` | `412813096e138ab68496809d09a37dc4e51a3c94f857cec8b9c8c07f6a7ba20c` |
+| 15 | `docs/product/blueprint/15-documentation-research-governance.md` | `c4f6e0076d7bf9e4f4ce73247fedb3e75e6ae848149b1dc40eea407e93fada52` |
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/01-product-vision.md -->
 # 1. Visão do Produto
 
 ## 1.1 Definição
@@ -750,11 +750,11 @@ Material implementation can advance only through the applicable Capability Reali
 - implement self-improvement;
 - create multi-tenant SaaS;
 - promise dates.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md -->
+<!-- END SOURCE: docs/product/blueprint/01-product-vision.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/02-human-aurora-relationship.md -->
 # 2. Relação Humano–Aurora
 
 ## 2.1 Propósito
@@ -1518,11 +1518,11 @@ This section does not define:
 - constant proactivity;
 - always-on ambient sensing;
 - a model-specific personality prompt as the sole implementation.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md -->
+<!-- END SOURCE: docs/product/blueprint/02-human-aurora-relationship.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/03-domain-world-model.md -->
 # 3. Modelo de Domínio e de Mundo
 
 ## 3.1 Propósito
@@ -2716,11 +2716,11 @@ This section does not choose:
 - exact IDs or schema version syntax.
 
 Those choices require specs, research and spikes after the domain has been reviewed.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md -->
+<!-- END SOURCE: docs/product/blueprint/03-domain-world-model.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/04-cognitive-lifecycle-journeys.md -->
 # 4. Ciclo Cognitivo e Jornadas Globais
 
 ## 4.1 Propósito
@@ -3682,11 +3682,11 @@ This section does not define:
 - peer-to-peer federation without Aurora;
 - automatic promotion of all records to memory;
 - exact voice or multimodal stack.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md -->
+<!-- END SOURCE: docs/product/blueprint/04-cognitive-lifecycle-journeys.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/05-capability-system.md -->
 # 5. Sistema de Capabilities, Registry e Development Kit
 
 ## 5.1 Propósito
@@ -5005,11 +5005,11 @@ These require focused research and spikes.
 - AHDK replacing domain specs;
 - bespoke protocol before standards gaps are demonstrated;
 - integrating Conexus OS before its boundary and readiness are suitable.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md -->
+<!-- END SOURCE: docs/product/blueprint/05-capability-system.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/06-memory-knowledge-context.md -->
 # 6. Memória, Conhecimento e Construção de Contexto
 
 ## 6.1 Propósito
@@ -6295,11 +6295,11 @@ This section does not:
 - guarantee perfect recall;
 - make embeddings or summaries the only history;
 - permit provider-specific memory to become Aurora canonical memory automatically.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md -->
+<!-- END SOURCE: docs/product/blueprint/06-memory-knowledge-context.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/07-harness-orchestration.md -->
 # 7. Orquestração de Harnesses e Delegações
 
 ## 7.1 Purpose
@@ -7576,11 +7576,11 @@ Future implementation must prove:
 - immediate Conexus OS integration;
 - public agent marketplace;
 - maximum number of workers/providers as a success metric.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md -->
+<!-- END SOURCE: docs/product/blueprint/07-harness-orchestration.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/08-interaction-multimodality-presence.md -->
 # 8. Interação, Multimodalidade e Presença
 
 ## 8.1 Propósito
@@ -8237,11 +8237,11 @@ This section does not select:
 - cloud streaming architecture;
 - exact device protocol;
 - public multi-user presence system.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md -->
+<!-- END SOURCE: docs/product/blueprint/08-interaction-multimodality-presence.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/09-tools-devices-laboratory.md -->
 # 9. Tools, Dispositivos e Laboratório
 
 ## 9.1 Propósito
@@ -9125,11 +9125,11 @@ This section does not choose:
 - autonomous high-voltage operation;
 - unattended physical campaigns before independent safety validation;
 - a universal device abstraction that hides all domain-specific behavior.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md -->
+<!-- END SOURCE: docs/product/blueprint/09-tools-devices-laboratory.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/10-autonomy-authority-safety.md -->
 # 10. Autonomia, Autoridade e Segurança Operacional
 
 ## 10.1 Propósito
@@ -10111,11 +10111,11 @@ Future implementation must prove:
 - silent budget extension;
 - changing evaluation criteria during campaign;
 - treating access to a tool as consent.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md -->
+<!-- END SOURCE: docs/product/blueprint/10-autonomy-authority-safety.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/11-security-privacy-sovereignty.md -->
 # 11. Segurança, Privacidade e Soberania
 
 ## 11.1 Propósito
@@ -10969,11 +10969,11 @@ This section does not claim:
 - all external providers are unsafe;
 - all laboratory control can become autonomous;
 - current implementation complies with a named regulatory standard.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md -->
+<!-- END SOURCE: docs/product/blueprint/11-security-privacy-sovereignty.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/12-system-architecture.md -->
 # 12. Arquitetura do Sistema e Fronteiras dos Componentes
 
 ## 12.1 Propósito
@@ -12003,11 +12003,11 @@ This section does not:
 - make event history the only state store;
 - make a vector store the world model;
 - authorize implementation before A0 acceptance.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md -->
+<!-- END SOURCE: docs/product/blueprint/12-system-architecture.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/13-reliability-observability-evaluation.md -->
 # 13. Confiabilidade, Observabilidade, Avaliação e Autoaperfeiçoamento
 
 ## 13.1 Propósito
@@ -13029,11 +13029,11 @@ This section does not define:
 - retrying until success without causal progress.
 
 > Aurora learns continuously, but changes deliberately.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md -->
+<!-- END SOURCE: docs/product/blueprint/13-reliability-observability-evaluation.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/14-capability-roadmap.md -->
 # 14. Roadmap de Capacidades e Ordem de Realização
 
 ## 14.1 Propósito
@@ -14212,11 +14212,11 @@ The roadmap does not:
 - guarantee M12 exactly as imagined;
 - prevent evidence-based reordering;
 - allow skipping foundational safety and context capabilities for a more impressive demo.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md -->
+<!-- END SOURCE: docs/product/blueprint/14-capability-roadmap.md -->
 
 ---
 
-<!-- BEGIN SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md -->
+<!-- BEGIN SOURCE: docs/product/blueprint/15-documentation-research-governance.md -->
 # 15. Governança Documental, Pesquisa e Evolução
 
 ## 15.1 Propósito
@@ -15294,7 +15294,6 @@ Future CODEOWNERS may protect:
 /docs/decisions/adr/
 /docs/capabilities/
 /docs/development/
-/docs/development/
 /docs/research/
 /docs/evidence/
 AGENTS.md
@@ -15358,4 +15357,4 @@ A0 acceptance, MR-01 ratification or repository migration never authorizes later
 - let documentation delay every trivial implementation detail once proper authority exists;
 - accept generated content without source validation;
 - allow a writing agent to approve its own constitutional change.
-<!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md -->
+<!-- END SOURCE: docs/product/blueprint/15-documentation-research-governance.md -->
