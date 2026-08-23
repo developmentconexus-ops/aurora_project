@@ -6,7 +6,7 @@ form: reference
 authority: tracking
 status: current
 program_status_authority: true
-version: 1.1.1
+version: 1.2.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -53,9 +53,9 @@ RM-04: PASS — decision/architecture/capability reconciliation
 RM-05: PASS — atomic repository control-plane cutover
 RM-06: PASS — legacy live-surface retirement/rehome
 RM-07: PASS — positive validation + deterministic negative controls
-RM-08: BLOCKED_BY_PLATFORM_CREDENTIAL_SCOPE
+RM-08: PASS — GitHub main protection + squash-only merge policy applied and revalidated
 RM-09: PASS — fresh-actor + Global Coherence proof
-RM-10: BLOCKED ON RM-08 — final independent review / promotion candidate follows platform enforcement
+RM-10: NEXT — isolated independent final review / promotion candidate
 ```
 
 Evidence:
@@ -63,18 +63,28 @@ Evidence:
 ```text
 RM-07 Documentation: 32651194229 — SUCCESS
 RM-09 Coherence Audit: 32651194244 — SUCCESS
-RM-08 observed platform: main protected=false; required checks off
-RM-08 API attempt 1: 32652270369 — branch protection HTTP 403
-RM-08 API attempt 2: 32652317828 — branch protection HTTP 403; repository settings HTTP 403
-RM-08 exact Evidence: docs/evidence/mr-01-rm08-platform-enforcement.md
+RM-08 main before operator enforcement: protected=false
+RM-08 prior API credential probes: 32652270369 / 32652317828 — HTTP 403, preserved as historical Evidence
+RM-08 post-operator verification:
+  main SHA: 35614c581cea32e04305c1ad63522fee151eb283
+  protected: true
+  squash: true
+  merge commits: false
+  rebase: false
+  auto-delete merged head branches: true
+  PR #8: OPEN / DRAFT / NOT MERGED
+  exact head before RM-08 closeout bookkeeping: fed6d962f24c745dee2167507b1cc061eae935f9
+  Documentation / validate: 32652516829 — SUCCESS
+RM-08 exact Evidence: docs/evidence/mr-01-platform-enforcement.md
 ```
 
-The connected GitHub integration has repository admin visibility, but its complete exposed tool surface does not include branch-protection/ruleset or repository-settings mutation. A one-shot Actions fallback was executed with maximum available `GITHUB_TOKEN` permissions (`write-all`); GitHub rejected both administrative endpoints with `Resource not accessible by integration`. No CI-based pseudo-protection is accepted as a substitute for server-side enforcement.
+The effective GitHub Ruleset internals are not individually enumerable through the connected read surface. The operator applied the exact prescribed PR/check/force-push/deletion rule configuration; independent machine-readable repository state confirms `main` is protected and the repository merge policy is now squash-only with automatic head-branch cleanup.
 
 ## Authorization boundary
 
 ```text
 repository migration execution: AUTHORIZED
+RM-10 independent review: AUTHORIZED BY COMPLETION OF RM-01..RM-09
 TA-03+: NOT AUTHORIZED
 Architecture Spike execution: NOT AUTHORIZED
 Aurora Product/runtime implementation: BLOCKED
@@ -86,23 +96,17 @@ merge: NOT AUTHORIZED
 ## Exact next action
 
 ```text
-supply/apply GitHub credential or UI action with repository Administration:write for RM-08:
-  - require PR-based integration on main
-  - require aggregate repository check (`validate`)
-  - forbid force-push
-  - forbid branch deletion
-  - retain squash as normal merge method
-  - disable merge commits/rebase where permitted
-  - enable automatic head-branch deletion where permitted
-→ re-query main protection/settings and record RM-08 PASS Evidence
-→ run final Documentation validation on the exact clean candidate
-→ prepare isolated RM-10 Fable review
-→ adjudicate any review findings
-→ STOP before merge authorization
+run final Documentation validation on the exact post-RM-08 closeout head
+→ freeze the migration candidate revision
+→ create isolated review/mr-01-migration-fable from that exact revision
+→ allow review branch to differ only by docs/work/current/ai-dialog.md
+→ obtain independent RM-10 Evidence
+→ Lead adjudicates every finding
+→ if a material correction invalidates coverage, isolated Round 2
+→ if converged, present separate operator merge/promotion gate
+→ STOP before merge
 ```
-
-The repository/documentation candidate is already free of branch-only `docs/work/**` and temporary RM-08 workflow probes; platform credential scope is the only current blocker.
 
 ## Reopen triggers
 
-Reopen the MR-01 target only if migration Evidence shows lost current semantics/provenance, duplicate/missing authority, an unworkable fresh-actor route, or a downstream material decision forced before its owner exists.
+Reopen the MR-01 target only if migration Evidence shows lost current semantics/provenance, duplicate/missing authority, an unworkable fresh-actor route, platform enforcement regression, or a downstream material decision forced before its owner exists.
