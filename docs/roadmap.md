@@ -6,7 +6,7 @@ form: reference
 authority: tracking
 status: current
 program_status_authority: true
-version: 1.3.0
+version: 1.4.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -21,6 +21,7 @@ related:
   - DOC-AURORA-MR-01-RM08-PLATFORM-ENFORCEMENT
   - DOC-AURORA-MR-01-RM09-COHERENCE
   - DOC-AURORA-MR-01-RM10-INDEPENDENT-REVIEW
+  - DOC-AURORA-MR-01-PROMOTION-CLOSEOUT
 last_reviewed: 2026-08-23
 ---
 
@@ -35,28 +36,30 @@ A0 Product constitution: ACCEPTED / MERGED
 System Architecture Rebaseline: ACCEPTED / MERGED
 TA-01 Logical Modules & Canonical Ownership: ACCEPTED / CANONICAL
 TA-02 Process/Runtime/Evolutionary Topology: ACCEPTED / CANONICAL
+MR-01 Methodology/Repository/Readiness: OPERATOR-RATIFIED / ACCEPTED / MERGED / CANONICAL
 M0 R0–R6: historical PASS within M0 scope
 M0 R7 candidate: FROZEN / PRESERVED / NON-CANONICAL
 M0 R7 Verdict: NOT ISSUED
 M0 R8: NOT AUTHORIZED
-MR-01 Methodology/Repository/Readiness target: OPERATOR-RATIFIED
 ```
 
-## Current program
+## MR-01 closeout
 
 ```text
-program: MR-01 Repository Migration
-migration PR: #8
-RM-01: PASS — semantic/provenance census; durable Evidence recorded
+RM-01: PASS — semantic/provenance census
 RM-02: PASS — bounded constitutional/method reconciliation
 RM-03: PASS — target authority preparation
 RM-04: PASS — decision/architecture/capability reconciliation
 RM-05: PASS — atomic repository control-plane cutover
 RM-06: PASS — legacy live-surface retirement/rehome
 RM-07: PASS — positive validation + deterministic negative controls
-RM-08: PASS — GitHub main protection + squash-only merge policy applied and revalidated
+RM-08: PASS — GitHub main protection + squash-only merge policy applied/revalidated
 RM-09: PASS — fresh-actor + Global Coherence proof
 RM-10: PASS — isolated Fable review CONVERGED / PASS_WITH_FINDINGS; Lead adjudication complete; Round 2 not required
+promotion PR #8: SQUASH MERGED / CLOSED
+promotion candidate: d8727e8564cd1e91a0bd7335e2b3649280592459
+canonical main after promotion: 6cc92067b56aeb0de260d36b764f1d7220944781
+MR-01 Repository Migration: ACCEPTED / MERGED / CLOSED
 ```
 
 Evidence:
@@ -64,54 +67,45 @@ Evidence:
 ```text
 RM-07 Documentation: 32651194229 — SUCCESS
 RM-09 Coherence Audit: 32651194244 — SUCCESS
-RM-08 post-operator verification:
-  main SHA: 35614c581cea32e04305c1ad63522fee151eb283
-  protected: true
-  squash: true
-  merge commits: false
-  rebase: false
-  auto-delete merged head branches: true
-  PR #8: OPEN / DRAFT / NOT MERGED
 RM-08 exact Evidence: docs/evidence/mr-01-platform-enforcement.md
-
-RM-10 reviewed candidate: eb402577c3cda638102408543c412b70c72b18d4
-RM-10 review PR: #9 — NEVER MERGE
+RM-10 review PR: #9 — CLOSED / NOT MERGED
 RM-10 review Evidence head: abf035d7cdefe7c7339fd1dcdf4dcaef2e20c025
-RM-10 review Documentation: 32665723826 — SUCCESS
 RM-10 verdict: CONVERGED / PASS_WITH_FINDINGS
 RM-10 findings: 0 blocking / 1 material / 2 moderate / 4 minor
 RM-10 RED regression run: 32666339230 — expected FAILURE reproducing RM-I01/RM-I02
 RM-10 corrected candidate validation: 32666630531 — SUCCESS
+RM-10 final candidate validation: 32666770939 — SUCCESS
 RM-10 regression suite: 7/7 PASS
 RM-10 adjudication: docs/evidence/mr-01-rm10-independent-review.md
+promotion closeout: docs/evidence/mr-01-promotion-closeout.md
+candidate/main tree identity: b5332ea1f6c1e942ec587e96e7394d752c5b8403
 ```
 
-RM-I01, RM-I02, RM-I03, RM-I05 and RM-I07 were corrected without semantic-owner change. RM-I04 requires no candidate change; mechanical review-isolation proof already exists. RM-I06 is `DEFER_SAFELY`: before either frozen M0 R7 branch is deleted/renamed/cleaned, create and verify a durable archival tag/ref at the exact frozen commit(s).
+RM-I01, RM-I02, RM-I03, RM-I05 and RM-I07 were corrected without Product/architecture-owner change. RM-I04 required no candidate change. RM-I06 remains `DEFER_SAFELY`: before either frozen M0 R7 branch is deleted, renamed or cleaned, create and verify a durable archival tag/ref at the exact frozen commit(s).
 
-## Authorization boundary
+## Current program gate
 
 ```text
-repository migration execution: COMPLETE THROUGH RM-10
-MR-01 merge/promotion: PENDING EXPLICIT OPERATOR DECISION
-TA-03+: NOT AUTHORIZED
+next planning stage: TA-03 — Cross-System Operation Surface
+TA-03 execution: NOT AUTHORIZED
+TA-04+: NOT AUTHORIZED
 Architecture Spike execution: NOT AUTHORIZED
 Aurora Product/runtime implementation: BLOCKED
 M0 R7 continuation/Verdict/R8: NOT AUTHORIZED
-framework/database/IAM/model/provider selection: NOT AUTHORIZED BY MIGRATION
-merge: NOT AUTHORIZED UNTIL EXPLICIT OPERATOR GRANT
+framework/database/IAM/model/provider selection: NOT AUTHORIZED BY MR-01
 ```
+
+MR-01 completion makes the repository eligible to proceed to the next planning decision. It does not authorize that decision or any downstream work by implication.
 
 ## Exact next action
 
 ```text
-run final Documentation validation on the exact post-adjudication candidate head
-→ confirm PR #8 remains OPEN / DRAFT / NOT MERGED and main has not drifted
-→ close RM-10 review PR #9 unmerged after Evidence preservation
-→ present the exact MR-01 repository migration candidate to the operator
-→ request separate merge/promotion decision
-→ STOP before merge
+STOP
+→ await explicit operator authorization to begin TA-03 — Cross-System Operation Surface
 ```
+
+If TA-03 is authorized, start fresh from canonical `main`, reconstruct authority through `AGENTS.md → docs/index.md → docs/roadmap.md → task owners`, and apply the accepted Planning Readiness / Engineering Method. Do not resume the frozen M0 R7 execution path.
 
 ## Reopen triggers
 
-Reopen the MR-01 target only if migration Evidence shows lost current semantics/provenance, duplicate/missing authority, an unworkable fresh-actor route, platform enforcement regression, a material RM-10 correction invalidating review coverage, or a downstream material decision forced before its owner exists.
+Reopen MR-01 only if evidence shows lost current semantics/provenance, duplicate/missing authority, an unworkable fresh-actor route, platform-enforcement regression, or a downstream material decision that cannot be owned coherently by the accepted readiness graph.
