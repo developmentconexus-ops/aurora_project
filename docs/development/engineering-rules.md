@@ -5,7 +5,7 @@ document_type: repository_engineering_rules
 form: reference
 authority: standard
 status: proposed
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -96,6 +96,8 @@ Reuse of an implementation mechanism requires a current consumer and proof that 
 
 Conexus OS is the current name of the software-development Harness historically referred to as MNFS.
 
+The Conexus OS sibling repository and the delegated software-development Harness are the same external system in different contexts. The repository is comparison/reference Evidence for Aurora and never becomes Aurora authority by existence; an explicit Delegation may authorize that system to act as a Harness provider within Aurora-owned contracts and limits.
+
 Conexus OS may, when explicitly delegated:
 
 - research;
@@ -167,6 +169,15 @@ A material finding is first classified against current authority:
 - proposal creating new authority → return to decision/operator;
 - preference/ceremony-only suggestion → no forced change.
 
+The repository verification must be capable of proving the review-isolation invariant mechanically:
+
+```text
+review branch - exact candidate branch
+= docs/work/current/ai-dialog.md only
+```
+
+That guard requires a deterministic negative control; a manually inspected diff is Evidence for one review, not sufficient proof that the repository guard exists.
+
 A second review round is justified only when material corrections change the reviewed property enough that prior challenge no longer covers it.
 
 ## 10. Git / PR lifecycle target
@@ -228,7 +239,8 @@ Merge candidates and `main` contain no:
 
 - every material behavioral guard has a deterministic negative control or equivalent falsifier;
 - PR diff/whitespace checks compare the intended base to candidate;
-- while implementation is blocked, allowed live top-level/source surfaces should be allowlisted rather than relying only on old-name denylists.
+- review-branch isolation is mechanically checked against the exact candidate;
+- while implementation is blocked, allowed live top-level/source surfaces are explicitly allowlisted rather than relying only on old-name denylists, unless a documented local exception proves a smaller equivalent control.
 
 ### Required aggregate check
 
