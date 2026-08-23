@@ -40,12 +40,17 @@ jobs:
       - name: Execute ratified migration
         run: python scripts/mr01_migrate.py
 
-      - name: Ensure one-shot tooling self-removed
+      - name: Verify one-shot transformation removed temporary tooling in workspace
         run: |
           test ! -e scripts/mr01_migrate.py
           test ! -e .github/workflows/mr01-migrate.yml
 
-      - name: Commit atomic repository control-plane migration
+      - name: Restore workflow files for token-safe publication
+        run: |
+          git checkout HEAD -- .github/workflows/docs.yml
+          git checkout HEAD -- .github/workflows/mr01-migrate.yml
+
+      - name: Commit repository migration excluding workflow mutations
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
