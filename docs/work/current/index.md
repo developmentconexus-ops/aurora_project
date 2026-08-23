@@ -1,9 +1,15 @@
 ---
-id: work-current-methodology-repository-rebaseline
-kind: temporary-work
-owner: architecture
-status: candidate
-summary: Branch-only router for the Aurora methodology, planning-readiness and repository-operating rebaseline.
+id: DOC-AURORA-WORK-METHODOLOGY-REBASELINE-INDEX
+title: Aurora Methodology and Repository Rebaseline Current Work
+document_type: temporary_work_index
+form: reference
+authority: tracking
+status: current
+version: 0.1.0
+owners:
+  - developmentconexus-ops
+related: []
+last_reviewed: 2026-08-23
 ---
 
 # Aurora methodology + repository rebaseline — current work
@@ -33,10 +39,10 @@ branch: docs/methodology-repository-rebaseline-20260823
 1. `AGENTS.md`
 2. this file
 3. `proposal.md`
-4. external `developmentconexus-ops/conexus-methodology/METHOD.md` v1.0.0
-5. external `developmentconexus-ops/conexus-methodology/REPOSITORY-STANDARD.md` v1.0.0
+4. `adversarial-review.md`
+5. external `developmentconexus-ops/conexus-methodology/METHOD.md` v1.0.0 and `REPOSITORY-STANDARD.md` v1.0.0 as the named organizational authorities
 
-Task-specific source projects are Evidence/reference only:
+The three product repositories are comparison Evidence/reference only:
 
 - `developmentconexus-ops/MetalDocs`
 - `developmentconexus-ops/marketplace-central`
