@@ -1,11 +1,11 @@
 ---
 id: REVIEW-AURORA-METHODOLOGY-REPOSITORY-REBASELINE-LEAD
- title: Aurora Methodology and Repository Rebaseline Lead Adversarial Review
+title: Aurora Methodology and Repository Rebaseline Lead Adversarial Review
 document_type: temporary_adversarial_review
 form: reference
 authority: evidence
 status: current
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 related:
@@ -44,15 +44,15 @@ Review question:
 | MR-F09 | GitHub shows `main` currently unprotected | material repository control | **CORRECTED IN v0.2** — branch protection/required aggregate is an explicit migration proof |
 | MR-F10 | `CONTRIBUTING.md` also carries the old route/status owner | moderate | **CORRECTED IN v0.2** — keep only with a real contributor consumer and no parallel authority |
 | MR-F11 | Replacing STATUS/WORKLOG/acceptance trees could destroy unique durable decisions/Evidence | blocking if done mechanically | **CORRECTED IN v0.2** — semantic/provenance census before deletion; Git reachability law applies |
-| MR-F12 | Moving repository/source/build later could leave source organization unknown too long | moderate | **ACCEPTED TRADE-OFF** — only production/source architecture selection is deferred; temporary docs branch layout remains governed by Repository Standard |
+| MR-F12 | Moving repository/source/build later could leave source organization unknown too long | moderate | **ACCEPTED TRADE-OFF** — only production/source architecture selection is deferred; temporary docs layout remains governed by Repository Standard |
 | MR-F13 | TA-05 interaction planning might drag full UI/Voice design into a non-visual Core horizon | moderate | **CORRECTED IN v0.2** — current-horizon human/Presence realization only; visual/voice methods trigger only by real consumer |
 | MR-F14 | Paved Road could become an internal framework/platform project before Aurora has enough implementation repetition | material | **CORRECTED IN v0.2** — TA-09 materializes only evidenced repeated protected properties and current consumers; YAGNI remains binding |
-| MR-F15 | `AURORA-CONTRACT` implementation ownership class may be confused with G01 Contract Model | moderate naming risk | **OPEN NAMING / NON-BLOCKING** — required concept is protected Aurora-controlled implementation seam; exact label may change before durable package |
+| MR-F15 | `AURORA-CONTRACT` implementation ownership class could be confused with G01 Contract Model | moderate | **CORRECTED** — use `AURORA-FOUNDATION` for protected source/scaffold surfaces |
 | MR-F16 | Renumbering TA stages could make older accepted documents look wrong or retroactively rejected | material traceability | **CORRECTED IN v0.2** — preserve TA-01/02; decision register records old TA-03+ as refined/superseded ordering, not false history |
 | MR-F17 | System-wide readiness program could compete with Product Milestone roadmap | material | **CORRECTED IN v0.2** — Blueprint 14 owns long-horizon Product sequence; `docs/roadmap.md` owns current repository program progression only |
 | MR-F18 | ACRM could become redundant after global readiness stages | material | **CORRECTED IN v0.2** — ACRM remains capability/slice realization/evidence lifecycle, global stages own cross-system readiness |
 | MR-F19 | Repo migration itself could be mistaken for TA-03 or implementation authority | material | **CORRECTED IN v0.2** — separate RM migration gate; TA-03 and Product implementation remain blocked |
-| MR-F20 | Review is self-authored and insufficient for final ratification | material process | **OPEN BY DESIGN** — independent challenge is required after operator approves candidate direction and durable package is fixed |
+| MR-F20 | Review is self-authored and insufficient for final ratification | material process | **OPEN BY DESIGN** — independent challenge required against fixed durable candidate before final ratification |
 
 ## 3. Strongest counterarguments
 
@@ -124,14 +124,13 @@ The candidate explicitly forbids:
 - full frontend/Voice design without a current visual/audio consumer;
 - transition machinery without installed-state continuity need.
 
-## 5. Residual open items before durable package
+## 5. Residual obligations before final ratification
 
-1. Choose the final label for protected implementation surfaces currently called `AURORA-CONTRACT` so it cannot be confused with G01 Contract Model.
-2. Perform an exact current-path/provenance census during repository-migration planning before deleting/re-homing live files.
-3. Run current Aurora documentation validation on the branch candidate.
-4. Obtain operator approval of candidate v0.2 direction.
-5. After approval, write the durable rebaseline + bounded Blueprint 15 refinement + repository migration plan.
-6. Run independent Fable challenge against the fixed durable candidate before final ratification.
+1. Perform exact current-path/provenance census during repository-migration design before deleting/re-homing live files.
+2. Run current Aurora documentation validation on the branch candidate.
+3. Obtain operator approval of candidate v0.2 direction.
+4. After approval, write the durable rebaseline + bounded Blueprint 15 refinement + repository migration plan.
+5. Run independent Fable challenge against the fixed durable candidate before final ratification.
 
 ## 6. Lead verdict
 
@@ -139,7 +138,7 @@ The candidate explicitly forbids:
 BLOCKING PRODUCT/ARCHITECTURE CONTRADICTIONS: 0
 MATERIAL REMEDIATED FINDINGS:              19
 OPEN MATERIAL PROCESS OBLIGATION:           1 (independent challenge before final ratification)
-OPEN NON-BLOCKING NAMING DECISION:          1
+OPEN NON-BLOCKING NAMING FINDINGS:          0
 ```
 
 **Lead recommendation:** candidate v0.2 is coherent enough for operator design review. It is not yet final authority and not yet independently reviewed.
