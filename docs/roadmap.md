@@ -6,7 +6,7 @@ form: reference
 authority: tracking
 status: current
 program_status_authority: true
-version: 1.4.0
+version: 1.5.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -22,6 +22,7 @@ related:
   - DOC-AURORA-MR-01-RM09-COHERENCE
   - DOC-AURORA-MR-01-RM10-INDEPENDENT-REVIEW
   - DOC-AURORA-MR-01-PROMOTION-CLOSEOUT
+  - DOC-AURORA-TA-03-EXECUTION-AUTHORIZATION
 last_reviewed: 2026-08-23
 ---
 
@@ -37,6 +38,7 @@ System Architecture Rebaseline: ACCEPTED / MERGED
 TA-01 Logical Modules & Canonical Ownership: ACCEPTED / CANONICAL
 TA-02 Process/Runtime/Evolutionary Topology: ACCEPTED / CANONICAL
 MR-01 Methodology/Repository/Readiness: OPERATOR-RATIFIED / ACCEPTED / MERGED / CANONICAL
+TA-03 Cross-System Operation Surface: OPERATOR-AUTHORIZED / IN PROGRESS
 M0 R0–R6: historical PASS within M0 scope
 M0 R7 candidate: FROZEN / PRESERVED / NON-CANONICAL
 M0 R7 Verdict: NOT ISSUED
@@ -86,26 +88,32 @@ RM-I01, RM-I02, RM-I03, RM-I05 and RM-I07 were corrected without Product/archite
 ## Current program gate
 
 ```text
-next planning stage: TA-03 — Cross-System Operation Surface
-TA-03 execution: NOT AUTHORIZED
+current planning stage: TA-03 — Cross-System Operation Surface
+TA-03 execution: OPERATOR-AUTHORIZED / IN PROGRESS
 TA-04+: NOT AUTHORIZED
 Architecture Spike execution: NOT AUTHORIZED
 Aurora Product/runtime implementation: BLOCKED
 M0 R7 continuation/Verdict/R8: NOT AUTHORIZED
-framework/database/IAM/model/provider selection: NOT AUTHORIZED BY MR-01
+framework/database/IAM/model/provider selection: NOT AUTHORIZED BY TA-03
 ```
 
-MR-01 completion makes the repository eligible to proceed to the next planning decision. It does not authorize that decision or any downstream work by implication.
+TA-03 authorization is recorded by `DOC-AURORA-TA-03-EXECUTION-AUTHORIZATION`. It authorizes architectural discovery/design/review only. It does not imply acceptance, merge, TA-04 progression, Spike execution, technology selection or Product implementation.
 
 ## Exact next action
 
 ```text
-STOP
-→ await explicit operator authorization to begin TA-03 — Cross-System Operation Surface
+execute TA-03 from accepted Planning Readiness + TA-01/TA-02 authority
+→ derive real cross-system consumers / protected properties / boundary crossings
+→ admit only operations whose cross-system semantics must be owned now
+→ compare and resolve material semantic alternatives proportionally
+→ STOP and reopen the smallest owning authority if a required decision belongs elsewhere
+→ present the resulting TA-03 semantic design to the operator before ratification/promotion
 ```
 
-If TA-03 is authorized, start fresh from canonical `main`, reconstruct authority through `AGENTS.md → docs/index.md → docs/roadmap.md → task owners`, and apply the accepted Planning Readiness / Engineering Method. Do not resume the frozen M0 R7 execution path.
+During TA-03 do not resume the frozen M0 R7 execution path and do not choose TA-04 wire/schema/transport mechanisms by implication.
 
 ## Reopen triggers
 
 Reopen MR-01 only if evidence shows lost current semantics/provenance, duplicate/missing authority, an unworkable fresh-actor route, platform-enforcement regression, or a downstream material decision that cannot be owned coherently by the accepted readiness graph.
+
+Reopen TA-01/TA-02 only if TA-03 finds material evidence that an accepted owner is missing/duplicated or an accepted runtime/provider boundary cannot support a required cross-system operation without violating its invariant. A naming/numbering artifact from the superseded Technical Architecture ordering is not itself a reopen trigger.
