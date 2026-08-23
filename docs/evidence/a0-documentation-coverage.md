@@ -3,9 +3,9 @@ id: DOC-AURORA-DOCUMENTATION-COVERAGE
 title: Aurora Discovery and Documentation Coverage
 document_type: traceability_matrix
 form: reference
-authority: tracking
-status: current
-version: 2.0.1
+authority: evidence
+status: archived
+version: 1.0.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -16,8 +16,10 @@ related:
   - DOC-AURORA-DOCUMENTATION-MAP
   - DOC-AURORA-REQUIREMENTS-TRACEABILITY
   - HISTORY-AURORA-ORIGIN-DISCOVERY-2026-08-05
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-23
 ---
+
+> **ARCHIVED SNAPSHOT.** A0 discovery/documentation coverage Evidence. It is not current repository routing authority.
 
 # Aurora Discovery and Documentation Coverage
 

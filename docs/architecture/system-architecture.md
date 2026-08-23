@@ -327,13 +327,13 @@ That threshold is program execution planning, not Aurora product architecture.
 
 The rebaseline uses existing owners:
 
-- `docs/product/CAPABILITY-REALIZATION-METHOD.md` owns the method integration;
-- `docs/design/AURORA-SYSTEM-ARCHITECTURE-DECISION-LANDSCAPE.md` owns the proposed architecture question/dependency map;
+- `docs/development/capability-realization.md` owns the method integration;
+- `docs/architecture/system-decision-landscape.md` owns the proposed architecture question/dependency map;
 - accepted ADRs own promoted specific decisions;
 - Capability Specs own reusable behavior;
-- `docs/tracking/STATUS.md` owns current pause/authorization/next action;
-- `docs/tracking/DECISIONS.md` indexes accepted and open decisions;
-- `docs/tracking/WORKLOG.md` preserves chronology;
+- `docs/roadmap.md` owns current pause/authorization/next action;
+- `docs/decisions/index.md` indexes accepted and open decisions;
+- `docs/evidence/project-worklog.md` preserves chronology;
 - an operator-direction record preserves the explicit rebaseline instruction.
 
 Blueprint 12 already owns logical architecture and should not receive implementation technology choices during this change. It is revised only if the rebaseline finds a material constitutional architecture defect.

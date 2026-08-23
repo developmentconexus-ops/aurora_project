@@ -19,7 +19,7 @@ source_of_truth_for:
 related:
   - DOC-AURORA-DOCUMENTATION-MAP
   - DOC-AURORA-PRODUCT-BLUEPRINT
-  - DOC-AURORA-ROADMAP
+  - DOC-AURORA-BLUEPRINT-14
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-REQUIREMENTS-TRACEABILITY
 last_reviewed: 2026-08-07
@@ -79,7 +79,7 @@ The source files remain canonical because they support focused ownership, review
 
 ## 4. Blueprint-to-build method
 
-- [Aurora Capability Realization Method](CAPABILITY-REALIZATION-METHOD.md)
+- [Aurora Capability Realization Method](../development/capability-realization.md)
 - [Constitutional Requirements and Traceability](REQUIREMENTS-TRACEABILITY.md)
 
 The realization chain is:
@@ -109,7 +109,7 @@ No artifact silently substitutes another:
 ## 5. Research and decisions
 
 - [Research Map](../research/RESEARCH-MAP.md)
-- [ADR Index](../adr/README.md)
+- [ADR Index](../decisions/adr/README.md)
 - [Architecture Spikes](../design/ARCHITECTURE-SPIKES.md)
 
 Technical mechanisms remain open until the relevant readiness gates are satisfied. Current research candidates must not be read as stack choices.
@@ -118,7 +118,7 @@ Technical mechanisms remain open until the relevant readiness gates are satisfie
 
 - [Origin and Discovery Record](../history/2026-08-05-aurora-origin-and-discovery-record.md)
 - [Discovery and Documentation Coverage](../tracking/DOCUMENTATION-COVERAGE.md)
-- [A0 Adversarial Documentation Review](../reviews/2026-08-05-a0-adversarial-documentation-review.md)
+- [A0 Adversarial Documentation Review](../evidence/reviews/2026-08-05-a0-adversarial-documentation-review.md)
 
 The history preserves original motivation, examples and decision reasoning. It is not a competing product authority.
 
@@ -184,7 +184,7 @@ All A0 constitutional sources, ADR-0001 and ADR-0002 were explicitly accepted by
 This product index does not own mutable readiness state. For the selected Product Milestone, current ACRM gate, blockers, authorizations, prohibitions and exact next action, read:
 
 ```text
-docs/tracking/STATUS.md
+docs/roadmap.md
 ```
 
 Stable governance remains:

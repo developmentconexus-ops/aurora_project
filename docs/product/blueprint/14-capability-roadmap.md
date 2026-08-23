@@ -24,7 +24,7 @@ related:
   - DOC-AURORA-BLUEPRINT-12
   - DOC-AURORA-BLUEPRINT-13
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
-  - DOC-AURORA-ROADMAP
+  - DOC-AURORA-BLUEPRINT-14
 review_triggers:
   - milestone sequence changes
   - Golden Proof or product risk changes
@@ -424,7 +424,7 @@ M0 does **not** depend on M1 conversational memory, M2 Capability Registry/AHDK,
 
 ## Promotion/authority boundary
 
-M0 selection authorizes readiness analysis only to the extent recorded in `docs/tracking/STATUS.md`.
+M0 selection authorizes readiness analysis only to the extent recorded in `docs/roadmap.md`.
 
 - R0–R6 may refine applicability, verifiable requirements, Capability design, technical decisions and the exact implementation contract, but MUST NOT silently change this outcome, named risk, Golden Proof direction or non-goals;
 - completing one ACRM gate does not authorize the next;

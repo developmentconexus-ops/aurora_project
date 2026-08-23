@@ -3,9 +3,9 @@ id: DOC-AURORA-STATUS
 title: Aurora Project Status
 document_type: project_status
 form: reference
-authority: tracking
-status: current
-version: 0.38.0
+authority: evidence
+status: archived
+version: 1.0.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -27,8 +27,10 @@ related:
   - DOC-AURORA-TA-01-02-MERGE-CLOSEOUT
   - DOC-AURORA-DECISIONS
   - DOC-AURORA-WORKLOG
-last_reviewed: 2026-08-13
+last_reviewed: 2026-08-23
 ---
+
+> **ARCHIVED SNAPSHOT.** Last STATUS snapshot before the MR-01 repository control-plane migration. Current status is owned only by docs/roadmap.md.
 
 # Aurora Project Status
 

@@ -493,7 +493,7 @@ Implementation: NOT AUTHORIZED BY A0
 Evidence: accepted A0 documentation/research + independent fresh-session Golden Proof
 ```
 
-The large number does not mean every Capability implements all 294 requirements. R1 applicability selects relevant requirements and records rationale. Current milestone/gate authorization is intentionally not owned by this specification; consult `docs/tracking/STATUS.md`.
+The large number does not mean every Capability implements all 294 requirements. R1 applicability selects relevant requirements and records rationale. Current milestone/gate authorization is intentionally not owned by this specification; consult `docs/roadmap.md`.
 
 ---
 

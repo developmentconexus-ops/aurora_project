@@ -5,7 +5,7 @@ document_type: temporary_work_index
 form: reference
 authority: tracking
 status: current
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 related: []
@@ -29,8 +29,13 @@ migration branch: docs/mr-01-repository-migration-20260823
 ## Current gate
 
 ```text
-RM-01 — CURRENT SEMANTIC + PROVENANCE CENSUS
-state: IN PROGRESS
+RM-01 — PASS
+RM-02 — APPLIED
+RM-03 — APPLIED
+RM-04 — APPLIED
+RM-05 — APPLIED
+RM-06 — APPLIED
+RM-07 — NEXT / VERIFICATION
 Product/runtime implementation: BLOCKED
 TA-03+: NOT AUTHORIZED
 M0 R7/R8: NOT AUTHORIZED

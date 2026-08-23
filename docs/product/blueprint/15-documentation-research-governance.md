@@ -5,9 +5,9 @@ document_type: product_blueprint_section
 form: explanation
 authority: constitutional
 status: accepted
-accepted_at: 2026-08-07
-acceptance_evidence: DOC-AURORA-M0-R0-REMEDIATION-OPERATOR-ACCEPTANCE
-version: 0.2.1
+accepted_at: 2026-08-23
+acceptance_evidence: DOC-AURORA-MR-01-OPERATOR-RATIFICATION
+version: 0.3.0
 owners:
   - developmentconexus-ops
 approvers:
@@ -31,7 +31,7 @@ review_triggers:
   - research source policy changes
   - canonical read path changes
   - implementation/documentation gate changes
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-23
 ---
 
 # 15. Governança Documental, Pesquisa e Evolução
@@ -65,44 +65,34 @@ The first A0 proposal failed this standard by preserving conclusions while compr
 ## 15.2 Governing principles
 
 ### P1 — One durable concept, one canonical owner
-
 Other documents may summarize, explain or apply; they do not silently redefine.
 
 ### P2 — Conversation is discovery, repository is canonical project memory
-
-A chat approval or insight must be promoted to the correct document when it is meant to endure.
+Durable intent is promoted to the correct repository owner.
 
 ### P3 — Research is evidence, not authority
+Research can support a decision without becoming the decision.
 
-A primary source can support a decision without becoming the decision.
-
-### P4 — Tracking coordinates current work, not product doctrine
-
-`STATUS.md` can say which ADR is current; it cannot create the architecture itself.
+### P4 — One mutable repository-program owner
+`docs/roadmap.md` is the sole mutable repository-program authority for current stage/gate, implementation permission, blockers and exact next action. It does not own Product or architecture meaning.
 
 ### P5 — Historical information remains discoverable
+Rejected, superseded and failed approaches remain reachable through current Evidence when consumed or through Git/closed PR history when live retention is unnecessary.
 
-Rejected, superseded and failed approaches are preserved with status.
-
-### P6 — Accepted normative content cannot contain hidden placeholders
-
-Open questions are explicit and owned by research/spike, not vague `TBD` text.
+### P6 — Accepted normative content cannot hide placeholders
+Open questions are explicit and owned by research/spike/decision, not vague TODOs.
 
 ### P7 — Generated projections derive authority from sources
-
-They are never edited directly.
+They are never independent edit targets.
 
 ### P8 — Documentation depth is mechanism-driven
+Length is not a goal; material boundaries, failures, proof and non-goals are.
 
-Length is not a goal. Purpose, boundaries, flows, examples, failures, evaluation and non-goals are required where material.
+### P9 — Fresh actors load the smallest correct authority set
+The target route is `AGENTS.md → docs/index.md → docs/roadmap.md → 1–2 task-specific owners` and normal work fits five files or fewer unless a named material reason exists.
 
-### P9 — New sessions load the smallest correct authority set
-
-`AGENTS.md` is an index and hard-rule bootstrap, not the complete doctrine.
-
-### P10 — Implementation is gated by accepted intent and evidence
-
-A repository containing detailed architecture does not authorize code.
+### P10 — Implementation is separately gated
+Detailed architecture, migration completion or green CI does not authorize Product implementation by implication.
 
 ---
 
@@ -163,7 +153,7 @@ Owns:
 Examples:
 
 - Product Blueprint sections;
-- Documentation Map for authority/read paths.
+- `docs/index.md` for task/intention routing and authority entrypoints.
 
 ### A1 — Decision
 
@@ -242,16 +232,9 @@ Records observation:
 
 Evidence owns what was observed under which conditions, not the general product rule.
 
-### A8 — Tracking
+### A8 — Program Coordination / Tracking
 
-Coordinates current work:
-
-- issue;
-- project board;
-- status;
-- worklog;
-- checklist;
-- coverage matrix.
+Owns current repository-program stage/status/next-action only through `docs/roadmap.md`. Issues/boards may coordinate work but do not become parallel Product, architecture or status authority.
 
 ### A9 — Research / Historical
 
@@ -339,10 +322,10 @@ Research report recommends A2A as remote binding. An accepted ADR later selects 
 | Reliability/evaluation/self-improvement | Blueprint 13 |
 | Product sequence | Blueprint 14 / generated roadmap |
 | Documentation/research governance | Blueprint 15 |
-| Specific technical choice | ADR |
+| Specific technical choice | ADR under `docs/decisions/adr/` |
 | Reusable capability behavior | Capability Spec |
 | Scoped implementation commitment | Approved Contract |
-| Current project coordination | STATUS/tracking |
+| Current repository program/gate/implementation permission/next action | `docs/roadmap.md` |
 | Observed proof | Evidence/Acceptance |
 | Research finding | Research Report |
 | Exact code behavior | Code + generated/current Reference |
@@ -351,6 +334,8 @@ Research report recommends A2A as remote binding. An accepted ADR later selects 
 ---
 
 ## 15.7 Document identity and metadata
+
+Metadata is required when it materially improves authority, machine routing, traceability or generation. Repository routers/guidance MAY use path/index routing without a uniform metadata envelope when that is sufficient; existing rich metadata may remain when useful.
 
 Canonical Markdown uses structured frontmatter where applicable.
 
@@ -523,47 +508,30 @@ A manual aggregate may be created during documentation-only A0 only if clearly g
 
 ## 15.10 Documentation layout
 
-Target layout grows when a real document exists:
+The live tree follows the DevelopmentConexus Repository Standard and creates only paths with real consumers:
 
 ```text
 README.md
 AGENTS.md
-CONTRIBUTING.md
-
-.github/
-├── CODEOWNERS
-├── pull_request_template.md
-└── workflows/
-    └── docs.yml
+CONTRIBUTING.md when useful
 
 docs/
-├── DOCUMENTATION-MAP.md
+├── index.md
 ├── roadmap.md
-│
 ├── product/
-│   ├── README.md
-│   ├── PRODUCT-BLUEPRINT.md
-│   ├── CAPABILITY-REALIZATION-METHOD.md
-│   ├── REQUIREMENTS-TRACEABILITY.md
-│   └── blueprint/01..15
-│
-├── adr/
-├── capabilities/
-├── standards/
-├── golden-paths/
+├── architecture/
+├── decisions/
+├── phases/
+├── development/
+├── capabilities/    # Aurora-specific active ACRM consumer
 ├── reference/
-├── how-to/
-├── tutorials/
 ├── research/
-├── design/
-├── reviews/
-├── acceptance/
 ├── evidence/
-├── history/
-└── tracking/
+├── diagrams/        # only when a real diagram consumer exists
+└── work/            # branch-only temporary; forbidden in final candidate/main
 ```
 
-Do not create empty directories solely to match the diagram.
+Final merge candidates and `main` contain no `docs/work/**`, `docs/superpowers/**`, permanent session-handoff/dialogue/review-round trees, parallel mutable status/roadmap surfaces or active archive/old trees used as current authority. Do not create empty directories for aesthetics.
 
 ---
 
@@ -853,96 +821,66 @@ Create a Capability Spec when its Product Milestone approaches readiness, not fo
 
 ## 15.18 Capability Realization Method
 
-The canonical method connects:
+ACRM owns realization of a selected Product Milestone / Capability / Mission:
 
 ```text
-Blueprint intent
-→ applicability
+applicability
 → requirements
-→ research/ADR/spikes
-→ Capability Spec
-→ Mission Contract
-→ implementation plan
-→ code/config
-→ evidence
+→ capability readiness
+→ decisions/research/spikes
+→ scoped contract
+→ implementation-design readiness
+→ execution Evidence
 → Product Milestone closeout
 ```
 
-It defines readiness gates and orphan detection:
+Cross-system planning/readiness is owned separately by `docs/development/planning-readiness.md` and is consumed by ACRM as current authority. Repository navigation/Git/review/context rules are owned by the DevelopmentConexus Repository Standard plus `docs/development/engineering-rules.md`.
 
-- requirement without implementation/evidence;
-- code without requirement;
-- decision without research/impact;
-- milestone without Golden Proof;
-- evidence without criterion.
-
-The separate method document owns details.
+R0–R8 identities and already-recorded M0 Evidence remain valid; this is a scope refinement, not a rewrite of their historical outcome.
 
 ---
 
-## 15.19 Tracking documents
+## 15.19 Repository-program coordination and history
 
-### STATUS.md
+Permanent `STATUS`, `WORKLOG`, `BACKLOG` and documentation-coverage dashboards are not required live surfaces after MR-01.
 
-Required fields:
+```text
+docs/roadmap.md
+→ sole mutable repository-program stage/status/implementation permission/next action
 
-- program/product phase;
-- current branch/PR/issue;
-- accepted/proposed artifacts;
-- current gate/readiness;
-- authorizations and prohibitions;
-- blockers;
-- verification evidence;
-- exact next action.
+docs/decisions/index.md
+→ current decision disposition and forward obligation discovery
 
-### WORKLOG.md
+Git + merged/closed PR history
+→ chronological change record/provenance
 
-Chronological material work:
+docs/evidence/** / docs/phases/**
+→ durable proof/closure/snapshots only when a current consumer exists
 
-- what changed;
-- why;
-- files/commits/PR;
-- validation;
-- unresolved items.
+docs/work/**
+→ temporary branch-only planning/review; never main authority
+```
 
-It does not own architecture.
-
-### DECISIONS.md
-
-Concise index linking to canonical decisions/Blueprint approvals.
-
-### BACKLOG.md
-
-Ideas, research questions and future capabilities without commitment.
-
-### DOCUMENTATION-COVERAGE.md
-
-Maps discovery/requirements to canonical owners and current coverage.
-
-Tracking is updated at every material handoff.
+Old tracking content retires only after semantic census/rehome and reachability proof.
 
 ---
 
 ## 15.20 Status and authorization vocabulary
 
-A document can exist while implementation remains prohibited.
-
-Status should explicitly separate:
+Keep authorization distinctions explicit:
 
 ```text
-DISCOVERY AUTHORIZED
-RESEARCH AUTHORIZED
-DESIGN AUTHORIZED
-SPIKE AUTHORIZED
-PLAN AUTHORIZED
-IMPLEMENTATION AUTHORIZED
-EXTERNAL EFFECT AUTHORIZED
-MERGE AUTHORIZED
+DISCOVERY
+RESEARCH
+DESIGN
+SPIKE
+PLAN
+IMPLEMENTATION
+EXTERNAL EFFECT
+MERGE
 ```
 
-Absence of prohibition is not authorization.
-
-A fresh session reads current authorization before taking action.
+After repository migration, current permission and exact next action are read only from `docs/roadmap.md`. Absence of a prohibition is not authorization.
 
 ---
 
@@ -961,7 +899,7 @@ Steps:
 7. preserve Git history;
 8. re-evaluate contracts/implementations where required.
 
-Do not rewrite rejected rationale out of history.
+Do not rewrite rejected rationale out of history. Git is archive only when required provenance remains reachable; unique unmerged provenance with a current consumer receives a durable ref before the last branch/reference is deleted.
 
 For machine-readable contracts, accepted revisions should be immutable/content-addressed where appropriate.
 
@@ -969,26 +907,16 @@ For machine-readable contracts, accepted revisions should be immutable/content-a
 
 ## 15.22 Generated projections
 
-Possible projections:
+Keep the Product aggregate:
 
-| Projection | Source |
-|---|---|
-| `PRODUCT-BLUEPRINT.md` | 15 modular Blueprint sections |
-| `roadmap.md` | Blueprint 14 |
-| static documentation site | canonical Markdown |
-| API/reference | schemas/code |
-| diagrams | structured source/Mermaid |
-| review UI | plan/contract revisions |
+```text
+docs/product/PRODUCT-BLUEPRINT.md
+← generated from Blueprint 01–15
+```
 
-Generated file includes:
+`docs/roadmap.md` is **not** generated from Blueprint 14 after MR-01. It is a hand-maintained repository-program authority. Blueprint 14 remains the Product capability-roadmap authority; the two intentionally answer different questions.
 
-- warning;
-- source list/order;
-- generation time/tool version;
-- source hashes when possible;
-- no independent edits.
-
-CI verifies freshness.
+Generated files declare provenance and are validated for freshness. No generated projection becomes an independent semantic owner.
 
 ---
 
@@ -1022,61 +950,31 @@ A PR cannot claim no impact merely because documentation is inconvenient.
 
 ---
 
-## 15.24 Documentation checks
+## 15.24 Documentation and repository checks
 
-Required checks evolve from A0 to implementation.
+The migrated repository verification covers at least:
 
-### Structure
+```text
+AGENTS + docs/index + docs/roadmap <= 20 KiB
+docs/roadmap is the sole mutable program-status/next-action authority
+README is landing-only
+default routed task pack <= 5 files unless a named reason exists
+durable current owners are reachable from docs/index or a routed child index
+current router links resolve
+no durable authority depends on docs/work
+no docs/work in final candidate/main
+no docs/superpowers in final candidate/main
+no permanent handoff/dialogue/review-round tree
+no duplicate mutable roadmap/status surface
+current decision dispositions valid/discoverable
+unique required unmerged provenance remains reachable
+review branch isolation can be proved mechanically
+blocked-implementation top-level/source allowlist is enforced
+material guards have deterministic negative controls
+at least one required aggregate CI gate protects main
+```
 
-- Markdown/frontmatter parse;
-- unique IDs;
-- valid statuses/classes;
-- owners;
-- related links;
-- file naming;
-- section coverage.
-
-### Authority
-
-- one canonical owner;
-- no accepted conflict;
-- supersession consistency;
-- generated source declaration;
-- tracking/research not treated as normative.
-
-### Research
-
-- source manifest parse;
-- cited/defined source matching;
-- access dates;
-- freshness triggers;
-- limitation section;
-- claim-source coverage.
-
-### Quality
-
-- no unresolved `TBD/TODO/FIXME` in accepted normative docs;
-- no empty sections;
-- no list-as-design for material concept;
-- examples and failure modes where needed;
-- open decisions explicit;
-- non-goals;
-- review triggers.
-
-### Traceability
-
-- requirements mapped;
-- ADR/Spec/Contract links;
-- evidence-to-criteria;
-- code/documentation impact;
-- roadmap milestone coverage.
-
-### Projection
-
-- Blueprint aggregate freshness;
-- roadmap freshness;
-- generated warning;
-- source hashes/order.
+Aurora-specific checks may continue validating Product Blueprint generation, requirement identities, research manifests and other real consumers. A green structural check proves only the properties it actually tests.
 
 ---
 
@@ -1096,61 +994,56 @@ Before accepting a baseline or major capability, reviewer asks:
 - Does the roadmap have executable proof?
 - Is implementation accidentally authorized?
 
-The A0 adversarial review is preserved under `docs/reviews/`.
+The A0 adversarial review is preserved under `docs/evidence/reviews/`.
 
 ---
 
-## 15.26 Human read paths
+## 15.26 Human and agent read paths
 
-### First-time product reader
+### Default fresh actor
 
 ```text
-README
-→ Blueprint 01
-→ Blueprint 02
-→ Blueprint 14
+AGENTS.md
+→ docs/index.md
+→ docs/roadmap.md
+→ 1–2 task-specific owners
 ```
 
-### Architecture reader
+### Product reader
 
 ```text
-Documentation Map
-→ Product index
-→ Blueprint 03–13
-→ ADR index
-→ research map
+README.md
+→ docs/product/README.md
+→ relevant Blueprint owner(s)
+→ Blueprint 14 when Product capability sequence is needed
 ```
 
-### Current contributor/session
+### Architecture / decision work
 
 ```text
-AGENTS
-→ STATUS
-→ Documentation Map
-→ current milestone/capability documents
-→ relevant ADR/research/design
+docs/index.md
+→ docs/architecture/index.md or docs/decisions/index.md
+→ exact current owner
+```
+
+### Capability work
+
+```text
+docs/roadmap.md
+→ docs/development/capability-realization.md
+→ exact Capability owner / relevant cross-system authority
 ```
 
 ### Research reviewer
 
 ```text
-Research Map
-→ focused report
+docs/index.md
+→ exact question-specific research
 → source manifest
-→ decision/spike it informs
+→ decision/spike/capability it informs
 ```
 
-### Implementation worker
-
-```text
-AGENTS
-→ STATUS and authorization
-→ accepted Capability Spec/Contract
-→ implementation plan
-→ exact interfaces/tests
-```
-
-Do not load full Blueprint into every worker by default.
+Do not load the full Product Blueprint, phase history, Evidence, Git history or raw research by default.
 
 ---
 
@@ -1215,12 +1108,12 @@ Future CODEOWNERS may protect:
 
 ```text
 /docs/product/
-/docs/adr/
+/docs/decisions/adr/
 /docs/capabilities/
-/docs/standards/
-/docs/golden-paths/
+/docs/development/
+/docs/development/
 /docs/research/
-/docs/acceptance/
+/docs/evidence/
 AGENTS.md
 contract/schema directories
 security/policy paths
@@ -1259,23 +1152,13 @@ Documentation defects can be product/security defects.
 
 ---
 
-## 15.31 A0 acceptance rule and post-A0 current-state ownership
+## 15.31 A0 acceptance and post-A0 current-state ownership
 
-A0 acceptance required:
+A0 acceptance remains historical fact: the fifteen-section Product constitution, discovery coverage, research, ADR baseline, ACRM, traceability and fresh-session/adversarial proof were explicitly accepted and merged.
 
-- all fifteen sections complete and reviewed;
-- full discovery coverage;
-- focused research sufficient to support the A0 decision set;
-- Capability Realization Method and traceability;
-- current aggregate/index/read paths;
-- adversarial and fresh-session review;
-- explicit Leandro acceptance of the baseline and ADR status.
+After MR-01 migration, mutable repository-program state is not owned by this constitutional section. `docs/roadmap.md` owns the current stage/gate, blockers, implementation permission and exact next action. `docs/index.md` owns task/intention routing. Product meaning remains with the Product Blueprint and accepted specific owners.
 
-Those conditions were satisfied and A0 was explicitly accepted on 2026-08-06, then merged to `main`.
-
-After A0, mutable coordination state is not owned by this constitutional section. `docs/tracking/STATUS.md` owns the selected Product Milestone, current ACRM gate, blockers, authorization boundary and exact next action.
-
-A0 acceptance never authorizes later gates, Architecture Spike execution or implementation by implication. Each transition still requires the authority defined by the Capability Realization Method and current `STATUS.md`.
+A0 acceptance, MR-01 ratification or repository migration never authorizes later TA stages, Architecture Spike execution or Product implementation by implication.
 
 ---
 

@@ -48,7 +48,7 @@ R0 prerequisite:
 M0 ACRM R0 — PASS
 ```
 
-Operator authorization for this gate is recorded in `docs/acceptance/2026-08-07-m0-r1-operator-authorization.md`.
+Operator authorization for this gate is recorded in `docs/evidence/acceptance/2026-08-07-m0-r1-operator-authorization.md`.
 
 R1 answers only which accepted constitutional requirements govern this Capability. It does **not** derive atomic Capability requirements (R2), design the Capability (R3), choose architecture/stack/spikes (R4), create a Mission Contract (R5), create Microdesign (R6), or implement anything.
 

@@ -7,7 +7,7 @@ authority: constitutional
 status: accepted
 accepted_at: 2026-08-06
 acceptance_evidence: DOC-AURORA-A0-OPERATOR-ACCEPTANCE
-version: 0.2.0
+version: 0.2.1
 owners:
   - developmentconexus-ops
 approvers:
@@ -34,7 +34,7 @@ review_triggers:
   - peer/child orchestration changes
   - state ownership changes
   - protocol mapping changes
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-23
 ---
 
 # 7. Orquestração de Harnesses e Delegações
@@ -89,7 +89,7 @@ A Harness is a specialized system that can contain:
 
 Examples:
 
-### MNFS
+### Conexus OS (historically MNFS)
 
 Software-engineering harness that may plan, implement, review, test, integrate and produce evidence.
 
@@ -1186,21 +1186,21 @@ Temporal, DBOS, Restate and alternatives require spike; no engine is accepted he
 
 ---
 
-## 7.30 MNFS integration boundary
+## 7.30 Conexus OS integration boundary
 
-MNFS is expected to become a provider of software-engineering capabilities.
+Conexus OS is expected to become a provider of software-engineering capabilities.
 
 Aurora should not:
 
-- depend on MNFS internal SQLite/entities;
-- assume MNFS workers are Aurora workers;
-- treat MNFS plan as Aurora Mission automatically;
-- reuse MNFS authority without mapping;
-- block Core development on MNFS readiness.
+- depend on Conexus OS internal SQLite/entities;
+- assume Conexus OS workers are Aurora workers;
+- treat Conexus OS plan as Aurora Mission automatically;
+- reuse Conexus OS authority without mapping;
+- block Core development on Conexus OS readiness.
 
 Integration prerequisites:
 
-- MNFS offers stable external boundary;
+- Conexus OS offers stable external boundary;
 - capabilities defined;
 - Delegation mapping;
 - Context Pack mapping;
@@ -1210,7 +1210,7 @@ Integration prerequisites:
 - conformance;
 - readiness and risk review.
 
-MNFS remains one provider among future research, firmware, hardware and laboratory harnesses.
+Conexus OS remains one provider among future research, firmware, hardware and laboratory harnesses.
 
 ---
 
@@ -1276,7 +1276,7 @@ Future implementation must prove:
 12. artifact/claim/evidence/verdict remain distinct;
 13. same Capability works in two runtimes;
 14. A2A/MCP adapters preserve Aurora semantics where mapped;
-15. MNFS integration can be added without changing global domain;
+15. Conexus OS integration can be added without changing global domain;
 16. Leandro receives a consolidated decision/status rather than raw multi-agent noise.
 
 ---
@@ -1310,6 +1310,6 @@ Future implementation must prove:
 - automatic authority inheritance;
 - state derived only from chat/events;
 - a universal workflow language;
-- immediate MNFS integration;
+- immediate Conexus OS integration;
 - public agent marketplace;
 - maximum number of workers/providers as a success metric.

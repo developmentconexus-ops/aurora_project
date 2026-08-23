@@ -3,15 +3,17 @@ id: DOC-AURORA-BACKLOG
 title: Aurora Backlog
 document_type: backlog
 form: reference
-authority: tracking
-status: current
-version: 0.2.0
+authority: evidence
+status: archived
+version: 1.0.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - non-committed Aurora ideas and future investigations
-last_reviewed: 2026-08-06
+last_reviewed: 2026-08-23
 ---
+
+> **ARCHIVED SNAPSHOT.** A0-era non-commitment backlog snapshot. Current commitments and decisions live in Product/decision owners.
 
 # Aurora Backlog
 

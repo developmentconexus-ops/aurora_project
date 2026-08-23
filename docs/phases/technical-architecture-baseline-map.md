@@ -4,7 +4,7 @@ title: Aurora Technical Architecture Baseline Map
 document_type: system_design
 form: reference
 authority: design
-status: accepted
+status: superseded
 accepted_at: 2026-08-12
 acceptance_evidence: DOC-AURORA-TECHNICAL-ARCHITECTURE-MAP-OPERATOR-ACCEPTANCE
 version: 0.1.0
@@ -35,8 +35,10 @@ review_triggers:
   - an accepted technical decision changes module ownership or runtime topology
   - implementation cannot proceed without inventing an unowned cross-system boundary
   - the map creates architecture work that has no near consumer or stop condition
-last_reviewed: 2026-08-12
+last_reviewed: 2026-08-23
 ---
+
+> **SUPERSEDED ORDERING SNAPSHOT.** TA-01/TA-02 results remain canonical; the old TA-03+ sequence is superseded by `docs/development/planning-readiness.md`.
 
 # Aurora Technical Architecture Baseline Map
 

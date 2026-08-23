@@ -3,15 +3,17 @@ id: DOC-AURORA-WORKLOG
 title: Aurora Worklog
 document_type: worklog
 form: reference
-authority: tracking
-status: current
-version: 0.18.0
+authority: evidence
+status: archived
+version: 1.0.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
   - chronological material work history
-last_reviewed: 2026-08-13
+last_reviewed: 2026-08-23
 ---
+
+> **ARCHIVED SNAPSHOT.** Chronological project history through the pre-MR-01 repository model. Current status is owned only by docs/roadmap.md.
 
 # Aurora Worklog
 
