@@ -5,7 +5,7 @@ document_type: temporary_work_index
 form: reference
 authority: tracking
 status: current
-version: 0.5.0
+version: 0.6.0
 owners:
   - developmentconexus-ops
 related:
@@ -17,16 +17,21 @@ last_reviewed: 2026-08-23
 
 # Aurora methodology + repository rebaseline — current work
 
-> **NON-AUTHORITATIVE / BRANCH-ONLY.** This directory must be absorbed or deleted before a merge candidate is promoted.
+> **NON-AUTHORITATIVE / BRANCH-ONLY.** This directory must be absorbed or deleted before a final merge candidate is promoted.
 
 ## Current gate
 
 ```text
 MR-01 — Methodology, Planning-Readiness & Repository Rebaseline
 operator design-direction decision: APPROVED — 2026-08-23
-durable candidate: COMPILED / PROPOSED
-Lead adversarial challenge: COMPLETE
-independent challenge: READY TO START / REQUIRED BEFORE FINAL RATIFICATION
+independent Fable review: COMPLETE — CONVERGED / PASS_WITH_FINDINGS
+independent review PR #7: CLOSED / NOT MERGED
+Lead adjudication: COMPLETE
+independent blocking findings: 0
+TA-01/TA-02 reopen: NOT REQUIRED
+second independent round: NOT REQUIRED for accepted bounded corrections
+bounded corrections: APPLIED / POST-ADJUDICATION VALIDATION PENDING
+final MR-01 operator ratification: PENDING
 repository migration execution: NOT AUTHORIZED
 TA-03+: HOLD
 Aurora implementation: BLOCKED
@@ -34,20 +39,21 @@ M0 R7: FROZEN / NON-CANONICAL
 merge: NOT AUTHORIZED
 ```
 
-## Candidate identity
+## Review identity
 
 ```text
-repository: developmentconexus-ops/aurora_project
 base main: 35614c581cea32e04305c1ad63522fee151eb283
 candidate branch: docs/methodology-repository-rebaseline-20260823
 Draft PR: #6
-Lead semantic review target: eb412408edc420d69c38e22ba4070773b0c26284
-Lead review commit: 2956be55308f17634d53e24e42458f26c62f8166
+independent candidate reviewed: d3d453401a9b4244b14e6e833d0aeb9da2caea41
+review branch: review/mr-01-fable
+review output HEAD: 5ab89f8cc21c120afa439a89f35983cf072843b1
+review verdict: CONVERGED / PASS_WITH_FINDINGS
 ```
 
-This commit freezes only the **review routing state**. The exact independent-review base is this branch head after its Documentation checks succeed. Once `review/mr-01-fable` is cut, the candidate branch remains frozen until reviewer Evidence is returned or the review is explicitly restarted.
+The candidate changed after review only through the bounded corrections accepted in `independent-review-adjudication.md`. Fable explicitly stated those correction classes do not invalidate first-round coverage and do not require Round 2.
 
-## Durable candidate owners
+## Durable PROPOSED owners
 
 ```text
 docs/decisions/methodology-repository-rebaseline.md
@@ -55,72 +61,55 @@ docs/development/planning-readiness.md
 docs/development/engineering-rules.md
 ```
 
-All remain `PROPOSED`; design-direction approval is not final constitutional ratification.
+They remain `PROPOSED` until final operator ratification and canonical integration.
 
-## Temporary review / migration artifacts
+## Temporary Evidence / migration material
 
 ```text
-docs/work/current/proposal.md v0.3.1 — compiled provenance only
-docs/work/current/adversarial-review.md v0.3.1
+docs/work/current/proposal.md
+docs/work/current/adversarial-review.md
 docs/work/current/blueprint-15-amendment.md
-docs/work/current/plan.md v0.2.0
+docs/work/current/plan.md
+docs/work/current/independent-review-adjudication.md
 ```
 
-They MUST NOT enter the final merge candidate or `main`.
+The Fable `ai-dialog.md` remains only in closed unmerged PR #7 / review branch and never enters this candidate.
 
-## Independent-review authority pack
+All `docs/work/**` material MUST be absorbed/deleted before a final merge candidate or `main` promotion.
 
-MR-01 materially changes both repository operation and global implementation-readiness, so independent review has a named reason to exceed the ordinary five-file work pack. Keep it bounded to:
-
-1. `AGENTS.md` — current Aurora authority/stop model;
-2. this file — exact review target/state;
-3. `docs/decisions/methodology-repository-rebaseline.md` — durable decision candidate;
-4. `docs/development/planning-readiness.md` — proposed global readiness standard;
-5. `docs/work/current/blueprint-15-amendment.md` — exact bounded constitutional reopen;
-6. `docs/work/current/plan.md` — authority-preserving migration/proof plan.
-
-Add `docs/development/engineering-rules.md` only for repository-local enforcement questions and `docs/work/current/adversarial-review.md` only to inspect Lead findings/adjudication.
-
-Mandatory external authorities:
-
-- `developmentconexus-ops/conexus-methodology/METHOD.md` v1.0.0;
-- `developmentconexus-ops/conexus-methodology/REPOSITORY-STANDARD.md` v1.0.0.
-
-MetalDocs, Marketplace Central and Conexus OS remain comparison Evidence/reference only.
-
-## Independent challenge focus
-
-Attack at least:
+## Adjudicated independent findings
 
 ```text
-duplicate/missing authority among Method / Repository Standard / Planning Readiness / ACRM
-whether TA-03→TA-13 ordering is dependency-driven or ceremonial
-whether TA-03 duplicates Capability Specs
-whether TA-09 moves production source/build/Paved Road too late
-whether Blueprint 15 reopen is genuinely bounded
-whether retirement of STATUS/WORKLOG/docs/superpowers can lose semantics/provenance
-whether RM-05 atomic control-plane cutover avoids dual/no status authority
-whether target fresh-actor route is adequate for Aurora complexity
-whether GENERATED / AURORA-FOUNDATION / MODULE-OWNED creates hidden framework authority
-whether Conexus OS terminology refinement changes Product meaning
-whether negative controls can falsify the repository properties claimed
-whether any Product/runtime/stack decision is smuggled into MR-01
+MR-I01 MATERIAL  → CORRECTED — residual Blueprint 15 old-route/status clauses enumerated
+MR-I02 MODERATE  → CORRECTED — tracking/DECISIONS explicit census/rehome/retirement
+MR-I03 MATERIAL  → CORRECTED — one migration branch + one final merge candidate; no partial RM merges
+MR-I04 MODERATE  → CORRECTED — bounded non-production pre-TA-09 qualification/proof surface
+MR-I05 MODERATE  → CORRECTED — review-isolation guard + blocked-implementation allowlist
+MR-I06 MINOR     → CORRECTED — Conexus OS repository/Harness referent disambiguated
+MR-I07 MINOR     → DEFER_SAFELY — exact frontend-method id/version/location pinned only at adoption
 ```
 
-Reviewer output is Evidence, never authority. Material corrections return to the candidate. A second round is justified only if corrections materially invalidate first-round coverage.
+Additional independent recommendation incorporated: current A0 acceptance records are explicit RM-01 census/provenance subjects.
+
+## Current exact next action
+
+```text
+run Documentation validation against exact post-adjudication candidate HEAD
+→ confirm PR #6 remains mergeable and no unresolved material finding remains
+→ present MR-01 for final operator ratification
+```
+
+Final ratification still does **not** authorize repository migration execution, TA-03+, Product implementation or merge by implication.
 
 ## Hard boundaries
 
-This gate does **not** authorize:
+Not authorized:
 
-- Aurora Product implementation;
+- Aurora Product/runtime implementation;
 - repository migration execution;
-- continuation, merge, Verdict or R8 closeout of the frozen M0 R7 candidate;
-- TA-03 or later technical stages by implication;
+- M0 R7 continuation/Verdict/R8;
+- TA-03 or any later technical-stage execution;
 - Architecture Spike execution;
 - production repository/source restructuring;
-- framework/database/authentication/provider selection by convenience;
-- frontend Product design work;
+- framework/database/authentication/provider selection;
 - merge.
-
-TA-01 and TA-02 remain accepted/canonical inputs unless independent Evidence proves a concrete material contradiction.
