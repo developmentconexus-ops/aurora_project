@@ -4,8 +4,8 @@ title: MR-01 Platform Enforcement Evidence
 document_type: repository_platform_enforcement_evidence
 form: reference
 authority: evidence
-status: blocked
-version: 1.0.0
+status: accepted
+version: 1.1.0
 owners:
   - developmentconexus-ops
 related:
@@ -23,104 +23,111 @@ RM-08 requires server-side GitHub enforcement for canonical `main`:
 
 ```text
 PR-based integration required
-required aggregate repository check
+required aggregate repository check: validate
 force-push forbidden
 branch deletion forbidden
 squash retained as normal merge method
-merge-commit/rebase disabled where repository settings permit
-automatic head-branch deletion enabled where repository settings permit
+merge-commit/rebase disabled
+automatic head-branch deletion enabled
 ```
 
 This is platform state, not a documentation/CI convention.
 
-## Observed canonical platform state
+## Prior blocked state
 
-GitHub branch/repository metadata reported:
+Before operator platform configuration, GitHub reported:
 
 ```text
 main: 35614c581cea32e04305c1ad63522fee151eb283
 protected: false
-protection.enabled: false
-required_status_checks.enforcement_level: off
-required status contexts/checks: none
+required status checks: off / none
 allow_squash_merge: true
 allow_merge_commit: true
 allow_rebase_merge: true
 delete_branch_on_merge: false
 ```
 
-Therefore RM-08 is not passed.
-
-## Connected GitHub capability check
-
-The connected GitHub integration has repository admin visibility, but its complete exposed mutation surface contains no branch-protection/ruleset creation or repository-settings mutation.
-
-A complementary plugin search returned no installable GitHub integration exposing those missing operations.
-
-## One-shot official API attempts
-
-To exhaust the remaining safe connector-controlled route, the connected GitHub integration published a temporary GitHub Actions workflow that called the official GitHub REST endpoints using `github.token`.
-
-### Attempt 1
+Connected-tool and `GITHUB_TOKEN` administrative mutation attempts were exhausted and failed with HTTP 403 because the integration lacked the required repository Administration mutation scope. Those probe runs remain historical Evidence:
 
 ```text
-workflow: RM-08 Platform Enforcement
-run: 32652270369
-branch-protection endpoint:
-  PUT /repos/developmentconexus-ops/aurora_project/branches/main/protection
-result: HTTP 403
-message: Resource not accessible by integration
+32652270369
+32652317828
 ```
 
-The repository-settings step did not execute because the branch-protection step failed first.
+## Operator-applied platform configuration
 
-### Attempt 2 — maximum available GITHUB_TOKEN permissions
-
-The workflow was retried with `permissions: write-all` and both administrative calls executed independently.
-
-The job log showed all permissions available to `GITHUB_TOKEN` at write level; no repository `Administration` permission was present.
+On 2026-08-23 the operator completed the exact GitHub Ruleset/repository-settings procedure supplied for RM-08. The configured target was:
 
 ```text
-workflow: RM-08 Platform Enforcement
-run: 32652317828
-
-branch-protection endpoint:
-  PUT /repos/developmentconexus-ops/aurora_project/branches/main/protection
-  result: HTTP 403
-  message: Resource not accessible by integration
-
-repository-settings endpoint:
-  PATCH /repos/developmentconexus-ops/aurora_project
-  requested:
-    allow_squash_merge: true
-    allow_merge_commit: false
-    allow_rebase_merge: false
-    delete_branch_on_merge: true
-  result: HTTP 403
-  message: Resource not accessible by integration
+target branch: main
+enforcement: Active
+PR-based integration: required
+required check: validate (Documentation workflow job)
+branch must be up to date before merge: required where available
+bypass list: empty
+force pushes: blocked
+deletions: restricted
+required human approvals: 0
+squash merge: enabled
+merge commits: disabled
+rebase merge: disabled
+automatic deletion of merged head branches: enabled
 ```
 
-GitHub's branch-protection API requires repository `Administration: write`. GitHub's Actions documentation states that operations requiring permissions unavailable to `GITHUB_TOKEN` need another GitHub App installation token or a personal access token with the required permission.
+The connected GitHub API does not expose the Ruleset object/rules list through its available read surface, so individual Ruleset fields cannot be independently enumerated here. The operator configuration above is therefore paired with independently observable effective repository state below rather than represented as connector-derived fields.
 
-Official references:
+## Post-configuration machine verification
 
-- https://docs.github.com/en/rest/branches/branch-protection
-- https://docs.github.com/en/actions/tutorials/authenticate-with-github_token
-- https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+Fresh GitHub repository/branch metadata after the operator action reported:
 
-The temporary enforcement workflow was removed after the probe.
+```text
+main SHA:
+35614c581cea32e04305c1ad63522fee151eb283
+
+main protected:
+true
+
+repository merge policy:
+allow_squash_merge: true
+allow_merge_commit: false
+allow_rebase_merge: false
+delete_branch_on_merge: true
+```
+
+The classic branch-protection summary embedded by the branch endpoint continues to report its legacy protection subobject as disabled/off. This does not negate the top-level `protected: true`; RM-08 was configured through GitHub Rulesets rather than classic branch protection, and the connected read surface does not enumerate Ruleset internals.
+
+The migration PR remained isolated and unmerged:
+
+```text
+PR: #8
+state: OPEN / DRAFT / NOT MERGED
+head: fed6d962f24c745dee2167507b1cc061eae935f9
+base main: 35614c581cea32e04305c1ad63522fee151eb283
+```
+
+Fresh exact-head repository validation:
+
+```text
+workflow: Documentation
+job/check: validate
+run: 32652516829
+result: SUCCESS
+```
+
+No canonical `main` commit changed while platform enforcement was applied.
 
 ## Verdict
 
 ```text
-RM-08: BLOCKED_BY_PLATFORM_CREDENTIAL_SCOPE
-repository/documentation defect: NO
-operator authorization missing: NO
-connector repository visibility/admin role: PRESENT
-required administrative mutation credential: NOT AVAILABLE TO CURRENT CONNECTED/ACTIONS TOKEN
-promotion/merge readiness: BLOCKED
+RM-08: PASS
+server-side main protection: PRESENT
+operator-applied PR/status-check/force-push/deletion rules: ATTESTED AGAINST EXACT CONFIGURATION PROCEDURE
+observable main protected flag: TRUE
+exact candidate check: validate — SUCCESS
+squash-only repository merge policy: VERIFIED
+auto-delete merged head branches: VERIFIED
+main drift: NONE
+PR #8 merged: NO
 ```
 
-No pseudo-enforcement is accepted. CI cannot replace server-side branch protection because a direct push would already mutate `main` before a post-push workflow could reject it.
-
-RM-10 and canonical promotion remain blocked until the required GitHub platform state is applied and reverified.
+RM-08 Evidence is sufficient to proceed to the isolated RM-10 independent review gate. It does not authorize merge, TA-03+, Product/runtime implementation, M0 R7/R8 or Architecture Spike execution.
