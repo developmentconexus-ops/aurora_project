@@ -6,7 +6,7 @@ form: reference
 authority: tracking
 status: current
 program_status_authority: true
-version: 1.1.0
+version: 1.1.1
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -53,7 +53,7 @@ RM-04: PASS — decision/architecture/capability reconciliation
 RM-05: PASS — atomic repository control-plane cutover
 RM-06: PASS — legacy live-surface retirement/rehome
 RM-07: PASS — positive validation + deterministic negative controls
-RM-08: BLOCKED — GitHub main remains unprotected; connected tool has no protection/ruleset mutation
+RM-08: BLOCKED_BY_PLATFORM_CREDENTIAL_SCOPE
 RM-09: PASS — fresh-actor + Global Coherence proof
 RM-10: BLOCKED ON RM-08 — final independent review / promotion candidate follows platform enforcement
 ```
@@ -63,8 +63,13 @@ Evidence:
 ```text
 RM-07 Documentation: 32651194229 — SUCCESS
 RM-09 Coherence Audit: 32651194244 — SUCCESS
-RM-08 current platform state: main protected=false; required checks off
+RM-08 observed platform: main protected=false; required checks off
+RM-08 API attempt 1: 32652270369 — branch protection HTTP 403
+RM-08 API attempt 2: 32652317828 — branch protection HTTP 403; repository settings HTTP 403
+RM-08 exact Evidence: docs/evidence/mr-01-rm08-platform-enforcement.md
 ```
+
+The connected GitHub integration has repository admin visibility, but its complete exposed tool surface does not include branch-protection/ruleset or repository-settings mutation. A one-shot Actions fallback was executed with maximum available `GITHUB_TOKEN` permissions (`write-all`); GitHub rejected both administrative endpoints with `Resource not accessible by integration`. No CI-based pseudo-protection is accepted as a substitute for server-side enforcement.
 
 ## Authorization boundary
 
@@ -81,20 +86,22 @@ merge: NOT AUTHORIZED
 ## Exact next action
 
 ```text
-resolve RM-08 platform enforcement on GitHub main:
-  - require PR-based integration
+supply/apply GitHub credential or UI action with repository Administration:write for RM-08:
+  - require PR-based integration on main
+  - require aggregate repository check (`validate`)
   - forbid force-push
   - forbid branch deletion
-  - require the functioning aggregate repository check
   - retain squash as normal merge method
-→ re-query main protection and record PASS Evidence
-→ run final Documentation validation on the clean candidate
+  - disable merge commits/rebase where permitted
+  - enable automatic head-branch deletion where permitted
+→ re-query main protection/settings and record RM-08 PASS Evidence
+→ run final Documentation validation on the exact clean candidate
 → prepare isolated RM-10 Fable review
 → adjudicate any review findings
 → STOP before merge authorization
 ```
 
-The repository/documentation candidate is already free of branch-only `docs/work/**`; platform enforcement is the current blocker rather than temporary-document cleanup.
+The repository/documentation candidate is already free of branch-only `docs/work/**` and temporary RM-08 workflow probes; platform credential scope is the only current blocker.
 
 ## Reopen triggers
 
