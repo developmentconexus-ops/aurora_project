@@ -6,6 +6,11 @@ on:
       - docs/mr-01-repository-migration-20260823
     paths:
       - .github/workflows/rm08-platform-enforcement.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/rm08-platform-enforcement.yml
   workflow_dispatch:
 
 permissions:
@@ -13,6 +18,7 @@ permissions:
 
 jobs:
   enforce:
+    if: github.head_ref == '' || github.head_ref == 'docs/mr-01-repository-migration-20260823'
     runs-on: ubuntu-latest
     steps:
       - name: Protect main
