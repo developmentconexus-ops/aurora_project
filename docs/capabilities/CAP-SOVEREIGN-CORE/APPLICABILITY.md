@@ -11,7 +11,7 @@ owners:
 source_of_truth_for:
   - current M0 R1 applicability classification for CAP-SOVEREIGN-CORE
 related:
-  - DOC-AURORA-STATUS
+  - DOC-AURORA-REPOSITORY-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-REQUIREMENTS-TRACEABILITY
   - DOC-AURORA-BLUEPRINT-14
@@ -142,7 +142,7 @@ Directly constrains identity, single-user scope, framework independence, evidenc
 | `AUR-REQ-VIS-005` | `PARTIALLY_APPLIES` | M0 proves the continuity slice of the North Star, not the complete laboratory/capability journey. | R2/R3 CAP-SOVEREIGN-CORE |
 | `AUR-REQ-VIS-006` | `PARTIALLY_APPLIES` | M0 owns one minimum interaction/state lifecycle; the complete cognitive/interaction lifecycle remains later. | R2/R3 CAP-SOVEREIGN-CORE |
 | `AUR-REQ-VIS-007` | `APPLIES` | Negative invariant applies now to prevent a replaceable component from becoming Aurora/Core authority. | R2/R3 CAP-SOVEREIGN-CORE |
-| `AUR-REQ-VIS-008` | `APPLIES` | Constrains M0 readiness to the current executable horizon and prevents distant commitments. | ACRM/STATUS |
+| `AUR-REQ-VIS-008` | `APPLIES` | Constrains M0 readiness to the current executable horizon and prevents distant commitments. | ACRM/docs/roadmap.md |
 | `AUR-REQ-VIS-009` | `APPLIES` | Applies as a no-premature-generalization/roadmap sequencing constraint. | R2/R3 + R4 guard |
 | `AUR-REQ-VIS-010` | `APPLIES` | M0 requires criterion-linked evidence and cannot close by activity or claim alone. | R3/R8 evidence |
 | `AUR-REQ-VIS-011` | `APPLIES` | Negative invariant applies now to prevent a replaceable component from becoming Aurora/Core authority. | R2/R3 CAP-SOVEREIGN-CORE |
@@ -301,7 +301,7 @@ M0 uses Harness/orchestration requirements primarily as negative ownership guard
 | `AUR-REQ-ORCH-019` | `DEFERRED_BY_ROADMAP` | Provider retry semantics are later M2/M4 scope. | M2/M4 |
 | `AUR-REQ-ORCH-020` | `APPLIES` | ADR-0001 guard: transport/framework semantics may not redefine Aurora's M0 domain. | R2/R3; ADR-0001 guard |
 | `AUR-REQ-ORCH-021` | `APPLIES` | Internal framework state must not become Aurora authority/state. | R2/R3 |
-| `AUR-REQ-ORCH-022` | `APPLIES` | MNFS remains a future provider and cannot become a dependency of the sovereign Core. | R2/R3 |
+| `AUR-REQ-ORCH-022` | `APPLIES` | Conexus OS remains a future provider and cannot become a dependency of the sovereign Core. | R2/R3 |
 
 ### Blueprint 08 — Interaction, Multimodality and Presence
 
@@ -516,7 +516,7 @@ R1/R2 artifacts must preserve canonical ownership, status, evidence, validation 
 | `AUR-REQ-DOC-009` | `PARTIALLY_APPLIES` | Applies conditionally if M0 R4 needs focused research/spikes; R1 performs no new research. | R4 if research |
 | `AUR-REQ-DOC-010` | `PARTIALLY_APPLIES` | Applies conditionally if R4 requires a material decision; R1 selects no technical decision. | R4 if ADR needed |
 | `AUR-REQ-DOC-011` | `APPLIES` | Capability Spec and later Mission Contract must remain separate owners. | R3/R5 |
-| `AUR-REQ-DOC-012` | `APPLIES` | STATUS must reflect R1 authorization/verdict and the next explicit boundary. | tracking |
+| `AUR-REQ-DOC-012` | `APPLIES` | docs/roadmap.md must reflect R1 authorization/verdict and the next explicit boundary. | tracking |
 | `AUR-REQ-DOC-013` | `APPLIES` | Later revisions must preserve history and update discovery paths. | all readiness artifacts |
 | `AUR-REQ-DOC-014` | `NOT_APPLICABLE` | R1 applicability is a canonical source artifact, not a generated projection. | no generated projection owned by R1 |
 | `AUR-REQ-DOC-015` | `APPLIES` | R1 repository changes must declare documentation impact. | all material changes |
@@ -526,7 +526,7 @@ R1/R2 artifacts must preserve canonical ownership, status, evidence, validation 
 | `AUR-REQ-DOC-019` | `NOT_APPLICABLE` | Historical A0-only gate requirement; already satisfied and not behavior of CAP-SOVEREIGN-CORE. | A0 closeout evidence |
 | `AUR-REQ-DOC-020` | `APPLIES` | Git writes/CI do not replace explicit gate authorization. | all gates |
 | `AUR-REQ-DOC-021` | `APPLIES` | Material applicability conflicts/gaps must be recorded rather than silently classified. | all gates |
-| `AUR-REQ-DOC-022` | `NOT_APPLICABLE` | A0 implementation gate already satisfied; current prohibition comes from ACRM/STATUS, not this historical CAP behavior. | A0 closeout/current ACRM |
+| `AUR-REQ-DOC-022` | `NOT_APPLICABLE` | A0 implementation gate already satisfied; current prohibition comes from ACRM/docs/roadmap.md, not this historical CAP behavior. | A0 closeout/current ACRM |
 
 ## 6. High-risk dependencies carried forward
 

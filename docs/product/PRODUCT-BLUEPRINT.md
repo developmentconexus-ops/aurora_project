@@ -39,21 +39,21 @@ Generator: scripts/generate_docs.py
 
 | Section | Canonical source | SHA-256 |
 |---:|---|---|
-| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `7ccc5546b714f41e5efff2ad010001d069c7dbac12067b89ba04b7c69d401d7d` |
+| 01 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/01-product-vision.md` | `b80f328ad28135641f2cb3d740c04d322db6aa926fa661cbe02440a15632ea7f` |
 | 02 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/02-human-aurora-relationship.md` | `9f8e65c84870ec92f48f7bf0820fd5ad01dc244bbc824b6f0d108c77c9e64f37` |
-| 03 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md` | `2aac158f6ff6a7dae3aeb58cacac2706eed5068fc23d6be3c61d6f9dcaf1d622` |
+| 03 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/03-domain-world-model.md` | `8bf54373de2221347a53e587c9cf64b419a99b62a0a4fef46cdfc133ad167bdb` |
 | 04 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/04-cognitive-lifecycle-journeys.md` | `c448cf0c680cd0a2468790537cc7a094e14dc4c7a7e2f23062a233bdf8f3d411` |
-| 05 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md` | `fa7e174d1b0f749659005bdcf9a0658445e4c5998d14f8c5a943571e66a33317` |
-| 06 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md` | `7665c132a3932bd57395d891313d3d01b3b799759b38de5243e09b2906e1e210` |
+| 05 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md` | `40a0da76e6be4b4ff61461de8951b781f1b4fcf4987a1779594b49367f905462` |
+| 06 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/06-memory-knowledge-context.md` | `3959b23c994dc051790f793058abc46a10ecd147dcc486228501ff7369fa6bb1` |
 | 07 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/07-harness-orchestration.md` | `3aa3ae560c5ce2d366ec0cb9e700fada5e79bd70207bebb8107b05e9dd70dd9e` |
 | 08 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/08-interaction-multimodality-presence.md` | `3214042c3aa16cd46223bb190c3ee527522e4388c149f08ea2e2aa6471e7a4c1` |
 | 09 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/09-tools-devices-laboratory.md` | `ab6ef2352424339134baaadb972009f3f63475f6fa8bc429b5c90b6fbec835d2` |
 | 10 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/10-autonomy-authority-safety.md` | `65c5caaa487815bcf9acace2b027c8beffa9e8b2ddd67f9e38aeb67d9b9ab9fd` |
 | 11 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/11-security-privacy-sovereignty.md` | `45abdfa563250f50d40e1a3063992af72fe883d62ab47cd6eadc677684d20518` |
-| 12 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md` | `48037455d51c38b447fb43067af51d430dd66a9a377f003c9282244c065896d1` |
+| 12 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/12-system-architecture.md` | `3cad09524db14d7f742fc3cbbdb2bfaa3a438150e4ee190ab21c6b8bbfb53359` |
 | 13 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/13-reliability-observability-evaluation.md` | `f3b637d88822a4d16081e9306d7f51e0c65a04e21ff2eace388e93a341c2bba8` |
-| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `6444ad62d2f1b2cd20e4158ed2844fb49e5ef21c5d3429f75108a294186fffde` |
-| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `6fae632f440f726758936e9f1ae1cc5483cec89873dadfc9c88ba76c60bd0ce1` |
+| 14 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/14-capability-roadmap.md` | `412813096e138ab68496809d09a37dc4e51a3c94f857cec8b9c8c07f6a7ba20c` |
+| 15 | `/home/runner/work/aurora_project/aurora_project/docs/product/blueprint/15-documentation-research-governance.md` | `5a1b3d4bcfac8212e6690da07ded787622047eefc91757ffc808b51c9db07f19` |
 
 ---
 
@@ -386,7 +386,7 @@ LLM
 Memory system
 → continuity and context capability
 
-MNFS
+Conexus OS (historically MNFS)
 → future software-engineering harness
 
 Voice
@@ -1869,7 +1869,7 @@ Exemplos:
 
 ```text
 PRJ-AURORA
-PRJ-MNFS
+PRJ-CONEXUS-OS
 PRJ-PROGRAMMABLE-POWER-SUPPLY
 PRJ-METAL-NOBRE-DATA-BRAIN
 ```
@@ -5004,7 +5004,7 @@ These require focused research and spikes.
 - manifest interpreted as permission;
 - AHDK replacing domain specs;
 - bespoke protocol before standards gaps are demonstrated;
-- integrating MNFS before its boundary and readiness are suitable.
+- integrating Conexus OS before its boundary and readiness are suitable.
 <!-- END SOURCE: /home/runner/work/aurora_project/aurora_project/docs/product/blueprint/05-capability-system.md -->
 
 ---
@@ -5417,7 +5417,7 @@ Preserves relationships:
 
 ```text
 Leandro CREATES Aurora
-Aurora USES MNFS as a future provider
+Aurora USES Conexus OS as a future provider
 Project PowerSupply HAS Device PCB-REV-B
 PCB-REV-B RUNS Firmware FW-014
 Hypothesis HYP-017 TESTED_BY Experiment EXP-024
@@ -11050,7 +11050,7 @@ The target architecture must not require a microservice deployment from the begi
                │               │               │
        ┌───────▼───────┐ ┌─────▼──────┐ ┌──────▼─────────┐
        │ Research      │ │ Software   │ │ Hardware/FW/Lab│
-       │ Harness       │ │ MNFS       │ │ Harnesses      │
+       │ Harness       │ │ Conexus OS  │ │ Harnesses      │
        └───────────────┘ └────────────┘ └────────────────┘
                                │
 ┌──────────────────────────────▼────────────────────────────────┐
@@ -13758,7 +13758,7 @@ Provider A receives delegation
 
 - peer-to-peer autonomous federation;
 - arbitrary swarm;
-- real MNFS/lab integration;
+- real Conexus OS/lab integration;
 - unlimited concurrency.
 
 ---
@@ -13775,11 +13775,11 @@ Candidate is chosen by readiness and risk, not prestige:
 
 - Research Harness;
 - Evaluation Harness;
-- MNFS;
+- Conexus OS;
 - Firmware Harness;
 - Hardware analysis provider.
 
-MNFS is a strong future candidate but is not architecturally mandatory or assumed ready.
+Conexus OS is a strong future candidate but is not architecturally mandatory or assumed ready.
 
 ## Operator-visible value
 
@@ -14205,7 +14205,7 @@ The roadmap does not:
 
 - choose implementation dates;
 - authorize all milestones;
-- require MNFS as M6 provider;
+- require Conexus OS as M6 provider;
 - require physical autonomy;
 - require cloud deployment;
 - require multi-tenancy;
@@ -14313,7 +14313,7 @@ Examples:
 | Runbook | Guidance | How-to |
 | Research Report | Research | Explanation |
 | Acceptance Report | Evidence | Reference/Explanation |
-| STATUS | Tracking | Reference |
+| `docs/roadmap.md` | Program coordination | Reference |
 
 Form never elevates authority. A clear tutorial does not override an ADR.
 
@@ -14435,7 +14435,7 @@ Owns:
 Examples:
 
 - complete Blueprint aggregate;
-- generated roadmap;
+- generated Product Blueprint publication;
 - static site;
 - rendered diagram;
 - API docs.
@@ -14503,7 +14503,7 @@ Research report recommends A2A as remote binding. An accepted ADR later selects 
 | Security/privacy/sovereignty | Blueprint 11 |
 | Logical system architecture | Blueprint 12 |
 | Reliability/evaluation/self-improvement | Blueprint 13 |
-| Product sequence | Blueprint 14 / generated roadmap |
+| Product sequence | Blueprint 14 |
 | Documentation/research governance | Blueprint 15 |
 | Specific technical choice | ADR under `docs/decisions/adr/` |
 | Reusable capability behavior | Capability Spec |

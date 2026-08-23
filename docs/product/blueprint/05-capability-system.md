@@ -1353,4 +1353,4 @@ These require focused research and spikes.
 - manifest interpreted as permission;
 - AHDK replacing domain specs;
 - bespoke protocol before standards gaps are demonstrated;
-- integrating MNFS before its boundary and readiness are suitable.
+- integrating Conexus OS before its boundary and readiness are suitable.

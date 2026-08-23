@@ -340,7 +340,7 @@ Is the product intent required for this capability accepted, coherent and discov
 ## Inputs
 
 - current Product Blueprint;
-- Documentation Map;
+- `docs/index.md`;
 - current roadmap;
 - accepted/rejected decisions;
 - discovery coverage;

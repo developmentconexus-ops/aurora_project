@@ -113,7 +113,7 @@ The target architecture must not require a microservice deployment from the begi
                │               │               │
        ┌───────▼───────┐ ┌─────▼──────┐ ┌──────▼─────────┐
        │ Research      │ │ Software   │ │ Hardware/FW/Lab│
-       │ Harness       │ │ MNFS       │ │ Harnesses      │
+       │ Harness       │ │ Conexus OS  │ │ Harnesses      │
        └───────────────┘ └────────────┘ └────────────────┘
                                │
 ┌──────────────────────────────▼────────────────────────────────┐

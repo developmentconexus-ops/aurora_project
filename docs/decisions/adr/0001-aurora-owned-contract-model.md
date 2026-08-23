@@ -434,7 +434,7 @@ ambiguity
 - standardized conformance;
 - independent security enforcement;
 - future protocol adoption remains possible;
-- MNFS does not define Aurora's architecture.
+- Conexus OS does not define Aurora's architecture.
 
 ### Negative
 
@@ -575,4 +575,4 @@ This ADR does **not** select:
 - event transport;
 - Capability Registry storage;
 - provider runtime;
-- MNFS adapter design.
+- Conexus OS adapter design.

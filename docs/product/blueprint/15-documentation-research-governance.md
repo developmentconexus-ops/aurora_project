@@ -130,7 +130,7 @@ Examples:
 | Runbook | Guidance | How-to |
 | Research Report | Research | Explanation |
 | Acceptance Report | Evidence | Reference/Explanation |
-| STATUS | Tracking | Reference |
+| `docs/roadmap.md` | Program coordination | Reference |
 
 Form never elevates authority. A clear tutorial does not override an ADR.
 
@@ -252,7 +252,7 @@ Owns:
 Examples:
 
 - complete Blueprint aggregate;
-- generated roadmap;
+- generated Product Blueprint publication;
 - static site;
 - rendered diagram;
 - API docs.
@@ -320,7 +320,7 @@ Research report recommends A2A as remote binding. An accepted ADR later selects 
 | Security/privacy/sovereignty | Blueprint 11 |
 | Logical system architecture | Blueprint 12 |
 | Reliability/evaluation/self-improvement | Blueprint 13 |
-| Product sequence | Blueprint 14 / generated roadmap |
+| Product sequence | Blueprint 14 |
 | Documentation/research governance | Blueprint 15 |
 | Specific technical choice | ADR under `docs/decisions/adr/` |
 | Reusable capability behavior | Capability Spec |

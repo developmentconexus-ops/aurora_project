@@ -361,7 +361,7 @@ LLM
 Memory system
 → continuity and context capability
 
-MNFS
+Conexus OS (historically MNFS)
 → future software-engineering harness
 
 Voice

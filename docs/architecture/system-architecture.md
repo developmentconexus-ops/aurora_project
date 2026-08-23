@@ -16,7 +16,7 @@ source_of_truth_for:
   - program-level System Architecture Rebaseline design
   - treatment of the frozen M0 R7 implementation candidate during rebaseline
 related:
-  - DOC-AURORA-STATUS
+  - DOC-AURORA-REPOSITORY-ROADMAP
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-BLUEPRINT-12
   - DOC-AURORA-BLUEPRINT-14
@@ -350,7 +350,7 @@ This change does not:
 - select PostgreSQL, graph, vector, object, event or telemetry stores;
 - select REST, gRPC, A2A, MCP, CloudEvents, AsyncAPI or a broker;
 - select voice, vision or model providers;
-- implement AHDK, MNFS or a Mastra adapter;
+- implement AHDK, Conexus OS or a Mastra adapter;
 - create a new ACRM gate or parallel lifecycle;
 - redesign accepted product meaning;
 - generalize M0 implementation choices into global mandates.
@@ -413,7 +413,7 @@ This design is ready for promotion when the operator confirms:
 record operator direction
 → update ACRM method
 → create initial global Architecture Decision Landscape
-→ repair STATUS / DECISIONS / WORKLOG continuity
+→ repair docs/roadmap.md / decision-register / Git-Evidence continuity
 → repair accepted-ADR lifecycle wording drift
 → run documentation validation
 → perform adversarial review

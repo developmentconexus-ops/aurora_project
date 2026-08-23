@@ -756,7 +756,7 @@ Provider A receives delegation
 
 - peer-to-peer autonomous federation;
 - arbitrary swarm;
-- real MNFS/lab integration;
+- real Conexus OS/lab integration;
 - unlimited concurrency.
 
 ---
@@ -773,11 +773,11 @@ Candidate is chosen by readiness and risk, not prestige:
 
 - Research Harness;
 - Evaluation Harness;
-- MNFS;
+- Conexus OS;
 - Firmware Harness;
 - Hardware analysis provider.
 
-MNFS is a strong future candidate but is not architecturally mandatory or assumed ready.
+Conexus OS is a strong future candidate but is not architecturally mandatory or assumed ready.
 
 ## Operator-visible value
 
@@ -1203,7 +1203,7 @@ The roadmap does not:
 
 - choose implementation dates;
 - authorize all milestones;
-- require MNFS as M6 provider;
+- require Conexus OS as M6 provider;
 - require physical autonomy;
 - require cloud deployment;
 - require multi-tenancy;

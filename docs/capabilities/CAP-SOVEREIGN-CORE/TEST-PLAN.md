@@ -174,7 +174,7 @@ Candidate migration changes stable identity or authority meaning and must be rej
 | `T-ID-003` | CONTRACT_TEST | initialize already initialized store | reject/no silent Aurora replacement |
 | `T-ID-004` | INTEGRATION | create Project then restart | same Project identity recovered |
 | `T-ID-005` | DOCUMENT_REVIEW, STATIC_ANALYSIS | inspect dependency/type boundaries | no model/Harness/framework/database/UI becomes identity/domain owner |
-| `T-SCOPE-001` | DOCUMENT_REVIEW | inspect M0 package | M1/M2/MNFS/cloud/device behavior not required by M0 |
+| `T-SCOPE-001` | DOCUMENT_REVIEW | inspect M0 package | M1/M2/Conexus OS/cloud/device behavior not required by M0 |
 | `T-SCOPE-002` | DOCUMENT_REVIEW | inspect operator boundary | one single-user/Leandro-first semantic scope; no hidden multi-tenancy |
 
 ---
@@ -315,7 +315,7 @@ Candidate migration changes stable identity or authority meaning and must be rej
 | `T-DOC-004` | DOCUMENT_REVIEW | inspect gate boundary | accepted A2/ADR/Contract artifacts do not auto-authorize R6/R7/R8 |
 | `T-DOC-005` | DOCUMENT_REVIEW | inspect repository changes | no constitutional/milestone meaning silently changed |
 | `T-DOC-006` | DOCUMENT_REVIEW | adversarial review | false inclusion, hidden stack, missing threat/recovery/test allocation checked |
-| `T-DOC-007` | DOCUMENT_REVIEW | fresh read path | STATUS → applicability → requirements → Spec/threat/test/coverage is discoverable |
+| `T-DOC-007` | DOCUMENT_REVIEW | fresh read path | docs/roadmap.md → applicability → requirements → Spec/threat/test/coverage is discoverable |
 
 ---
 

@@ -756,6 +756,6 @@ A spike closes only when:
 - decision implications are reviewed;
 - experimental artifacts are discarded/promoted according to rule;
 - affected research/ADR/requirements are updated;
-- STATUS records whether any next step is authorized.
+- `docs/roadmap.md` records whether any next step is authorized.
 
 No successful spike automatically selects a technology. It informs a separately reviewed decision.

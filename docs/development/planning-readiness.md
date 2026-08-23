@@ -10,8 +10,8 @@ owners:
   - developmentconexus-ops
 source_of_truth_for:
   - Aurora cross-system planning and implementation-readiness lifecycle
-  - proposed relationship between global readiness and ACRM
-  - proposed technology-research and Paved-Road decision law
+  - relationship between global readiness and ACRM
+  - technology-research and Paved-Road decision law
 related:
   - DOC-AURORA-CAPABILITY-REALIZATION-METHOD
   - DOC-AURORA-BLUEPRINT-15
@@ -95,7 +95,7 @@ TA-13  Adversarial Implementation Readiness
 → explicit operator Product execution grant
 ```
 
-TA-01 and TA-02 are already accepted/canonical at the time of this proposal and are not reopened by naming this graph.
+TA-01 and TA-02 are accepted/canonical and are not reopened by this graph.
 
 ## 5. Tailoring law
 
