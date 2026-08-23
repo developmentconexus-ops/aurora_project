@@ -5,7 +5,7 @@ document_type: temporary_constitutional_amendment
 form: reference
 authority: design
 status: proposed
-version: 0.1.0
+version: 0.2.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -79,7 +79,11 @@ roadmap coordination does not own Product/architecture semantics
 
 Other 15.2 principles remain unchanged except link/path updates.
 
-### 15.4 Authority classes — preserve categories, refine A8
+### 15.4 Authority classes — preserve categories, refine A0 example and A8
+
+Preserve the authority categories but remove old-path examples that would survive as false current routing.
+
+For A0/constitutional examples, replace `Documentation Map for authority/read paths` with the durable constitutional Product/Documentation governance owner plus the Repository Standard route. `docs/index.md` is a router, not constitutional Product authority.
 
 Preserve the existence of a coordination/tracking authority class but make it repository-standard neutral:
 
@@ -219,6 +223,7 @@ Retire the requirement that these permanent live documents must exist:
 ```text
 docs/tracking/STATUS.md
 docs/tracking/WORKLOG.md
+docs/tracking/DECISIONS.md
 docs/tracking/BACKLOG.md
 docs/tracking/DOCUMENTATION-COVERAGE.md
 ```
@@ -242,7 +247,7 @@ docs/work/**
 → temporary branch-only planning/review, never current main authority
 ```
 
-Existing tracking content is retired only after semantic census/rehome and reachability proof.
+Existing tracking content is retired only after semantic census/rehome and reachability proof. Every current disposition and forward obligation in `docs/tracking/DECISIONS.md` must be mapped into `docs/decisions/index.md` or an exact durable decision owner before retirement.
 
 ### 15.20 Status and authorization vocabulary — preserve vocabulary, move owner
 
@@ -315,11 +320,62 @@ no permanent handoff/dialogue/review-round tree
 no duplicate mutable roadmap/status surface
 current decision dispositions valid/discoverable
 unique required unmerged provenance preserved
+review branch - exact candidate branch = docs/work/current/ai-dialog.md only
+blocked-implementation top-level/source surfaces satisfy an explicit allowlist
 material guards have deterministic negative controls
 aggregate required CI gate exists/protects main
 ```
 
+The review-isolation and blocked-implementation allowlist controls require deterministic negative fixtures/equivalent falsifiers; manual inspection or old-name denylists alone are insufficient.
+
 Aurora-specific validators may continue checking Product Blueprint generation, requirement identities, research manifests and other current real consumers when those controls remain useful.
+
+### 15.26 Human read paths — replace old bootstrap routes
+
+Replace current-contributor and implementation-worker routes that require `STATUS` / `Documentation Map` with:
+
+```text
+AGENTS
+→ docs/index
+→ docs/roadmap
+→ 1–2 exact owning documents
+```
+
+Architecture/Product/research readers enter through `docs/index.md` and the routed semantic owner. Do not make `docs/index.md` or `docs/roadmap.md` a replacement Product/architecture owner.
+
+### 15.29 Ownership / CODEOWNERS examples — update target paths
+
+Keep operator approval distinct from Git write permission. Replace old future CODEOWNERS path examples with current target semantic surfaces, for example:
+
+```text
+/docs/product/
+/docs/architecture/
+/docs/decisions/
+/docs/development/
+/docs/capabilities/
+/docs/research/
+/docs/evidence/
+AGENTS.md
+contract/schema directories when they exist
+security/policy paths when they exist
+```
+
+Do not create directories solely to satisfy a CODEOWNERS example.
+
+### 15.31 A0 acceptance rule and post-A0 current-state ownership — preserve A0, replace current owner
+
+Preserve the historical A0 acceptance record and its proof requirements.
+
+Replace the post-A0 current-state clause with:
+
+```text
+After repository migration, docs/roadmap.md owns the selected current repository-program stage/gate,
+blockers, authorization boundary and exact next action.
+Product/capability roadmap meaning remains in Blueprint 14.
+Current decisions remain in their exact owners / docs/decisions index.
+```
+
+A0 acceptance still never authorizes later gates, Architecture Spike execution or implementation by implication.
 
 ## 3. Current-name refinement: MNFS → Conexus OS
 
@@ -360,4 +416,5 @@ Before applying this amendment to canonical Blueprint 15:
 3. generated roadmap separation is mechanically feasible;
 4. the target fresh-actor route is testable;
 5. independent review challenges the exact amendment;
-6. operator final ratification is explicit.
+6. operator final ratification is explicit;
+7. a completeness sweep proves no residual current-authority reference to `STATUS`, `Documentation Map`, permanent tracking, `docs/superpowers/**` or superseded path names survives outside explicitly labeled historical snapshots/evidence.
