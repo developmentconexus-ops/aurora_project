@@ -12,7 +12,6 @@ on:
       - "scripts/generate_docs.py"
       - "scripts/validate_docs.py"
       - "scripts/test_repository_guards.py"
-      - "scripts/rm10_mechanical_fixes.py"
       - ".github/workflows/docs.yml"
   pull_request:
     paths:
@@ -25,39 +24,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  rm10-fix:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/docs/mr-01-repository-migration-20260823'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout candidate branch
-        uses: actions/checkout@v4
-        with:
-          ref: docs/mr-01-repository-migration-20260823
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Apply staged corrections when present
-        shell: bash
-        run: |
-          if [[ ! -f scripts/rm10_mechanical_fixes.py ]]; then
-            echo "No RM-10 helper present; nothing to publish."
-            exit 0
-          fi
-          python scripts/rm10_mechanical_fixes.py
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git diff --cached --quiet && { echo "No correction changes" >&2; exit 1; }
-          git commit -m "fix(mr-01): apply RM-10 review corrections"
-          git push origin HEAD:docs/mr-01-repository-migration-20260823
-
   validate:
     runs-on: ubuntu-latest
     steps:
