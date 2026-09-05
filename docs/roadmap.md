@@ -6,7 +6,7 @@ form: reference
 authority: tracking
 status: current
 program_status_authority: true
-version: 1.4.0
+version: 1.6.0
 owners:
   - developmentconexus-ops
 source_of_truth_for:
@@ -22,7 +22,10 @@ related:
   - DOC-AURORA-MR-01-RM09-COHERENCE
   - DOC-AURORA-MR-01-RM10-INDEPENDENT-REVIEW
   - DOC-AURORA-MR-01-PROMOTION-CLOSEOUT
-last_reviewed: 2026-08-23
+  - DOC-AURORA-TA-03-EXECUTION-AUTHORIZATION
+  - DOC-AURORA-TA-03-DESIGN-REVIEW
+  - DESIGN-AURORA-TA-03-CROSS-SYSTEM-OPERATION-SURFACE
+last_reviewed: 2026-09-05
 ---
 
 # Aurora Repository Roadmap
@@ -37,6 +40,7 @@ System Architecture Rebaseline: ACCEPTED / MERGED
 TA-01 Logical Modules & Canonical Ownership: ACCEPTED / CANONICAL
 TA-02 Process/Runtime/Evolutionary Topology: ACCEPTED / CANONICAL
 MR-01 Methodology/Repository/Readiness: OPERATOR-RATIFIED / ACCEPTED / MERGED / CANONICAL
+TA-03 Cross-System Operation Surface: OPERATOR-AUTHORIZED / IN PROGRESS; scoped admission STOP below
 M0 R0–R6: historical PASS within M0 scope
 M0 R7 candidate: FROZEN / PRESERVED / NON-CANONICAL
 M0 R7 Verdict: NOT ISSUED
@@ -86,26 +90,43 @@ RM-I01, RM-I02, RM-I03, RM-I05 and RM-I07 were corrected without Product/archite
 ## Current program gate
 
 ```text
-next planning stage: TA-03 — Cross-System Operation Surface
-TA-03 execution: NOT AUTHORIZED
+current planning stage: TA-03 — Cross-System Operation Surface
+TA-03 execution: OPERATOR-AUTHORIZED / IN PROGRESS
+Section 1 admission/mutation law: OPERATOR-APPROVED FOR DESIGN; recorded in proposed architecture
+Section 2 / complete operation catalogue: NOT ACCEPTED
+TA03-F01 first M1 cognitive-provider admission: STOP / SPLIT PREREQUISITE
+upstream C05 disposition amendment: NOT AUTHORIZED / NOT APPLIED
+independent TA-03 review: NOT COMPLETED
+TA-03 ratification / merge: NOT AUTHORIZED
 TA-04+: NOT AUTHORIZED
 Architecture Spike execution: NOT AUTHORIZED
 Aurora Product/runtime implementation: BLOCKED
 M0 R7 continuation/Verdict/R8: NOT AUTHORIZED
-framework/database/IAM/model/provider selection: NOT AUTHORIZED BY MR-01
+framework/database/IAM/model/provider selection: NOT AUTHORIZED BY TA-03
 ```
 
-MR-01 completion makes the repository eligible to proceed to the next planning decision. It does not authorize that decision or any downstream work by implication.
+TA-03 execution authorization remains recorded by `DOC-AURORA-TA-03-EXECUTION-AUTHORIZATION`. The Section-1 approval and bounded TA03-F01 finding are recorded in [design-review Evidence](evidence/ta-03-design-review.md); the [proposed operation design](architecture/cross-system-operation-surface.md) does not become canonical through section approval.
+
+TA03-F01 suspends only admission of the disputed M1/first-cognitive-provider path and claims of complete catalogue readiness. Unaffected TA-03 analysis remains authorized. The accepted C05 ownership and A05 readiness/approval requirements are preserved; the upstream owner must resolve how the proposed first consumer is compatible with C05's explicit M2 implementation deferral. MR-01 and unrelated TA-01/TA-02 decisions are not reopened.
 
 ## Exact next action
 
 ```text
-STOP
-→ await explicit operator authorization to begin TA-03 — Cross-System Operation Surface
+present TA03-F01 and its bounded alternatives to the operator
+→ request a scoped resolution at module-runtime-topology.md: C05 Stage-A disposition, read with A02/A05/D02
+→ do not change accepted upstream semantics by implication
+→ after an accepted owning resolution, update only affected TA-03 consumer/precondition records
+→ complete operation catalogue and cross-operation review
+→ independent challenge, adjudication and exact-revision verification
+→ separate operator TA-03 ratification and merge decision
 ```
 
-If TA-03 is authorized, start fresh from canonical `main`, reconstruct authority through `AGENTS.md → docs/index.md → docs/roadmap.md → task owners`, and apply the accepted Planning Readiness / Engineering Method. Do not resume the frozen M0 R7 execution path.
+The recommended resolution is a minimum C05-owned prerequisite before the first consumer that requires it, while leaving the complete M2 Registry/AHDK/reference-provider capability at M2. This recommendation is not an accepted amendment. An existing accepted path that satisfies the disputed prerequisite can instead falsify the finding and permit correction of TA-03 interpretation only.
+
+No frozen M0 R7 execution, TA-04 wire/schema/transport work, technology selection or runtime implementation follows from this checkpoint.
 
 ## Reopen triggers
 
 Reopen MR-01 only if evidence shows lost current semantics/provenance, duplicate/missing authority, an unworkable fresh-actor route, platform-enforcement regression, or a downstream material decision that cannot be owned coherently by the accepted readiness graph.
+
+Reopen only the implicated TA-01/TA-02 clause when material evidence shows missing/duplicated ownership or an accepted prerequisite/runtime boundary cannot support a required operation without violating its invariant. TA03-F01 currently requests that bounded owning resolution; it does not revoke the accepted owner/topology baseline. A naming/numbering artifact from the superseded Technical Architecture ordering is not itself a reopen trigger.
